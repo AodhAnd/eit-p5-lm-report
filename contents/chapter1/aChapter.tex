@@ -1,1 +1,25 @@
-\chapter{Chapter}
+\chapter{Introduction}
+
+
+\section{The Games on Track (GoT) system}
+We were provided with the 'Games on Track GT-Position' system as a start to be able to figure out the lawn mower position in space.\\\\
+It is composed of four different parts both hardware and software :
+\begin{itemize}
+	\item The tracked module, which emits ultra-sound waves. It should be placed on our lawn mower itself, so that the emitting cell is not obstructed by anything.
+	\item Some beacons or receivers, placed all around the place the lawn mower will move in. Depending on the terrain, we can use from 2 to more than 20 of these : the more we place, the more accuracy we can get to fight against any ambient noise.
+	\item The central system which gathers information about the distance of the tracked module to each beacon and transmits it to the computer via USB in regular intervals.
+	\item The GoT software aggregates the received positions thoughout time and can be used to draw a map of the terrain (the lawn) and send every needed information to a third-party (our) piece of software.
+\end{itemize}
+GoT was firstly designed for train modeling but it is easily adaptable for any use of position tracking and seems a good choice, at first, for our autonomous lawn mower.
+
+\section{Why not satellite positioning system ?}
+The reasons why satellite positioning system won't be used in our project are mainly related to accuracy and energy consumption.\\\\
+Indeed, these kinds of system like GPS or GLONASS would require a dedicated chip to put on the final system. The problem then would be the lack of precision under a few meters (around 2 or 3 meters in ideal situations for the best chips). \\\\
+% TODO : Add reference to "A Review of GLONASS" Miller, 2000 & http://www.gps.gov/systems/gps/performance/accuracy/ %
+Moreover, this kind of system implies slow communications with different distant satellites at the same time. Therefore, the energy consumption would quickly rise, thus reducing the lawn mower autonomy, which is not desirable.
+
+\section{Potential consumer expectations}
+The design of a product has no real value if no one is interested in using it. Thus, choices made during this project have to be made in accordance with the final user's expectations.\\\\
+For instance, we need to keep in mind considerations regarding the autonomy of the vehicle (both in energy and for the navigation), but also towards the overall cost (\emph{insert price approximation here}). Even though, the GoT system itself has a cost beyond anything a normal customer would pay for a lawn mower, it appears, at first, as a good solution for us in terms of accuracy and energy consumption compared to GPS-like systems which are also quite expensive (\emph{insert price approximation here}). \\\\
+For an improvement, we could consider replacing it with a similar solution as it is only a simple brick of the whole system. \emph{(This sentence should be perhaps moved to a dedicated part of the report)}\\\\
+These are the types of preliminary considerations that will influence our design process for an autonomous lawn mower.

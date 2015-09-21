@@ -3,6 +3,7 @@
 *.lof
 *.log
 *.lot
+*.lox
 *.fls
 *.out
 *.toc
@@ -124,3 +125,7 @@ sympy-plots-for-*.tex/
 # WinEdt
 *.bak
 *.sav
+
+# Sublime project files
+*.sublime-project
+*.sublime-workspace

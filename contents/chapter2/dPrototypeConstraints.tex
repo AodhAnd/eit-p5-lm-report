@@ -1,8 +1,10 @@
 \section{Prototype Constraints}
-Before the prototype can be established, some considerations has to be made in respect to the time limitations and the main scope of this semester. The aim of this project is to create a functional proof of concept prototype of an automated lawn mower. The following section includes a brief description of the technology on which the prototype is constructed, along with argumentation for eliminate functionalities.
+Before the prototype can be established, some considerations has to be made in respect to the time limitations and the main scope of this semester. The aim of the project is to create a functional proof of concept prototype of an automated lawn mower. The following section includes a brief description of the technology on which the prototype is constructed, along with argumentation for eliminated functionalities.
 
 \subsubsection{Technology Base}
-The technology which has been provided for the prototype is a tracked vehicle, seen on \figref{TrackedVehicle}. The vehicle comes with a brushed DC motor which provides power for the rotating of the wheels, connected with the belts, and a servo motor which utilize breaks, connected the wheels, to control the ratio of the differential steering. Furthermore the tracked vehicle includes two hall sensors, one by each belt, which keeps track of the speed, of the belts, by measuring pulses from magnets mounted on the front wheels.
+The technology which has been provided for the prototype is a tracked vehicle, seen on \figref{TrackedVehicle}. The vehicle comes with a brushed DC motor which provides power for rotation of the wheels, connected with the belts, and a servo motor which utilize breaks, connected to the wheels, to control the ratio of the differential steering. Furthermore the tracked vehicle includes two hall sensors, one by each belt, which keeps track of the speed, of the belts, by measuring pulses from magnets mounted on the front wheels.
+%Charging station and transmitter (Vicon Room(in technology base))? focus on a quadratic map.
+
 
 \begin{figure}[H]
 	\centering
@@ -16,21 +18,18 @@ The technology which has been provided for the prototype is a tracked vehicle, s
 Detection of the grass length to control the speed of the lawn mower thus ensuring an evenly cut lawn, is a submodule which can be added at any time. Since it is not fatal for a working system and might even be unnecessary depending on time between each mowing of the lawn, it is decided to exclude this functionality from the initial design.
 
 \subsection{Rain Sensor}
-As the lawn mower is supposed to work outside, it is important to consider that it may be raining, and that an electronic device can be affected by those environmental issues. Even if the electrical part is waterproofed, there is a mechanical threat, a rain sensor could be a security warning to order the vehicle to get back in time.
-It is possible to build the vehicle aware of those issues and add mechanical modules to secure it. However, the prototype will only be tested indoor, so this type of sensor will not be necessary.
+As the lawn mower is supposed to work outside, it is important to consider that it may be raining, and that an electronic device can be affected by those environmental issues. Even if the electrical part is waterproofed, there is a mechanical threat, a rain sensor could then warn the system to order the vehicle to get back in time.
+It is possible to build the vehicle aware of those issues and add mechanical modules to secure it. However, the prototype will only be tested indoor, so this type of sensor will not be necessary in a prototype design.
 
 \subsection{Obstacle Avoidance}
 The lawn movers path might not always be clear, there could be some garden tools, tables or chairs, or people walking in it. The vehicle should be aware of what is in front of it at any time, to correct its path and get around the obstacle if necessary. To avoid this the sensor could be a pushing button to detect a solid strong object, or an ultrasound detector if the object is breakable.
 As the aim of the project is to control the path of the vehicle by using angular positioning sensors, a proximity sensor will not be included. Static objects could be registered on the map to avoid these issues.
 
 \subsection{Power Monitoring}
-Power monitoring could be implemented by measuring the voltage across the batteries, to ensure that the lawn mower is not running out of power, and to ensure the vehicles calculated route passes the charging station before the power runs to low. 
-This will not be in the prototype, since it is beyond the scope of this project this semester.\\\\
-
-Charging station and transmitter (Vicon Room(in technology base))? focus on a quadratic map. 
+Power monitoring could be implemented by measuring the voltage across the batteries, to ensure that the lawn mower is not running out of power, and to ensure the vehicles calculated route passes the charging station before the power runs too low.
+This however will not be in the prototype, since it is beyond the scope of the project this semester.\\\\
 
 \subsection{Prototype}
-
 
 %%it used as an indoor prototype, and in worse case, the last position of the vehicle 
 %%will be recorded. The user can then take it by hand and plug it into the charging

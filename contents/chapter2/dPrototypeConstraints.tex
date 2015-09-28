@@ -2,9 +2,7 @@
 Before the prototype can be established, some considerations has to be made in respect to the time limitations and the main scope of this semester. The aim of the project is to create a functional proof of concept prototype of an automated lawn mower. The following section includes a brief description of the technology on which the prototype is constructed, along with argumentation for eliminated functionalities.
 
 \subsection{Technology Base}
-The technology which has been provided for the prototype is a tracked vehicle, seen on \figref{TrackedVehicle}. The vehicle comes with a brushed DC motor which provides power for rotation of the wheels, connected with the belts, and a servo motor which utilize breaks, connected to the wheels, to control the ratio of the differential steering. Furthermore the tracked vehicle includes two hall sensors, one by each belt, which keeps track of the speed, of the belts, by measuring pulses from magnets mounted on the front wheels.
-The system should return to a charging station when its battery is running low. This however is not crucial for a working prototype and is not included in the project.
-The testing will take place in Aalborg University Vicon Room, where the GoT system is installed and calibrated with the appurtenant transmitter, which is mounted on the tracked vehicle during test. The edge mapping functionality will not be included in the project which instead will focus on a quadratic map predefined in the test room.
+The technology which has been provided for the prototype is a tracked vehicle, seen on \figref{TrackedVehicle}. The vehicle comes with a brushed DC motor which provides power for rotation of the wheels, connected with the belts, and a servo motor which utilize breaks, connected to the wheels, to control the ratio of the differential steering. Furthermore the tracked vehicle includes two hall sensors, one by each belt, which keeps track of the speed, of the belts, by measuring pulses from magnets mounted on the front wheels. The testing will take place in Aalborg University Vicon Room, where the GoT system is installed and calibrated with the appurtenant transmitter, which is mounted on the tracked vehicle during test.
 
 \begin{figure}[H]
 	\centering
@@ -27,9 +25,12 @@ As the aim of the project is to control the path of the vehicle by using angular
 
 \subsection{Power Monitoring}
 Power monitoring could be implemented by measuring the voltage across the batteries, to ensure that the lawn mower is not running out of power, and to ensure the vehicles calculated route passes the charging station before the power runs too low.
-This however will not be in the prototype, since it is beyond the scope of the project this semester.\\\\
+This however will not be in the prototype, since it is beyond the scope of the project this semester.
 
 \subsection{Prototype}
+The system should return to a charging station when its battery is running low. This however is not crucial for a working prototype and is not included in the project.
+The edge mapping functionality will not be included in the project which instead will focus on a quadratic map predefined in the test room.
+Finally the prototype contains regulation for following a straight path from A to B in case of lost transmission, along with speed regulation and communication with the GoT system. The read/write functionality will also be implemented for storing data points from the GoT system.
 
 %%it used as an indoor prototype, and in worse case, the last position of the vehicle 
 %%will be recorded. The user can then take it by hand and plug it into the charging

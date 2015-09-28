@@ -1,6 +1,68 @@
 \chapter{Introduction}
+\section{Household robots in general}
+More and more robots appear in everyday life. Automatic vacuum cleaners and floor washers are getting widespread, as the technology is becoming cheaper and better. The vacuum cleaners have matured to a level, where they are been considered for saving man-hours in the elderly care sector.\\
 
+\noindent
+Outside the walls of our homes lays the next weekly hurdle: Mowing the lawn. A known way to handle this, is to pay the neighbour's teenager to do it. Unfortunately they grow up and move out, leaving the lawns in the residential neighbourhoods behind.\\ 
 
+\noindent
+Luckily engineers has stepped in, and provided a more long-term solution: Robotic lawn mowers.
+
+\section{Robotic lawn mowers}
+Several manufacturers of electrical gardening machines have started selling robotic lawn mowers in the recent years. In general they use one of two strategies when cutting the lawn:
+\begin{itemize}
+	\item Random direction mowers
+	\item Parallel line mowers
+\end{itemize}
+
+\noindent
+Mowers using the random direction strategy will drive in a straight line until a guard wire or an obstacle is detected. They will then turn in a random direction, and continue. See \figref{fig:randomcut}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{figures/noLogicut.jpg} 
+\label{fig:randomcut}
+\caption{Random cut system [source:Bosch]} 
+\end{figure}
+
+\noindent
+When the battery is nearly discharged, the mower will follow the guard wire back to the base station for recharging.\\
+
+\noindent
+Parallel line mowers uses a more intelligent control algorithm to optimize the mowing. After an initial learning run, following the guard wire around the lawn to be mowed, it will map the lawn, and cut in parallel lines, see \figref{fig:logicut}. The advantage of this strategy efficiency, as the lawn mower will not run over the same spots more than once. According to Bosch, a given lawn can be mowed up to 30\% faster with their Logicut system.
+%% TODO: Insert source
+ 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{figures/logicut.jpg} 
+\label{fig:logicut}
+\caption{Bosch Logicut system [source:Bosch]} 
+\end{figure}
+
+\noindent
+Common for both systems is the guard wire, which has to be placed around the lawn and anywhere the lawn mower is not allowed to go, like flower beds, swimming pools, etc. \\
+
+\noindent
+This brings us to the problem with existing products.
+
+\section{Problems with existing robotic lawn mowers}
+All commercially available robotic lawn mowers requires a guard wire placed around the lawn. This can either be placed at the surface, and be held in place by pegs, or dug down below the surface. The guard wire must be routed around flower beds, etc. as well, see \figref{fig:robomow}
+
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/robomow.png} 
+\label{fig:robomow}
+\caption{Guard wire installation [source:Robomow]} 
+\end{figure}
+\noindent
+
+The use of the guard wire for guiding the mower back to the charging station presents another potential problem: In a garden with many restricted areas, the guard wire could get very long. This could therefore make the journey home long, compared to a more direct route. This again uses more battery power, that instead could have been used for actually mowing the lawn.\\
+
+\noindent
+This will be the motivation for the project: To avoid the work routing a wire around the garden, and as a bonus get more work done on a battery charge, by not wasting power following the wire home. 
+    
 \section{The Games on Track (GoT) system}
 We were provided with the 'Games on Track GT-Position' system as a start to be able to figure out the lawn mower position in space.\\\\
 It is composed of four different parts both hardware and software :

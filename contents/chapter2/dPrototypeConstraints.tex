@@ -21,16 +21,17 @@ It is possible to build the vehicle aware of those issues and add mechanical mod
 
 \subsection{Obstacle Avoidance}
 The lawn movers path might not always be clear, there could be some garden tools, tables or chairs, or people walking in it. The vehicle should be aware of what is in front of it at any time, to correct its path and get around the obstacle if necessary. To avoid this the sensor could be a pushing button to detect a solid strong object, or an ultrasound detector if the object is breakable.
-As the aim of the project is to control the path of the vehicle by using angular positioning sensors, a proximity sensor will not be included. Static objects could be registered on the map to avoid these issues.
+As the aim of the project is to control the path of the vehicle by using angular positioning sensors, a proximity sensor will not be included. Static objects could be registered on the map to avoid these issues.\\\\
+Furthermore the edge mapping functionality will not be included in the project which instead will focus on a quadratic map predefined in the test room.
 
 \subsection{Power Monitoring}
 Power monitoring could be implemented by measuring the voltage across the batteries, to ensure that the lawn mower is not running out of power, and to ensure the vehicles calculated route passes the charging station before the power runs too low.
-This however will not be in the prototype, since it is beyond the scope of the project this semester.
+This and the charging station will not be in the prototype, since it is beyond the scope of the project this semester and is not crucial for a working prototype.
 
 \subsection{Prototype}
-The system should return to a charging station when its battery is running low. This however is not crucial for a working prototype and is not included in the project.
-The edge mapping functionality will not be included in the project which instead will focus on a quadratic map predefined in the test room.
-Finally the prototype contains regulation for following a straight path from A to B in case of lost transmission, along with speed regulation and communication with the GoT system. The read/write functionality will also be implemented for storing data points from the GoT system.
+The overall functionalities for the project has been limited, due to time limitations and a desire to focus in the scope of the project. In this project a prototype will therefore be made to show the main functionalities necessary to make a automated vehicle.
+
+The final prototype is to contain a regulator which will make it possible to follow a path from A to B. It will be able to continue if the transmission is lost between the prototype and the GoT system for a while. Furthermore it should be able to store data points from the GoT system.
 
 %%it used as an indoor prototype, and in worse case, the last position of the vehicle 
 %%will be recorded. The user can then take it by hand and plug it into the charging

@@ -70,40 +70,50 @@ One first step could be to keep track of where it is in real-time.
 
 %-- Section : GoT introductory presentation --%
 \section{The Games on Track (GoT) system}
-We were provided with the \emph{Games on Track GT-Position} system as a start to be able to determine the lawn mower's position in space.\\
+We were provided with the \emph{Games on Track GT-Position} system as a start to be able to determine the lawn mower's position in space.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1.1]{figures/gotSystem.jpg} 
+\label{fig:gotsystem}
+\caption{Games on Track GT-Position package [source:Games\ on\ Track]} 
+\end{figure}
+\noindent
 
 \noindent
 It is composed of four different parts both hardware and software :
 %% TODO : Add reference to http://www.gamesontrack.co.uk/pages/webside.asp?articleGuid=64556
 \begin{itemize}
 	\item A tracked module, which emits ultra-sound waves. It should be placed on the lawn mower itself while taking care, that the emitting cell is not obstructed by anything.
-	\item Beacons or receivers, placed around the area the lawn mower will move in. Depending on the terrain, anywhere from 2 \todo{is two enough? Answer: It is according to the GoT site (see reference in LaTeX comments)} to more than 20 of these can be used: The more is placed, the more accuracy can be obtained to fight against any ambient noise.
+	\item Beacons or receivers, placed around the area the lawn mower will move in. Depending on the terrain, anywhere from 2 \todo{--Resolved-- is two enough? Answer: It is according to the GoT site (see reference in LaTeX comments)} to more than 20 of these can be used: The more is placed, the more accuracy can be obtained to fight against any ambient noise.
 	\item The central system, which calculates the distance of the tracked module to each beacon, and transmits it to the computer via USB in regular intervals.
 	\item The GoT software aggregates the received positions throughout time, and can be used to draw a map of the terrain (the lawn), and to determine the absolute position of the tracked module.
 \end{itemize}
-GoT was originally designed for train modelling, but it is easily adaptable for any use of position tracking and seems a good choice, at first, for our autonomous lawn mower.\\
+
+GoT was originally designed for train modelling, but it is easily adaptable for any use of position tracking and seems a good choice, at first, for our autonomous lawn mower.
 But, why not use a satellite based positioning system ?
 
 %-- Section : Satellite vs GoT --%
 \section{Satellite based positioning systems vs GoT}
 \todo{Wrong reasons for GPS vs GoT, elaborated below}
-The reasons why satellite positioning system won't be used in our project are mainly related to an accuracy over price ratio and to energy consumption.\todo{GPS uses very little power}\\
+The reasons why satellite positioning system won't be used in our project are mainly related to accuracy over price ratios and to energy consumption.\todo{--To be reviewed again-- GPS uses very little power -> depending on the accuracy needed...}
 
 \noindent
-Indeed, these kinds of system like GPS or GLONASS would require a dedicated chip to put on the final system. The problem then would be the lack of precision. Although, the best GPS chips can achieve precisions of a few for the cheapest standard GPS chips (around 10 USD), we only have around 2 or 3 meters of precision in ideal situations. \todo{Only applies to cheap solutions, differential GPS can go to mm level, but is extremely expensive. This is what we are trying to replace with GoT, as it is a lot cheaper than diff-GPS} \\
-%% TODO : Add reference to "A Review of GLONASS" Miller, 2000 & http://www.gps.gov/systems/gps/performance/accuracy/ %
+Indeed, these kinds of system like GPS or GLONASS would require a dedicated chip to put on the final system. The problem then would be the lack of precision. Although, there are some cheap standard GPS chips (around USD 10), these only reach around 1 meter of precision in the most ideal situations. % ref : www.gps.gov
+On the other hand, the best GPS chips can achieve precisions up to a few millimeters when combined with different augmentation systems (algortihms for instance), but they end up being highly expensive (usually thousands of dollars). They are not generally intended for public use.
+\todo{--To be reviewed again-- Only applies to cheap solutions, differential GPS can go to mm level, but is extremely expensive. This is what we are trying to replace with GoT, as it is a lot cheaper than diff-GPS} \\
+%% TODO : Add reference to "A Review of GLONASS" Miller, 2000 & http://www.gps.gov/systems/gps/performance/accuracy/ 
 
 \noindent
-Moreover, this kind of system implies slow communications with different distant satellites at the same time.\todo{GPS is one-way communication} Therefore, the energy consumption would quickly rise,\todo{nope, it's just a radio receiver, uses almost no power} thus reducing the lawn mower autonomy, which is not desirable.
+Moreover, if we add up the slow bit rates satellites can achieve, the signal amplifiers on the receiver, plus all the position calculations and possible augmentation systems, the total energy consumption would quickly rise,\todo{--To be reviewed again-- nope, it's just a radio receiver, uses almost no power} thus reducing the lawn mower autonomy, which is not desirable.
+
+Indeed, the design of a product has no real value if no one is interested in using it. This is why choices made during this project have to be made in accordance with the final user's expectations.\\
 
 \section{Potential consumer expectations}
-The design of a product has no real value if no one is interested in using it. Thus, choices made during this project have to be made in accordance with the final user's expectations.\\
+Usually, we can think of a few priorities consumers will have when buying a product, whatever it is, and some more specific to technical products.
 
 \noindent
-For instance, the autonomy of the vehicle (both in energy and for the navigation), and the overall cost should be considered \todo{insert price approximation here}. Even though the GoT system itself has a cost beyond anything a normal customer would pay for a lawn mower, it appears, at first, as a good solution for us in terms of accuracy and energy consumption compared to GPS-like systems which are also quite expensive \todo{insert price approximation here - not so true actually}. \\
-
-\noindent
-For an improvement, we could consider replacing it with a similar solution as it is only a simple brick of the whole system. \todo{This sentence should be perhaps moved to a dedicated part of the report}\\
+Here for instance, the autonomy of the vehicle (both in energy and for the navigation), and the overall cost should be considered. The GoT system itself has a cost (USD 606.00 for a basic package) beyond anything a normal customer would probably pay for a lawn mower. But despite that, it appears, at first, to be a good solution for us in terms of accuracy and energy consumption compared to GPS-like systems which are even more expensive for the same accuracy. \todo{--Resolved-- insert price approximation here - not so true actually} \\
 
 \noindent
 These are the types of preliminary considerations that will influence this design process for an autonomous lawn mower.

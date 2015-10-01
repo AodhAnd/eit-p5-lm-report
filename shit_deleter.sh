@@ -14,3 +14,4 @@ find . -name \*.synctex.gz -type f -exec rm -f {} +
 find . -name \*.tdo -type f -exec rm -f {} + 
 find . -name \*.toc -type f -exec rm -f {} + 
 find . -name \*.tps -type f -exec rm -f {} + 
+

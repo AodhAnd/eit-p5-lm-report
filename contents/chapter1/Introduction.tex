@@ -77,7 +77,7 @@ It is composed of four different parts both hardware and software :
 %% TODO : Add reference to http://www.gamesontrack.co.uk/pages/webside.asp?articleGuid=64556
 \begin{itemize}
 	\item A tracked module, which emits ultra-sound waves. It should be placed on the lawn mower itself while taking care, that the emitting cell is not obstructed by anything.
-	\item Beacons or receivers, placed around the area the lawn mower will move in. Depending on the terrain, anywhere from 2 \fxnote{is two enough?} to more than 20 of these can be used: The more is placed, the more accuracy can be obtained to fight against any ambient noise.
+	\item Beacons or receivers, placed around the area the lawn mower will move in. Depending on the terrain, anywhere from 2 \fxnote{is two enough? Answer: It is according to the GoT site (see reference in LaTeX comments)} to more than 20 of these can be used: The more is placed, the more accuracy can be obtained to fight against any ambient noise.
 	\item The central system, which calculates the distance of the tracked module to each beacon, and transmits it to the computer via USB in regular intervals.
 	\item The GoT software aggregates the received positions throughout time, and can be used to draw a map of the terrain (the lawn), and to determine the absolute position of the tracked module.
 \end{itemize}
@@ -87,10 +87,10 @@ But, why not use a satellite based positioning system ?
 %-- Section : Satellite vs GoT --%
 \section{Satellite based positioning systems vs GoT}
 \fxwarning{Wrong reasons for GPS vs GoT, elaborated below}
-The reasons why satellite positioning system won't be used in our project are mainly related to accuracy and energy consumption.\fxnote{GPS uses very little power}\\
+The reasons why satellite positioning system won't be used in our project are mainly related to an accuracy over price ratio and to energy consumption.\fxnote{GPS uses very little power}\\
 
 \noindent
-Indeed, these kinds of system like GPS or GLONASS would require a dedicated chip to put on the final system. The problem then would be the lack of precision under a few meters (around 2 or 3 meters in ideal situations for the best chips). \fxnote{Only applies to cheap solutions, differential GPS can go to mm level, but is extremely expensive. This is what we are trying to replace with GoT, as it is a lot cheaper than diff-GPS} \\
+Indeed, these kinds of system like GPS or GLONASS would require a dedicated chip to put on the final system. The problem then would be the lack of precision. Although, the best GPS chips can achieve precisions of a few for the cheapest standard GPS chips (around 10 USD), we only have around 2 or 3 meters of precision in ideal situations. \fxnote{Only applies to cheap solutions, differential GPS can go to mm level, but is extremely expensive. This is what we are trying to replace with GoT, as it is a lot cheaper than diff-GPS} \\
 %% TODO : Add reference to "A Review of GLONASS" Miller, 2000 & http://www.gps.gov/systems/gps/performance/accuracy/ %
 
 \noindent

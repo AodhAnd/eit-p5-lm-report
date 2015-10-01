@@ -1,0 +1,48 @@
+\pagebreak
+\subsection{Tachometer Constant} %\label{put a label here and uncomment}
+\textbf{Name: Group 510}\\
+\textbf{Date: 30/09 - 2015}
+
+\subsubsection{Purpose}
+The superpose of the test is to measure verify that tachometer constant (in V) is 0.030 multiplied by the motor constant.
+
+\subsubsection{Setup}
+\begin{figure}[H]
+  \centering
+	\includegraphics[scale=0.5]{figures/MotorTest3.pdf}
+	\caption{Use-Case Diagram}
+	\flushleft
+\end{figure}
+
+\subsubsection{List of Equipment}
+
+\begin{table}[H]
+\begin{tabular}{|l|l|p{4cm}|}
+\hline%--------------------------------------------------------------------------------
+  \textbf{Instrument}                    &  \textbf{AAU-no.}  &  \textbf{Type}       \\
+\hline%--------------------------------------------------------------------------------
+  Power Supply ($0 - 32$ V) ($0 - 10$ A) &  77076             &  Ea - ps 7032 - 100  \\
+\hline%--------------------------------------------------------------------------------
+  Multimeter                             &  60764             &  Fluke 189 True RMS  \\
+\hline%--------------------------------------------------------------------------------
+  Torque sensor                          &  08772             &  Icom                \\
+\hline%--------------------------------------------------------------------------------
+  Optical tachometer                     &  08246             &  Shimpo DT-205       \\
+\hline%--------------------------------------------------------------------------------
+\end{tabular}
+\end{table}
+
+\subsubsection{Procedure}
+
+\begin{enumerate}
+  \item Adjust voltage of power supply till you reach 6 V on the multimeter over the tachometer.
+  \item Measure the RPM with the Optical tachometer.
+\end{enumerate}
+
+\subsubsection{Results}
+Measured: 1933 RPM
+We use the measured RPM to verity a tachometer constant of 0.03:
+\begin{flalign}
+  \frac{1933}{60} \cdot 2 \cdot \pi \cdot 0.03 &= 6.07 \approx 6 \unit{V}
+  \label{eqTachometerConstant}
+\end{flalign}

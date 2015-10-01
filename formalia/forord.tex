@@ -1,0 +1,68 @@
+\chapter*{Preface}\label{ch:forord}%\addcontentsline{toc}{chapter}{Forord}
+This project is centered around designing a functional prototype for a camera payload to a cubesat. \\
+The reader of the report is assumed to have a basic understanding of electronics, especially digital electronics. A glossary is made, in which the abbreviations used throughout the report are listed. Concepts not familiar for the average reader will be explained, such as the workings of a camera and the communication interfaces used in the project. The code is written in VHDL and C and the reader of the report is assumed to have a basic understanding of these languages. In the implemented code the return values will not be checked to verify success. 
+
+The report is split into three parts. The first part covers a technical description of the things that are needed to be able to design the system. %such as the workings of a camera, image compression and communication interfaces, along with considerations needed to be made when designing a camera for space applications.
+The second part covers the actual design and implementation phase, where the functionalities of the system are found, and hardware modules are identified and chosen. %, which are capable of fulfilling the functionalities. The implementation of the system is also described, for instance showing how the RAM controller is implemented, or the compression algorithm used functions. Each module is also tested, to see if it fulfills the requirements set for it.
+The final section includes an acceptance test, in which the overall functions of the system are tested, to see if the modules work together as intended.
+Finally, it is discussed how the prototype can be improved. %, and what things have to be considered before the system is ready for implementation in an actual satellite.
+
+
+
+%Source references will be done based on the APA style, i.e. of the type [\emph{source name/authors surname, year, page number if applicable}] or \emph{Source name/Author/authors surname(s), (year), page number or figure name if applicable}. The bibliography is also made in the APA style, i.e. alphabetized and formatted as: \emph{[Source name/author/authors surname(s) and initials. (Year). Title. Type of source if applicable.]}\\
+%For website links, the following bibliography style is used: \emph{Author. (Year). Title. URL. Download date.}, and the website will be put on the attached CD as an html-file. PDFs, data sheets etc. referenced to throughout the report are also to be found on the CD.
+
+The group would like to thank mediaology student Joakim Bruslund Haurum for his help with providing information about imaging and demosaicing. The group would also like to thank computer science student Jens Hegner Stærmose for his help with discussing ideas for a compression algorithm. 
+A big thanks also goes to the project groups supervisor, associate professor Jens Frederik Dalsgaard Nielsen, for his great help throughout the project, with everything from debugging code, discussing the ideas for implementation the group has come up with, and providing feedback at the groups work.
+
+\vspace{0.5\baselineskip}\hfill Aalborg Universitet, 17. december 2014
+
+\vfill
+
+%% underskrifts afsnit %%
+\begin{minipage}[b]{0.45\textwidth}
+ \centering
+ \rule{\textwidth}{0.5pt}\\
+  Amalie "Chewie" Vistoft Petersen\\
+ {\footnotesize apet13@student.aau.dk}
+\end{minipage}
+\vspace{2\baselineskip}
+\hfill
+\begin{minipage}[b]{0.45\textwidth}
+ \centering
+ \rule{\textwidth}{0.5pt}\\
+  Mikkel 'Hulk' Krogh Simonsen\\
+ {\footnotesize mksi13@student.aau.dk}
+\end{minipage}
+\vspace{1.5\baselineskip}
+\hfill
+\begin{minipage}[b]{0.45\textwidth}
+ \centering
+ \rule{\textwidth}{0.5pt}\\
+  Rasmus 'Pynte-over-politi-kommisær' Gundorff Sæderup\\
+ {\footnotesize rsader13@student.aau.dk}
+\end{minipage}
+\vspace{2\baselineskip}
+\hfill
+\begin{minipage}[b]{0.45\textwidth}
+ \centering
+ \rule{\textwidth}{0.5pt}\\
+  Simon 'Nightmare' Bjerre Krogh\\
+ {\footnotesize skrogh13@student.aau.dk}
+\end{minipage}
+\vspace{2\baselineskip}
+\hfill
+\begin{minipage}[b]{0.45\textwidth}
+ \centering
+ \rule{\textwidth}{0.5pt}\\
+  Thomas 'T-bone' Kær Juel Jørgensen\\
+ {\footnotesize tkjj13@student.aau.dk}
+\end{minipage}
+\vspace{2\baselineskip}
+\hfill
+\begin{minipage}[b]{0.45\textwidth}
+ \centering
+ \rule{\textwidth}{0.5pt}
+  Thomas "Godlike" Rasmussen\\
+ {\footnotesize trasm12@student.aau.dk}
+\end{minipage}

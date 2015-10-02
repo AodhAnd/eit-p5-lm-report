@@ -7,7 +7,7 @@ The technology which has been provided for the prototype is a tracked vehicle, s
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{figures/BeltVehicle.jpg}
-	\caption{The provided belt vehicle}
+	\caption{The provided track vehicle}
 	\label{TrackedVehicle}
 \end{figure}
 
@@ -16,12 +16,11 @@ The technology which has been provided for the prototype is a tracked vehicle, s
 \subsection{Grass Length Detection}
 Detection of the grass length to control the speed of the lawn mower thus ensuring an evenly cut lawn, is a submodule which can be added at any time. Since it is not fatal for a working system and might even be unnecessary depending on time between each mowing of the lawn, it is decided to exclude this functionality from the initial design.
 
-\subsection{Moisture Sensor}
-As the lawn mower is supposed to work outside, it is important to consider that the grass could be moist, and that an electronic device can be affected by environmental issues. Even if the electrical part is waterproofed, there is a mechanical threat, a moist sensor could then warn the system to order the vehicle to get back in time. \todo{write about vehicle slip and get rid of threat}
-It is possible to build the vehicle aware of those issues and add mechanical modules to secure it. However, the prototype will only be tested indoor, so this type of sensor will not be necessary in a prototype design.
+\subsection{Humidity Sensor}
+As the lawn mower is supposed to work outside, it is important to consider that the grass could be humid. Since it is difficult to cut humid grass, a humidity sensor could be used to warn the system of the humidity. Thus the system could go back to the charging station. However, the prototype will only be tested indoor, so this type of sensor will not be necessary in a prototype design.
 
 \subsection{Obstacle Avoidance}
-The lawn movers path might not always be clear, there could be some garden tools, tables or chairs, or moving objects. The vehicle should be aware of what is in front of it at any time, to correct its path and get around the obstacle if necessary. To avoid this the sensor could be a pushing button to detect a solid object or an ultrasound detector if the object is fragile.
+The lawn movers path might not always be clear, e.g. garden tools, tables or moving objects could be in the way. The vehicle should be aware of what is in front of it at any time, to correct its path and get around the obstacle if necessary. To avoid this the sensor could be a pushing button to detect a solid object or an ultrasound detector if the object is fragile.
 As the aim of the project is to control the path of the vehicle by using angular positioning sensors, a proximity sensor will not be included. Static objects could be registered on the map to avoid these issues.\\\\
 Furthermore the edge mapping functionality will not be included in the project which instead will focus on a quadratic map predefined in the test room.
 

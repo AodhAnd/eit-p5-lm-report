@@ -22,7 +22,7 @@
 \setlength\cftafterlottitleskip{6pt}
 
 \selectlanguage{english}
-\title{AAUSAT 6}
+\title{Lawn Mower}
 
 \pagestyle{empty} %disable headers and footers
 \pagenumbering{roman} %use roman page numbering in the frontmatter I II...
@@ -37,7 +37,7 @@
 \include{formalia/kolofon}
 \input{formalia/titleSheet.tex}
 
-\pdfbookmark[0]{Indholdsfortegnelse}{label:Indhold}
+\pdfbookmark[0]{Table of Contents}{label:Indhold}
 \tableofcontents
 
 %\printglossary[title=List of Terms,toctitle=Terms and abbreviations,type=\acronymtype]
@@ -68,19 +68,27 @@
 % \include{kapitler/indledning}
 
 
-% %% Part 1 %%
+% %% Part 1 %% %
 
 \part{Preanalysis}
 
+%% Chapter 1 %%
 \include{Chapters/Chapter1/Introduction}
+% \include{Chapters/Chapter1/roboticLawnMowers}
+% \include{Chapters/Chapter1/problemsWExistingLawnMowers}
+% \include{Chapters/Chapter1/gotSystemIntroPres}
+% \include{Chapters/Chapter1/satellitesVSGoT}
+% \include{Chapters/Chapter1/consumerExpectations}
+
+%% Chapter 2 %%
 \include{Chapters/Chapter2/DesignConsiderations}
 \include{Chapters/Chapter2/dPrototypeConstraints}
 
-% %% Part 2 %%
+% %% Part 2 %% %
 
 \part{Design \& implementation}
 
-% %% Part 3 %%
+% %% Part 3 %% %
 
 \part{Test \& conclusion}
 

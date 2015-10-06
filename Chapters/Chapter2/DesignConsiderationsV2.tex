@@ -1,0 +1,72 @@
+\chapter{Design Consideration}
+\vspace{-5 mm}
+In this chapter the system is designed with a top-down approach. First a use-case of the functionalities in the system is described, in order to give an overview of what the system must be able to do. Hereafter, constraints set by time limitations as well as a focus on the main scope of the project, in regards to the prototype, are considered. Based on the use-case description and the prototype constraints the requirements for the system's prototype are listed.
+\vspace{-4 mm}
+\section{Use case Design}
+To give an overview of what the system should be able to do, a UML use case diagram is utilized. The use-case diagram is made, where the micro controller is the system that will be analysed, because, it will be the master in this system. The actors is the external sensors and systems, that the micro controller is connected to. The use cases consists of the main functionalities used by the controller. See the diagram on \figref{fig:usecase}. 
+
+\vspace{-3 mm}
+ \begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{figures/P5UseCase.pdf}
+	\caption{Use-Case Diagram}
+	\label{fig:usecase}
+\end{figure}
+
+\noindent
+\newpage
+The system, inside the controller, have 6 main functionalities and is affected by 9 different actors.
+
+
+\subsection{Main Functionalities}
+
+Functionalities is the functions that the system can do. Each Functionalities can have more than one function in the system. The functionalities gets input from actors and other functionalities.
+
+\textbf{Edge Initialization}:
+The \textit{Edge Initialization} gets input from the \textit{GoT} system. The purpose of this function, is to calibrate the system to a new lawn. The function is making a edge map of the lawn: It is used to locates all the areas, where the lawn shall be mowed and where the lawn mower shall not drive. This is done, by manually the \textit{GoT} system's transmitter and move it along the edges of these areas. From the information about all the edges, the edge map is created and saved through the \textit{Read/Write Map} function.
+
+\textbf{Route Planning}:
+The \textit{Route Planning} gets input from the \textit{Power Monitor}. The purpose of this function, is to plan the route for the lawn mower. The route is made from the information about where the lawn mower starts, the map of the lawn, which is made in the \textit{Edge Initialization} function, and the battery level from the \textit{Power Monitor}. The route has to cover the whole lawn.
+
+\textbf{Read/Write Map}:
+The \textit{Read/Write Map} gets input from the \textit{Storage}. This functionality communicates with the storage, where the edge map from the \textit{Edge Initialization} function and the route from the \textit{Route Planning}, is saved. 
+
+\textbf{Course Correction}:
+The \textit{Course Correction} gets input from the \textit{GoT} system, the \textit{Humidity Detector}, the \textit{Obstacle Detector} and the \textit{Angular Detector}. This function measures the surroundings of the lawn mower and makes corrections, in case of disturbances which might otherwise throw it off its route. The function makes the lawn mower stay on the route, when the route can be followed. The \textit{Course Correction} is the main function behind the regulation of the movement of the lawn mower.
+
+\textbf{Speed Control}:
+The \textit{Speed Control} gets input from the \textit{Angular Detector}, the \textit{Grass Length Detector} and the \textit{Speed Measurement}. The function's purpose, is to make sure that the lawn mower smoothly adapts the speed depending on the grass length and the curves of the route. This function controls the drive motor's speed, depending on route and regulation of the current speed.
+
+\textbf{Blade Control}:
+The \textit{Blade Control} gets input from the \textit{Blade Monitor}. The function's purpose, is keeping the blade rotational speed the same, to make a evenly cut. With the input from the \textit{Blade Monitor}, there is created a feedback loop, their will keep the speed constant.
+
+\subsection{Actors}
+
+A actor is a external system or component, that influence the system with inputs to the functionalities and/or gets output from them.
+
+\textbf{Humidity Detector}:
+The \textit{Humidity Detector} is connected to the functionality \textit{Course Correction}. This is a sensor that measures the humidity in the air. The system uses the information about the ambiant humidity level to see, whether it is too high to mown the lawn in or not, since wet grass can not be cut evenly and the cut of grass could damage the equipment. 
+
+\textbf{GoT}:
+The \textit{GoT} system is connected to the \textit{Course Correction} and \textit{Edge Initialization} functionalities. This system is used to get the lawn mower's position on the lawn. This position is sent to the controller, which uses the information to guide the lawn mower along its route.
+
+\textbf{Storage}:
+The \textit{Storage} is connected to the \textit{Read/Write Map} functionality. It uses a static storage to store the information about the edge map and route, which is made in the \textit{Edge Initialization} and \textit{Route Planning} functionalities. The \textit{Storage} will have the data saved, even if the system is turned off.
+
+\textbf{Obstacle Detector}:
+The \textit{Obstacle Detector} is connected to the \textit{Course Correction} functionality. This sensor detects, if there are any objects, which blocks the lawn mower's route. This sensor makes sure, that the lawn mower keeps a distance to any object, like a human or a dog that could interfere with its route.
+
+\textbf{Angular Detector}:
+The \textit{Angular Detector} is connected to the \textit{Course Correction} and \textit{Speed Control} functionalities. This sensor measures the angular position and movement of the lawn mower, whether it is intentional movement or if the lawn mower slips. This sensor is used as a feedback, to keep the lawn mower on the route.
+
+\textbf{Grass Length Detector}:
+The \textit{Grass Length Detector} is connected to the \textit{Speed Control} functionality. This sensor measure the  grass length, which affects the speed, at which the lawn mower should drive. If the grass is long, the lawn mower has to drive slower, to make sure that it doesn't get stuck in the grass and cut the grass evenly. 
+
+\textbf{Power Monitor}:
+The \textit{Power Monitor} is connected to the \textit{Route Planning} functionality. This sensor measures how much power  is left in the battery. This is needed, so that the lawn mower can drive back to its charging station, before the battery is empty.
+
+\textbf{Blade Monitor}:
+The \textit{Blade Monitor} is connected to the \textit{Blade Control} functionality. This sensor measures the rotational speed of the blade and send the information back to the \textit{Blade Control}, making a feedback loop.
+
+\textbf{Speed Measurement}:
+The \textit{Speed Measurement} is connected to the \textit{Speed Control} functionality. The sensor measure the speed, in which the lawn mower drive with. This information is send to the \textit{Speed Control} as feedback.

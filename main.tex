@@ -22,7 +22,7 @@
 \setlength\cftafterlottitleskip{6pt}
 
 \selectlanguage{english}
-\title{AAUSAT 6}
+\title{Lawn Mower}
 
 \pagestyle{empty} %disable headers and footers
 \pagenumbering{roman} %use roman page numbering in the frontmatter I II...
@@ -35,9 +35,9 @@
 %\include{formalia/forside}
 \pagestyle{fancy}
 \include{formalia/kolofon}
-\input{formalia/titlesheet.tex}
+\input{formalia/titleSheet.tex}
 
-\pdfbookmark[0]{Indholdsfortegnelse}{label:Indhold}
+\pdfbookmark[0]{Table of Contents}{label:Indhold}
 \tableofcontents
 
 %\printglossary[title=List of Terms,toctitle=Terms and abbreviations,type=\acronymtype]
@@ -68,20 +68,28 @@
 % \include{kapitler/indledning}
 
 
-% %% Part 1 %%
+% %% Part 1 %% %
 
 \part{Preanalysis}
 
-\include{Chapters/Chapter1/Introduction}
-\include{Chapters/Chapter2/DesignConsiderations}
+%% Chapter 1 %%
+\input{Chapters/Chapter1/Introduction.tex}
+\input{Chapters/Chapter1/roboticLawnMowers.tex}
+\input{Chapters/Chapter1/problemsWExistingLawnMowers.tex}
+\input{Chapters/Chapter1/gotSystemIntroPres.tex}
+\input{Chapters/Chapter1/satellitesVSGoT.tex}
+\input{Chapters/Chapter1/consumerExpectations.tex}
+
+%% Chapter 2 %%
+\include{Chapters/Chapter2/DesignConsiderationsV2}
 \include{Chapters/Chapter2/dPrototypeConstraints}
 \input{Chapters/Chapter2/ePrototype}
 
-% %% Part 2 %%
+% %% Part 2 %% %
 
 \part{Design \& implementation}
 
-% %% Part 3 %%
+% %% Part 3 %% %
 
 \part{Test \& conclusion}
 
@@ -100,24 +108,24 @@
  \renewcommand{\thesection}{\Alph{section}}
  \setcounter{section}{0}
 
-% %% Appendix %% 
+% %% appendix %% 
  
  \chapter*{Appendix}
  \addcontentsline{toc}{chapter}{Appendix}
-	%\input{Appendix/aFigureSample.tex}
-	%\input{Appendix/aTestTemplate.tex}
-	%\input{Appendix/bTableSample.tex}
-	%\input{Appendix/cEquationSample.tex}
-	\input{Appendix/GoTdescription.tex}
+	%\input{appendix/aFigureSample.tex}
+	%\input{appendix/aTestTemplate.tex}
+	%\input{appendix/bTableSample.tex}
+	%\input{appendix/cEquationSample.tex}
+	\input{appendix/GoTdescription.tex}
 % \input{appendix/koleplade.tex} %skal være input for at undgå den skifter 
   
-  \include{Appendix/aMotorTest}
-  \input{Appendix/aMotorTest2.tex}
-  \input{Appendix/aMotorTest3.tex}
-  \input{Appendix/aMotorTest4.tex}
-  \input{Appendix/aMotorTest5.tex}
-  \input{Appendix/aMotorTest7.tex}
-  \input{Appendix/aMotorTest8.tex}
+  \include{appendix/aMotorTest}
+  \input{appendix/aMotorTest2.tex}
+  \input{appendix/aMotorTest3.tex}
+  \input{appendix/aMotorTest4.tex}
+  \input{appendix/aMotorTest5.tex}
+  \input{appendix/aMotorTest7.tex}
+  \input{appendix/aMotorTest8.tex}
 
 \printbibliography
 \listoftodos

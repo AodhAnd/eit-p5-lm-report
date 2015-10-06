@@ -129,3 +129,4 @@ sympy-plots-for-*.tex/
 # Sublime project files
 *.sublime-project
 *.sublime-workspace
+main.pdf

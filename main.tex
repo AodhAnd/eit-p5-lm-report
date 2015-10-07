@@ -2,77 +2,46 @@
 
 \input{setup/macros.tex}% my new macros
 
-\usepackage{lastpage}
-\usepackage{epstopdf}
-
-\setlength{\headheight}{21pt}
-
-\hfuzz=\maxdimen
-\tolerance=10000
-\hbadness=10000
-
-\usepackage{siunitx}
-
-\graphicspath{{./figures/}}
-
 \begin{document}
-%% prereport %%
+%%% Prereport %%%
 \setlength\cftaftertoctitleskip{2pt}
 \setlength\cftafterloftitleskip{6pt}
 \setlength\cftafterlottitleskip{6pt}
-
 \selectlanguage{english}
 \title{Lawn Mower}
 
+%%% Frontmatter Settings %%%
 \pagestyle{empty} %disable headers and footers
 \pagenumbering{roman} %use roman page numbering in the frontmatter I II...
 \fancyfoot[RE,LO]{15gr510} %page number on all pages
 \fancyfoot[LE,RO]{\thepage}
 \fancyhead[LE,LO,RE,RO]{}
 
-%% indledende formalia %%
-%\includepdf[pages={1}]{forside2.pdf}
-%\include{formalia/forside}
+%%% Introductory Formalities %%%
+%\includepdf[pages={1}]{frontpage.pdf}
+%\include{formalities/frontpage}
 \pagestyle{fancy}
-\include{formalia/kolofon}
-\input{formalia/titleSheet.tex}
-
-\pdfbookmark[0]{Table of Contents}{label:Indhold}
+\include{formalities/kolofon}
+\input{formalities/titleSheet.tex}
+\pdfbookmark[0]{Table of Contents}{label: tableOfCentents}
 \tableofcontents
 
-%\printglossary[title=List of Terms,toctitle=Terms and abbreviations,type=\acronymtype]
-
-%\glsaddall
-%\printglossary
-%\printglossary[type=\acronymtype]
-
-%\listoftodos
-
-% Preface %
-\input{formalia/preface.tex}
-
+%%% Preface %%%
+\input{formalities/preface.tex}
 \cleardoublepage
 
-%% problemanalysen %%
+%%% Mainmatter Settings %%%
 \pagenumbering{arabic} %use arabic page numbering in the mainmatter
 \fancyfoot[RO,LE]{\thepage \text{ of} \pageref{LastPage}}
-\fancyfoot[LO,RE]{15gr412}
+\fancyfoot[LO,RE]{15gr510}
 \fancyhead[RE,LO]{}
 \fancyhead[RE,LO]{\color{aaublue}\small\nouppercase\leftmark} %even page - chapter title
-
-\fancyhead[RO,LE]{\includegraphics[height=16pt]{logo_only.pdf}}
-
-
 \pagestyle{fancy}
 
-% \include{kapitler/indledning}
-
-
-% %% Part 1 %% %
-
+%%% Part 1 %%%
 \part{Preanalysis}
 
-%% Chapter 1 %%
+%---------- Chapter 1 ----------------------------------------
 \input{Chapters/Chapter1/Introduction.tex}
 \input{Chapters/Chapter1/roboticLawnMowers.tex}
 \input{Chapters/Chapter1/problemsWExistingLawnMowers.tex}
@@ -80,55 +49,50 @@
 \input{Chapters/Chapter1/satellitesVSGoT.tex}
 \input{Chapters/Chapter1/consumerExpectations.tex}
 
-%% Chapter 2 %%
+%---------- Chapter 2 ----------------------------------------
 \include{Chapters/Chapter2/DesignConsiderationsV2}
 \include{Chapters/Chapter2/dPrototypeConstraints}
 \input{Chapters/Chapter2/ePrototype}
 \include{Chapters/Chapter2/BasicModel}
 
-% %% Part 2 %% %
-
+%%% Part 2 %%%
 \part{Design \& implementation}
 
-% %% Part 3 %% %
-
+%%% Part 3 %%%
 \part{Test \& conclusion}
 
-%% literaturliste og bilag %%
-\bookmarksetup{startatroot}% this is it
-\addtocontents{toc}{\bigskip}% perhaps as well
-%\bibliography{setup/mybib}
-%\label{bib:mybiblio}
- 
- \newpage
- \fancyhead[RO]{\color{aaublue}\small Appendix \nouppercase\rightmark} %even page - chapter title
- \fancyhead[LE]{\color{aaublue}\small Appendix \nouppercase\rightmark} %uneven page - sectionhttps://88df6ea0630aed8027ff-0caf779119a6537399728d4d80523795.ssl.cf5.rackcdn.com/tcgyzshtzfpq/page/7cd587cdbc0ae962c2755c91cf17670aac438f1c.jpeg title
+
+%%% Setup for Appendix and Bibliography %%%
+\bookmarksetup{startatroot} %this is it
+\addtocontents{toc}{\bigskip} %perhaps as well
+\newpage
+\fancyhead[RO]{\color{aaublue}\small Appendix \nouppercase\rightmark} %even page - chapter title
+\fancyhead[LE]{\color{aaublue}\small Appendix \nouppercase\rightmark} %uneven page - section title
 \fancyhead[RE,LO]{}
- \titleformat{\section}[hang]{\Large\bfseries}{\thesection\hsp\textcolor{aaublue}{|}\hsp}{0pt}{\Large\bfseries}
+\titleformat{\section}[hang]{\Large\bfseries}{\thesection\hsp\textcolor{aaublue}{|}\hsp}{0pt}{\Large\bfseries}
+\renewcommand{\thesection}{\Alph{section}}
+\setcounter{section}{0}
 
- \renewcommand{\thesection}{\Alph{section}}
- \setcounter{section}{0}
+%%% Appendix %%%
+\chapter*{Appendix}
+\addcontentsline{toc}{chapter}{Appendix}
 
-% %% appendix %% 
- 
- \chapter*{Appendix}
- \addcontentsline{toc}{chapter}{Appendix}
-	%\input{appendix/aFigureSample.tex}
-	%\input{appendix/aTestTemplate.tex}
-	%\input{appendix/bTableSample.tex}
-	%\input{appendix/cEquationSample.tex}
-	\input{appendix/GoTdescription.tex}
-% \input{appendix/koleplade.tex} %skal være input for at undgå den skifter 
-  
-  \include{appendix/aMotorTest}
-  \input{appendix/aMotorTest2.tex}
-  \input{appendix/aMotorTest3.tex}
-  \input{appendix/aMotorTest4.tex}
-  \input{appendix/aMotorTest5.tex}
-  \input{appendix/aMotorTest7.tex}
-  \input{appendix/aMotorTest8.tex}
+%---------- Appendix A ---------------------------------------- GoT Description
+\input{appendix/GoTdescription.tex}
 
+%---------- Appendix B ---------------------------------------- Motor Tests
+\input{appendix/aMotorTest.tex}
+\input{appendix/aMotorTest2.tex}
+\input{appendix/aMotorTest3.tex}
+\input{appendix/aMotorTest4.tex}
+\input{appendix/aMotorTest5.tex}
+\input{appendix/aMotorTest7.tex}
+\input{appendix/aMotorTest8.tex}
+
+%%% Bibliography %%%
 \printbibliography
+
+%%% To Do List %%%
 \listoftodos
 
 \end{document}

@@ -28,4 +28,10 @@ The information is transmitted back to the vehicle by another system, called Xbe
 The program on the computer, which handles the information received from the master, uses the data to calculate the position of the transmitter. This is done with a method call Trilateration. Trilateration is a way of calculating a position, in a three-dimensional space, from three distances of known locations, with the help of spheres, circles and triangles. The distances are caculated with the time when each satellites by a comparison to the transmitter send the signal. Therefore it is necessary for the system to have atleast three satellites, as mentioned earlier.  With additional satellites a check up can be performed to ensure the position of the transmitter is correct. Trilateration does not work if the three known points are on a single line therefore the satellites should be placed in a triangle.\\\\
 \noindent
 If the satellites have been moved, it is necessary to recalibrate the system. This is done with a calibration triangle. The calibration triangle is made of three points on a flat surface and have a distance of 40 to 200 centimeters between them. One of the points on the calibration triangle is made the origin (0,0,0) of the new coordinate system. Another point on the triangle will then be call (X,0,0), in which the line between the first point and the second point will become the X-axis. The last point will be call (X,Y,0) and will determine in which way the positive Y-axis will go. The surface which the calibration triangle is placed on, will be the XY-plan, where Z will go vertically, defining the (X,Y,Z) coordinates. The distance between the three points is measured and put into the program. Thereafter, the transmitter is placed in the three point, with (0,0,0) first and (X,Y,0) last. When the transmitter is placed in a point, the satelllites measure the distance between them and the transmitter. From those information, the program can calculate the position of each satellites, with the help of trilateration. \\\\
-\todo{insert the visio picture to explain the system}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{figures/GoT-description.pdf}
+	\caption{Description of the GoT system. The numbers are the order of the steps at each sample.}
+	\label{GoT-description}
+\end{figure}

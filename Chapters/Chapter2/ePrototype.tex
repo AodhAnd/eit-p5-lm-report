@@ -1,6 +1,6 @@
 \section{Prototype}
-The overall functionalities for the project has been limited, due to time limitations and to focus on the scope of the project. In this project a prototype will therefore be made to show the main functionalities necessary to make a automated vehicle.
-In short the final prototype is to contain a regulator which will make it possible to follow a path from A to B. It is be able to continue if the transmission is lost between the prototype and the GoT system for some duration. Furthermore it stores data points locally, on the vehicle, from the GoT system. The rough outline of the design is shown on \figref{fig:systemOverview1} to give an idea of the final prototype setup.
+The overall functionalities for the project has been limited, due to time limitations and to focus on the scope of the project. In this project a prototype will therefore be made to show the main functionalities necessary to make a automated vehicle containing principles for lawn mowing.
+In short the final prototype includes a regulator which will make it possible to follow a path from A to B. It is be able to continue if the transmission is lost between the prototype and the GoT system for some duration. Furthermore it is able to plan a route within a given area and store these calculated data points locally, on the vehicle. The rough outline of the design is shown in \figref{fig:systemOverview1} to give an idea of the final prototype setup.
 
 \begin{figure}[H]
 	\centering
@@ -9,8 +9,10 @@ In short the final prototype is to contain a regulator which will make it possib
 	\label{fig:systemOverview1}
 \end{figure}
 
+The GoT system provides the vehicle with coordinates which is utilized in course correction in combination with the map supplied from storage to follow the route. In course correction lies also control between coordinates given by the GoT system and the storage, this is regulated through use of angular position and movement supplied by the angular sensors. The speed control gets an input from the course correction, the speed given is then held through regulation again using input from angular sensors, in this case specifically acceleration.
 
-
+\section{Prototype Interfaces and Submodules}
+Previously the rough prototype design is presented. To provide a more broad overview of the system, an exploded view of functionalities, their submodules and interfaces is presented in \figref{fig:systemOverview2}.
 
 \begin{figure}[H]
 	\centering
@@ -18,3 +20,25 @@ In short the final prototype is to contain a regulator which will make it possib
 	\caption{Expanded overview of the system prototype}
 	\label{fig:systemOverview2}
 \end{figure}
+
+\subsubsection{GoT Satellites, Master and GoT Ultra Sound \& Radio Link}
+A number of GoT Satellites are placed in the corners of the area in which the vehicle is to operate. These Satellites receive ultra sound signal from the GoT device placed on the vehicle. The time in which each ultrasound signal is received is passed through a wireless connection from the satellites to the GoT master. The GoT master then pairs this information with the time the ultra sound signal was send from the vehicle which it receives via radio link from the GoT device on the vehicle. After collecting the information, the GoT master sends a calculated position and along with a time stamp to the computer handling GoT.
+
+\subsubsection{Wireless Modules}
+The wireless modules serves the purpose of transmitting the calculated coordinates from the GoT system to the vehicle.
+
+\subsubsection{Edge Map, Route Planning, Read/Write Map and Storage}
+The route planning functionality receives the hard coded edge positions from edge map. Using this information the route is then planned and saved in the storage through the read/write map functionality.
+
+\subsubsection{Gyro, Accelerometer, Magnetometer, Speed Control and Course Correction}
+Gyro along with magnetometer is used for angular position of the vehicle. This is passed to the course correction through the get angle functionality. Here it is used as to correct the orientation of the vehicle on its path. The accelerometer also channels through the get angle functionality. The angular acceleration is then used for correction of the speed.
+
+\subsubsection{Hall Sensor}
+The speed control also receives input from the hall sensors through the get speed functionality, where the inputs from the hall sensors are translated to speed of the vehicle's belts. This information is then used in speed control to regulate the speed.
+
+\subsubsection{Servo Motor}
+The servo motor receives an angle/servo control signal from course correction. This angle equals a given amount of breaking on either of the two belts, which then through the differential gearing translate into steering and thus correction of the course of the vehicle.
+
+\subsubsection{Motor Driver and Drive Motor}
+The drive motor takes a motor control signal from the motor driver provided by the speed control. The control signal from speed control is a PWM signal.
+

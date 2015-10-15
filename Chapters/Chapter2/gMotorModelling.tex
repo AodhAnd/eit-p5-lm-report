@@ -71,6 +71,7 @@ By substituting the derived equation for $i_a$ into \eqref{equ:motortorque}, a n
 
 \begin{flalign}\centering
   \tau_m = K_t \cdot i_a(s) = K_t \cdot \frac{V_a(s) - K_e \cdot \dot{\theta}_m(s)}{sL_a + R_a}  %\unit{\volt}
+  \label{eq:Totaltorquewithcurrentexpression}
 \end{flalign}
 
 Newtons second law of motion for rotational systems yields, that torque is equal:
@@ -80,7 +81,7 @@ I_m \cdot \ddot{\theta}_m(t) = \tau_m - B \cdot \dot{\theta}_m(t)
 \label{eq:mechanicalmodel}
 \end{flalign}
 \begin{flalign}\centering
-\tau_m = I_m \cdot \ddot{\theta}_m(t) + B \cdot \dot{\theta}_m(t)
+\tau_m(t) = I_m(t) \cdot \ddot{\theta}_m(t) + B \cdot \dot{\theta}_m(t)
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
@@ -88,15 +89,37 @@ I_m \cdot \ddot{\theta}_m(t) = \tau_m - B \cdot \dot{\theta}_m(t)
 & $\ddot{\theta}_m$ & the angular acceleration in the motor [$\frac{rad}{s^2}$] \\
 \end{tabular}
 
-Newtons second law of motion for rotating systems is used in the mechanical model. In \figref{fig:MotorFreeBody} a diagram is displaying the different directions of the forces affecting the model, which is equal the Newtons second law of motion for rotating systems, as seen in \eqref{eq:mechanicalmodel}.
+Newtons second law of motion for rotating systems is used in the mechanical model. In \figref{fig:MotorMechanicalModel} a diagram is displaying the different directions of the forces affecting the model, which is equal the Newtons second law of motion for rotating systems, as seen in \eqref{eq:mechanicalmodel}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.1]{figures/MotorFreeBodyDiagram.jpg}
+	\includegraphics[scale=0.8]{figures/MotorMechanicalModel.pdf}
 	\caption{Free body diagram of the motor}
-	\label{fig:MotorFreeBody}
+	\label{fig:MotorMechanicalModel}
 \end{figure}
 
-laplace transform newtons second law of motion down here!
+\begin{flalign}\centering
+\tau_m = I_m(s) \cdot \ddot{\theta}_m(s) + B \cdot \dot{\theta}_m(s)
+\end{flalign}
 
-\subsubsection{Block diagram of the motor model}
+The angular acceleration is differentiated to be able to isolate the angular velocity:
+
+\begin{flalign}\centering
+\tau_m = I_m(s) \cdot \dot{\theta}_m(s) \cdot s + B \cdot \dot{\theta}_m(s) \nonumber
+\end{flalign}
+
+\begin{flalign}\centering
+\dot{\theta}_m(s) = \frac{\tau_m(s)}{I_m(s) \cdot s+B}
+\label{eq:ThetadotforBlock}
+\end{flalign}
+
+\eqref{eq:ThetadotforBlock} and \eqref{eq:Totaltorquewithcurrentexpression} delivers the information needed to make a visual representation of the motor model. The input is the supply voltage, $V_a(s)$ delivered to the motor and the output is the required torque$\tau_m$, see \figref{fig:motormodelBlock}. The block representation of the system can also be used, when the system is simulated.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{figures/motormodelBlock.png}
+	\caption{Free body diagram of the motor}
+	\label{fig:motormodelBlock}
+\end{figure}
+
+Now the model of the motor has been formed, the next step would therefore be to model the drivetrain, which borders is from the gear connected to the motor to the front wheel.

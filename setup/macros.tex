@@ -72,19 +72,11 @@
   }
 }
 
-%Nice-looking reference to other chapters
-\newcommand{\chapref}[1]{Chapter \ref{#1}: \nameref{#1}}
-\newcommand{\secref}[1]{Section \ref{#1}: \nameref{#1}}
-\newcommand{\figref}[1]{\emph{Figure: \ref{#1}}}
-\newcommand{\appref}[1]{\emph{Appendix \ref{#1}}}
-\newcommand{\tabref}[1]{\emph{Table: \ref{#1}}}
-\newcommand{\coderef}[1]{\emph{Listings: \ref{#1}}}
-\renewcommand{\eqref}[1]{\emph{Equation: (\ref{#1})}}
 
 \newcommand{\iic}[0]{I²C }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% An example environment
+%            An example environment            %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \theoremheaderfont{\normalfont\bfseries}
 \theorembodyfont{\normalfont}
@@ -109,59 +101,39 @@
 \usepackage{mathtools}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                  REFERENCES                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-
-
-
-
-%Figure references:
-%\newcommand{\figref}[1]{\textbf{figure \ref{#1}}}
-
-%Figure references after full stop/period:
-\newcommand{\Figref}[1]{\textbf{Figure \ref{#1}}}
-
-%Table references:
-\newcommand{\tableref}[1]{\textbf{table \ref{#1}}}
-
-%Table references after full stop/period:
-\newcommand{\Tableref}[1]{\textbf{Table \ref{#1}}}
-
+%Chapter
+\newcommand{\chapref}[1]{Chapter \ref{#1}: \nameref{#1}}
+%Section
+\newcommand{\secref}[1]{Section \ref{#1}: \nameref{#1}}
+%Appendix
+\newcommand{\appref}[1]{\emph{Appendix \ref{#1}}}
+%Listings
+\newcommand{\coderef}[1]{\emph{Listings: \ref{#1}}}
+%Figure:
+\newcommand{\figref}[1]{\textbf{Figure \ref{#1}}}
+%Table:
+\newcommand{\tableref}[1]{\textit{Table \ref{#1}}}
 %Units:
 \newcommand{\unit}[1]{&& \left[\si{#1}\right]}
-
 %Text:
 \newcommand{\tx}[1]{\text{#1}}
 
-%Equation references:
+%Equations:
 %1 equation:
-\renewcommand{\eqref}[1]{\textbf{equation (\ref{#1})}}
+\renewcommand{\eqref}[1]{\textit{Equation (\ref{#1})}}
 %2 equations:
-\newcommand{\eqrefTwo}[2]{\textbf{equation (\ref{#1})} and \textbf{(\ref{#2})}}
+\newcommand{\eqrefTwo}[2]{\textit{Equation (\ref{#1})} and \textbf{(\ref{#2})}}
 %3 equations:
-\newcommand{\eqrefThree}[3]{\textbf{equation (\ref{#1})}, \textbf{(\ref{#2})} and \textbf{(\ref{#3})}}
+\newcommand{\eqrefThree}[3]{\textit{Equation (\ref{#1})}, \textbf{(\ref{#2})} and \textbf{(\ref{#3})}}
 %4 equations:
-\newcommand{\eqrefFour}[4]{\textbf{equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})} and \textbf{(\ref{#4})}}
+\newcommand{\eqrefFour}[4]{\textit{Equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})} and \textbf{(\ref{#4})}}
 %5 equations:
-\newcommand{\eqrefFive}[5]{\textbf{equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})}, \textbf{(\ref{#4})} and \textbf{(\ref{#5})}}
+\newcommand{\eqrefFive}[5]{\textit{Equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})}, \textbf{(\ref{#4})} and \textbf{(\ref{#5})}}
 %6 equations:
-\newcommand{\eqrefSix}[6]{\textbf{equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})}, \textbf{(\ref{#4})}, \textbf{(\ref{#5})} and \textbf{(\ref{#6})}}
+\newcommand{\eqrefSix}[6]{\textit{Equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})}, \textbf{(\ref{#4})}, \textbf{(\ref{#5})} and \textbf{(\ref{#6})}}
 %7 equations:
-\newcommand{\eqrefSeven}[7]{\textbf{equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})}, \textbf{(\ref{#4})}, \textbf{(\ref{#5})}, \textbf{(\ref{#6})} and \textbf{(\ref{#7})}}
-
-%Equation references after full stop/period:
-%1 equation:
-\newcommand{\Eqref}[1]{\textbf{Equation (\ref{#1})}}
-%2 equations:
-\newcommand{\EqrefTwo}[2]{\textbf{Equation (\ref{#1})} and \textbf{(\ref{#2})}}
-%3 equations:
-\newcommand{\EqrefThree}[3]{\textbf{Equation (\ref{#1})}, \textbf{(\ref{#2})} and \textbf{(\ref{#3})}}
-%4 equations:
-\newcommand{\EqrefFour}[4]{\textbf{Equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})} and \textbf{(\ref{#4})}}
-%5 equations:
-\newcommand{\EqrefFive}[5]{\textbf{Equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})}, \textbf{(\ref{#4})} and \textbf{(\ref{#5})}}
-%5 equations:
-\newcommand{\EqrefSix}[6]{\textbf{Equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})}, \textbf{(\ref{#4})}, \textbf{(\ref{#5})} and \textbf{(\ref{#6})}}
-%5 equations:
-\newcommand{\EqrefSeven}[7]{\textbf{Equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})}, \textbf{(\ref{#4})}, \textbf{(\ref{#5})}, \textbf{(\ref{#6})} and \textbf{(\ref{#7})}}
+\newcommand{\eqrefSeven}[7]{\textit{Equation (\ref{#1})}, \textbf{(\ref{#2})}, \textbf{(\ref{#3})}, \textbf{(\ref{#4})}, \textbf{(\ref{#5})}, \textbf{(\ref{#6})} and \textbf{(\ref{#7})}}

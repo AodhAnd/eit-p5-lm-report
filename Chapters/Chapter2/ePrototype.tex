@@ -21,24 +21,63 @@ Previously the rough prototype design is presented. To provide a more broad over
 	\label{fig:systemOverview2}
 \end{figure}
 
-\subsubsection{GoT Satellites, Master and GoT Ultra Sound \& Radio Link}
+\subsection{Expansion of Modules}
+Apart from a few - \textit{Storage}, \textit{Read/Write Map} and \textit{Wireless Modules} - all the modules from the system prototype is expanded to more accurately describe the basis for the prototype at this stage in the project. In the following a brief description of these expansions is presented.
+
+\subsubsection{GoT System}
+\textit{GoT Satellites} \textit{GoT Master} \textit{GoT on Computer} \textit{Ultra Sound \& Radiolink}
+
+\subsubsection{Route Planning}
+\textit{Route Planning} \textit{Edge Map}
+
+\subsubsection{Speed Control}
+\textit{Hall Sensors} \textit{Get Speed} \textit{Speed Control} \textit{Motor Driver} \textit{Drive Motor}
+
+\subsubsection{Angular Sensors}
+\textit{Get Angle} \textit{Angular Sensors}
+
+\subsubsection{Course Correction}
+\textit{Servo Motor} \textit{Course Correction}
+
+\subsection{Interfaces}
+The interfaces of the system is very important when designing each of the adjacent submodules. The existing interfaces as well as the ones presumed are also important in the process of analyzing the system capabilities width focus on requirements of the prototype. Width that in mind follows a brief review of the interfaces between each submodule.
+
+\subsubsection{GoT System Interfaces}
+\textit{Ultra sound} \textit{Time received} \textit{Position and time} \textit{Time send}
+
+\subsubsection{Route Planning, Storage and Read/Write Map Interfaces}
+\textit{Position and Time} \textit{Desired speed} \textit{Angle data} \textit{Angle/servo control signal}
+
+\subsubsection{Speed Control Interfaces}
+\textit{Map edge} \textit{Route}
+
+\subsubsection{Angular Sensors Interfaces}
+\textit{Raw angle data} \textit{Angle data}
+
+\subsubsection{Course Correction Interfaces}
+\textit{Desired speed} \textit{Angle data} \textit{PWM signal} \textit{Belt speed} \textit{Hall sensor pulses} \textit{Motor control signal}
+
+---------------------------------------------------------------------------------------------------------------------------\\
+REWRITE THIS SCRAMBLED VERSION OF THE ABOVE TWO SUBSECTIONS\todo{rewrite in the above section and delete these subsections}\\
+---------------------------------------------------------------------------------------------------------------------------
+\subsection{GoT Satellites, Master and GoT Ultra Sound \& Radio Link}
 A number of GoT Satellites are placed in the corners of the area in which the vehicle is to operate. These Satellites receive ultra sound signal from the GoT device placed on the vehicle. The time in which each ultrasound signal is received is passed through a wireless connection from the satellites to the GoT master. The GoT master then pairs this information with the time the ultra sound signal was send from the vehicle which it receives via radio link from the GoT device on the vehicle. After collecting the information, the GoT master sends a calculated position and along with a time stamp to the computer handling GoT.
 
-\subsubsection{Wireless Modules}
+\subsection{Wireless Modules}
 The wireless modules serves the purpose of transmitting the calculated coordinates from the GoT system to the vehicle.
 
-\subsubsection{Edge Map, Route Planning, Read/Write Map and Storage}
+\subsection{Edge Map, Route Planning, Read/Write Map and Storage}
 The route planning functionality receives the hard coded edge positions from edge map. Using this information the route is then planned and saved in the storage through the read/write map functionality.
 
-\subsubsection{Gyro, Accelerometer, Magnetometer, Speed Control and Course Correction}
+\subsection{Gyro, Accelerometer, Magnetometer, Speed Control and Course Correction}
 Gyro along with magnetometer is used for angular position of the vehicle. This is passed to the course correction through the get angle functionality. Here it is used as to correct the orientation of the vehicle on its path. The accelerometer also channels through the get angle functionality. The angular acceleration is then used for correction of the speed.
 
-\subsubsection{Hall Sensor}
+\subsection{Hall Sensor}
 The speed control also receives input from the hall sensors through the get speed functionality, where the inputs from the hall sensors are translated to speed of the vehicle's belts. This information is then used in speed control to regulate the speed.
 
-\subsubsection{Servo Motor}
+\subsection{Servo Motor}
 The servo motor receives an angle/servo control signal from course correction. This angle equals a given amount of breaking on either of the two belts, which then through the differential gearing translate into steering and thus correction of the course of the vehicle.
 
-\subsubsection{Motor Driver and Drive Motor}
+\subsection{Motor Driver and Drive Motor}
 The drive motor takes a motor control signal from the motor driver provided by the speed control. The control signal from speed control is a PWM signal.
 

@@ -17,7 +17,7 @@ The technology which has been provided for the prototype is a tracked vehicle, s
 Detection of the grass length to control the speed of the lawn mower thus ensuring an evenly cut lawn, is a submodule which can be added at any time. Since it is not fatal for a working system and might even be unnecessary depending on time between each mowing of the lawn, it is decided to exclude this functionality from the initial design.
 
 \subsection{Humidity Sensor}
-As the lawn mower is supposed to work outside, it is important to consider that the grass could be humid. Since it is difficult to cut humid grass, a humidity sensor could be used to warn the system of the humidity. Thus the system could go back to the charging station. However, the prototype will only be tested indoor, so this type of sensor will not be necessary in a prototype design.
+As the lawn mower is supposed to work outside, it is important to consider that the grass could be humid. Since it is difficult to cut humid grass, a humidity sensor could be used to warn the system of the humidity. Thus the system could go back to the charging station. This a submodule which is not fatal for the system to be working, so this type of sensor will not be necessary in a prototype design.
 
 \subsection{Obstacle Avoidance}
 The lawn movers path might not always be clear, e.g. garden tools, tables or moving objects could be in the way. The vehicle should be aware of what is in front of it at any time, to correct its path and get around the obstacle if necessary. To avoid this the sensor could be a pushing button to detect a solid object or an ultrasound detector if the object is fragile.
@@ -27,3 +27,7 @@ Furthermore the edge mapping functionality will not be included in the project w
 \subsection{Power Monitoring}
 Power monitoring could be implemented by measuring the voltage across the batteries, to ensure that the lawn mower is not running out of power, and to ensure the vehicles calculated route passes the charging station before the power runs too low.
 This and the charging station will not be in the prototype, since it is beyond the scope of the project this semester and is not crucial for a working prototype.
+
+\subsection{Blade Control \& Blade Monitor}
+To get the blade to cut the grass evenly over the whole lawn, the blade control and monitor is needed to keep the blade at the same speed.
+The blade, and therefore the blade control and monitor, will not be in the prototype. This is because, the focus of the project is the movement of the vehicle and the blade does not contribute to this and therefore not needed.

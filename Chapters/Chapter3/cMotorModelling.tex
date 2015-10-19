@@ -10,9 +10,9 @@ The output from the motors electrical model is torque, $\tau_m$. To obtain the t
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& $\tau_m$ & the rotational force torque [$N \cdot m$] \\
-& $i_a(t)$ & the electrical closed loop current [$A$]\\
-& $K_t$ & the torque constant [$\frac{N \cdot m}{A}$] \\
+& $\tau_m$ & is the rotational force torque [$N \cdot m$] \\
+& $i_a(t)$ & is the electrical closed loop current [$A$]\\
+& $K_t$ & is the torque constant [$\frac{N \cdot m}{A}$] \\
 \end{tabular}
 
 An expression for the current, $i_a$, is required to derive a model for the electrical system. In \figref{fig:electricaldiagrammotor} an electrical diagram of the motor is displayed.
@@ -50,10 +50,10 @@ V_a(t) = R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + e_b
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& $V_a(t)$ & the supply voltage [$V$] \\
-& $R_a$ & the eternal resistance in the motor [$\Omega$]\\
-& $L_a$ & the inductance in the motor [$H$] \\
-& $e_b$ & the electromotive force, also called EMF [$\V$] \\
+& $V_a(t)$ & is the supply voltage [$V$] \\
+& $R_a$ & is the eternal resistance in the motor [$\Omega$]\\
+& $L_a$ & is the inductance in the motor [$H$] \\
+& $e_b$ & is the electromotive force, also called EMF [$\V$] \\
 \end{tabular}
 
 The electromotive force, $e_b$, is equivalent to:
@@ -63,8 +63,8 @@ e_b = K_e \cdot \dot{\theta}_m(t)
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& $K_e$ & the electromotive constant [$Wb$] \\
-& $\dot{\theta}_m$ & the angular velocity in the motor [$\frac{rad}{s}$] \\
+& $K_e$ & is the electromotive constant [$Wb$] \\
+& $\dot{\theta}_m$ & is the angular velocity in the motor [$\frac{rad}{s}$] \\
 \end{tabular}
 
 The equivalent for the electromotive force is substituted into \eqref{MotorClosedLoop}.
@@ -105,8 +105,8 @@ Newtons second law of motion for rotational systems yields:
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& $J_m$ & the motors inertia [$kg*m^2 $] \\
-& $\ddot{\theta}_m$ & the angular acceleration in the motor [$\frac{rad}{s^2}$] \\
+& $J_m$ & is the motors inertia [$kg*m^2 $] \\
+& $\ddot{\theta}_m$ & is the angular acceleration in the motor [$\frac{rad}{s^2}$] \\
 \end{tabular}
 
 This law is applied to the mechanical model and visualized in \figref{fig:MotorMechanicalModel}. Furthermore it is necessary to consider the friction affecting the rotation of the motor when it is spinning. The friction is in the opposite direction of the applied rotational force torque, see \figref{fig:MotorMechanicalModel}.

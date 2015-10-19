@@ -1,10 +1,13 @@
 \subsection{Servo}
+On the vehicle there is a servo, which is a S3003 by Futaba.
+The servo is use for the steering of the vehicle. The servo controls the steering, though breaking one of the belts and transfer that power over to the other belt.
 
-The Servo recieves a PWM signal by 3 wires: power, ground, and signal, connected to a 5V pin of the arduino. The period time recieved is converted into an angle by the servo to control the steering of the tracks as seen on \figref{timeVSangle}. An angle of 90° is the normal position for going straight ahead.\\
 
-A mechanical arm is mounted on the servo and connected to the brakes of the tracks. When the servo rotates one way, it triggers more or less the brakes on the left or right side according to the value of the angle sent.\\
+The Servo is controlled by a PWM signal. The PWM signal recieved is converted into an angle by the servo to control the steering of the belts, as seen on \figref{timeVSangle}. An angle of 90° is the normal position for going straight, while 0° and 180° for turning, where one of the belts is not moving. 
 
-For steering the direction of the vehicle, the motor does not need to be revised. When one track brakes, it forces the vehicle to turn this way, and the other track turns faster for having a better bend thanks to the differential gears.\\\\
+A mechanical arm is mounted on the servo and connected to the brakes of the tracks. When the servo rotates one way, it triggers the brakes more on one side and less on the other side, according to the value of the angle sent, though the PWM signal. This way, one of the belt will drive slower and the other belt drive faster, which make the vehicle turn, without decreasing the motor power.
+
+The servo works linear with the PWM signal and the cycle of the signal is 30 milliseconds. To get the servo to be in neutral position, the servo need a PWM signal of 4.83 \% (a period of 1450 microseconds). For 180°, it is 8.33 \% (a period of 2500 microseconds) and 1.67 \% (a period of 500 microseconds) for 0°. \\
 
 %source http://www.societyofrobots.com/actuators_servos.shtml\\
 
@@ -14,4 +17,4 @@ For steering the direction of the vehicle, the motor does not need to be revised
 	\caption{Convertion from time to angle by the servo\cite {AServos}}
 	\label{timeVSangle}
 \end{figure}
-\todo{insert source}
+

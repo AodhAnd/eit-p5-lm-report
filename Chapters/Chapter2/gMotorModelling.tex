@@ -1,8 +1,8 @@
 \subsection{Motor modelling}
-A model of a motor consist of both a mechanical and an electrical section, due to the electrical current, $i_a(t)$, conversion into a rotational force called torque, $\tau_m$. Therefore a model of the mechanical and the electrical system is produced. The electrical model provides the motors torque and the mechanical model from the motor provides what contributions the motor delivers to the drivetrain, see \secref{DriveTrain}.
+A model of a motor consist of both a mechanical and an electrical section, due to the electrical current, $i_a(t)$, converting into a rotational force called torque, $\tau_m$. Therefore a model of the mechanical and the electrical system is produced. The electrical model provides the motors torque and the mechanical model from the motor provides what contributions the motor delivers to the drivetrain, see \secref{DriveTrain}.
 
 \subsubsection{Electrical model}
-The output from the motors electrical model is torque, $\tau_m$. To obtain torque the formula for translating the electrical current, $i_a$, to torque is utilized:
+The output from the motors electrical model is torque, $\tau_m$. To obtain the torque, the formula for translating the electrical current, $i_a$, to torque is utilized:
 
 \begin{flalign}\centering
   \tau_m(t) = K_t \cdot i_a(t) %\unit{\volt}
@@ -15,7 +15,7 @@ The output from the motors electrical model is torque, $\tau_m$. To obtain torqu
 & $K_t$ & the torque constant [$\frac{N \cdot m}{A}$] \\
 \end{tabular}
 
-An expression for the current, $i_a$, is required to derive a model for the electrical system. In \figref{fig:MotorElectric} an electrical diagram of the motor is display.
+An expression for the current, $i_a$, is required to derive a model for the electrical system. In \figref{fig:MotorElectric} an electrical diagram of the motor is displayed.
 
 \begin{figure}[H]
 	\centering
@@ -49,7 +49,7 @@ e_b = K_e \cdot \dot{\theta}_m(t)
 & $\dot{\theta}_m$ & the angular velocity in the motor [$\frac{rad}{s}$] \\
 \end{tabular}
 
-the equivalent for the electromotive force is substituted into \eqref{MotorClosedLoop}.
+The equivalent for the electromotive force is substituted into \eqref{MotorClosedLoop}.
 
 \begin{flalign}\centering
 V_a(t) = R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + K_e \cdot \dot{\theta}_m(t)
@@ -58,19 +58,19 @@ V_a(t) = R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + K_e \cdot \dot{\theta}_m
 The Laplace transform is applied to the derived equation:
 
 \begin{flalign}\centering
-V_a(s) = R_a \cdot i_a(s) + L_a \cdot s \cdot i_a(s) + K_e \cdot \dot{\theta}_m(s) 
+V_a(s) = R_a \cdot i_a(s) + L_a \cdot s \cdot i_a(s) + K_e \cdot \omega_m(s) 
 \end{flalign}
 
 The equation is solved for $i_a$:
 
 \begin{flalign}\centering
-i_a(s) = \frac{V_a(s) - K_e \cdot \dot{\theta}_m(s)}{sL_a + R_a} 
+i_a(s) = \frac{V_a(s) - K_e \cdot \omega_m(s)}{sL_a + R_a} 
 \end{flalign}
 
 By substituting the derived equation for $i_a$ into \eqref{equ:motortorque}, a new expression for the motors torque is derived. 
 
 \begin{flalign}\centering
-  \tau_m = K_t \cdot i_a(s) = K_t \cdot \frac{V_a(s) - K_e \cdot \dot{\theta}_m(s)}{sL_a + R_a}  %\unit{\volt}
+  \tau_m = K_t \cdot i_a(s) = K_t \cdot \frac{V_a(s) - K_e \cdot \omega_m(s)}{sL_a + R_a}  %\unit{\volt}
   \label{eq:Totaltorquewithcurrentexpression}
 \end{flalign}
 
@@ -79,7 +79,7 @@ A equation for the electrical model relative to the motors torque has been deriv
 \subsubsection{Mechanical model}
 A mechanical model is formed to analyse the forces and moments affecting the mechanical system, and to see how the system reacts to stimuli.
 
-Newtons second law of motion for rotational systems yields, that torque is equal:
+Newtons second law of motion for rotational systems yields:
 
 \begin{flalign}\centering
 \tau_m(t) = J_m \cdot \ddot{\theta}_m(t)
@@ -91,7 +91,7 @@ Newtons second law of motion for rotational systems yields, that torque is equal
 & $\ddot{\theta}_m$ & the angular acceleration in the motor [$\frac{rad}{s^2}$] \\
 \end{tabular}
 
-This law is applied to the mechanical model and visualized in \figref{fig:MotorMechanicalModel}. Furthermore it is necessary to consider the friction affecting the rotation of the motor when it is spinning. The friction is the opposite direction of the applied rotational force torque, see \figref{fig:MotorMechanicalModel}.
+This law is applied to the mechanical model and visualized in \figref{fig:MotorMechanicalModel}. Furthermore it is necessary to consider the friction affecting the rotation of the motor when it is spinning. The friction is in the opposite direction of the applied rotational force torque, see \figref{fig:MotorMechanicalModel}.
 
 \begin{figure}[H]
 	\centering
@@ -109,7 +109,7 @@ From the figure an equation for the mechanical model can be derived.
 The equation is transferred into the frequency domain using the Laplace transform. Furthermore the equation is isolated for the angular velocity enabling a voltage as input an a torque as output: 
 
 \begin{flalign}\centering
-\dot{\theta}_m(s) = \frac{\tau_m(s)}{J_m(s) \cdot s+B}
+\omega_m(s) = \frac{\tau_m(s)}{J_m(s) \cdot s+B}
 \label{eq:ThetadotforBlock}
 \end{flalign}
 
@@ -121,5 +121,20 @@ The equation is transferred into the frequency domain using the Laplace transfor
 	\caption{A block representation of the motor, with a voltage, $V_m(s)$, as the input and a rotational force, $\tau_m(s)$, as the output.}
 	\label{fig:motormodelBlock}
 \end{figure}
+
+\begin{flalign}\centering
+Closed\,loop = \frac{Y(s)}{R(s)} = \frac{Direct\,term}{1 + Open\, loop}
+\label{eq:closedLoopMotor}
+\end{flalign}
+
+\begin{flalign}\centering
+\frac{V_m(s)}{\tau_m(s)} = \frac{\frac{K_t}{s \cdot L_m + R_m}}{\frac{K_e}{J_m \cdot s + B}}
+\label{eq:motortransferfunction}
+\end{flalign}
+
+\begin{flalign}\centering
+\frac{V_m(s)}{\tau_m(s)} = \frac{K_t \cdot (J_m \cdot s + B)}{K_e \cdot (L_m \cdot s + R_m)}
+\label{eq:motortransferfunction}
+\end{flalign}
 
 A model of the electrical and mechanical part has been formed and combined to a block representation of the motors applied voltage and generated torque. Next step is to model the drivetrain, which connects to the motor through the motor shaft.

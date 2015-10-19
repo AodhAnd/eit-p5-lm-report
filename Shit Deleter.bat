@@ -18,3 +18,14 @@ del "*.synctex.gz(busy)"
 del "*.tdo"
 del "*.toc"
 del "*.tps"
+
+cd .\Chapters\Chapter1
+del "*.aux"
+cd ..\..\Chapters\Chapter2
+del "*.aux"
+cd ..\..\Chapters\Chapter3
+del "*.aux"
+cd ..\..\formalities
+del "*.aux"
+cd ..\appendix
+del "*.aux"

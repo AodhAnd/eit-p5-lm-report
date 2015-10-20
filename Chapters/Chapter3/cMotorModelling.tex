@@ -10,9 +10,9 @@ The output from the motors electrical model is torque, $\tau_m$. To obtain the t
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& $\tau_m$ & the rotational force torque [$N \cdot m$] \\
-& $i_a(t)$ & the electrical closed loop current [$A$]\\
-& $K_t$ & the torque constant [$\frac{N \cdot m}{A}$] \\
+& $\tau_m$ & is the rotational force torque [$N \cdot m$] \\
+& $i_a(t)$ & is the electrical closed loop current [$A$]\\
+& $K_t$ & is the torque constant [$\frac{N \cdot m}{A}$] \\
 \end{tabular}
 
 An expression for the current, $i_a$, is required to derive a model for the electrical system. In \figref{fig:electricaldiagrammotor} an electrical diagram of the motor is displayed.
@@ -50,10 +50,10 @@ V_a(t) = R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + e_b
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& $V_a(t)$ & the supply voltage [$V$] \\
-& $R_a$ & the eternal resistance in the motor [$\Omega$]\\
-& $L_a$ & the inductance in the motor [$H$] \\
-& $e_b$ & the electromotive force, also called EMF [$\V$] \\
+& $V_a(t)$ & is the supply voltage [$V$] \\
+& $R_a$ & is the eternal resistance in the motor [$\Omega$]\\
+& $L_a$ & is the inductance in the motor [$H$] \\
+& $e_b$ & is the electromotive force, also called EMF [$\V$] \\
 \end{tabular}
 
 The electromotive force, $e_b$, is equivalent to:
@@ -63,8 +63,8 @@ e_b = K_e \cdot \dot{\theta}_m(t)
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& $K_e$ & the electromotive constant [$Wb$] \\
-& $\dot{\theta}_m$ & the angular velocity in the motor [$\frac{rad}{s}$] \\
+& $K_e$ & is the electromotive constant [$Wb$] \\
+& $\dot{\theta}_m$ & is the angular velocity in the motor [$\frac{rad}{s}$] \\
 \end{tabular}
 
 The equivalent for the electromotive force is substituted into \eqref{MotorClosedLoop}.
@@ -105,8 +105,8 @@ Newtons second law of motion for rotational systems yields:
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& $J_m$ & the motors inertia [$kg*m^2 $] \\
-& $\ddot{\theta}_m$ & the angular acceleration in the motor [$\frac{rad}{s^2}$] \\
+& $J_m$ & is the motors inertia [$kg*m^2 $] \\
+& $\ddot{\theta}_m$ & is the angular acceleration in the motor [$\frac{rad}{s^2}$] \\
 \end{tabular}
 
 This law is applied to the mechanical model and visualized in \figref{fig:MotorMechanicalModel}. Furthermore it is necessary to consider the friction affecting the rotation of the motor when it is spinning. The friction is in the opposite direction of the applied rotational force torque, see \figref{fig:MotorMechanicalModel}.
@@ -124,14 +124,18 @@ From the figure an equation for the mechanical model can be derived.
 \tau_m(t) = J_m \cdot \ddot{\theta}_m(t) + B \cdot \dot{\theta}_m(t)
 \end{flalign}
 
-The equation is transferred into the frequency domain using the Laplace transform. Furthermore the equation is isolated for the angular velocity enabling a voltage as input an a torque as output: 
+The equation is transferred into the frequency domain using the Laplace transform: 
 
 \begin{flalign}\centering
-\omega_m(s) = \frac{\tau_m(s)}{J_m(s) \cdot s+B}
+\tau(s) = J_m(s) \cdot \omega \cdot s + B \cdot \omega_m
 \label{eq:ThetadotforBlock}
 \end{flalign}
 
-\eqref{eq:ThetadotforBlock} and \eqref{eq:Totaltorquewithcurrentexpression} delivers the information needed to make a visual representation of the motor model. The input is the supply voltage, $V_a(s)$ delivered to the motor and the output is the required torque, $\tau_m$, see \figref{fig:motormodelBlock}. The block representation of the system can be used, when the system is to be simulated.
+The mechanical model of the motor has be derived. Next step is to make block representation of the system. 
+
+\subsubsection{Block representation}
+
+\eqref{eq:Totaltorquewithcurrentexpression} delivers the information needed to make a visual representation of the motor model. The input is the supply voltage, $V_a(s)$ delivered to the motor and the output is the required torque, $\tau_m$, see \figref{fig:motormodelBlock}. The block representation of the system can be used, when the system is to be simulated.
 
 \begin{figure}[H]
 	\centering
@@ -140,21 +144,6 @@ The equation is transferred into the frequency domain using the Laplace transfor
 	\label{fig:motormodelBlock}
 \end{figure}
 
+The angular velocity received is dependent on the total inertia of the system, and is necessary to insure the motor is affect by the load.
 
-
-\begin{flalign}\centering
-Closed\,loop = \frac{Y(s)}{R(s)} = \frac{Direct\,term}{1 + Open\, loop}
-\label{eq:closedLoopMotor}
-\end{flalign}
-
-\begin{flalign}\centering
-\frac{V_m(s)}{\tau_m(s)} = \frac{\frac{K_t}{s \cdot L_m + R_m}}{\frac{K_e}{J_m \cdot s + B}}
-\label{eq:motortransferfunction}
-\end{flalign}
-
-\begin{flalign}\centering
-\frac{V_m(s)}{\tau_m(s)} = \frac{K_t(J_m \cdot s + B)}{K_e(L_m \cdot s + R_m)}
-\label{eq:motortransferfunction}
-\end{flalign}
-
-A model of the electrical and mechanical part has been formed and combined to a block representation of the motors applied voltage and generated torque. Next step is to model the drivetrain, which connects to the motor through the motor shaft.
+A model of the electrical and mechanical part has been formed and a block representation of the motors applied voltage and generated torque has been given. Next step is to model the drivetrain, which connects to the motor through the motor shaft.

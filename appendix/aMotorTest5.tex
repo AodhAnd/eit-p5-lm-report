@@ -45,28 +45,58 @@ The purpose of this of this test is to measure the motor constant $K_t$.
 
 \begin{table}[H]
 \begin{tabular}{|l|l|l|}
-\hline%----------------------------------------
+\hline%-----------------------------------------
   \textbf{Input (A)}  & \textbf{Output (V)}  \\
-\hline%----------------------------------------
+\hline%-----------------------------------------
   $1$                 &            $0.107$    \\
-\hline%----------------------------------------
+\hline%-----------------------------------------
   $2$                 &            $0.113$    \\
-\hline%----------------------------------------
+\hline%-----------------------------------------
   $3$                 &            $0.118$    \\
-\hline%----------------------------------------
+\hline%-----------------------------------------
   $4$                 &            $0.122$    \\
-\hline%----------------------------------------
+\hline%-----------------------------------------
   $5$                 &            $0.131$    \\
-\hline%----------------------------------------
+\hline%-----------------------------------------
   $6$                 &            $0.142$    \\
-\hline%----------------------------------------
+\hline%-----------------------------------------
   $7$                 &            $0.149$    \\
-\hline%----------------------------------------
+\hline%-----------------------------------------
   $8$                 &            $0.158$    \\
-\hline%----------------------------------------
+\hline%-----------------------------------------
   $9$                 &            $0.169$    \\
-\hline%----------------------------------------
+\hline%-----------------------------------------
   $10$                &            $0.180$    \\
-\hline%----------------------------------------
+\hline%-----------------------------------------
 \end{tabular}
 \end{table}
+
+\begin{figure}[H]
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=\textwidth]{figures/motorConstant.pdf}
+  }
+	\caption{Plot of test results}
+	\label{motorConstant}
+\end{figure}
+
+The voltages measure are scaled by factor of $0.2$ since the torque sensor gives out 5 V per $100$ N$\cdot$cm giving a torque of $0.2$ N$\cdot$m/V \cite{MWAW81P}.
+After scaling the voltages to torques it is plotted and a lest square line is added as seen on \figref{motorConstant}. The relation between the current and torque is descriped as follows:
+
+\begin{flalign}
+  \tau &= K_t \cdot I_a\unit{N\cdot m}\nonumber\\
+  K_t &= \frac{\tau}{I_a}\unit{N\cdot m/A}\nonumber
+\end{flalign}
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}ll}
+  & $\tau$   & is the torque                        \\
+  & $I_a$    & is the current supplied to the motor \\
+  & $K_t$    & is the motor constant                \\
+\end{tabular}
+
+The value of $K_t$ is then extracted directly as the slope of the least square regression:
+\begin{flalign}
+  K_t &= 0.0016 \unit{N\cdot m/A}\nonumber
+\end{flalign}

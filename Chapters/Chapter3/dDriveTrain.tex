@@ -21,14 +21,14 @@ To get a rough approximation of how the drive train works, a black box model is 
 
 \begin{figure}[H]
 	\centering
-	%\includegraphics[scale=0.8]{figures/mechanicalDrawing.pdf}
+	% \includegraphics[scale=0.8]{figures/freeBodyMotorGear.pdf}
 	\caption{A free body diagram of the motor gear}
 	\label{fig:MotorGearFreeBodyDiagram}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	%\includegraphics[scale=0.8]{figures/mechanicalDrawing.pdf}
+	% \includegraphics[scale=0.8]{figures/mechanicalDrawing.pdf}
 	\caption{A free body diagram of the `black box' gear}
 	\label{fig:BlackBoxGearFreeBodyDiagram}
 \end{figure}
@@ -75,7 +75,7 @@ J_d \cdot \dot{\omega}_d(t) = N_d \cdot f_c(t) - N_d \cdot f_b(t)
 
 \begin{figure}[H]
 	\centering
-	% \includegraphics[scale=0.8]{figures/mechanicalDrawingBelt.pdf}
+	\includegraphics[scale=0.8]{figures/freeBodyBelt.pdf}
 	\caption{A free body diagram of the belt driven mass}
 	\label{fig:BeltFreeBodyDiagram}
 \end{figure}
@@ -166,7 +166,7 @@ Therefore, the transfer function from $\tau_m$ to $V$ is :
 \label{eq:TransferFunctionTorqueToVelocity}
 \end{flalign}
 
-Eventually, it is possible to draw a block diagram for the drivetrain, from the motor torque to the vehicle's velocity with \eqref{eq:TransferFunctionTorqueToVelocity} and also back to the angular velocity with \eqref{eq:BlackBoxGearNewtonLaplaceNew}, see .
+Eventually, it is possible to draw a block diagram for the drivetrain, from the motor torque to the vehicle's velocity with \eqref{eq:TransferFunctionTorqueToVelocity} and also back to the angular velocity with \eqref{eq:BlackBoxGearNewtonLaplaceNew}, see \figref{fig:BeltFreeBodyDiagram}.
 
 \begin{figure}[H]
 	\centering

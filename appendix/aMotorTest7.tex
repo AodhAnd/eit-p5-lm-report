@@ -32,12 +32,12 @@ The purpose of this test is to find the moment of inertia $I$, by measuring the 
 \subsubsection{Procedure}
 
 \begin{enumerate}
-  \item Turn on the oscilloscope.
-  \item On the oscilloscope press the "mode"-key choose the "normal"-option, set the trigger to "falling edge".
-  \item To prevent false triggering on the oscilloscope set the trigger value to %\fxnote{input value from extracted data} mV with the turn-key.
+  \item Turn on the oscilloscope, and connect the tachometer to one of the inputs.
+  \item On the oscilloscope press the "trigger mode"-key choose the "normal"-option, set the trigger to "falling edge".
+  \item To prevent false triggering on the oscilloscope set the trigger value to \num{1,175} V with the turn-key.
   \item Turn on the power supply at 7 volt.
   \item Press "single"-key on oscilloscope and cut the power of the motor.
-  \item Insert a USB-pin in the oscilloscope and press the save key to extract the data.
+  \item Insert a USB-flash drive in the oscilloscope and press the save key to extract the data.
 \end{enumerate}
 
 \subsubsection{Results}
@@ -62,7 +62,7 @@ The purpose of this test is to find the moment of inertia $I$, by measuring the 
 \end{figure}
 \todo{make text on figure larger}
 
-The equation used is given in the Modeling and Control course on the 5th semester on Electronic and IT on Aalborg University, (reference). This equation which arises from the mechanical description of the motor, when \si{i_a = 0} is used to find the Inertia, $J$.
+The equation used is given in the Modeling and Control course on the 5th semester on Electronic and IT on Aalborg University, (reference). This equation which arises from the mechanical description of the motor, when \si{i_a = 0} is used to find the Inertia, J.
 \begin{align}
   \eq{\omega(s)}{- \frac{\tau_c}{B}+(\omega_0 + \frac{\tau_c}{B}) e^{-t\frac{B}{J}}} \unit{rad\cdot s^{-1}}\nonumber\\
   && &\Updownarrow&&\\
@@ -71,10 +71,10 @@ The equation used is given in the Modeling and Control course on the 5th semeste
 \end{align}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& $\omega(s)$ & is the angular velocity [$\frac{rad}{s}$] \\
-& $\tau_c$ & is the coulomb friction torque [$N \cdot m$]\\
-& $B$ & is the friction [$N \cdot m$] \\
-& $J$ & is the inertia [$Kg \cdot m^2$] \\
+& \si{\omega(s)} & is the angular velocity [$\frac{rad}{s}$] \\
+& \si{\tau_c} & is the coulomb friction torque [$N \cdot m$]\\
+& B & is the friction [$N \cdot m$] \\
+& J & is the inertia [$Kg \cdot m^2$] \\
 \end{tabular}
 
 The motors inertia is calculated by using \eqref{eq:Momentofinertia} on the angular velocity compared to time data illustrated on \figref{inertiaRawData}. Thereafter the average value of the results is found, seen in \figref{momentOfInertia} and used a the motors inertia. The motors inertia is equal:

@@ -4,7 +4,7 @@
 \textbf{Date: 30/09 - 2015}
 
 \subsubsection{Purpose}
-The purpose of this of this test is to measure the motor constant $K_t$.
+The purpose of this of this test is to measure the motor constant \si{K_t}.
 
 \subsubsection{Setup}
 \begin{figure}[H]
@@ -34,7 +34,7 @@ The purpose of this of this test is to measure the motor constant $K_t$.
 \subsubsection{Procedure}
 
 \begin{enumerate}
-  \item Fix the motor shaft so it does not turn.
+  \item Connect the motor shaft to the torque sensor.
   \item Turn on the two multimeter in current and voltage mode respectively.
   \item Start by setting the power supply at 1 A current limiting.
   \item Turn on the supply and note the voltage across the torque sensor.
@@ -48,25 +48,25 @@ The purpose of this of this test is to measure the motor constant $K_t$.
 \hline%-----------------------------------------
   \textbf{Input (A)}  & \textbf{Output (V)}  \\
 \hline%-----------------------------------------
-  $1$                 &            $0.107$    \\
+  $1$                 &            0,107    \\
 \hline%-----------------------------------------
-  $2$                 &            $0.113$    \\
+  $2$                 &            0,113    \\
 \hline%-----------------------------------------
-  $3$                 &            $0.118$    \\
+  $3$                 &            0,118    \\
 \hline%-----------------------------------------
-  $4$                 &            $0.122$    \\
+  $4$                 &            0,122    \\
 \hline%-----------------------------------------
-  $5$                 &            $0.131$    \\
+  $5$                 &            0,131    \\
 \hline%-----------------------------------------
-  $6$                 &            $0.142$    \\
+  $6$                 &            0,142    \\
 \hline%-----------------------------------------
-  $7$                 &            $0.149$    \\
+  $7$                 &            0,149    \\
 \hline%-----------------------------------------
-  $8$                 &            $0.158$    \\
+  $8$                 &            0,158    \\
 \hline%-----------------------------------------
-  $9$                 &            $0.169$    \\
+  $9$                 &            0,169    \\
 \hline%-----------------------------------------
-  $10$                &            $0.180$    \\
+  $10$                &            0,180    \\
 \hline%-----------------------------------------
 \end{tabular}
 \end{table}
@@ -82,21 +82,21 @@ The purpose of this of this test is to measure the motor constant $K_t$.
 	\label{motorConstant}
 \end{figure}
 
-The voltages measure are scaled by factor of $0.2$ since the torque sensor gives out 5 V per $100$ N$\cdot$cm giving a torque of $0.2$ N$\cdot$m/V \cite{MWAW81P}.
-After scaling the voltages to torques it is plotted and a lest square line is added as seen on \figref{motorConstant}. The relation between the current and torque is descriped as follows:
+The voltages measure are scaled by factor of 0,2 since the torque sensor outputs 5 V per \si{100N\cdot cm} giving a torque of 0,2 \si{N\cdot m/V} \cite{MWAW81P}.
+After scaling the voltages to torques it is plotted and a lest square line is added as seen on \figref{motorConstant}. The relation between the current and torque is described as follows:
 
 \begin{flalign}
-  \tau &= K_t \cdot I_a\unit{N\cdot m}\nonumber\\
-  K_t &= \frac{\tau}{I_a}\unit{N\cdot m/A}\nonumber
+  \eq{\tau}{K_t \cdot I_a}\unit{N\cdot m}\nonumber\\
+  \eq{K_t} {\frac{\tau}{I_a}}\unit{N\cdot m/A}\nonumber
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-  & $\tau$   & is the torque                        \\
-  & $I_a$    & is the current supplied to the motor \\
-  & $K_t$    & is the motor constant                \\
+  & \si{\tau}   & is the torque                        \\
+  & \si{I_a}    & is the current supplied to the motor \\
+  & \si{K_t}    & is the motor constant                \\
 \end{tabular}
 
-The value of $K_t$ is then extracted directly as the slope of the least square regression:
+The value of \si{K_t} is then extracted directly as the slope of the least square regression:
 \begin{flalign}
-  K_t &= 0.0016 \unit{N\cdot m/A}\nonumber
+  \eq{K_t}{\num{0,0016}} \unit{N\cdot m/A}\nonumber
 \end{flalign}

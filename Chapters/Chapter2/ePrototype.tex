@@ -22,14 +22,19 @@ Previously the rough prototype design is presented. To provide a more broad over
 \end{figure}
 
 \subsection{Expansion of Modules}
-Apart from - \textit{Storage}, \textit{Read/Write Map} and \textit{Wireless Modules} - all the modules from the system prototype is expanded to more accurately describe the basis for the prototype. In the following a brief description of these expansions is presented.
+- To Tom and Rasmus \newline
+In this subsection, we have thought about making an explanation of the expansion of some of the different modules in the prototype, seen in \figref{fig:systemOverview1}.  
+
+\indent
+%Apart from - \textit{Storage}, \textit{Read/Write Map} and \textit{Wireless Modules} - all the modules from the system prototype is expanded to more accurately describe the basis for the prototype. In the following a brief description of these expansions is presented.
 
 \subsubsection{GoT System}
-\textit{GoT Satellites} \textit{GoT Master} \textit{GoT on Computer} \textit{Ultra Sound \& Radiolink}
-
-The GoT satellites is placed in the area in which the vehicle needs to operate. These satellites receives information from the vehicle. The time which the vehicles transmitter sends out bursts is received by the GoT master. Furthermore the time which the satellites receives the information send from the vehicles transmitter is transmitted to the GoT master. The GoT master then relays the information received from the vehicle directly to the 
-
-A number of GoT Satellites are placed in the corners of the area in which the vehicle is to operate. These Satellites receive ultra sound signal from the GoT device placed on the vehicle. The time in which each ultrasound signal is received is passed through a wireless connection from the satellites to the GoT master. The GoT master then pairs this information with the time the ultra sound signal was send from the vehicle which it receives via radio link from the GoT device on the vehicle. After collecting the information, the GoT master sends a calculated position and along with a time stamp to the computer handling GoT.
+\indent
+%\textit{GoT Satellites} \textit{GoT Master} \textit{GoT on Computer} \textit{Ultra Sound \& Radiolink}
+%
+%The GoT satellites is placed in the area in which the vehicle needs to operate. These satellites receives information from the vehicle. The time which the vehicles transmitter sends out bursts is received by the GoT master. Furthermore the time which the satellites receives the information send from the vehicles transmitter is transmitted to the GoT master. The GoT master then relays the information received from the vehicle directly to the 
+%
+%A number of GoT Satellites are placed in the corners of the area in which the vehicle is to operate. These Satellites receive ultra sound signal from the GoT device placed on the vehicle. The time in which each ultrasound signal is received is passed through a wireless connection from the satellites to the GoT master. The GoT master then pairs this information with the time the ultra sound signal was send from the vehicle which it receives via radio link from the GoT device on the vehicle. After collecting the information, the GoT master sends a calculated position and along with a time stamp to the computer handling GoT.
 
 \subsubsection{Route Planning}
 \textit{Route Planning} \textit{Edge Map}
@@ -44,7 +49,10 @@ A number of GoT Satellites are placed in the corners of the area in which the ve
 \textit{Servo Motor} \textit{Course Correction}
 
 \subsection{Interfaces}
-The interfaces of the system is very important when designing each of the adjacent submodules. The existing interfaces as well as the ones presumed are also important in the process of analyzing the system capabilities width focus on requirements of the prototype. Width that in mind follows a brief review of the interfaces between each submodule.
+- To Tom and Rasmus \newline
+In the subsection a explanation of the different interfaces between the modules is made. We have thought about making it like a high layer interface, where we only explain what we need the different modules to give each other. Like one module needs to get the map edge, i.e. coordinates, but since it is this early in the report and it would be more overview by writing map edge rather than coordinates. But as you can see in \figref{fig:systemOverview2} the layers of informations is different, one is raw angle data and another time send. Is this okay or should we should we change something else?
+\indent
+%The interfaces of the system is very important when designing each of the adjacent submodules. The existing interfaces as well as the ones presumed are also important in the process of analyzing the system capabilities width focus on requirements of the prototype. Width that in mind follows a brief review of the interfaces between each submodule.
 
 \subsubsection{GoT System Interfaces}
 \textit{Ultra sound} \textit{Time received} \textit{Position and time} \textit{Time send}
@@ -61,27 +69,34 @@ The interfaces of the system is very important when designing each of the adjace
 \subsubsection{Course Correction Interfaces}
 \textit{Desired speed} \textit{Angle data} \textit{PWM signal} \textit{Belt speed} \textit{Hall sensor pulses} \textit{Motor control signal}
 
----------------------------------------------------------------------------------------------------------------------------\\
-REWRITE THIS SCRAMBLED VERSION OF THE ABOVE TWO SUBSECTIONS\todo{rewrite in the above section and delete these subsections}\\
----------------------------------------------------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------------------------------------------------\\
+%REWRITE THIS SCRAMBLED VERSION OF THE ABOVE TWO SUBSECTIONS\todo{rewrite in the above section and delete these subsections}\\
+%---------------------------------------------------------------------------------------------------------------------------
 
 \subsubsection{GoT Satellites, Master and GoT Ultra Sound \& Radio Link}
-A number of GoT Satellites are placed in the corners of the area in which the vehicle is to operate. These Satellites receive ultra sound signal from the GoT device placed on the vehicle. The time in which each ultrasound signal is received is passed through a wireless connection from the satellites to the GoT master. The GoT master then pairs this information with the time the ultra sound signal was send from the vehicle which it receives via radio link from the GoT device on the vehicle. After collecting the information, the GoT master sends a calculated position and along with a time stamp to the computer handling GoT.
+\indent
+%A number of GoT Satellites are placed in the corners of the area in which the vehicle is to operate. These Satellites receive ultra sound signal from the GoT device placed on the vehicle. The time in which each ultrasound signal is received is passed through a wireless connection from the satellites to the GoT master. The GoT master then pairs this information with the time the ultra sound signal was send from the vehicle which it receives via radio link from the GoT device on the vehicle. After collecting the information, the GoT master sends a calculated position and along with a time stamp to the computer handling GoT.
 
-\subsection{Wireless Modules}
-The wireless modules serves the purpose of transmitting the calculated coordinates from the GoT system to the vehicle.
+\subsubsection{Wireless Modules}
+\indent
+%The wireless modules serves the purpose of transmitting the calculated coordinates from the GoT system to the vehicle.
 
-\subsection{Edge Map, Route Planning, Read/Write Map and Storage}
-The route planning functionality receives the hard coded edge positions from edge map. Using this information the route is then planned and saved in the storage through the read/write map functionality.
+\subsubsection{Edge Map, Route Planning, Read/Write Map and Storage}
+\indent
+%The route planning functionality receives the hard coded edge positions from edge map. Using this information the route is then planned and saved in the storage through the read/write map functionality.
 
-\subsection{Gyro, Accelerometer, Magnetometer, Speed Control and Course Correction}
-Gyro along with magnetometer is used for angular position of the vehicle. This is passed to the course correction through the get angle functionality. Here it is used as to correct the orientation of the vehicle on its path. The accelerometer also channels through the get angle functionality. The angular acceleration is then used for correction of the speed.
+\subsubsection{Gyro, Accelerometer, Magnetometer, Speed Control and Course Correction}
+\indent
+%Gyro along with magnetometer is used for angular position of the vehicle. This is passed to the course correction through the get angle functionality. Here it is used as to correct the orientation of the vehicle on its path. The accelerometer also channels through the get angle functionality. The angular acceleration is then used for correction of the speed.
 
-\subsection{Hall Sensor}
-The speed control also receives input from the hall sensors through the get speed functionality, where the inputs from the hall sensors are translated to speed of the vehicle's belts. This information is then used in speed control to regulate the speed.
+\subsubsection{Hall Sensor}
+\indent
+%The speed control also receives input from the hall sensors through the get speed functionality, where the inputs from the hall sensors are translated to speed of the vehicle's belts. This information is then used in speed control to regulate the speed.
 
-\subsection{Servo Motor}
-The servo motor receives an angle/servo control signal from course correction. This angle equals a given amount of breaking on either of the two belts, which then through the differential gearing translate into steering and thus correction of the course of the vehicle.
+\subsubsection{Servo Motor}
+\indent
+%The servo motor receives an angle/servo control signal from course correction. This angle equals a given amount of breaking on either of the two belts, which then through the differential gearing translate into steering and thus correction of the course of the vehicle.
 
-\subsection{Motor Driver and Drive Motor}
-The drive motor takes a motor control signal from the motor driver provided by the speed control. The control signal from speed control is a PWM signal.
+\subsubsection{Motor Driver and Drive Motor}
+\indent
+%The drive motor takes a motor control signal from the motor driver provided by the speed control. The control signal from speed control is a PWM signal.

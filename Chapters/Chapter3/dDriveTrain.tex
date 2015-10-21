@@ -1,18 +1,17 @@
 \subsection{Drivetrain}\label{Drivetrain}
 
 %% INTRODUCTION %%
-The drive train on the given belt vehicle is what translates the torque $\tau_m$ given by the motor into the actual movement of the vehicle. The model of this system part shows the relation between the applied rotational force (or torque) $\tau_m$ and the speed of the belts. It is still considered that the vehicle's tajectory follows a straight line.\\\\
+The drivetrain translates the torque $\tau_m$, given by the motor, into the actual movement of the vehicle. The model of the drivetrain illustrates the relation between the applied torque, $\tau_m$, and the velocity of the vehicle. The velocity model of the drivetrain is created by only considering when the vehicle's trajectory follows a straight line.\\\\
 %
-Different iterations of this model can be made to get more acuraccy. The first of these iterations should give an overview of how the system reacts to a given torque input. 
-
+The modelling of the drivetrain is limited to only model parts of the total drivetrain system, to make it more manageable and with a focus on giving a rough approximation.
 %% SSSECTION : BLACK BOX MODEL %%
 \subsubsection{Black Box Model}\label{BlackBoxModel}
-To get a rough approximation of how the drive train works, a black box model is used. There is a small gear $G_m$ on the motor shaft, which is in contact with another actual gear $G_2$. The imaginary gear $G_d$ represents the differential and the gears and shafts of the drivetrain from (and including) this second gear $G_2$ to the gears that drive the belt, see \figref{fig:DrivetrainMechanicalModel} and \figref{fig:BeltMechanicalDiagram}. The number of teeths on $G_d$ is set to the total gear ratio of this black box
+To get a rough approximation of how the drivetrain works, a blackboxed model is used. The blackbox in the model is placed between box 1 and box 4 seen in \chapref{VehicleDescription} \figref{vehicleDescriptionDriveTrain}. The gear, $G_m$, connected to the motor shaft, is connected to the gear ,$G_d$, which represents the gears and shaft that has been black boxed and the drive-wheel, see \figref{fig:DrivetrainMechanicalModel}. The number of teeth on the gear, $G_d$, is set to the total gear ratio of the black box.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.8]{figures/mechanicalDrawing.pdf}
-	\caption{A simple mechanical diagram of the vehicle drivetrain}
+	\includegraphics[scale=0.8]{figures/mechanicalDrawingSystem.pdf}
+	\caption{A rough mechanical diagram of the drivetrain}
 	\label{fig:DrivetrainMechanicalModel}
 \end{figure}
 \todo{Add notations to the diagram and create free body diagrams of belt and black box parts}

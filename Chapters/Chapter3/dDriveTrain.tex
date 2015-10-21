@@ -21,19 +21,19 @@ To get a rough approximation of how the drive train works, a black box model is 
 
 \begin{figure}[H]
 	\centering
-	% \includegraphics[scale=0.8]{figures/freeBodyMotorGear.pdf}
+	\includegraphics[scale=0.8]{figures/freeBodyMotorGear.pdf}
 	\caption{A free body diagram of the motor gear}
 	\label{fig:MotorGearFreeBodyDiagram}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	% \includegraphics[scale=0.8]{figures/mechanicalDrawing.pdf}
+	\includegraphics[scale=0.8]{figures/freeBodyDrive.pdf}
 	\caption{A free body diagram of the `black box' gear}
 	\label{fig:BlackBoxGearFreeBodyDiagram}
 \end{figure}
 
-The \todo{cite equation with label eq:MotorMechaModel from motor modeling part}[EQUATION] is extended with the contribution of the load which is the whole drivetrain. Therefore, from \figref{fig:MotorGearFreeBodyDiagram} and Newton's second law appplied to rotational systems, the following equation can be extracted:
+The \eqref{eq:mechaUnloadedMotor} is extended with the contribution of the load which is the whole drivetrain. Therefore, from \figref{fig:MotorGearFreeBodyDiagram} and Newton's second law appplied to rotational systems, the following equation can be extracted:
 \begin{flalign}\centering
 J_m \cdot \dot{\omega}_m(t) = \tau_m(t) - B_m \cdot \omega_m(t) - N_m \cdot f_c(t) 
 \label{eq:MotorGearNewtonSecLaw}
@@ -103,39 +103,48 @@ The combination of \eqref{eq:MotorGearNewtonSecLaw}, \eqref{eq:BlackBoxGearNewto
 Taking the Laplace-transform of these equations helps arranging them and eventually, to find a transfer function from $\tau_m(s)$ to $V(s)$ :
 %
 \begin{flalign}\centering
-\eqref{eq:MotorGearNewtonSecLaw} \xRightarrow{\mathcal{L}} J_m \cdot s \cdot \omega_m(s) = \tau_m(s) - B_m \cdot \omega_m(s) - N_m \cdot F_c(s) 
+J_m \cdot s \cdot \omega_m(s) = \tau_m(s) - B_m \cdot \omega_m(s) - N_m \cdot F_c(s) 
 \label{eq:MotorGearNewtonSecLawLaplace}
 \end{flalign}
 %
 \begin{flalign}\centering
-\eqref{eq:BlackBoxGearNewtonSecLaw} \xRightarrow{\mathcal{L}} J_d \cdot s \cdot \omega_d(s) = N_d \cdot F_c(s) - N_d \cdot F_b(s)
+J_d \cdot s \cdot \omega_d(s) = N_d \cdot F_c(s) - N_d \cdot F_b(s)
 \label{eq:BlackBoxGearNewtonSecLawLaplace}
 \end{flalign}
 %
 \begin{flalign}\centering
-\eqref{eq:BeltMassNewtonSecLaw} \xRightarrow{\mathcal{L}} M \cdot s \cdot V(s) = r_t \cdot F_b(s) - B_{sys} \cdot V(s)
+M \cdot s \cdot V(s) = r_t \cdot F_b(s) - B_{sys} \cdot V(s)
 \label{eq:BeltMassNewtonSecLawLaplace}
 \end{flalign}
 %
 By finding the expressions for $F_b$ from \eqref{eq:BeltMassNewtonSecLawLaplace} and then $F_c$ from \eqref{eq:BlackBoxGearNewtonSecLawLaplace}, it is then possible to insert $F_b$ expression into $F_c$'s and the latter into \eqref{eq:MotorGearNewtonSecLawLaplace}.
 %
 \begin{flalign}\centering
-\eqref{eq:BeltMassNewtonSecLawLaplace} \xRightarrow{} r_t \cdot F_b(s) =  M \cdot s \cdot V(s) - B_{sys} \cdot V(s) \xRightarrow{} F_b(s) =  \frac{M \cdot s \cdot V(s) - B_{sys} \cdot V(s)}{r_t}
+r_t \cdot F_b(s) =  M \cdot s \cdot V(s) - B_{sys} \cdot V(s) 
 \label{eq:BeltContactForceLaplace}
 \end{flalign} \todo{Get the second implication to be on the next line}
 %
-And $F_c$ is found this way :
 \begin{flalign}\centering
-\eqref{eq:BlackBoxGearNewtonSecLawLaplace} \xRightarrow{} N_d \cdot F_c(s) = J_d \cdot s \cdot \omega_d(s) + N_d \cdot F_b(s) \xRightarrow{} F_c(s) =  \frac{J_d \cdot s \cdot \omega_d(s) + N_d \cdot F_b(s)}{N_d} =  \frac{J_d \cdot s}{N_d} \cdot \omega_d(s) + F_b(s)
+F_b(s) =  \frac{M \cdot s \cdot V(s) - B_{sys} \cdot V(s)}{r_t}
+\label{eq:BeltContactForceLaplace}
+\end{flalign} \todo{Get the second implication to be on the next line}
+
+And $F_c$ is found this way from \eqref{eq:BlackBoxGearNewtonSecLawLaplace}:
+\begin{flalign}\centering
+N_d \cdot F_c(s) = J_d \cdot s \cdot \omega_d(s) + N_d \cdot F_b(s) 
+\end{flalign}
+\begin{flalign}\centering
+F_c(s) =  \frac{J_d \cdot s \cdot \omega_d(s) + N_d \cdot F_b(s)}{N_d} =  \frac{J_d \cdot s}{N_d} \cdot \omega_d(s) + F_b(s)
 \label{eq:GearsContactForceLaplace}
 \end{flalign}
+
 \todo{Get the steps to be on different lines}
 %
 Moreover, the relation of velocity for two gears $G_m$ and $G_d$ in contact is given by:
 \begin{flalign}\centering
-N_m \cdot \omega_m = N_d \cdot \omega_d
+N_m \cdot \omega_m = N_d \cdot \omega_d, 
 \label{eq:GearsVelocityRelation}
-\end{flalign}, 
+\end{flalign}
 
 which is equivalent to :
 \begin{flalign}\centering
@@ -145,7 +154,12 @@ which is equivalent to :
 %
 The same principle is applied from the angular velocity $\omega_d$ to the translational velocity $V$:
 \begin{flalign}\centering
-v(t) = r_t \cdot \omega_d(t) = r_t \cdot \frac{N_m}{N_d} \cdot \omega_m(t) \xRightarrow{} \omega_m(t) = \frac{N_d}{N_m \cdot r_t} \cdot v(t) \xRightarrow{\mathcal{L}} \omega_m(s) = \frac{N_d}{N_m \cdot r_t} \cdot V(s).
+v(t) = r_t \cdot \omega_d(t) = r_t \cdot \frac{N_m}{N_d} \cdot \omega_m(t) \xRightarrow{} \omega_m(t) = \frac{N_d}{N_m \cdot r_t} \cdot v(t)
+\label{eq:BlackBoxGearNewtonLaplaceNew}
+\end{flalign}
+Again, the Laplace transform is used to manipulate equations more easily:
+\begin{flalign}\centering
+\omega_m(s) = \frac{N_d}{N_m \cdot r_t} \cdot V(s).
 \label{eq:BlackBoxGearNewtonLaplaceNew}
 \end{flalign}
 
@@ -170,7 +184,7 @@ Eventually, it is possible to draw a block diagram for the drivetrain, from the 
 
 \begin{figure}[H]
 	\centering
-	% \includegraphics[scale=0.8]{figures/mechanicalDrawingBelt.pdf}
+	\includegraphics[scale=0.8]{figures/blockDiagramDrivetrain.pdf}
 	\caption{A block diagram of the drivetrain}
-	\label{fig:BeltFreeBodyDiagram}
+	\label{fig:BlockDiagramDrivetrain}
 \end{figure}

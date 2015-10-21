@@ -1,6 +1,6 @@
 \section{Prototype}
-The overall functionalities for the project has been limited, due to time limitations and to focus on the scope of the project. In this project a prototype will therefore be made to show the main functionalities necessary to make a automated vehicle containing principles for lawn mowing.
-In short the final prototype includes a regulator which will make it possible to follow a path from A to B. It is be able to continue if the transmission is lost between the prototype and the GoT system for some duration. Furthermore it is able to plan a route within a given area and store these calculated data points locally, on the vehicle. The rough outline of the design is shown in \figref{fig:systemOverview1} to give an idea of the final prototype setup.
+The overall functionalities for the project has been limited, due to time limitations and to focus on the scope of the project. In this project a prototype will therefore be made to show the main functionalities necessary to make an automated vehicle containing principles for lawn mowing.
+In short, the final prototype includes a regulator, which will make it possible to follow a path from A to B. It is be able to continue if the wireless connection is lost between the prototype and the GoT system for some duration. Furthermore it is able to plan a route within a given area and store these calculated data points locally, on the vehicle. The rough outline of the design is shown in \figref{fig:systemOverview1} to give an idea of the final prototype setup.
 
 \begin{figure}[H]
 	\centering
@@ -9,7 +9,7 @@ In short the final prototype includes a regulator which will make it possible to
 	\label{fig:systemOverview1}
 \end{figure}
 
-The GoT system provides the vehicle with coordinates which is utilized in course correction in combination with the map supplied from storage to follow the route. In course correction lies also control between coordinates given by the GoT system and the storage, this is regulated through use of angular position and movement supplied by the angular sensors. The speed control gets an input from the course correction, the speed given is then held through regulation again using input from angular sensors, in this case specifically acceleration.
+The GoT system provides the vehicle with coordinates, which is utilized in course correction in combination with the map supplied from storage, to follow the route. In course correction lies also control between coordinates given by the GoT system and the storage, this is regulated through use of angular position and movement supplied by the angular sensors. The speed control gets an input from the course correction, the speed given is then held through regulation again using input from angular sensors, in this case specifically acceleration.
 
 \section{Prototype Interfaces and Submodules}
 Previously the rough prototype design is presented. To provide a more broad overview of the system, an exploded view of functionalities, their submodules and interfaces is presented in \figref{fig:systemOverview2}.

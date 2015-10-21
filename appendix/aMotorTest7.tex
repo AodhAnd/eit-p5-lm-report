@@ -48,27 +48,40 @@ The purpose of this test is to find the moment of inertia $I$, by measuring the 
   \begin{subfigure}{0.45\textwidth}
     \centering
     \includegraphics[width=1.1\linewidth]{figures/inertiaRawData.pdf}
-    \caption{Plot of test results}
-    \label{momentOfInertia}
+    \caption{The measured angular velocity compared to time}
+    \label{inertiaRawData}
   \end{subfigure}
   \begin{subfigure}{0.45\textwidth}
     \centering
     \includegraphics[width=1.1\linewidth]{figures/momentOfInertia.pdf}
-    \caption{Plot of the moment of inertia}
-  	\label{inertiaRawData}
+    \caption{Blue dots indicates the moment of inertia calculated using \eqref{eq:Momentofinertia}, and the red line represents the average value of the blue dots}
+  	\label{momentOfInertia}
   \end{subfigure}
-  \caption{hey}
+  \caption{A plot of the inertia measured as angular velocity compared to time and a plot of the moment of inertia calculated from the raw data using \eqref{eq:Momentofinertia}.}
   \label{yo}
 \end{figure}
 \todo{make text on figure larger}
 
-The following equation which arises from the mechanical description of the motor when \si{i_a = 0} is given in the Modeling and Control course on the 5th semester on Electronic and IT on Aalborg University.
+The equation used is given in the Modeling and Control course on the 5th semester on Electronic and IT on Aalborg University, (reference). This equation which arises from the mechanical description of the motor, when \si{i_a = 0} is used to find the Inertia, $J$.
 \begin{align}
   \eq{\omega(s)}{- \frac{\tau_c}{B}+(\omega_0 + \frac{\tau_c}{B}) e^{-t\frac{B}{J}}} \unit{rad\cdot s^{-1}}\nonumber\\
   && &\Updownarrow&&\\
   \eq{J}{ \frac{B\cdot t}{ln(  \frac{B\cdot \omega_0 + \tau_c}{B \cdot \omega + \tau_c})} } \unit{N\cdot m}\nonumber
+ \label{eq:Momentofinertia}
 \end{align}
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}ll}
+& $\omega(s)$ & is the angular velocity [$\frac{rad}{s}$] \\
+& $\tau_c$ & is the coulomb friction torque [$N \cdot m$]\\
+& $B$ & is the friction [$N \cdot m$] \\
+& $J$ & is the inertia [$Kg \cdot m^2$] \\
+\end{tabular}
 
+The motors inertia is calculated by using \eqref{eq:Momentofinertia} on the angular velocity compared to time data illustrated on \figref{inertiaRawData}. Thereafter the average value of the results is found, seen in \figref{momentOfInertia} and used a the motors inertia. The motors inertia is equal:
 
+\begin{align}
+\eq{J}{\num{2.3891} \cdot 10^{-6}} \unit{Kg \cdot m^2}
+ \label{eq:Momentofinertia}
+\end{align}
 
 

@@ -6,24 +6,44 @@ The drivetrain translates the torque $\tau_m$, given by the motor, into the actu
 The modelling of the drivetrain is limited to only model parts of the total drivetrain system, to make it more manageable and with a focus on giving a rough approximation.
 %% SSSECTION : BLACK BOX MODEL %%
 \subsubsection{Black Box Model}\label{BlackBoxModel}
-To get a rough approximation of how the drivetrain works, a blackboxed model is used. The blackbox in the model is placed between box 1 and box 4 seen in \chapref{VehicleDescription} \figref{vehicleDescriptionDriveTrain}. The gear, $G_m$, connected to the motor shaft, is connected to the gear ,$G_d$, which represents the gears and shaft that has been black boxed and the drive-wheel, see \figref{fig:DrivetrainMechanicalModel}. The number of teeth on the gear, $G_d$, is set to the total gear ratio of the black box.
+To get a rough approximation of how the drivetrain works, a blackboxed model is used. The blackbox in the model is placed between box 1 and including box 4 seen in \chapref{VehicleDescription} \figref{vehicleDescriptionDriveTrain}. The gear, $G_m$, connected to the motor shaft, is connected to the gear ,$G_d$, which represents the gears and shaft that has been black boxed and the drive-wheel, see \figref{fig:DrivetrainMechanicalModel}. The number of teeth on the gear, $G_d$, is set to the total gear ratio of the black box.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{figures/mechanicalDrawingSystem.pdf}
-	\caption{A rough mechanical diagram of the drivetrain}
+	\caption{A diagram showing the rough mechanical model of the drivetrain}
 	\label{fig:DrivetrainMechanicalModel}
 \end{figure}
-\todo{Add notations to the diagram and create free body diagrams of belt and black box parts}
 
 % APPLICATION OF NEWTON'S SECOND LAW %
 
+The derived torque from \eqref{eq:mechaUnloadedMotor} in \textit{motor modelling}, is extended with the contributions from the load, i.e. the drivetrain. A mechanical model of the gear, $G_m$, including the contributions from the motor shaft is illustrated in \figref{fig:MotorGearFreeBodyDiagram}.
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.8]{figures/freeBodyMotorGear.pdf}
+	\includegraphics[scale=1.2]{figures/freeBodyMotorGear.pdf}
 	\caption{A free body diagram of the motor gear}
 	\label{fig:MotorGearFreeBodyDiagram}
 \end{figure}
+
+The contact force, $N_m \cdot f_c$, is a force which is opposite to the contact force on the gear, $G_d$, in \figref{fig:BlackBoxGearFreeBodyDiagram}, because of the rotations of the two gears. From \figref{fig:MotorGearFreeBodyDiagram}, the following equation can be extracted:
+ 
+\begin{flalign}\centering
+J_m \cdot \dot{\omega}_m(t) = \tau_m(t) - B_m \cdot \omega_m(t) - N_m \cdot f_c(t) 
+\label{eq:MotorGearNewtonSecLaw}
+\end{flalign}
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}ll}
+& $J_m$ 			& is the motor's inertia [$kg \cdot m^2$] \\
+& $\omega_m$        & is the angular velocity of the motor [$rad \cdot s^{-1}$] \\
+& $\dot{\omega}_m$ 	& is the angular acceleration of the motor [$rad \cdot s^{-2}$] \\
+& $\tau_m$ 		    & is the torque delivered by the motor [$N \cdot m$] \\
+& $B_m$             & is the motor's friction coefficient [$N \cdot m \cdot s \cdot rad^{-1}$] \\
+& $N_m$             & is the number of teeth on the gear ,$G_m$, connected to the motor shaft [$number\ of\ teeths$] \\
+& $f_c \cdot N_m$	& is the contact force between the two gears [$N \cdot m \cdot number\ of\ teeths^{-1}$]
+\end{tabular}
+
+A mechanical model of the gear, $G_d$, is illustrated in \figref{fig:BlackBoxGearFreeBodyDiagram}.
 
 \begin{figure}[H]
 	\centering
@@ -31,22 +51,6 @@ To get a rough approximation of how the drivetrain works, a blackboxed model is 
 	\caption{A free body diagram of the `black box' gear}
 	\label{fig:BlackBoxGearFreeBodyDiagram}
 \end{figure}
-
-The \eqref{eq:mechaUnloadedMotor} is extended with the contribution of the load which is the whole drivetrain. Therefore, from \figref{fig:MotorGearFreeBodyDiagram} and Newton's second law appplied to rotational systems, the following equation can be extracted:
-\begin{flalign}\centering
-J_m \cdot \dot{\omega}_m(t) = \tau_m(t) - B_m \cdot \omega_m(t) - N_m \cdot f_c(t) 
-\label{eq:MotorGearNewtonSecLaw}
-\end{flalign}
-\hspace{6mm} Where:\\
-\begin{tabular}{p{1cm}ll}
-& $J_m$ 			      & is the motor's inertia [$kg \cdot m^2$] \\
-& $\omega_m$        & is the angular velocity of the motor [$rad \cdot s^{-1}$] \\
-& $\dot{\omega}_m$ 	& is the angular acceleration of the motor [$rad \cdot s^{-2}$] \\
-& $\tau_m$ 		     	& is the torque delivered by the motor [$N \cdot m$] \\
-& $B_m$             & is the coefficient of the friction happening inside the motor [$N \cdot m \cdot s \cdot rad^{-1}$] \\
-& $N_m$             & is the number of teeth of the motor gear $G_m$ [$number\ of\ teeths$] \\
-& $f_c$             & is the coefficient of the contact force between $G_m$ and $G_d$ [$N \cdot m \cdot number\ of\ teeths^{-1}$]
-\end{tabular}
 
 The equation for \figref{fig:BlackBoxGearFreeBodyDiagram} is obtained the same way:
 \begin{flalign}\centering

@@ -47,20 +47,31 @@ The purpose of this test is to find the motors time constant $\tau$ and gain. Th
  	%Trim margins @:   left        bottom       right       top
  	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
   {
-    \includegraphics[width=\textwidth]{figures/motorGain.pdf}
+    \includegraphics[width=.8\textwidth]{figures/mechanicalTimeConstant.pdf}
   }
-	\caption{Plot of the motor gain results}
+	\caption{Plot of the mechanical time constant results}
+	\label{mechanicalTimeConstant}
 \end{figure}
 
-
+The graph in \figref{mechanicalTimeConstant} shows the angular velocity of the motor over time. The read line shows the time constant at \si{\num{63.2} \%} of max angular velocity. In the data the mechanical time constant is found to be:
+%
+\begin{align}
+  \eq{\tau_{mec}}{\num{0.238}} \unit{s}\nonumber
+\end{align}
 
 \begin{figure}[H]
   \centering
  	%Trim margins @:   left        bottom       right       top
  	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
   {
-    \includegraphics[width=\textwidth]{figures/mechanicalTimeConstant.pdf}
+    \includegraphics[width=.8\textwidth]{figures/motorGain.pdf}
   }
-	\caption{Plot of the mechanical time constant results}
+	\caption{Plot of the motor gain results}
+	\label{motorGain}
 \end{figure}
 
+The graph in \figref{motorGain} shows motor voltage in relation to the angular velocity, which reveals the gain, \si{K} of the system, as the slope of the least square regression line:
+%
+\begin{align}
+  \eq{K}{\num{569.19}} \unit{\cdot}\nonumber
+\end{align}

@@ -101,6 +101,18 @@
 \usepackage{mathtools}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                  USEFULL MACROES                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Units:
+\newcommand{\unit}[1]{[\si{#1}]}
+%Equation:
+\newcommand{\eq}[2]{&&\si{#1} &= \si{#2}&&}
+%Text:
+\newcommand{\tx}[1]{\text{#1}}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                  REFERENCES                       %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -117,10 +129,6 @@
 \newcommand{\figref}[1]{\textit{Figure \ref{#1}}}
 %Table:
 \newcommand{\tableref}[1]{\textit{Table \ref{#1}}}
-%Units:
-\newcommand{\unit}[1]{&& \left[\si{#1}\right]}
-%Text:
-\newcommand{\tx}[1]{\text{#1}}
 
 %Equations:
 %1 equation:

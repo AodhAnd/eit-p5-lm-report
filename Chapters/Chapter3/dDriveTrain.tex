@@ -22,7 +22,7 @@ The derived torque from \eqref{eq:mechaUnloadedMotor} in \textit{motor modelling
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.2]{figures/freeBodyMotorGear.pdf}
-	\caption{A free body diagram of the motor gear}
+	\caption{A free body diagram of the motor gear, $G_m$}
 	\label{fig:MotorGearFreeBodyDiagram}
 \end{figure}
 
@@ -48,23 +48,25 @@ A mechanical model of the gear, $G_d$, is illustrated in \figref{fig:BlackBoxGea
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{figures/freeBodyDrive.pdf}
-	\caption{A free body diagram of the `black box' gear}
+	\caption{A free body diagram of the `black box' gear, $G_d$}
 	\label{fig:BlackBoxGearFreeBodyDiagram}
 \end{figure}
 
-The equation for \figref{fig:BlackBoxGearFreeBodyDiagram} is obtained the same way:
+A equation extracted from \figref{fig:BlackBoxGearFreeBodyDiagram} obtained:
 \begin{flalign}\centering
 J_d \cdot \dot{\omega}_d(t) = N_d \cdot f_c(t) - N_d \cdot f_b(t)
 \label{eq:BlackBoxGearNewtonSecLaw}
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& $J_d$ 			      & is the `black box' gear inertia [$kg \cdot m^2$] \\
-& $\omega_d$        & is the angular velocity of the `black box' gear [$rad \cdot s^{-1}$] \\
-& $\dot{\omega}_d$ 	& is the angular acceleration of the `black box' gear [$rad \cdot s^{-2}$] \\
-& $N_d$ 		     		& is the number of teeth on the `black box' gear [$number\ of\ teeth$] \\
+& $J_d$ 			& is the `black box' gear inertia [$kg \cdot m^2$] \\
+& $\omega_d$        & is the angular velocity of the `black box' gear, $G_d$ [$rad \cdot s^{-1}$] \\
+& $\dot{\omega}_d$ 	& is the angular acceleration of the `black box' gear, $G_d$ [$rad \cdot s^{-2}$] \\
+& $N_d$ 		    & is the number of teeth on the `black box' gear [$number\ of\ teeth$] \\
 & $f_b$             & is the coefficient of the contact force between $G_d$ and the belt [$N \cdot m \cdot number\ of\ teeths^{-1}$] \\
 \end{tabular}
+
+This has to be linked with the belt part 
 
 %% SSSECTION : BELT MODEL %%
 \subsubsection{Belt Model}\label{BeltModel}

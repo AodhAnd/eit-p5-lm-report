@@ -1,4 +1,4 @@
-\subsection{Motor modelling}
+\subsection{Motor modelling}\label{motormodelling}
 A model of a motor consist of both a mechanical and an electrical system, due to the fact, that electrical current, \si{i_a(t)}, is converted into a rotational force called torque, \si{\tau_m}. A model of the mechanical and the electrical system is therefore created. The mechanical model from the motor provides the contributions the motor delivers to the drivetrain, see \secref{DriveTrain}, and the electrical model provides the motors produced torque.
 
 \subsubsection{Mechanical model}
@@ -35,7 +35,7 @@ From the figure an equation for the mechanical model can be derived.
 The equation is transferred into the frequency domain using the Laplace transform: 
 
 \begin{flalign}\eq{
-\tau(s)}{J_m(s) \cdot \omega_m \cdot s + B \cdot \omega_m}
+\tau_m(s)}{J_m(s) \cdot \omega_m \cdot s + B \cdot \omega_m}
 \label{eq:ThetadotforBlock}
 \end{flalign}
 

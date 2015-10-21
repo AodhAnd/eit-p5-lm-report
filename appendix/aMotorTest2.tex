@@ -4,7 +4,7 @@
 \textbf{Date: 30/09 - 2015}
 
 \subsubsection{Purpose}
-The purpose of the test is to measure the Armature inductance $L_a$.
+The purpose of the test is to determine the Armature inductance \si{L_a}.
 
 \subsubsection{Setup}
 \begin{figure}[H]
@@ -34,12 +34,12 @@ The purpose of the test is to measure the Armature inductance $L_a$.
 \subsubsection{Procedure}
 
 \begin{enumerate}
-  \item Fix the motor shaft so it does not turn.
+  \item Fix the motor shaft so it can not turn.
   \item Start with the power supply disconnected and turn on the oscilloscope.
-  \item On the oscilloscope press the "mode"-key choose the "normal"-option and push the "single"-key.
-  \item To prevent false triggering on the oscilloscope set the trigger value to $113$ mV.
-  \item To give the motor a pulse of $5$ V, put the power supply to $5$ V and connect it.
-  \item Insert a USB-pin in the oscilloscope and press the save key to extract the data.
+  \item On the oscilloscope press the "trigger mode"-key choose the "normal"-option and push the "single"-key.
+  \item To prevent false triggering on the oscilloscope, set the trigger value to $113$ mV.
+  \item To supply the motor a pulse of $5$ V, adjust the power supply to $5$ V and connect it.
+  \item Connect a USB-drive to the oscilloscope and press the save key to extract the data.
 \end{enumerate}
 
 \subsubsection{Results}
@@ -55,29 +55,27 @@ The purpose of the test is to measure the Armature inductance $L_a$.
 	\label{armatureInductance}
 \end{figure}
 
-The armature inductance, $L_a$, is calculated from the time constant given by:
+The armature inductance, \si{L_a}, is calculated from the time constant given by:
 \begin{flalign}
-  \tau = \frac{L_a}{R_a}\unit{s}\nonumber
+  \eq{\tau} {\frac{L_a}{R_a}}\unit{s}\nonumber
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-  & $\tau$ & is the time constant        \\
-  & $L_a$  & is the armature inductance  \\
-  & $R_a$  & is the armature resistance  \\
+  & \si{\tau} & is the time constant \unit{s}       \\
+  & \si{L_a}  & is the armature inductance \unit{H} \\
+  & \si{R_a}  & is the armature resistance \unit{\Omega} \\
 \end{tabular}
 
-where $\tau$ is the time constant, $L_a$ is the armature inductance and $R_a$ is the armature resistance.
-
-$R_a$ is know from the previous test, \textit{Armature Resistance}, where it was found to $0.178 \Omega$. $\tau$ is the time at which the current reaches $63.2\%$ of the value at steady state. This value of $\tau$ is found by use of \figref{armatureInductance} and located in the data set:
+\si{R_a} is know from the previous test, \textit{Armature Resistance}, where it was found to \si{0,178 \Omega}. $\tau$ is the time at which the current reaches \si{63,2\%} of the value at steady state. This value of $\tau$ is found by use of \figref{armatureInductance} and located in the data set:
 %
 \begin{flalign}
-  \tau = 0.67 \cdot 10^{-3}\unit{s}\nonumber
+  \eq{\tau}{0,67 \cdot 10^{-3}}\unit{s}\nonumber
 \end{flalign}
 %
 From this we get the armature inductance:
 %
 \begin{flalign}
-  L_a &= \tau \cdot R_a\unit{H}\nonumber\\
-  L_a &= 0.67 \cdot 10^{-3} \cdot 0.178\unit{H}\nonumber\\
-  L_a &= 119.26\unit{\mu H}\nonumber
+  \eq{L_a}{\tau \cdot R_a}\unit{H}\nonumber\\
+  \eq{L_a} {0,67 \cdot 10^{-3} \cdot 0,178}\unit{H}\nonumber\\
+  \eq{L_a}{119,26}\unit{\mu H}\nonumber
 \end{flalign}

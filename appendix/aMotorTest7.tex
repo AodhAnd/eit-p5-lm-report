@@ -43,12 +43,32 @@ The purpose of this test is to find the moment of inertia $I$, by measuring the 
 \subsubsection{Results}
 
 \begin{figure}[H]
-	\centering
-	%Trim margins @:   left        bottom       right       top
-	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
-	{
-  	\includegraphics[width=\textwidth]{figures/momentOfInertia.pdf}
-	}
-	\caption{Plot of test results}
+  \setcounter{subfigure}{0}
+  \centering
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=1.1\linewidth]{figures/inertiaRawData.pdf}
+    \caption{Plot of test results}
+    \label{momentOfInertia}
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=1.1\linewidth]{figures/momentOfInertia.pdf}
+    \caption{Plot of the moment of inertia}
+  	\label{inertiaRawData}
+  \end{subfigure}
+  \caption{hey}
+  \label{yo}
 \end{figure}
+\todo{make text on figure larger}
+
+The following equation which arises from the mechanical description of the motor when \si{i_a = 0} is given in the Modeling and Control course on the 5th semester on Electronic and IT on Aalborg University.
+\begin{align}
+  \eq{\omega(s)}{- \frac{\tau_c}{B}+(\omega_0 + \frac{\tau_c}{B}) e^{-t\frac{B}{J}}} \unit{rad\cdot s^{-1}}\nonumber\\
+  && &\Updownarrow&&\\
+  \eq{J}{ \frac{B\cdot t}{ln(  \frac{B\cdot \omega_0 + \tau_c}{B \cdot \omega + \tau_c})} } \unit{N\cdot m}\nonumber
+\end{align}
+
+
+
 

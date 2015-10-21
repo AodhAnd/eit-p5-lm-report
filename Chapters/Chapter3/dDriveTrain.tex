@@ -146,7 +146,7 @@ which is equivalent to :
 The same principle is applied from the angular velocity $\omega_d$ to the translational velocity $V$:
 \begin{flalign}\centering
 v(t) = r_t \cdot \omega_d(t) = r_t \cdot \frac{N_m}{N_d} \cdot \omega_m(t) \xRightarrow{} \omega_m(t) = \frac{N_d}{N_m \cdot r_t} \cdot v(t) \xRightarrow{\mathcal{L}} \omega_m(s) = \frac{N_d}{N_m \cdot r_t} \cdot V(s).
-\label{eq:BlackBoxGearNewtonSecLaw}
+\label{eq:BlackBoxGearNewtonLaplaceNew}
 \end{flalign}
 
 It is now possible to replace $\omega_d$ and $F_b$ in \eqref{eq:GearsContactForceLaplace}:
@@ -158,11 +158,19 @@ F_c(s) =  \frac{J_d \cdot s}{N_d} \cdot \frac{1}{r_t} \cdot V(s) + V(s) \cdot \l
 And the desired relation between the motor torque and the linear velocity is finally obtained :
 \begin{flalign}\centering
 \tau_m(s) = J_m \cdot \frac{N_d}{N_m \cdot r_t} \cdot V(s) \cdot s + B_m \cdot \frac{N_d}{N_m \cdot r_t} \cdot V(s) + N_m \cdot \left[\frac{J_d \cdot s}{r_t \cdot N_d} + \frac{M \cdot s + B_{sys}}{r_t} \right] \cdot V(s) = V(s) \cdot \frac{1}{r_t} \cdot \left[\frac{J_m \cdot N_d}{N_m} \cdot s + N_m \cdot J_d \cdot s + M \cdot s + N_m \cdot B_{sys} + B_m \cdot \frac{N_d}{N_m} \right]
-\label{eq:BlackBoxGearNewtonSecLaw}
 \end{flalign}
 
 Therefore, the transfer function from $\tau_m$ to $V$ is :
 \begin{flalign}\centering
 \frac{V(s)}{\tau_m(s)} = \frac{r_t}{\left[\frac{J_m \cdot N_d}{N_m} + N_m \cdot J_d + M\right] \cdot s + \left[B_{sys} \cdot N_m + B_m \cdot \frac{N_d}{N_m} \right]}
-\label{eq:BlackBoxGearNewtonSecLaw}
+\label{eq:TransferFunctionTorqueToVelocity}
 \end{flalign}
+
+Eventually, it is possible to draw a block diagram for the drivetrain, from the motor torque to the vehicle's velocity with \eqref{eq:TransferFunctionTorqueToVelocity} and also back to the angular velocity with \eqref{eq:BlackBoxGearNewtonLaplaceNew}, see .
+
+\begin{figure}[H]
+	\centering
+	% \includegraphics[scale=0.8]{figures/mechanicalDrawingBelt.pdf}
+	\caption{A block diagram of the drivetrain}
+	\label{fig:BeltFreeBodyDiagram}
+\end{figure}

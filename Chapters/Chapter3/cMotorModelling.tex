@@ -1,5 +1,5 @@
 \subsection{Motor modelling}\label{motormodelling}
-A model of a motor consist of both a mechanical and an electrical system, due to the fact, that electrical current, \si{i_a(t)}, is converted into a rotational force called torque, \si{\tau_m}. A model of the mechanical and the electrical system is therefore created. The mechanical model from the motor provides the contributions the motor delivers to the drivetrain, see \secref{DriveTrain}, and the electrical model provides the motors produced torque.
+A model of a motor consist of both a mechanical and an electrical system, due to the fact, that electrical current, \si{i_a(t)}, is converted into a rotational force called torque, \si{\tau_m}. A model of the mechanical and the electrical system is therefore created. The mechanical model from the motor provides the contributions the motor delivers to the drivetrain, see \secref{DriveTrain}, and the electrical model provides the motor's produced torque.
 
 \subsubsection{Mechanical model}
 A mechanical model is formed to analyse the forces and inertias affecting the mechanical system, and to see how the system will react to stimuli.
@@ -12,7 +12,7 @@ Newtons second law of motion for rotational systems yields:
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& \si{J_m} & is the motors inertia \unit{kg\cdot m^2} \\
+& \si{J_m} & is the motor's inertia \unit{kg\cdot m^2} \\
 & \si{\ddot{\theta}_m} & is the angular acceleration in the motor \unit{\frac{rad}{s^2}} \\
 \end{tabular}
 
@@ -41,10 +41,10 @@ The equation is transferred into the frequency domain using the Laplace transfor
 
 The mechanical model of the motor has be derived. The mechanical contributions from the motor will be used to model the drivetrain, in \secref{DriveTrain}. 
 
-Next step is to model the electrical part of the motor, and to find the motors produced torque. 
+Next step is to model the electrical part of the motor, and to find the motor's produced torque. 
 
 \subsubsection{Electrical model}
-The output needed from the motors electrical model is the torque, \si{\tau_m}. To obtain the torque, the formula for translating the electrical current, \si{i_a}, to torque is utilized:
+The output needed from the motor's electrical model is the torque, \si{\tau_m}. To obtain the torque, the formula for translating the electrical current, \si{i_a}, to torque is utilized:
 
 \begin{flalign}\centering
   \si{\tau_m(t) = K_t \cdot i_a(t)} %\unit{\volt}
@@ -84,7 +84,7 @@ An expression for the current, \si{i_a}, is required to derive a model for the e
   \label{fig:electricaldiagrammotor}
 \end{figure}
 
-By using Kirchoffs voltage law on the closed loop, seen in \figref{fig:electricaldiagrammotor}, an expression including $i_a$ can be derived:
+By using Kirchoff voltage law on the closed loop, seen in \figref{fig:electricaldiagrammotor}, an expression including $i_a$ can be derived:
 
 \begin{flalign}\eq{
 V_m(t)}{R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + e_b}\unit{V} 
@@ -127,14 +127,14 @@ The equation is solved for \si{i_a}:
 i_a(s)}{\frac{V_m(s) - K_e \cdot \omega_m(s)}{sL_a + R_a} }\unit{A}
 \end{flalign}
 
-By substituting the derived equation for $i_a$ into \eqref{equ:motortorque}, a new expression for the motors torque is derived. 
+By substituting the derived equation for $i_a$ into \eqref{equ:motortorque}, a new expression for the motor's torque is derived. 
 
 \begin{flalign}\eq{
   \tau_m}{K_t \cdot i_a(s) = K_t \cdot \frac{V_m(s) - K_e \cdot \omega_m(s)}{sL_a + R_a}} \unit{N\cdot m}
   \label{eq:Totaltorquewithcurrentexpression}
 \end{flalign}
 
-A equation for the electrical model relative to the motors torque has been derived.
+An equation for the electrical model relative to the motor's torque has been derived.
 
 \subsubsection{Block representation}
 
@@ -147,6 +147,6 @@ A equation for the electrical model relative to the motors torque has been deriv
 	\label{fig:motormodelBlock}
 \end{figure}
 
-The angular velocity received from the drivetrain, see \figref{fig:Velocitymodelplantopen}, is dependent on the total inertia of the system, and is necessary to ensure the motor is affect by the load.
+The angular velocity received from the drivetrain, see \figref{fig:Velocitymodelplantopen}, is dependent on the total inertia of the system, and is necessary to ensure the motor is affected by the load.
 
-A model of the electrical and mechanical part has been formed and a block representation of the motors applied voltage and generated torque has been given. Next step is to model the drivetrain, which connects to the motor through the motor shaft.
+A model of the electrical and mechanical part has been formed and a block representation of the motor's applied voltage and generated torque has been given. Next step is to model the drivetrain, which connects to the motor through the motor shaft.

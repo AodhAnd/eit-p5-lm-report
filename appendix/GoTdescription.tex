@@ -1,7 +1,14 @@
 \section{The Games on Track GT-position system}
 \label{GoTDescription}
-The Games on Track GT-Position system, shortened GoT, is a position system which uses radio-waves and ultrasound to locate the object. The system is build up by three types of hardware components: the transmitter, the satellites and the master. The transmitter and the satellites send the information in all directions, with a 360 degree signal.\\
+The Games on Track GT-Position system, shortened GoT, is a position system which uses radio-waves and ultrasound to locate the object. The system is build up by three types of hardware components: the transmitter, the satellites and the master, see \figref{GoTSystem}. The transmitter and the satellites send the information in all directions, with a 360 degree signal.\\
 The GoT System does not work if the transmitter is not close enough from the satellites or if there is some interference by another signal or by an object between them and therefore can not communicate with the satellites.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{figures/GoT_description.pdf}
+	\caption{Overview of the GoT system}
+	\label{fig:GoTSystem}
+\end{figure}
 
 \subsubsection{Transmitter}
 The transmitter component is placed on the object, which needs to be located. The transmitter sends a ultrasound burst out, in 360 degree, that the satellites is intended to receive. The burst contains the id of the transmitter. The time at which each ultrasound bursts are sent from the transmitter to the satellites, is transmitted by radio waves to the master, to used later in the calculation. There is send a ultra sound burst each tenth of a second, giving a sampling frequency on 10 Hz.\\ 
@@ -15,15 +22,22 @@ To be able to calculate the exact position of the transmitter and then the objec
 	\centering
 	\includegraphics[scale=0.5]{figures/ReceiverSetup.png}
 	\caption{Example on a standard setup for the satellites (increase size of text in figure)}
-	\label{receiverSetup}
+	\label{fig:receiverSetup}
 \end{figure}
 
 \subsubsection{Master}
 The master is a receiver which is connected to a computer. The masters assignment is to receive the data transmitted from the individual satellites and the transmitter, and relay it directly to the connected computer. The master is powered through a USB cable, between the master and the computer.\\
 
 \subsubsection{Computer}
-The program on the computer, which handles the information received from the master, uses the data to calculate the position of the transmitter. This is done with a method call Trilateration. Trilateration is a way of calculating a position, in a three-dimensional space, from three distances of known locations, with the help of spheres, circles and triangles. Therefore it is necessary for the system to have atleast three satellites, as mentioned earlier.  With additional satellites a check up can be performed to ensure the position of the transmitter is correct. Trilateration does not work if the three known points are on a single line, therefore the satellites should be placed in a triangle \todo{Fig insert}. The distances are calculated with the time when each satellites by a comparison to the time, the transmitter send the signal\\\\
-\noindent
+The program on the computer, which handles the information received from the master, uses the data to calculate the position of the transmitter. This is done with a method call Trilateration. Trilateration is a way of calculating a position, in a three-dimensional space, from three distances of known locations, with the help of spheres, circles and triangles. Therefore it is necessary for the system to have atleast three satellites, as mentioned earlier.  With additional satellites a check up can be performed to ensure the position of the transmitter is correct. Trilateration does not work if the three known points are on a single line, therefore the satellites should be placed in a triangle \figref{GoTTriVSLine}. The distances are calculated with the time when each satellites by a comparison to the time, the transmitter send the signal
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{figures/GoT_SingleVsTriangle.pdf}
+	\caption{To the left, the satellites is align and will give two possible position. To the right, the satellites is placed in a triangle and will give one possible position}
+	\label{fig:GoTTriVSLine}
+\end{figure}
+
 If the satellites have been moved, it is necessary to recalibrate the system. This is done with a calibration triangle. The calibration triangle is made of three points on a flat surface and have a distance of 40 to 200 centimeters between them. One of the points on the calibration triangle is made the origin (0,0,0) of the new coordinate system. Another point on the triangle will then be call (X,0,0), in which the line between the first point and the second point will become the X-axis. The last point will be call (X,Y,0) and will determine in which way the positive Y-axis will go. The surface which the calibration triangle is placed on, will be the XY-plan, where Z will go vertically, defining the (X,Y,Z) coordinates. The distance between the three points is measured and put into the program. Thereafter, the transmitter is placed in the three point, with (0,0,0) first and (X,Y,0) last. When the transmitter is placed in a point, the satellites measure the distance between them and the transmitter. From those information, the program can calculate the position of each satellites, with the help of trilateration. \\\\
 \todo{insert the visio picture to explain the system}
 \todo{Math example?}

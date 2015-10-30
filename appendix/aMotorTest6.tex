@@ -40,14 +40,15 @@ The purpose of the test is to find the motor friction, B, by measuring the motor
 The following equation is applied to obtain the motor friction:
 
 \begin{align}
-  \eq{B}{K_t \cdot I_a} \unit{N\cdot m}\nonumber
+  \eq{B}{\frac{K_t \cdot I_a}{\omega}} \unit{N\cdot m \cdot s}\nonumber
 \end{align}
 
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
   & \si{K_t}   & is the motor constant \unit{N\cdot m \cdot A^{-1}}  \\
   & \si{I_a}   & is the armature current \unit{A}                    \\
-  & \si{B}     & is the motor friction \unit{N\cdot m}               \\
+  & \si{B}     & is the motor friction \unit{N\cdot m \cdot s}       \\
+  & \si{\omega}& is the motor angular velocity \unit{s ^{-1}}                \\
 \end{tabular}
 
 This relationship is plotted in \figref{motorFriction} and a least square line is added. The friction, B, is found as the slope and the Coulomb friction (stiction), \si{\tau_c}, is the interception between the least square line and the y-axis.

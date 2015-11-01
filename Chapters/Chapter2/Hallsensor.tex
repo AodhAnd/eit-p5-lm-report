@@ -9,6 +9,7 @@ There are two hall sensors implemented on the vehicle, one on each belt. A hall 
 	\label{HallSensor}
 \end{figure}
 
-The Hall sensor will give a voltage output each time one of the magnets is in front of the hall sensor. This will give a signal each quarter of a turn of the wheel. Knowing the time a quarter of a turn will take by measuring the time between two outputs, and the distance that the vehicle travel on a quarter of a turn of the wheel, the speed of the vehicle can be calculated.
+The Hall sensor will give a voltage output each time one of the magnets is in front of the hall sensor. This will give a signal each quarter of a turn of the wheel. As the distance between each magnets is not the same, the calculations will be taken for each magnets independently.
+Knowing the time a turn of the wheel will take by measuring the time between four outputs, and the distance that the vehicle travels on that time, the speed of the vehicle can be calculated.
 
-When the vehicle is starting to move, the first output from the hall sensor can not be used because of the random position of the wheel. The distance to reach the first magnet is not known. Therefore the speed can only be calculated by the second output.
+When the vehicle is starting to move, the first turn of the wheel can not be used because the calculations are made independently for each magnets. Therefore the speed can only be calculated by the first output of the second turn.

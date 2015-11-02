@@ -4,10 +4,14 @@
 \textbf{Date: 28/10 - 2015}
 
 \subsubsection{Purpose}
-
+The purpose of the test is to find the total friction, $B$, of the vehicle.
 
 \subsubsection{Setup}
-
+\begin{figure}[H]
+  \centering
+	\includegraphics[scale=0.5]{figures/FrictionTest.pdf}
+	\caption{A diagram of the test setup}
+\end{figure}
 
 \subsubsection{List of Equipment}
 
@@ -16,11 +20,11 @@
 \hline%------------------------------------------------------------------------------------
   \textbf{Instrument}                        &  \textbf{AAU-no.}  &  \textbf{Type}       \\
 \hline%------------------------------------------------------------------------------------
-  Oscilloscope                               &  64672             &  Agilent DSO6034A    \\
+  Multimeter                               &  60764             &  fluke 189 true RMS    \\
 \hline%------------------------------------------------------------------------------------
-  Power Supply ($0 - 32$ V) ($0 - 10$ A)     &  77076             &  Ea - ps 7032 - 100  \\
+  Power Supply ($0 - 32$ V) ($0 - 10$ A)     &  77075             &  Ea - ps 7032 - 100  \\
 \hline%------------------------------------------------------------------------------------
-  Optical tachometer                         &  77087             &  Compact             \\
+  Treadmill                         &  75483             &  Rodby            \\
 \hline%------------------------------------------------------------------------------------
 \end{tabular}
 \end{table}
@@ -28,12 +32,13 @@
 \subsubsection{Procedure}
 
 \begin{enumerate}
-  \item Turn on the oscilloscope, and connect one channel to the power supply, and another to the tachometer.
-  \item On the oscilloscope press the "trigger mode"-key choose the "normal"-option, set the trigger to "rising-edge", and the trigger source to the channel connected to the power supply.
-  \item To prevent false triggering on the oscilloscope set the trigger value to \num{4,50}V with the turn-key.
-  \item Press "single"-key on oscilloscope.
-  \item Turn on the power supply at 5 volt.
-  \item Insert a USB-flash drive in the oscilloscope and press the save key to extract the data.
+  \item Connect the power supply's power channel to the motor and the ground channel to the multimeter.
+  \item Place the vehicle in the middle of the treadmill.
+  \item Set the power channel to under $4$ amperes, the vehicle is not running, but ready to run when the power supply is set above $4$ amperes later. 
+  \item Activated the treadmill to run at the required speed, and at the same time correct the power supply so the vehicle receives more than $4$ amperes and thereby making it move.
+  \item Correct the speed of the vehicle with the power supply until the vehicle has the same velocity as the treadmill.
+  \item Read the current on the multimeter.
+  \item Repeat the process with different velocities.
 \end{enumerate}
 
 \subsubsection{Results}

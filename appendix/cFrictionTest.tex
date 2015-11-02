@@ -18,13 +18,13 @@ The purpose of the test is to find the total friction, $B$, of the vehicle.
 \begin{table}[H]
 \begin{tabular}{|l|l|p{4cm}|}
 \hline%------------------------------------------------------------------------------------
-  \textbf{Instrument}                        &  \textbf{AAU-no.}  &  \textbf{Type}       \\
+  \textbf{Instrument}                       &  \textbf{AAU-no.}  &  \textbf{Type}         \\
 \hline%------------------------------------------------------------------------------------
-  Multimeter                               &  60764             &  fluke 189 true RMS    \\
+  Multimeter                                &  60764             &  Fluke 189 true RMS    \\
 \hline%------------------------------------------------------------------------------------
-  Power Supply ($0 - 32$ V) ($0 - 10$ A)     &  77075             &  Ea - ps 7032 - 100  \\
+  Power Supply ($0 - 32$ V) ($0 - 10$ A)    &  77075             &  Ea - ps 7032 - 100    \\
 \hline%------------------------------------------------------------------------------------
-  Treadmill                         &  75483             &  Rodby            \\
+  Treadmill                                 &  75483             &  Rodby                 \\
 \hline%------------------------------------------------------------------------------------
 \end{tabular}
 \end{table}
@@ -34,26 +34,26 @@ The purpose of the test is to find the total friction, $B$, of the vehicle.
 \begin{enumerate}
   \item Connect the power supply's power channel to the motor and the ground channel to the multimeter.
   \item Place the vehicle in the middle of the treadmill.
-  \item Set the power channel to under $4$ amperes, the vehicle is not running, but ready to run when the power supply is set above $4$ amperes later. 
-  \item Activated the treadmill to run at the required speed, and at the same time correct the power supply so the vehicle receives more than $4$ amperes and thereby making it move.
+  \item Set the power supply to current limiting at a maximum of $4$ amperes, the vehicle is not running, but ready to run when the power supply is set above $4$ amperes later. 
+  \item Activate the treadmill to run at the required speed, and at the same time correct the power supply so the vehicle receives more than $4$ amperes and thereby making it move.
   \item Correct the speed of the vehicle with the power supply until the vehicle has the same velocity as the treadmill.
   \item Read the current on the multimeter.
   \item Repeat the process with different velocities.
 \end{enumerate}
 
 \subsubsection{Results}
-The Raw data extracted from the measurements is the vehicle's velocity in $[km \cdot hour^{-1}]$ and the current needed for achieving the specific velocity. The velocity is calculated from $[km \cdot hour^{-1}]$ to a linear velocity $[m \cdot s^{-1}]$:
+The raw data extracted from the measurements is the vehicle's velocity in $[km \cdot h^{-1}]$ and the current needed for achieving the specific velocity. The velocity is calculated from $[km \cdot h^{-1}]$ to a linear velocity $[m \cdot s^{-1}]$:
 
 \begin{align}
 \eq{V}{\frac{V_m \cdot 10^{3}}{3600}} \unit{m \cdot s^{-1}}
 \end{align}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
-& $V_m$ & is measured velocity of the vehicle [$km \cdot hour^{-1}$] \\
-& V & is the vehicle's linear velocity [$m \cdot s^{-1}$] \\
+& $V_m$ & is measured velocity of the vehicle [$km \cdot h^{-1}$] \\
+& $V$ & is the vehicle's linear velocity [$m \cdot s^{-1}$] \\
 \end{tabular}
 
-By using linear velocity $[m \cdot s^{-1}]$, the motors angular velocity $[rad \cdot s^{-1}]$ can be calculated:
+By using linear velocity $[m \cdot s^{-1}]$, the motor's angular velocity $[rad \cdot s^{-1}]$ can be calculated:
 
 \begin{align}
 \eq{\omega_m}{\frac{V \cdot N}{r_t}} \unit{rad \cdot s^{-1}}
@@ -61,7 +61,7 @@ By using linear velocity $[m \cdot s^{-1}]$, the motors angular velocity $[rad \
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}ll}
 & \si{\omega_m} & is the motor's angular velocity [$\frac{rad}{s}$] \\
-& N & is the gear ratio of the vehicle  [$\cdot$]\\
+& $N$ & is the gear ratio of the vehicle  [$\cdot$]\\
 & $r_t$ & is the radius of the two wheels driving the belts [$m$] \\
 \end{tabular}
 

@@ -42,4 +42,40 @@ The purpose of the test is to find the total friction, $B$, of the vehicle.
 \end{enumerate}
 
 \subsubsection{Results}
+The Raw data extracted from the measurements is the vehicle's velocity in $[km \cdot hour^{-1}]$ and the current needed for achieving the specific velocity. The velocity is calculated from $[km \cdot hour^{-1}]$ to a linear velocity $[m \cdot s^{-1}]$:
 
+\begin{align}
+\eq{V}{\frac{V_m \cdot 10^{3}}{3600}} \unit{m \cdot s^{-1}}
+\end{align}
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}ll}
+& $V_m$ & is measured velocity of the vehicle [$km \cdot hour^{-1}$] \\
+& V & is the vehicle's linear velocity [$m \cdot s^{-1}$] \\
+\end{tabular}
+
+By using linear velocity $[m \cdot s^{-1}]$, the motors angular velocity $[rad \cdot s^{-1}]$ can be calculated:
+
+\begin{align}
+\eq{\omega_m}{\frac{V \cdot N}{r_t}} \unit{rad \cdot s^{-1}}
+\end{align}
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}ll}
+& \si{\omega_m} & is the motor's angular velocity [$\frac{rad}{s}$] \\
+& N & is the gear ratio of the vehicle  [$\cdot$]\\
+& $r_t$ & is the radius of the two wheels driving the belts [$m$] \\
+\end{tabular}
+
+The motor's torque and angular velocity is plotted: 
+
+\begin{figure}[H]
+  \centering
+	\includegraphics[scale=1]{figures/FrictionTestPlot.png}
+	\caption{A plot of the motor's torque over the motor's angular velocity. The blue dots indicates the measurements and the red line is the tendency line.}
+	\label{TotalFriction}
+\end{figure}
+
+The red line in \figref{TotalFriction} is the tendency line, the slope indicates the friction and the offset is the stiction of the system. The total friction of the system is therefore:
+
+\begin{align}
+\eq{B_{tot}}{4.7*10^{-6}} \unit{N \cdot m \cdot rad^{-1} \cdot s}
+\end{align}

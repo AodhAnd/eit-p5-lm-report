@@ -7,7 +7,7 @@ The Servo is controlled by a PWM signal. The received PWM signal is converted in
 
 A mechanical arm is mounted on the servo and connected to the brakes of the tracks. When the servo rotates one way, it triggers the brakes more on one side and less on the other side, according to the value of the angle sent, through the PWM signal. This way, one of the belt will drive slower and the other belt drive faster, which will make the vehicle turn, without decreasing the motor power.
 
-The servo reacts linearly to the PWM signal and the cycle of the signal is 30 milliseconds. To get the servo to be in neutral position, the servo needs a PWM signal of 4.83 \% (a period of 1450 microseconds). For 180°, it is 8.33 \% (a period of 2500 microseconds) and 1.67 \% (a period of 500 microseconds) for 0°. \\
+
 
 %source http://www.societyofrobots.com/actuators_servos.shtml\\
 
@@ -18,3 +18,7 @@ The servo reacts linearly to the PWM signal and the cycle of the signal is 30 mi
 	\label{timeVSangle}
 \end{figure}
 
+The servo reacts linearly to the PWM signal and the cycle of the signal is 30 milliseconds. To get the servo to be in neutral position, the servo needs a PWM signal of 4.83 \% (a period of 1450 microseconds). For 180°, it is 8.33 \% (a period of 2500 microseconds) and 1.67 \% (a period of 500 microseconds) for 0°. \\
+
+
+The servo pulls the brake located near the gear wheel, and the difference of power is handled by the differential gear system.

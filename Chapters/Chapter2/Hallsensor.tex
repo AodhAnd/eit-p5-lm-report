@@ -1,6 +1,5 @@
 \subsection{Hall Sensor}
-
-There are two hall sensors implemented on the vehicle, one on each belt. A hall sensor is a sensor that is activated when exposed to a magnetic field. The sensors are placed beside the front wheels, on which there are four magnets, placed so that there is a quarter of a turn between them. The hall sensor is illustrated on \figref{HallSensor}.
+There are two hall sensors implemented on the vehicle, one on each belt, at the front gear (See \figref{vehicleDescriptionDriveTrain} in \secref{})\todo{Make the sec ref}. A hall sensor is a sensor that is activated when exposed to a magnetic field. The sensors are placed beside the front wheels, on which there are four magnets, placed so that there is a quarter of a turn between them. The hall sensor is illustrated on \figref{HallSensor}.
 
  \begin{figure}[H]
 	\centering
@@ -14,5 +13,4 @@ Knowing the time a turn of the wheel will take by measuring the time between fou
 
 When the vehicle is starting to move, the first turn of the wheel can not be used because the calculations are made independently for each magnets. Therefore the speed can only be calculated by the first output of the second turn.\\\\
 
-
-The two hall sensors are independent for being able to measure each belt when the vehicle turns through braking one track thanks to the servo.
+The two hall sensors are use for keeping track of the speed of each belt. The reason to track of the speed of each belt, is because that the belt run at difference speeds, when the vehicle is turning, which is control by the servo.

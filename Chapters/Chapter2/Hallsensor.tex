@@ -3,16 +3,14 @@ There are two hall sensors implemented on the vehicle, one on each belt, at the 
 
  \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{figures/HallSensor3D.pdf}
+	\includegraphics[scale=0.4]{figures/HallSensor3D.pdf}
 	\caption{Illustration of the front gear, with the magnets and the hall sensor. The hall sensor is placed stationary beside the rotating gear.}
 	\label{HallSensor}
 \end{figure}
 
-A hall sensor is a sensor that is activated when exposed to a magnetic field. This gives a voltage output each time one of the magnets is in front of the hall sensor. Because of this, there will be a signal each quarter of a turn of the gear. As the distance between each magnets is exactly a quarter of a turn, the distance between the magnet is not the same. The calculations will be taken for each magnets independently, because of this difference.
-By measure the time between five outputs, so the first and the fifth output is from the same magnet, the time for a whole rotation of the gear can find. By knowing the distance, the vehicle travels for at full rotation of the gear, the speed can be calculated.
+A hall sensor is a sensor that is activated when exposed to a magnetic field. This gives a voltage output each time one of the magnets is in front of the hall sensor. Because of this, there is a signal each quarter of a turn of the gear. As the distance between each magnets is not exactly a quarter of a turn, the distance between the magnets is not the same. The calculations will be taken for each magnets independently, because of this difference.
+By measuring the time between five outputs, as the first and the fifth output is from the same magnet, the time of a whole rotation of the gear can be found. By knowing the distance the vehicle travels for a full rotation of the gear, the speed can be calculated.
 
-When the vehicle is starting to move, there can not be calculated a speed for the first turn of the gear. This is because that there is needed two signal from the same magnet, before the speed can be calculated. So the first four output from the hall sensor, will be saved and at the fifth output, after a whole turn, the speed for the first magnet will be calculated.\\
+When the vehicle is starting to move, the speed of the first turn of the gear can not be calculated. This is because two signal from the same magnet are needed before the speed can be calculated. So the first four output from the hall sensor will be saved and at the fifth output, after a whole turn, the speed related to the first magnet will be calculated.\\
 
-The hall sensors are used for measure the speeds of the two belts, which speed will be different, when the vehicle is turning. The system there make the vehicle turn is controlled by the servo.
-
-
+The hall sensors are used to measure the speed of the two belts, which will run at different speeds when the vehicle is turning. The system that makes the vehicle turn is controlled by the servo.

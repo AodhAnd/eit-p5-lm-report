@@ -13,6 +13,6 @@ The Servo is controlled by a PWM signal from a controller. The received PWM sign
 
 The servo reacts linearly to the PWM signal and the cycle of the signal is 30000 microseconds \todo{Insert ref to the datasheet}. The indication on which angle the arm is having is took from the minimum position, because it is the smallest PWM signal the servo can use. This position is set to 0°.
  
-When the mechanical arm is in neutral position, none of the gears is effected by a braking force. This position is indicated at 90°, as it is turned a quarter of a turn from the minimum position. When the angle is smaller than 90°, the servo will trigger the right brake and begin to slow down the right gear. This position of the arm will not effect the left brake. When the angle is bigger than 90°, the reverse function will happen and the left brake is triggered and the right brake will not be braking the gear.
+When the mechanical arm is in neutral position, none of the gears is affected by a braking force. This position is indicated at 90°, as it is turned a quarter of a turn from the minimum position. When the angle is smaller than 90°, the servo will trigger the right brake and begin to slow down the right gear. This position of the arm will not affect the left brake. When the angle is bigger than 90°, the reverse function will happen and the left brake is triggered and the right brake will not be braking the gear.
 
 When the servo brakes on one of the belt, the force, that should be lost in the braking, is transfer to the other belt, by the differential gear system.

@@ -6,7 +6,7 @@
 \textbf{Date: 30/09 - 2015}
 
 \subsubsection{Purpose}
-The purpose of the test is to measure the armature resistance $R_a$.
+The purpose of the test is to measure the armature resistance $R_a$ of the motor.
 
 \subsubsection{Setup}
 \begin{figure}[H]
@@ -16,7 +16,6 @@ The purpose of the test is to measure the armature resistance $R_a$.
 \end{figure}
 
 \subsubsection{List of Equipment}
-Example of list of equipment:
 \begin{table}[H]
 \begin{tabular}{|l|l|p{4cm}|}
 \hline%------------------------------------------------------------------------------------
@@ -89,7 +88,6 @@ Example of list of equipment:
 During these measurements the motor is in steady state. This is necessary for the inductor in the armature coil to act as a short circuit, which allows easy calculation of the armature resistance. In steady state we get:
 
 \begin{flalign}
-  \eq{I_a} {\frac{U_a}{R_a}} \unit{A}\nonumber\\
   \eq{R_a} {\frac{U_a}{I_a}} \unit{\Omega}\nonumber
 \end{flalign}
 \hspace{6mm} Where:\\
@@ -99,5 +97,5 @@ During these measurements the motor is in steady state. This is necessary for th
   & \si{R_a} & is the armature resistance \unit{\Omega}  \\
 \end{tabular}
 
-As seen on the data plot in \figref{armatureResistance} the result is a relatively linear function. The armature resistance is approximated directly as the slope of the least square line:
+As seen on the data plot in \figref{armatureResistance} the result is a relatively linear function. The armature resistance is approximated directly as the slope of the least square line: \todo{is it not invers?}
 \si{R_a = 0,178 \Omega}.

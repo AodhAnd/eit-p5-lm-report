@@ -90,13 +90,13 @@ After scaling the voltages to torques it is plotted and a lest square line is ad
   \eq{K_t} {\frac{\tau}{I_a}}\unit{N\cdot m \cdot A^{-1}}\nonumber
 \end{flalign}
 \hspace{6mm} Where:\\
-\begin{tabular}{p{1cm}ll}
-  & \si{\tau}   & is the torque  \unit{N\cdot m}                       \\
-  & \si{I_a}    & is the current supplied to the motor \unit{A}                       \\
-  & \si{K_t}    & is the motor constant \unit{N\cdot m \cdot A^{-1}}                                     \\
+\begin{tabular}{p{1cm}lll}
+  & \si{\tau}   & is the torque                        &\unitWh{N\cdot m}\\
+  & \si{I_a}    & is the current supplied to the motor &\unitWh{A}\\
+  & \si{K_t}    & is the motor constant                &\unitWh{N\cdot m \cdot A^{-1}}
 \end{tabular}
 
 The value of \si{K_t} is then extracted directly as the slope of the least square regression:
 \begin{flalign}
-  \eq{K_t}{\num{0,0016}} \unit{N\cdot m \cdot A^{-1}}\nonumber
+  \eq{K_t}{\num{0,0016}} \ \si{N\cdot m \cdot A^{-1}}&\nonumber
 \end{flalign}

@@ -91,11 +91,13 @@ During these measurements the motor is in steady state. This is necessary for th
   \eq{R_a} {\frac{U_a}{I_a}} \unit{\Omega}\nonumber
 \end{flalign}
 \hspace{6mm} Where:\\
-\begin{tabular}{p{1cm}ll}
-  & \si{I_a} & is the armature current \unit{A}    \\
-  & \si{U_a} & is the armature voltage \unit{V}    \\
-  & \si{R_a} & is the armature resistance \unit{\Omega}  \\
+\begin{tabular}{p{1cm}lll}
+  & \si{I_a} & is the armature current    &\unitWh{A}    \\
+  & \si{U_a} & is the armature voltage    &\unitWh{V}    \\
+  & \si{R_a} & is the armature resistance &\unitWh{\Omega}  \\
 \end{tabular}
 
 As seen on the data plot in \figref{armatureResistance} the result is a relatively linear function. The armature resistance is approximated directly as the slope of the least square line: \todo{is it not invers?}
-\si{R_a = 0,178 \Omega}.
+\begin{flalign}
+  \eq{R_a}{0,178}\ \si{\Omega}&\nonumber
+\end{flalign}

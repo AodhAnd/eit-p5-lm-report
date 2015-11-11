@@ -64,25 +64,24 @@ The purpose of this test is to find the moment of inertia $I$, by measuring the 
 \todo{make text on figure larger}
 
 The equation used is given in the Modeling and Control course on the 5th semester on Electronic and IT on Aalborg University, (reference). This equation which arises from the mechanical description of the motor, when \si{i_a = 0} is used to find the Inertia, J.
-\begin{align}
-  \eq{\omega(s)}{- \frac{\tau_c}{B}+(\omega_0 + \frac{\tau_c}{B}) e^{-t\frac{B}{J}}} \unit{rad\cdot s^{-1}}\nonumber\\
-  && &\Updownarrow&&\\
-  \eq{J}{ \frac{B\cdot t}{ln(  \frac{B\cdot \omega_0 + \tau_c}{B \cdot \omega + \tau_c})} } \unit{N\cdot m}\nonumber
+\begin{flalign}
+  \eq{\omega(s)}{- \frac{\tau_c}{B}+(\omega_0 + \frac{\tau_c}{B}) e^{-t\frac{B}{J}}}        \unit{rad\cdot s^{-1}}\nonumber\\
+  &\Updownarrow&&\nonumber\\
+  \eq{J}{ \frac{B\cdot t}{ln(  \frac{B\cdot \omega_0 + \tau_c}{B \cdot \omega + \tau_c})} } \unit{N\cdot m}
  \label{eq:Momentofinertia}
-\end{align}
+\end{flalign}
+
 \hspace{6mm} Where:\\
-\begin{tabular}{p{1cm}ll}
-& \si{\omega(s)} & is the angular velocity [$rad\cdot s^{-1}$] \\
-& \si{\tau_c} & is the coulomb friction torque [$N \cdot m$]\\
-& B & is the friction [$N \cdot m$] \\
-& J & is the inertia [$Kg \cdot m^2$] \\
+\begin{tabular}{p{1cm}lll}
+& \si{\omega(s)} & is the angular velocity        &\unitWh{rad \cdot s^{-1}}\\
+& \si{\tau_c}    & is the coulomb friction torque &\unitWh{N \cdot m}     \\
+& B              & is the friction                &\unitWh{N \cdot m}     \\
+& J              & is the inertia                 &\unitWh{Kg \cdot m^2}
+
 \end{tabular}
 
 The motors inertia is calculated by using \eqref{eq:Momentofinertia} on the angular velocity compared to time data illustrated on \figref{inertiaRawData}. Thereafter the average value of the results is found, seen in \figref{momentOfInertia} and used a the motors inertia. The motors inertia is equal:
 
-\begin{align}
-\eq{J}{\num{2.3891} \cdot 10^{-6}} \unit{Kg \cdot m^2}
- \label{eq:Momentofinertia}
-\end{align}
-
-
+\begin{flalign}
+  \eq{J}{\num{2.3891} \cdot 10^{-6}}\ \si{Kg \cdot m^2}&&\nonumber
+\end{flalign}

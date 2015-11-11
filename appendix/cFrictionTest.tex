@@ -44,25 +44,25 @@ The purpose of the test is to find the total friction, $B$, of the vehicle.
 \subsection{Results}
 The raw data extracted from the measurements is the vehicle's velocity in $[km \cdot h^{-1}]$ and the current needed for achieving the specific velocity. The velocity is calculated from $[km \cdot h^{-1}]$ to a linear velocity $[m \cdot s^{-1}]$:
 
-\begin{align}
+\begin{flalign}
 \eq{V}{\frac{V_m \cdot 10^{3}}{3600}} \unit{m \cdot s^{-1}}
-\end{align}
+\end{flalign}
 \hspace{6mm} Where:\\
-\begin{tabular}{p{1cm}ll}
-& $V_m$ & is measured velocity of the vehicle [$km \cdot h^{-1}$] \\
-& $V$ & is the vehicle's linear velocity [$m \cdot s^{-1}$] \\
+\begin{tabular}{p{1cm}lll}
+& $V_m$ & is measured velocity of the vehicle &\unitWh{km \cdot h^{-1}}\\
+& $V$   & is the vehicle's linear velocity    &\unitWh{m \cdot s^{-1}}\\
 \end{tabular}
 
 By using linear velocity $[m \cdot s^{-1}]$, the motor's angular velocity $[rad \cdot s^{-1}]$ can be calculated:
 
-\begin{align}
+\begin{flalign}
 \eq{\omega_m}{\frac{V \cdot N}{r_t}} \unit{rad \cdot s^{-1}}
-\end{align}
+\end{flalign}
 \hspace{6mm} Where:\\
-\begin{tabular}{p{1cm}ll}
-& \si{\omega_m} & is the motor's angular velocity [$\frac{rad}{s}$] \\
-& $N$ & is the gear ratio of the vehicle  [$\cdot$]\\
-& $r_t$ & is the radius of the two wheels driving the belts [$m$] \\
+\begin{tabular}{p{1cm}lll}
+& \si{\omega_m} & is the motor's angular velocity                   &\unitWh{\frac{rad}{s}}\\
+& $N$           & is the gear ratio of the vehicle                  &\unitWh{\cdot}\\
+& $r_t$         & is the radius of the two wheels driving the belts &\unitWh{m}\\
 \end{tabular}
 
 The motor's torque and angular velocity is plotted: 
@@ -76,6 +76,6 @@ The motor's torque and angular velocity is plotted:
 
 The red line in \figref{TotalFriction} is the tendency line, the slope indicates the friction and the offset is the stiction of the system. The total friction of the system is therefore:
 
-\begin{align}
-\eq{B_{tot}}{4.7*10^{-6}} \unit{N \cdot m \cdot rad^{-1} \cdot s}
-\end{align}
+\begin{flalign}
+\eq{B_{tot}}{4.7 \cdot 10^{-6}} \ \si{N \cdot m \cdot rad^{-1} \cdot s}&
+\end{flalign}

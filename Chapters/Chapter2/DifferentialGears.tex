@@ -1,24 +1,24 @@
 \subsection{Differential gears} \label{sec:Differentialgears}
 
 The differential gear box is located as the first component in the drivetrain, after the connection to the motor (Part 2 on \figref{vehicleDescriptionDriveTrain} in \secref{sec:Vehicledescription}).
-When the servo is braking on one of the sides of the drivetrain, the differential gears transfer the rotational energy from the side, where the brake is triggered, to the other side. This keep the lose of energy for braking one side smaller, because the energy is instead transferred to the other belt. The extra speed on the other belt, that is not braking, will make the vehicle turn faster, compared to if the rotational energy was not transferred.
+When the servo is braking on one of the sides of the drivetrain, the differential gears transfer the rotational energy from this side to the other side. This minimize the lose of energy when braking. The extra speed, sent to the other belt that is not braking, will make the vehicle turn faster compared to a simple brake.
 
-A differential gear system can be seen on \figref{diffGearLight}
+A differential gear system can be seen on \figref{diffGearLight}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{figures/diffGearLight}
-	\caption{Illustration to a differential gear system. At the left, the load on each side is equal, so the spider gear does not rotated. At the right, the load on the left side is not moving, because of a big load, so the spider gear rotates and transfer more rotational energy to the right side. \cite{MechanicalEngineering}}
+	\caption{Illustration of a differential gear system. On the left, the resistance on each side is equal, so the spider gear does not rotates. On the right, the resistance on the left side is bigger than the one on the right side, so the spider gear rotates and transfer more rotational energy to the right side. \cite{MechanicalEngineering}}
 	\label{diffGearLight}
 \end{figure}
 
-The differential gear system contains a ring gear (blue), a spider gear (green), two side gears to the rest of the system (yellow and red) and a pinion gear, that transfer the power from the motor to the system (not shown on picture, but is connected to the ring gear).\\
+The differential gear system contains a ring gear (blue), a spider gear (green), two side gears connected to the rest of the system (red and yellow) and a pinion gear (not shown on picture) connected to the ring gear, that transfer the power from the motor to the system.\\
 
-When the motor is running, the pinion gear transfer a rotation energy to the ring gear. The ring gear and the spider gear, that is fixed on to the ring gear, begins to rotate around the side gear from this energy. If the resistance on both side gears is the same, there is none difference in the power there is needed to rotate the gear. Therefore will the spider gear not rotate around it own axis and only be spin around be the ring gear and apply the same rotational energy to each side gear.\\
+When the motor is running, the pinion gear transfer a rotational energy to the ring gear. The spider gear, fixed on to the ring gear, begins to rotate around the side gear. If the resistance on both side gears is the same, the same power is needed to rotate the gears. Therefore the spider gear will not rotate around its own axis and apply the same rotational energy to each side gear.\\
 
-When the resistance on both sides is not equal to each other, i.g. if one of the side is being brake on, the spider gear will rotate around is own axis. This is because there is a bigger resistance one side than the other, so the side not braking will be easier to rotate. So the ring gear and spider gear is rotating at the same speed around the two side gears, but the spider gear will apply less rotational energy to the braking side and more to the none braking side, because of it own rotation. In the case that the resistance on one side is infinite, the spider gear will be rotating at the same speed as the ring gear. The side gear on the none braking side will therefore rotate twice as fast, with the assumption that there is no loss in the system.\\
+When the resistance on both sides is not the same, i.g. if one of the side is being brake on, the spider gear will rotate around is own axis. There is a bigger resistance on one side than on the other, so the side not braking will be easier to rotate. The ring gear and the spider gear are rotating at the same speed around the two side gears, but the spider gear will apply less rotational energy on the braking side than on the other side, because of it own rotation. In the case that the resistance on one side is infinite, as the spider gear is rotating at the same speed that the ring gear, the side gear on the none braking side will therefore rotate twice as fast, with the assumption that there is no loss in the system.\\
 
-For the differential gear system on the vehicle, there is a different setup, shown on \figref{diffGearFull}
+For the differential gear system on the vehicle, there is a more complete setup, shown on \figref{diffGearFull}
 	%\caption{Illustration of the differential gear system on the vehicle \cite{MechanicalEngineering}}
 
 \begin{minipage}{\linewidth}
@@ -27,6 +27,7 @@ For the differential gear system on the vehicle, there is a different setup, sho
           \begin{figure}[H]
               \includegraphics[width=0.95\textwidth]{figures/diffGearFull}
               \caption{Illustration of the differential gear system on the vehicle \cite{MechanicalEngineering}}
+              \label{diffGearFull}
           \end{figure}
       \end{minipage}
       \hspace{0.05\linewidth}
@@ -70,7 +71,7 @@ For the differential gear system on the vehicle, there is a different setup, sho
 %	\label{diffGearFull}
 %\end{figure}
 
-Instead of only having one spider gear (the green gear on \figref{diffGearLight}) there is two, shown in red on \figref{diffGearFull}. The system works in the same way as with one spider gear, with the pinion gear (1) transfer the power to the ring gear (2). The spider gears (3) rotates around with the ring gear and rotates the side gears (4) compare to the difference in their resistance.
+Instead of only having one spider gear (the green gear on \figref{diffGearLight}) there is two for more reliability and solidity, shown in red on \figref{diffGearFull}. The system works in the same way as with one spider gear, with the pinion gear (1) transfering the power to the ring gear (2). The spider gears (3) fixed on the ring gear rotates the side gears (4) compared to their own resistance.
 
 Now that the vehicle has been presented and its limits analysed, the prototype contraints can be considered to aim the functionnalities needed in this project.
 

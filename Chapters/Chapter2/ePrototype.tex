@@ -14,7 +14,8 @@
 
 %Previously the rough prototype design is presented. To provide a more broad overview of the system, an exploded view of functionalities, their submodules and interfaces is presented in \figref{fig:systemOverview2}.
 
-do header here from comments, do not touch the comments
+The overall functionalities for the project have been limited, due to time limitations and to focus on the scope of the project. A prototype will therefore be made to show the main functionalities necessary to make an automated vehicle containing principles for lawn mowing.\\
+The final prototype includes a regulator, which will make it possible to follow a path from A to B. It is able to continue if the wireless connection is lost between the prototype and the GoT system for some duration. Furthermore it is able to plan a route within a given area and store these calculated data points locally, on the vehicle. The outline of the design is shown in \figref{fig:systemOverview2} to give an idea of the final prototype setup. In this section, the modules will be first presented, then the interfaces will describe the interaction between them.
 
 \begin{figure}[H]
 	\centering
@@ -39,13 +40,14 @@ The first time the user will initialise the lawn mower, an \textit{Edge Map} wil
 
 
 \subsubsection{Speed Control}
-The speed is controled by the \textit{Hall Sensors} placed on the drive wheel. \textit{Get Speed} will relay this speed to the \textit{Speed Control} taking into account the belts. The speed control will receive course corrections and send the new wanted speed to the \textit{Motor Driver}, which will finally instruct the \textit{Drive Motor} how to run.
+The speed is controled by the \textit{Hall Sensors} placed on the drive wheel. The submodule \textit{Get Speed} will relay this speed to the \textit{Speed Control} taking the belts into account. The new wanted speed will be sent to the \textit{Motor Driver}, which will finally instruct the \textit{Drive Motor} how to run.
+
 
 \subsubsection{Angular Sensors}
-The angular position is measured thanks to the \textit{Angular Sensors}, that will send raw data to the processor \textit{Get Angle}, that will decide a new path for the vehicle to stay on the original course wanted.
+The angular position is measured thanks to the \textit{Angular Sensors}, that will send data to the submodule \textit{Get Angle}, in charge to send the angle to the Speed Control and to the Course Correction submodule.
 
 \subsubsection{Course Correction}
-Thanks to all the informations from the different sensors for the speed, position, and angular position, the \textit{Course Correction} can decide how to react in consequence. It will send a instruction to the speed control but most of all to the \textit{Servo Motor}, that will act directly on the steering of the vehicle.
+Thanks to all the informations from the different sensors for the speed, position, and angular position, the \textit{Course Correction} can decide how to react in consequence. It will send a instruction to the Speed Control and to the \textit{Servo Motor}, that will act directly on the steering of the vehicle, to try to stay on the desired path.
 
 \subsection{Interfaces}
 %- To Tom and Rasmus \newline
@@ -58,17 +60,20 @@ In this section a high layer interface between the modules will be presented. Th
 The GoT Transmitter sends the \textit{Time send} trough an \textit{Ultra sound} burst to the GoT Satellites, and trough an electromagnetic signal to the GoT Master. The same way, the GoT Satellites tranmits the \textit{Time received} by a electromagnetic signal to the GoT Master. The \textit{Position and time} will then be transmitted from the GoT Master to the GoT Computer, and then to the Wireless Module.
 
 \subsubsection{Route Planning, Storage and Read/Write Map Interfaces}
-\textit{Position and Time} \textit{Desired speed} \textit{Angle data} \textit{Angle/servo control signal}
-
+The Edge Map submodule sends the \textit{Map edge} to Route Planning, that will send a \textit{Route} to Read/Write Map. The Route to follow will then be transmited to the Course Correction submodule for a path correction, and to the Storage for saving.
 
 \subsubsection{Speed Control Interfaces}
-\textit{Map edge} \textit{Route}
+The Hall Sensors send \textit{Hall sensor pulses} to the submodule Get Speed, that will process it to transmit the \textit{Belt speed} to the Speed Control. A \textit{PWM signal} containing the new wanted speed will then be sent to the Motor Driver, wich will convert it to the final \textit{Motor control signal} and sent it to the Drive Motor.
 
 \subsubsection{Angular Sensors Interfaces}
-\textit{Raw angle data} \textit{Angle data}
+The Angular Sensors will send a \textit{Raw angle data} to the submodule  Get Angles, that will process it and send the \textit{Processed angle data} to the Course Correction submodule.
 
 \subsubsection{Course Correction Interfaces}
-\textit{Desired speed} \textit{Angle data} \textit{PWM signal} \textit{Belt speed} \textit{Hall sensor pulses} \textit{Motor control signal}
+The Course Correction submodule receives the \textit{Position and Time} from the Wireless Module, the \textit{Route} to follow from Read/Write Map, and the \textit{Processed angle data} from Get Angles. With all those information, a decision will be sent to the Speed Control through the \textit{Desired speed}, and to the Servo Motor with an \textit{Angle/servo control signal}.\\\\
+
+
+Now that the vehicle had been descibed and the prototype defined, the modelling of the vehicle will allow us to define the requierements.
+
 
 %---------------------------------------------------------------------------------------------------------------------------\\
 %REWRITE THIS SCRAMBLED VERSION OF THE ABOVE TWO SUBSECTIONS \todo{rewrite in the above section and delete these subsections}\\
@@ -101,6 +106,3 @@ The GoT Transmitter sends the \textit{Time send} trough an \textit{Ultra sound} 
 %\subsubsection{Motor Driver and Drive Motor}
 %\indent
 %%The drive motor takes a motor control signal from the motor driver provided by the speed control. The control signal from speed control is a PWM signal.
-%
-%\\\\
-tail for the modelling

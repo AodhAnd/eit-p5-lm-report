@@ -32,10 +32,14 @@ To get the vehicle's angular velocity, the radius of the circle is needed. By us
 \eq{y}{\frac{b^2-b \cdot m3 + h^2}{2*m3}} \unit{\cdot}
 \end{flalign}
 
+\begin{flalign}
+\eq{x}{\frac{m3}{2}} \unit{\cdot}
+\end{flalign}
+
 The y component of the C coordinate has been found, it is therefore possible to use Pythagoras theorem to find the equations for the circle's radius.
 
 \begin{flalign}
-\eq{r}{\sqrt{\frac{m3}{2}^2+y^2}} \unit{\cdot}
+\eq{r}{\sqrt{x^2+y^2}} \unit{\cdot}
 \end{flalign}
 
 By using the radius it is possible to create an expression for the angular velocity. It is assumed that the velocity is constant and the servo does not move after is has moved to a specific angle. by assuming these two things, the path which the vehicle will follow is the tangent of the circle. It is now possible to extract a equation for the vehicle's angular velocity.

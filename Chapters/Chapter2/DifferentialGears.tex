@@ -75,3 +75,12 @@ Instead of only having one spider gear (the green gear on \figref{diffGearLight}
 
 Now that the vehicle has been presented and its limits analysed, the prototype contraints can be considered to aim the functionnalities needed in this project.
 
+\subsection{Things that maybe should be placed in this section}
+
+When a permanent magnet DC motor is used, the inductor and resistor in the motor causes a time constant, that the PWM time period should be less than:
+
+\begin{flalign}
+T &< 2 \cdot \frac{L_a}{R_a} \cdot ln(1-\frac{P}{100})\unit{s}
+\end{flalign}
+
+Where P is the duty cycle in percent, and La is the inductance in the motor, and Ra is the resistance in the motor.

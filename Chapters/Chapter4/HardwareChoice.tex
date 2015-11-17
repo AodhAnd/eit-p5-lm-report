@@ -1,0 +1,155 @@
+\section{Hardware choice}
+From the Requirements \todo{Ref to requirements}, the hardware components are chosen for the prototype. Beside the requirements for each components, there is considered the availability of the component and the implementation of the component in the system.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Microcontroller}
+The microcontroller is the brain of the system. The purpose of the controller is to connect all the other hardware component, contain the software script of the system and control the rest of the system, with help of signals, controlled by the script.
+
+The requirements for the microcontroller are:
+\begin{itemize}
+\item Have a CPU, that have a frequency greater than XX. \todo{Number}
+\item Having I/O connections, both digital and analogue.
+\item Having 5 free timers, to control different part of the system parallel with each other.
+\item Having output connections, that can transmit PWM signals.
+\item Can be powered by an external power source.
+\end{itemize} 
+
+\subsubsection{Arduino Mega 2560}
+
+%https://www.arduino.cc/en/Main/ArduinoBoardMega2560
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Storage}
+The storage is used for saving the edge map and the route for the vehicle \todo{Ref to last place this is mention}. This data have to be saved from use to use of the vehicle. 
+
+The requirements for the storage are:
+\begin{itemize}
+\item The data shall be retrievable, after a power cut to the storage. \todo{Re formulate}
+\item Have a storage of XX bytes. \todo{Number}
+\item The transfer speed is greater than XX bytes per second. \todo{Number}
+\end{itemize}
+
+\subsubsection{SD card}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Motor Driver}
+The motor driver is the connection between the microcontroller, the power supply and the motor. The component is used, to separate the low power components, i.e. the microcontroller, and the high power components, i.e. the motor.
+
+The requirements for the motor driver are:
+\begin{itemize}
+\item Can be powered by an external power source.
+\item Can handle up to 7 volts. \todo{Number}
+\item Can power the motor in both direction.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Power Supply}
+The external power supply have to both power the motor, which need a high voltage and high power and the other components, which needs low voltage and low power.
+
+The requirements for the power supply are:
+\begin{itemize}
+\item Voltage output of 7 volts. \todo{Number}
+\item Deliverer a stable power output.
+\item Can run the motor at full speed for XX. \todo{Number}
+\end{itemize}
+
+\subsubsection{Battery pack}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Wireless communication}
+The data from the GOT system is send to the microcontroller with this component. The transmitter will be located at the computer for the GOT system and the receiver on the vehicle.
+
+The requirements for the wireless communication components are:
+\begin{itemize}
+\item Have a reach greater than XX. \todo{Number}
+\item Powered by an external power supply.
+\item The transfer speed is greater than XX bytes per second. \todo{Number}
+\item Have a loss of bits smaller than XX. \todo{Is this needed and what number}
+\end{itemize}
+
+\subsubsection{Xbee}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subsection{Velocity sensor}
+%The velocity sensor is used in the feedback for the control system.
+%
+%The requirements for the velocity sensor are:
+%\begin{itemize}
+%\item Having a sampling frequency greater than XX. \todo{Number}
+%\item Having a latency smaller than XX. \todo{Number}
+%\item Powered by an external power supply.
+%\end{itemize}
+%
+%\subsubsection{Hall sensor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Angular sensor}
+The angular sensor is used in the feedback for the control system.
+
+The requirements for the angular sensor are:
+\begin{itemize}
+\item Having a sampling frequency greater than XX. \todo{Number}
+\item Having a latency smaller than XX. \todo{Number}
+\item Powered by an external power supply.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%1. Micro controller
+%- Timers
+%- In and out pins (Analogue or digital???)
+%- Can be powered by external power source
+%- Frequency on the CPU
+%- Serial???
+%
+%2. SD card
+%- Saved, even when the there is a power cut
+%- Size
+%- Speed of transfer
+%
+%3. Motor driver
+%- External powers source
+%- Can handle 7 volts (Motor req)
+%- Can power the motor both ways
+%
+%4. Batteries
+%- Deliver a stable power
+%- 7 Volts
+%- Drive time
+%
+%5. Xbee
+%- Transfer speed
+%- Communication with the micro controller
+%- Distance of sending radius
+%- Reliability
+%- Powered by batteries or micro controller
+%
+%6. Hall sensor
+%- Sampling frequency
+%- Reliability
+%- Latency
+%
+%7. Angular sensor
+%- Sampling frequency
+%- Reliability
+%- Latency
+%
+%Note: Insert speed of sampling in the GOT
+
+%Pins on the arduino
+%SD card (4 I/O)
+%Xbee (1 TX and 1 RX)
+%Hall (2 I/O)
+%Angular (1 SDL and 1 SDA)
+%Servo (1 PWM)
+%Motor (1 PWM)
+
+
+% Something about philips stuff

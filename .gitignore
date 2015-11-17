@@ -130,3 +130,4 @@ sympy-plots-for-*.tex/
 *.sublime-project
 *.sublime-workspace
 main.pdf
+figures/Thumbs.db

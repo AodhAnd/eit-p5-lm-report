@@ -1,15 +1,12 @@
 \pagebreak
-\section{Vehicle Tests}
-\nopagebreak
-
-\subsection{Inertia Test} %\label{put a label here and uncomment}
+\section{Vehicle's Inertia Test} \label{app:inertiaTest}
 \textbf{Name: Group 510}\\
 \textbf{Date: 02/11 - 2015}
 
-\subsubsection{Purpose}
+\subsection{Purpose}
 The purpose of the test is to measure the inertia of the vehicle, $J_{tot}$, and find the vehicle's step-response at the same time.
 
-\subsubsection{Theory}
+\subsection{Theory}
 %-- Not the right test anymore, but could still be useful in case we change our minds --%
 % The \figref{inertiaTestPowerCutOrDisable} shows the vehicle's velocity variations throughout time, both when the motor is unplugged manually or when its power is cut via software :
 
@@ -27,7 +24,7 @@ The purpose of the test is to measure the inertia of the vehicle, $J_{tot}$, and
 In this test a two-step input is used to get the system's response. The reason for this is to avoid the stiction (also called Coulomb friction) when the vehicle starts. The second step input is not sent until the vehicle is in a steady and non-zero velocity. Without these two steps the first data points of the response are unusable, as seen on \figref{MomentOfInertiaTestPlot}.
 
 
-\subsubsection{Setup}
+\subsection{Setup}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.6]{figures/inertiaTestSetupDiagram2.pdf}
@@ -35,7 +32,7 @@ In this test a two-step input is used to get the system's response. The reason f
 	\label{inertiaTestSetupDiagram}
 \end{figure}
 
-\subsubsection{List of Equipment}
+\subsection{List of Equipment}
 
 \begin{table}[H]
 \begin{tabular}{|p{10cm}|p{4cm}|}
@@ -47,7 +44,7 @@ In this test a two-step input is used to get the system's response. The reason f
 \end{tabular}
 \end{table}
 
-\subsubsection{Procedure}
+\subsection{Procedure}
 
 \begin{enumerate}
   \item Disconnect the battery.
@@ -60,7 +57,7 @@ In this test a two-step input is used to get the system's response. The reason f
   \item Plot the speed of the vehicle using Matlab.
 \end{enumerate}
 
-\subsubsection{Results} \label{inertiaTestResults}
+\subsection{Results} \label{inertiaTestResults}
 The execution of the test has a duration of 10 seconds in total. First the vehicle waits for 2 seconds without moving. Thereafter it moves with a 20 percent of its maximal velocity in a duration of 3 seconds. In the last 5 seconds of the test, the vehicle runs at its maximal velocity. These velocity variations in the test can be seen in \figref{MomentOfInertiaTestPlot}.
 
 \begin{figure}[H]
@@ -86,7 +83,7 @@ Since the velocity is taken at \si{\num{63.2} \%} between the first steady state
 
 According to the data, the velocity of the vehicle at that point is :
 \begin{flalign}
-  \eq{V(\tau)}{2.2376} \si{m \cdot s^{-1}}&&\nonumber 
+  \eq{V(\tau)}{2.2376} \si{\ m \cdot s^{-1}}&&\nonumber
 \end{flalign}
 \todo{fix spacing between number and unit}
 %

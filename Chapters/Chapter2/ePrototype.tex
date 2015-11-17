@@ -26,7 +26,7 @@ The final prototype includes a regulator, which will make it possible to follow 
 \todo{got transmitter instead of ultra sound and radio link, the 10 is also a time, the 12 and 9 are an electromagnetic signal}
 
 \subsection{Modules}
-Apart from - \textit{Storage}, \textit{Read/Write Map} and \textit{Wireless Modules} - all the modules from the system prototype are described to understand the basis of the prototype. In the following a brief description of these modules are presented.
+In the following, apart from - \textit{Storage}, \textit{Read/Write Map} and \textit{Wireless Modules} - all the modules from the system prototype are described to understand the basis of the prototype.
 
 
 \subsubsection{GoT System}
@@ -66,13 +66,13 @@ The Edge Map submodule sends the \textit{Map edge} to Route Planning, that will 
 The Hall Sensors send \textit{Hall sensor pulses} to the submodule Get Speed, that will process it to transmit the \textit{Belt speed} to the Speed Control. A \textit{PWM signal} containing the new wanted speed will then be sent to the Motor Driver, wich will convert it to the final \textit{Motor control signal} and sent it to the Drive Motor.
 
 \subsubsection{Angular Sensors Interfaces}
-The Angular Sensors will send a \textit{Raw angle data} to the submodule  Get Angles, that will process it and send the \textit{Processed angle data} to the Course Correction submodule.
+The Angular Sensors will send a \textit{Raw angle data} to the submodule  Get Angles, that will process it and send the \textit{Processed angle data} to Course Correction.
 
 \subsubsection{Course Correction Interfaces}
 The Course Correction submodule receives the \textit{Position and Time} from the Wireless Module, the \textit{Route} to follow from Read/Write Map, and the \textit{Processed angle data} from Get Angles. With all those information, a decision will be sent to the Speed Control through the \textit{Desired speed}, and to the Servo Motor with an \textit{Angle/servo control signal}.\\\\
 
 
-Now that the vehicle had been descibed and the prototype defined, the modelling of the vehicle will allow us to define the requierements.
+Now that the vehicle had been descibed and the prototype defined, the modelling of the vehicle can be made.
 
 
 %---------------------------------------------------------------------------------------------------------------------------\\

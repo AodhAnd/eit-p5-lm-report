@@ -4,8 +4,7 @@
 \textbf{Date: 02/11 - 2015}
 
 \subsection{Purpose}
-The purpose of the test is to measure the inertia of the vehicle, $J_{tot}$, and find the vehicle's step-response at the same time.
-
+The purpose of the test is to measure the velocity system's time constant and find the inertia of the vehicle, $J_{tot}$, using this time constant.
 \subsection{Theory}
 %-- Not the right test anymore, but could still be useful in case we change our minds --%
 % The \figref{inertiaTestPowerCutOrDisable} shows the vehicle's velocity variations throughout time, both when the motor is unplugged manually or when its power is cut via software :
@@ -21,9 +20,49 @@ The purpose of the test is to measure the inertia of the vehicle, $J_{tot}$, and
 % Therefore, the software method is used to extract the inertia.
 %-- End of the first test version --%
 
-In this test a two-step input is used to get the system's response. The reason for this is to avoid the stiction (also called Coulomb friction) when the vehicle starts. The second step input is not sent until the vehicle is in a steady and non-zero velocity. Without these two steps the first data points of the response are unusable, as seen on \figref{MomentOfInertiaTestPlot}.
+\subsubsection{Using two steps}
+In this test a two-step input is used to get the system's response. The reason for this is to avoid the stiction (also called Coulomb friction) when the vehicle starts. The second step input is not sent until the vehicle is in a steady and non-zero velocity. Without these two steps the first data points of the response are unusable, as seen in the results on \figref{fig:MomentOfInertiaTestPlot}.
 
+%% Derivation of inertia formula %%
+\subsubsection{Inertia formula}
 
+From [Block diagram of the total velocity model], it is possible to neglect the motor's armature inductance, $L_a$, which is very small before the armature's resistance $R_a$, see \appref{app:motorTests}. The derived simplified transfer function of the motorshaft's angular velocity, relative to the voltage input is then :
+%-- Velocity model Tf with neglected La --%
+\begin{flalign}
+\eq{\frac{\omega(s)}{U_a(s)}}{\frac{\frac{K_t}{R_a} \cdot \frac{\frac{1}{B_{tot}}}{\frac{J_{tot}}{B_{tot}} \cdot s + 1}}{1 + \frac{K_t \cdot K_e}{R_a} \cdot \frac{\frac{1}{B_{tot}}}{\frac{J_{tot}}{B_{tot}} \cdot s + 1}}}
+\end{flalign}
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}lll}
+& $J_{tot}$ & is the vehicle's total inertia                  &\unitWh{kg \cdot m^2}\\
+& $B_{tot}$ & is the vehicle's total friction                 &\unitWh{N \cdot m \cdot s}\\
+& $\tau$    & is the time constant of the mechanical system   &\unitWh{s}\\
+& $R_a$     & is the motor's armature resistance              &\unitWh{\Omega}\\
+& $K_t$     & is the motor constant                           &\unitWh{Wb}\\
+& $K_e$     & is the motor's generator constant               &\unitWh{Wb}\\
+\end{tabular}
+\todo{Do we use units in the Laplace domain ?}
+\todo{All terms were previsously defined in the report, should we redefine them for this equation ?}
+
+This can be rewritten in the standard form as :
+\begin{flalign}
+\eq{\frac{\omega(s)}{U_a(s)}}{\frac{\frac{K_t}{B_{tot} \cdot R_a + K_t \cdot K_e}}{\frac{J_{tot} \cdot R_a}{B_{tot} \cdot R_a + K_t \cdot K_e} \cdot s + 1}}
+% \label{eq:velocityModelStandardNeglectedInductance}
+\end{flalign}
+
+That means that the time constant of the entire velocity model, $\tau$, can be expressed as :
+\begin{flalign}
+\eq{\tau}{\frac{J_{tot} \cdot R_a}{B_{tot} \cdot R_a + K_t \cdot K_e}} \unit{s}
+\label{eq:velocityTimeConstant}
+\end{flalign}
+
+%-- Final inertia formula --%
+Eventually, since the time constant is found another way, it is possible to transform \eqref{eq:velocityTimeConstant} to obtain $J_{tot}$ :
+\begin{flalign}
+\eq{J_{tot}}{\frac{\tau \cdot (R_a \cdot B_{tot} + K_t \cdot K_e)}{R_a}} \unit{kg \cdot m^{2}}
+\label{eq:inertiaFormula}
+\end{flalign}
+
+%% Test setup description %%
 \subsection{Setup}
 \begin{figure}[H]
 	\centering
@@ -44,6 +83,7 @@ In this test a two-step input is used to get the system's response. The reason f
 \end{tabular}
 \end{table}
 
+%% Procedure %%
 \subsection{Procedure}
 
 \begin{enumerate}
@@ -57,81 +97,66 @@ In this test a two-step input is used to get the system's response. The reason f
   \item Plot the speed of the vehicle using Matlab.
 \end{enumerate}
 
+%% Results %%
 \subsection{Results} \label{inertiaTestResults}
-The execution of the test has a duration of 10 seconds in total. First the vehicle waits for 2 seconds without moving. Thereafter it moves with a 20 percent of its maximal velocity in a duration of 3 seconds. In the last 5 seconds of the test, the vehicle runs at its maximal velocity. These velocity variations in the test can be seen in \figref{MomentOfInertiaTestPlot}.
+The execution of the test has a duration of 10 seconds in total. First the vehicle waits for 2 seconds without moving. Thereafter it moves with a 20 percent of its maximal velocity in a duration of 3 seconds. In the last 5 seconds of the test, the vehicle runs at its maximal velocity. These velocity variations in the test can be seen in \figref{fig:MomentOfInertiaTestPlot}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.8]{figures/VehicleMomentOfInertiaTest.png}
   \caption{Vehicle's velocity response to a two-steps input}
-  \label{MomentOfInertiaTestPlot}
+  \label{fig:MomentOfInertiaTestPlot}
 \end{figure}
 
-% \paragraph{Step Response Time Constant}
-By knowing the maximum velocity of the vehicle at the end of the test and the velocity when it is in a first steady state, just before the second step, it is possible to deduce the time at which the velocity reaches \si{\num{63.2} \%} of its final value. The obtained time is the step response time constant of the system $\tau$.
+%- Time constant -% 
+\subsubsection{Velocity System's Time Constant}
+Only, the second step is used. By knowing the maximum velocity of the vehicle at the end of the test and the velocity when it is in a first steady state, just before the second step, it is possible to deduce the time at which the velocity reaches \si{\num{63.2} \%} of its final value. The obtained time is the step response time constant of the system $\tau$.
 
 Since the velocity is taken at \si{\num{63.2} \%} between the first steady state and the final value, it is needed to shift it up with the starting value $V_{ss1}$ :
 \begin{flalign}
-\eq{V(\tau)}{(V_{max} - V_{ss1}) \cdot 0.632 + V_{ss1}} \unit{m \cdot s^{-1}}
+\eq{V(\tau + t_0)}{(V_{max} - V_{ss1}) \cdot 0.632 + V_{ss1}} \unit{m \cdot s^{-1}}
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
-& $V(\tau)$ & is the velocity of the vehicle at \si{\num{63.2} \%} between the first step and its final value &\unitWh{m \cdot s^{-1}}\\
+& $V(\tau + t_0)$ & is the velocity of the vehicle at \si{\num{63.2} \%} between the first step and its final value &\unitWh{m \cdot s^{-1}}\\
+& $t_0$       & is the time at which the second step starts                                     &\unitWh{s}\\
 & $V_{max}$   & is the vehicle's maximum velocity                                               &\unitWh{m \cdot s^{-1}}\\
 & $V_{ss1}$   & is the vehicle's velocity in the steady state corresponding to the first step   &\unitWh{m \cdot s^{-1}}\\
 \end{tabular}
 
 According to the data, the velocity of the vehicle at that point is :
 \begin{flalign}
-  \eq{V(\tau)}{2.2376} \si{\ m \cdot s^{-1}}&\nonumber
+  \eq{V(\tau + t_0)}{2,2376} \si{\ m \cdot s^{-1}}&\nonumber
 \end{flalign}
 %
 The corresponding time stamp to that velocity $t_1$ is :
 \begin{flalign}
   \eq{t_1}{5312} \si{\ ms}&\nonumber
 \end{flalign}
-\todo{fix spacing between number and unit}
 %
-However, it is also needed to shift down the time scale so that the time $t_0$ at which the second step begins is 0 :
+However, it is also needed to shift down the time scale so that the time $t_0$ at which the second step begins is the time origin :
 %
 \begin{flalign}
 \eq{\tau}{t_1 - t_0} \unit{s}
 \end{flalign}
-\hspace{6mm} Where:\\
-\begin{tabular}{p{1cm}lll}
-& $\tau$ & is the system's time constant                                                  &\unitWh{s}\\
-& $t_0$   & is the time at which the second step starts                                   &\unitWh{s}\\
-& $t_1$   & is the time at which \si{\num{63.2} \%} of the final value have been reached  &\unitWh{s}\\
-\end{tabular}
+% \hspace{6mm} Where:\\
+% \begin{tabular}{p{1cm}lll}
+% & $t_1$   & is the time at which \si{\num{63.2} \%} of the final value have been reached  &\unitWh{s}\\
+% \end{tabular}
 
 
 Therefore, the time constant is: 
 \begin{flalign}
-\eq{\tau}{\si{0,5312} - \si{0,5054}} \unit{s}\\
+\eq{\tau}{0,5312 - 0,5054} \si{\ s}&\nonumber\\
   % &\Updownarrow&\nonumber\\
-\eq{\tau}{\si{0,258}} \unit{s}
+\eq{\tau}{0,258} \si{\ s}&\nonumber
 \end{flalign}
 
-Eventually, the following formula is used to calculate J:
-
+%- Inertia calculation -%
+\subsubsection{Total Inertia Calculation}
+%
+Eventually, the \eqref{eq:inertiaFormula} is used to calculate $J_{tot}$. Using values found in previous tests.
+Which leads to $J_{tot}$ being :
 \begin{flalign}
-\eq{J_{tot}}{\frac{\tau \cdot (R_a \cdot B + K_t \cdot K_e)}{R_a}} \unit{kg \cdot m^{2}}
+\eq{J_{tot}}{4,4914 \cdot 10^{-3}} \si{\ kg \cdot m^2}&\nonumber
 \end{flalign}
-\hspace{6mm} Where:\\
-\begin{tabular}{p{1cm}lll}
-& $J_{tot}$ & is the vehicle's total inertia                  &\unitWh{kg \cdot m^2}\\
-& $B_{tot}$ & is the vehicle's total friction                 &\unitWh{N \cdot m \cdot s}\\
-& $\tau$    & is the time constant of the mechanical system   &\unitWh{s}\\
-& $R_a$     & is the motor's armature resistance              &\unitWh{\Omega}\\
-& $K_t$     & is the motor constant                           &\unitWh{Wb}\\
-& $K_e$     & is the motor's generator constant               &\unitWh{Wb}\\
-\end{tabular}
-
-Which leads to $J$ being :
-\begin{flalign}
-\eq{J}{?} \si{kg \cdot m^2}&\nonumber
-\end{flalign}
-
-
-
-% \paragraph{Inertia}

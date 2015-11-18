@@ -13,7 +13,7 @@ The velocity calculation is done trough the Hall sensors. There are four magnets
 This is a plot of the speed, with unaccurate measurement because of the uneven placement of the magnets, with a calculation of the time between each magnets.\\
 
 
-The new approach is to get the time the wheel take to make a full turn, to have the exact time and distance. The speed will be calculated from a full turn every magnets, compared to the last time it was registered, four outputs before. A plot of the measurements can be seen on \figref{filteredHall}.
+The new approach is to get the time the wheel take to make a full turn, to have the exact time and distance of a rotation. The speed will be calculated from a full turn every magnets, compared to the last time it was registered, four outputs before. A plot of the measurements can be seen on \figref{filteredHall}.
 
 \begin{figure}[H]
 	\centering
@@ -22,7 +22,7 @@ The new approach is to get the time the wheel take to make a full turn, to have 
 	\label{filteredHall}
 \end{figure}
 
-The difference between the two plots is that at constant speed, the time calculated at each outputs is uneven on \figref{unfilteredHall}, and even in \figref{filteredHall}. A flowchart of the implementation of the functions of the Hall Sensors can be seen on \figref{hallFlowchart}.
+The difference between the two plots is that at constant speed, the time measured at each outputs is uneven on \figref{unfilteredHall}, and even in \figref{filteredHall}. A flowchart of the implementation of the functions of the Hall Sensors can be seen on \figref{hallFlowchart}.
 
 \begin{figure}[H]
 	\centering
@@ -31,4 +31,4 @@ The difference between the two plots is that at constant speed, the time calcula
 	\label{hallFlowchart}
 \end{figure}
 
-This flowchart explains the way of getting the time at each outputs. The Hall Sensors use the timers 4 and 5 to register the time of the output. The first function \textit{tSpeed} describes the storing the two timers values in the registers, the second is a subfunction of the first one, and the last function \textit{getSpeed} is the calculation of the speed from the raw data of a variable in the function \textit{tSpeed}.
+This flowchart explains the way of getting the time at each outputs. The Hall Sensors use the timers 4 and 5 to register the time of the output. The first function \textit{tSpeed} describes the storing of the two timers values in the registers, the second is a subfunction of the first one, and the last function \textit{getSpeed} is the calculation of the speed from the raw data of a variable in the function \textit{tSpeed}.

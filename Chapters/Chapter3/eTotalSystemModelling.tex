@@ -1,28 +1,22 @@
 \subsection{Verification of the Velocity Model}
-In the former section a approximation of the velocity model has been established. 
-
+In the former section a approximation of the velocity model has been established. To ensure the approximation is a reliable model of the system, it is compared to a measured step-response of the vehicle. In \figref{SimulationIRLsteprespons2} the simulated model's step-response and the measured step-response of the vehicle is illustrated. 
 
 \begin{figure}[H]
   \centering
  	%Trim margins @:   left        bottom       right       top
  	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
   {
-    \includegraphics[width=1.2\textwidth]{figures/SimulationIRLsteprespons2.pdf}
+    \includegraphics[width=1.4\textwidth]{figures/SimulationIRLsteprespons2.pdf}
   }
-  \caption{A plot of a measured armature resistance, with a red line indicating the an average value.}
-  \label{armatureResistance}
+  \caption{A plot illustrating a simulated step-response of the approximated velocity model (the blue line) and a measured step-response of the vehicle (the red line).}
+  \label{SimulationIRLsteprespons2}
 \end{figure}
 
+In \figref{SimulationIRLsteprespons2} the red line is the measured data from the vehicle's step-response. To ensure enough data points is registered by the hall-sensor, when performing the step-response of the vehicle, the vehicle is set to drive at 20 percent of it's maximum velocity at the start of the test. The vehicle preserve this velocity continuously for three seconds before the vehicle is set to drive at it's maximum velocity. The simulation (the blue line) is set to have the same milestones as the measured step-response of the vehicle. 
 
+The occurring of stiction in in the start of the simulation- and measured step-response, has been eliminated to a certain degree, which makes it redundant.furthermore, even though the vehicle is moving at a velocity of $0 [m \cdot s^{-1}]$, the velocity is registered to be $0.04 [m \cdot s^{-1}]$, see why in \secref{Hallfiltering}. 
 
-Hvad sker der i testen?
-
-Hvordan ser det ud når jeg sammenligner dem
-
-Rød pup i starten er sensor lag
-
-Det er en approximation
-
+The little bump in the beginning of the measured step-response is partially cause by the low-pass filter and the inductance in motor, this is, however, disregarded. additionally, the ripple seen on the measured step-response, when the vehicle is at it's maximum velocity, could be caused by different kinds of noise factors, e.g:
 
 \begin{itemize}
 \item Uneven belts 
@@ -30,3 +24,5 @@ Det er en approximation
 \item Belts slipping on the floor
 \item Wear and tear on the internal gears
 \end{itemize}
+
+The data from the simulated- and measured step-response illustrated, in \figref{SimulationIRLsteprespons2}, when compared is very similar, except for the bump and ripple on the measured data. Besides these two elements the approximated velocity model is sufficient.

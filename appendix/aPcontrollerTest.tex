@@ -2,12 +2,25 @@
 \textbf{Name: Group 510}\\
 \textbf{Date: 06/10 - 2015}
 
-\section*{Purpose}
+\subsubsection{Purpose}
 The purpose of this test is to find out how the system reacts to closed loop control.
 \\
 
 \subsubsection{Theory}
-To test The test will be performed with an open loop (a step response), and with a Proportional controller, with and without feed forward.
+According to \todo{source}, a P-controller makes it possible to change the time constant of a system. To test this, a P-controller with a gain of 1 is implemented, and compared to a normal step response.
+A side effect of the Proportional control is a steady state offset. This can be easily shown by an example:
+
+A non moving system, with a desired final speed of 2 m/s, and a P-gain of 1 is examined.
+
+In the beginning, the error will be calculated as $$\SI{2}{m/s} - \SI{0}{m/s} = \SI{2}{m/s}$$
+The system is therefore instructed to accelerate to 2 m/s.
+
+After a period of time, the system will cross 1 m/s. Calculating the error now, results in $$\SI{2}{m/s}-\SI{1}{m/s}=\SI{1}{m/s}$$
+The system is therefore instructed to stay at 1 m/s, and stop accelerating. This effectively causes a steady state error of 50\%.
+
+A way to reduce this offset is to use Feed Forward. \todo{source}. This will be tested as well, with a Feed Forward gain of 1.
+
+
 
 \subsubsection{Setup}
 
@@ -42,10 +55,7 @@ To test The test will be performed with an open loop (a step response), and with
   \item Wait until the vehicle stops before ending the measurements by unplugging the connected computer from the Arduino.
   \item Plot the speed of the vehicle using Matlab.
 \end{enumerate}
-
 \subsubsection{Results}
-To get as close as possible to the vehicle's exact gain, a test where the vehicle drives at different speed has been set up. In \figref{PconTest} the data from the performed test is illustrated. 
-
 \begin{figure}[H]
   \centering
  	%Trim margins @:   left        bottom       right       top
@@ -57,14 +67,16 @@ To get as close as possible to the vehicle's exact gain, a test where the vehicl
   \label{PconTest}
 \end{figure}
 
-%from \figref{SpeedStepGainTest} it is seen that for each two seconds the vehicle's velocity is increased by 20 percent. By taking the the average value of the vehicles steady state speed at each velocity, it is possible to get a gain of the vehicle, this is illustrated in \figref{GainOfEachSpeedStep}.
+In all tests, the vehicle was instructed to change its speed from $\SI{0,3}{m/s}$ to $\SI{2}{m/s}$.
+The resulting responses of the system can be seen in \figref{PconTest}. It can be clearly seen, that the P-controller creates an offset of 50\%, just as expected. The Feed forward eliminates this error. The three time constants can now be reviewed:
+$$\tau_\text{s}=\SI{0,211}{s}$$
+$$\tau_\text{p}=\SI{0,152}{s}$$
+$$\tau_\text{f}=\SI{0,152}{s}$$
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}lll}
+& $\tau_\text{s}$ & is the time constant for the open loop response &\unitWh{s}\\
+& $\tau_\text{p}$       &is the time constant for the response with a P-controller&\unitWh{s}\\
+& $\tau_\text{f}$   & is the time constant for the response with a P-controller and feed forward&\unitWh{s}\\
+\end{tabular}
 
-
-
-%By making a least square line going through the average gain value at each velocity, it is possible to get the gain and the offset created by the stiction from the least square line. The equation for the least square line is seen on \figref{GainOfEachSpeedStep}. The Gain and the offset created by the stiction is therefore:
-
-\begin{flalign}
-\eq{K_G}{0,485} \ \si{m \cdot s^{-1} \cdot V^{-1}}&\\
-\eq{\Delta v}{0,376} \ \si{m \cdot s^{-1}}&
-\end{flalign}
-
+It can be concluded, that the P controller lowers the time constant of the system. Furthermore it is clear, that the feed forward does not affect the time constant, just the final speed.

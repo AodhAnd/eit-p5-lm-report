@@ -31,4 +31,16 @@ The difference between the two plots is that at constant speed, the time measure
 	\label{hallFlowchart}
 \end{figure}
 
-This flowchart explains the way of getting the time at each outputs. The Hall Sensors use the timers 4 and 5 to register the time of the output. The first function \textit{tSpeed} describes the storing of the two timers values in the registers, the second is a subfunction of the first one, and the last function \textit{getSpeed} is the calculation of the speed from the raw data of a variable in the function \textit{tSpeed}.
+This flowchart explains the way of getting the time at each outputs. The Hall Sensors use the timers 4 and 5 to register the time of the output. The first function \textit{tSpeed} describes the storing of the two timers values in the registers, the second is a subfunction of the first one, and the last function \textit{getSpeed} is the calculation of the speed from the raw data of a variable in the function \textit{tSpeed}.\\
+
+\subsubsection{FIR Filter}
+
+Using the four magnets of the wheel and recording the time values through the timers involve using a  FIR Filter(Finite Impulse Response Filter). An overview of the filter can be seen on \figref{FIRFilter}.
+
+
+\begin{figure}[H]
+	\centering
+	%\includegraphics[scale=0.9]{figures/FIRFilter.pdf}
+	\caption{Overview of an FIR Filter}
+	\label{FIRFilter}
+\end{figure}

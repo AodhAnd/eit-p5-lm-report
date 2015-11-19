@@ -53,6 +53,7 @@
 \input{Chapters/Chapter2/DesignConsiderationsV2}
 \input{Chapters/Chapter2/VehicleDescription}
 \input{Chapters/Chapter2/Hallsensor}
+\input{Chapters/Chapter2/Brakes}
 \input{Chapters/Chapter2/Servo}
 \input{Chapters/Chapter2/DifferentialGears}
 \input{Chapters/Chapter2/dPrototypeConstraints}
@@ -63,11 +64,19 @@
 \input{Chapters/Chapter3/bVelocityVehicle}
 \input{Chapters/Chapter3/cMotorModelling}
 \input{Chapters/Chapter3/dDriveTrain}
+\input{Chapters/Chapter3/LinearApproximation}
 \input{Chapters/Chapter3/eTotalSystemModelling}
 \input{Chapters/Chapter3/fSteeringModel}
 
 %%% Part 2 %%%
 \part{Design \& implementation}
+\input{Chapters/Chapter4/HardwareChoice}
+\input{Chapters/Chapter4/HallSensorImplementation}
+\input{Chapters/Chapter4/VelocityController}
+\input{Chapters/Chapter4/SteeringController}
+\input{Chapters/Chapter4/Communication}
+\input{Chapters/Chapter4/Routeplanning}
+
 
 %%% Part 3 %%%
 \part{Test \& conclusion}
@@ -89,22 +98,30 @@
 \addcontentsline{toc}{chapter}{Appendix}
 
 %---------- Appendix A ---------------------------------------- GoT Description
-\input{appendix/GoTdescription.tex}
+\input{appendix/aGoTdescription.tex}
 
 %---------- Appendix B ---------------------------------------- Motor Tests
-\input{appendix/aMotorTest.tex}
-\input{appendix/aMotorTest2.tex}
-\input{appendix/aMotorTest3.tex}
-\input{appendix/aMotorTest4.tex}
-\input{appendix/aMotorTest5.tex}
-\input{appendix/aMotorTest6.tex}
-\input{appendix/aMotorTest7.tex}
-\input{appendix/aMotorTest8.tex}
-\input{appendix/aInertiaTest.tex}
+\input{appendix/bMotorTest.tex}
+\input{appendix/bMotorTest2.tex}
+\input{appendix/bMotorTest3.tex}
+\input{appendix/bMotorTest4.tex}
+\input{appendix/bMotorTest5.tex}
+\input{appendix/bMotorTest6.tex}
+\input{appendix/bMotorTest7.tex}
+\input{appendix/bMotorTest8.tex}
 
 %---------- Appendix C ---------------------------------------- Friction Test
-\input{appendix/cFrictionTest.tex}
 %\input{appendix/dSteeringTest.tex}
+
+%---------- Appendix D ---------------------------------------- Inertia Test
+\input{appendix/dInertiaTest.tex}
+
+%---------- Appendix E ---------------------------------------- Gain Test
+\input{appendix/GainTest.tex}
+
+%---------- Appendix F ---------------------------------------- Steering Test
+\input{appendix/dSteeringTest.tex}
+\input{appendix/aPcontrollerTest.tex}
 
 %%% Bibliography %%%
 \printbibliography

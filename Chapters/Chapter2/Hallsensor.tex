@@ -1,5 +1,5 @@
 \subsection{Hall Sensor}
-There are two hall sensors implemented on the vehicle, one on each belt, at the front gear (See \figref{vehicleDescriptionDriveTrain} in \secref{})\todo{Make the sec ref}. There are two hall sensors to measure the speed, because the belts run at different speeds when the vehicle is turning. The sensors are placed beside the front gears, on which there are four magnets, placed so that there is a quarter of a turn between them. The hall sensor is illustrated on \figref{HallSensor}.
+There are two hall sensors implemented on the vehicle, one on each belt, at the front gear (See \figref{vehicleDescriptionDriveTrain} in \secref{sec:Vehicledescription}). There are two hall sensors to measure the speed, because the belts run at different speeds when the vehicle is turning. The sensors are placed beside the front gears, on which there are four magnets, placed so that there is a quarter of a turn between them. The hall sensor is illustrated on \figref{HallSensor}.
 
  \begin{figure}[H]
 	\centering
@@ -13,4 +13,4 @@ By measuring the time between five outputs, as the first and the fifth output is
 
 When the vehicle is starting to move, the speed of the first turn of the gear can not be calculated. This is because two signal from the same magnet are needed before the speed can be calculated. So the first four output from the hall sensor will be saved and at the fifth output, after a whole turn, the speed related to the first magnet will be calculated.\\
 
-The hall sensors are used to measure the speed of the two belts, which will run at different speeds when the vehicle is turning. The system that makes the vehicle turn is controlled by the servo.
+The hall sensors are used to measure the speed of the two belts, which will run at different speeds when the vehicle is turning. Now that the components linked to the velocity  are described, the steering material will be analysed.

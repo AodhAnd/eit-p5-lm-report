@@ -31,12 +31,12 @@ The difference between the two plots is that at constant speed, the time measure
 	\label{hallFlowchart}
 \end{figure}
 
-This flowchart explains the way of getting the time at each outputs. The Hall sensors use the timers 4 and 5 to register the time of the output. The first function \textit{tSpeed} describes the storing of the two timers values in the registers, the second is a subfunction of the first one, and the last function \textit{getSpeed} is the calculation of the speed from the raw data of a variable in the function \textit{tSpeed}.\\
+This flowchart explains the way of getting the time at each outputs. The Hall sensors use the timers 4 and 5 to register the time of the output. The first function \textit{tSpeed} describes the storing of the two timers values in the registers, the second is a subfunction of the first one, and the last function \textit{getSpeed} is the calculation of the speed from the raw data of a variable in the function \textit{tSpeed}. The two functions \textit{tSpeed} and \textit{getSpeed} are functions of the Hall module.\\
 
 
-\subsubsection{Minimum speed because of the registers}
+\subsubsection{Minimum Speed}
 
-The Hall sensors measurements can only caapture speeds down to a certain velue because of the size of the buffer wich holds the timer value. The timers can count up to 65 535, and each clock tick lasts 64 µs. \\
+The Hall sensors measurements can only capture speeds down to a certain value because of the size of the buffer wich holds the timer value. The timers can count up to 65 535, and each clock tick lasts 64 µs.\\
 A full rotation of the wheel yields a linear movement of 166mm, so the minimum measurable speed is given by
 %
 \begin{flalign}
@@ -45,15 +45,15 @@ A full rotation of the wheel yields a linear movement of 166mm, so the minimum m
 	
 
 
-
-\subsubsection{FIR Filter}
-
-Using the four magnets of the wheel and recording the time values through the timers involve using a  FIR Filter(Finite Impulse Response Filter). An overview of the filter can be seen on \figref{FIRFilter}.
-
-
-\begin{figure}[H]
-	\centering
-	%\includegraphics[scale=0.9]{figures/FIRFilter.pdf}
-	\caption{Overview of an FIR Filter}
-	\label{FIRFilter}
-\end{figure}
+%
+%\subsubsection{FIR Filter}
+%
+%Using the four magnets of the wheel and recording the time values through the timers involve using a  FIR Filter(Finite Impulse Response Filter). An overview of the filter can be seen on \figref{FIRFilter}.
+%
+%
+%\begin{figure}[H]
+%	\centering
+%	%\includegraphics[scale=0.9]{figures/FIRFilter.pdf}
+%	\caption{Overview of an FIR Filter}
+%	\label{FIRFilter}
+%\end{figure}

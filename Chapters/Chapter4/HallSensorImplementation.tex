@@ -36,6 +36,9 @@ This flowchart explains the way of getting the time at each outputs. The Hall Se
 
 \subsubsection{Minimum speed because of the registers}
 
+The Hall Sensors have a minimum speed because of the maximum holding time in the buffer, and maximum speed because of the minimu sampling time of the sensor. The timers can only count up to 65 535 µs, and the sensor can not measure a time less than 64 µs. \\
+A quarter of turn of the gear is 166 mm long, so the minimum and maximum speed are 0.25 m/s and 260 m/s.	
+
 
 
 \subsubsection{FIR Filter}

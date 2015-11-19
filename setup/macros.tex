@@ -106,10 +106,11 @@
 %                  USEFULL MACROES                  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Units:
-\newcommand{\unit}[1]{&& \left[\si{#1}\right]} %\newcommand{\unit}[1]{[\si{#1}]}             <<< Use these if you want equations to be
-\newcommand{\unitWh}[1]{[\si{#1}]}             %                                               | centered.. .. will be appear scrambled
-%Equation:                                     %                                               | from one equation to the next though..
-\newcommand{\eq}[2]{\si{#1} &= \si{#2}}        %\newcommand{\eq}[2]{&&\si{#1} &= \si{#2}&&}  <<< and does not work with long equations.. :/
+\newcommand{\unit}[1]{&& \left[\si{#1}\right]} %\newcommand{\unit}[1]{[\si{#1}]}             <<| Use these if you want equations to be
+\newcommand{\unitWh}[1]{[\si{#1}]}             %\newcommand{\eq}[2]{&&\si{#1} &= \si{#2}&&}  <<| centered.. .. will be appear scrambled
+\newcommand{\numUnit}[1]{\ \si{#1}&}           %                                               | from one equation to the next though..
+%Equation:                                     %                                               | and does not work with long equations.. :/
+\newcommand{\eq}[2]{\si{#1} &= \si{#2}}
 \newcommand{\arw}{&& &\Updownarrow&&}
 %Text:
 \newcommand{\tx}[1]{\text{#1}}

@@ -34,7 +34,38 @@ The requirements for the storage are:
 \end{itemize}
 
 \subsubsection{SD card}
-Secure Data card (SD card) is a non-volatile memory card. This give it the feature that the data will not be lost at a power cut off. It comes in various storage sizes, from 1 GB to 2 TB, depending which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The  difference between the different type, is the file system use on the card and the capacity cap. With the requirement of a storage size on XX bytes, the SDSC big enough with a capacity cap on 2 GB. The transfer speed for a SDSC card various between XX bytes per second to XX.
+Secure Data card (SD card) is a non-volatile memory card. This give it the feature that the data will not be lost at a power cut off. 
+
+It comes in various storage sizes, from 1 GB to 2 TB, depending which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The  difference between the different type, is the file system use on the card and the capacity cap. With the requirement of a storage size on XX bytes, the SDSC big enough with a capacity cap on 2 GB. 
+
+The transfer speed for a SDSC card is 2 MB/s the slowest a card can maximum go by. With the requirement of a transfer speed greater than, the SDSC card is fast enough. 
+
+To use the SDSC card, it have to setup up with 7 connections to a controller, see \figref{SDcardpinout}. The setup of the SD card is different, depended on which mode that is used.
+
+\begin{minipage}{\linewidth}
+      \centering
+      \begin{minipage}{0.65\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=0.95\textwidth]{figures/sdcardpinout}
+              \caption{Illustration of a standard size SD card.} % http://elasticsheep.com/2010/01/reading-an-sd-card-with-an-atmega168/
+              \label{SDcardpinout}
+          \end{figure}
+      \end{minipage}
+      \hspace{0.05\linewidth}
+      \begin{minipage}{0.25\linewidth}
+      		\begin{enumerate}
+      			\item Pinion gear
+      			\item Ring gear
+      			\item Spider gears
+      			\item Side gears
+      		\end{enumerate}
+      \end{minipage}
+  \end{minipage}
+
+A SDSC card will be use for the project, as it have a capacity and transfer speed that meets the requirements. The data will be saved, if the power is cut off. The last requirement, the connections to the microcontroller
+
+%https://www.sdcard.org/developers/overview/capacity/index.html
+%https://www.sdcard.org/developers/overview/speed_class/
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Motor Driver}
@@ -44,7 +75,7 @@ The requirements for the motor driver are:
 \begin{itemize}
 \item Have to be controlled by the microcontroller.
 \item Can be powered by an external power source.
-\item Can handle up to 7 volts. \todo{Number}
+\item Can handle up to 7.2 volts. \todo{Number}
 \item Can power the motor in both direction.
 \end{itemize}
 
@@ -57,12 +88,13 @@ The external power supply have to both power the motor, which need a high voltag
 
 The requirements for the power supply are:
 \begin{itemize}
-\item Voltage output of 7 volts. \todo{Number}
+\item Voltage output of 7.2 volts. \todo{Number}
 \item Deliverer a stable power output.
 \item Can run the motor at full speed for XX. \todo{Number}
 \end{itemize}
 
 \subsubsection{Battery pack}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

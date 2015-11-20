@@ -39,13 +39,13 @@ Before connecting hardware modules to the Arduino pins, signal voltage levels ne
 
 The Arduino has regulated 5V and $\SI{3,3}{V}$ supply rails available, which will be used to power the respectable hardware modules. As the servo can potentially draw a lot of current, and overload the Arduino, it will be connected to a dedicated 5V voltage regulator, powered directly from the battery.
 
-A low-dropout type is chosen, to make sure it works, even at low battery voltages. \todo{ref?}
+A low-dropout type is chosen, \textbf{L4941}, to make sure it works, even at low battery voltages. This regulator has a maximum dropout of 700mV at 1A current, meaning that it will work with battery voltages as low as $\SI{5,7}{V}$. \todo{datasheet} 
 
-All one-directional connections from the Arduino to  $\SI{3,3}{V}$ logic level inputs will be connected to a CD4050 voltage level translator. \todo{ref}
+All one-directional connections from the Arduino to  $\SI{3,3}{V}$ logic level inputs will be connected to a HEF4050 CMOS buffer. This device can accept input voltages up to 15V, while supplied by as little as 3V supply voltage. This makes it ideal for uni-directional voltage level translation. \todo{datasheet}
 
-One-directional connection from  $\SI{3,3}{V}$ logic level output to Arduino inputs will be connected directly, as $\SI{3,3}{V}$ is above the minimum high level threshold. \todo{source}
+One-directional connection from  $\SI{3,3}{V}$ logic level output to Arduino inputs will be connected directly, as $\SI{3,3}{V}$ is above the minimum high level threshold (Min $\text{V}_\text{IH}=\SI{0,6}\cdot \text{Vcc} = \SI{0,6}\cdot 5 = 3$V). \todo{source}
 
-As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs to connect a $\SI{3,3}{V}$ system to a 5V system, this needs to be addressed as well. The creators of $\text{I}^2\text{C}$, Philips, recommends doing this with two mosfets, see \figref{i2clevel}.
+As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs to connect a $\SI{3,3}{V}$ system to a 5V system, this needs to be addressed as well. One solution could be running the bus at $\SI{3,3}{V}$, but this is unfortunately not possible, as the microcontroller needs at least $\SI{3,5}{V}$ as HIGH voltage, when in  $\text{I}^2\text{C}$ mode. \todo{ref}The creators of $\text{I}^2\text{C}$, Philips, recommends solving this with two mosfets, see \figref{i2clevel}.
 
 \begin{figure}[H]
 	\centering

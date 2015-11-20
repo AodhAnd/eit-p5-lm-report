@@ -1,17 +1,17 @@
-\subsection{Drivetrain}\label{Drivetrain}
-The drivetrain translates the torque $\tau_m$, given by the motor, into the actual movement of the vehicle. The model of the drivetrain illustrates the relation between the applied torque, $\tau_m$, and the velocity of the vehicle. The velocity model of the drivetrain is created by only considering when the vehicle's trajectory follows a straight line.\\\\
-%
-The modeling of the drivetrain is limited to only modeling parts of the total drivetrain system, to make it more manageable and with a focus on giving a rough approximation.
-
-\subsubsection{Model of the Internal Gears}\label{BlackBoxModel}
-To get a rough approximation of the effect of the drivetrain, a black boxed model is used. The black box in the model is placed between box 1 and including box 3 seen in \chapref{sec:Vehicledescription} \figref{vehicleDescriptionDriveTrain}. The gear, $G_m$, connected to the motor shaft, is connected to the gear, $G_d$, which represents the gears and shafts that has been black boxed, where the output appears on the shaft connected to the drive-wheel, $G_t$, see \figref{fig:DrivetrainMechanicalModel}. The number of teeth on the gear, $G_d$, represents the ratios throughout the drivetrain, such that the gear ratio between $G_m$ and the output at the drive gear is given by: $\frac{N_m}{N_d}$, where $N_m$ is the number of teeth on the motor gear and $N_d$ is the calculated number of teeth on the black box gear.
+\subsection{Drivetrain}\label{DriveTrain}
+The drivetrain translates the torque $\tau_m$, given by the motor, into the actual movement of the vehicle. A mechanical depiction of the parts considered in this modeling section can be seen on \figref{fig:DrivetrainMechanicalModel}, where the input torque appears on the motor shaft and translates through the system ending up as a linear velocity of the vehicles mass on the belts, i.e. the velocity of the vehicle. The velocity model of the drivetrain is created by only considering when the vehicle's trajectory follows a straight line.\\\\
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{figures/mechanicalDrawingSystem.pdf}
-	\caption{A diagram showing the rough mechanical model of the drivetrain}
+	\caption{A diagram showing the outlines of the mechanical model of the drivetrain considered in this section}
 	\label{fig:DrivetrainMechanicalModel}
 \end{figure}
+
+The modeling of the drivetrain is limited to only modeling parts of the total drivetrain system, to make it more manageable.
+
+\subsubsection{Model of the Internal Gears}\label{BlackBoxModel}
+To get a rough approximation of the effect of the drivetrain, a black boxed model is used. The black box in the model is placed between box 1 and including box 3 seen in \chapref{sec:Vehicledescription} \figref{vehicleDescriptionDriveTrain}. The gear, $G_m$, connected to the motor shaft, is connected to the gear, $G_d$, which represents the gears and shafts that has been black boxed, where the output appears on the shaft connected to the drive-wheel, $G_t$, see \figref{fig:DrivetrainMechanicalModel}. The number of teeth on the gear, $G_d$, represents the ratios throughout the drivetrain, such that the gear ratio between $G_m$ and the output at the drive gear is given by: $\frac{N_m}{N_d}$, where $N_m$ is the number of teeth on the motor gear and $N_d$ is the calculated number of teeth on the black box gear.
 
 The torque of the motor along with the contributions from the load, i.e. the drivetrain, affecting the motor shaft, is depicted in as a free body diagram in \figref{fig:MotorGearFreeBodyDiagram}.
 
@@ -152,7 +152,7 @@ The two expressions for $F_b(s)$ in \eqref{eq:BlackBoxGearNewtonSecLawLaplace&Mo
 \label{eq:BlackBoxGearNewtonSecLawLaplace&MotorGearNewtonSecLawLaplace&&BeltContactForceLaplace}
 \end{flalign}
 
-Converting all rotational velocities to linear velocities through use of the relation of ratios:
+Using the relationship of ratios to relate the two rotational velocities as a step towards converting all rotational velocities to linear velocities:
 \begin{flalign}
 \eq{\frac{r_m}{r_d}}{\frac{\omega_d(t)}{\omega_m(t)}}\nonumber \unit{\cdot}\\
 \eq{\omega_d(t)}{\frac{r_m}{r_d}\cdot \omega_m(t)} \unit{rad\cdot s^{-1}}
@@ -166,7 +166,7 @@ Converting $\omega_d(t)$ to linear velocity and transforming to Laplace domain:
 \label{eq:omegaDtoLinearLaplace}
 \end{flalign}
 
-Converting $\omega_m(t)$ to linear velocity using \eqref{ratioes} and \eqref{omegaDtoLinearLaplace} and transforming to Laplace domain
+Converting $\omega_m(t)$ to linear velocity using \eqref{eq:ratioes} and \eqref{eq:omegaDtoLinearLaplace} and transforming to Laplace domain
 \begin{flalign}
 \eq{\frac{r_m}{r_d}\cdot \omega_m(t)}{\frac{v(t)}{2\cdot \pi \cdot r_t}}\nonumber \unit{rad\cdot s^{-1}} \phantom{(3.23   3)}\\
 \eq{\omega_m(t)}{\frac{v(t)\cdot r_d}{2\cdot \pi \cdot r_t\cdot r_m}}  \ \xRightarrow{\mathcal{L}} \ \omega_m(s) = \frac{V(s)\cdot r_d}{2\cdot \pi \cdot r_t\cdot r_m}
@@ -174,20 +174,10 @@ Converting $\omega_m(t)$ to linear velocity using \eqref{ratioes} and \eqref{ome
 \end{flalign}
 
 Using the previously derived from \eqref{eq:BlackBoxGearNewtonSecLawLaplace&MotorGearNewtonSecLawLaplace&&BeltContactForceLaplace}, \eqref{eq:omegaDtoLinearLaplace} and \eqref{eq:omegaMtoLinearLaplace} the final transferfunction descriping the drivetrain, including the mechanical aspect from the motor, can be constructed:
-%
+
 \begin{flalign}
-\eq{V(s) \cdot (M \cdot s - B_{sys})}{\frac{\tau_m(s) \cdot r_d}{r_m\cdot r_t} - \frac{\frac{V(s)\cdot r_d}{2\cdot \pi \cdot r_t\cdot r_m}\cdot r_d}{r_m\cdot r_t}\cdot (B_m + J_m \cdot s) - \frac{\frac{V(s)}{2\cdot \pi \cdot r_t}}{r_t}\cdot J_d\cdot s}&
+\eq{V(s) \cdot (M \cdot s - B_{sys})}{\frac{\tau_m(s) \cdot r_d}{r_m\cdot r_t} - \frac{\frac{V(s)\cdot r_d}{2\cdot \pi \cdot r_t\cdot r_m}\cdot r_d}{r_m\cdot r_t}\cdot (B_m + J_m \cdot s) - \frac{\frac{V(s)}{2\cdot \pi \cdot r_t}}{r_t}\cdot J_d\cdot s}&\\
+\eq{\frac{V(s)}{\tau_m(s)}}{\frac{\frac{1}{ \frac{r_m\cdot r_t}{r_d} \cdot B_{sys} + \frac{r_d}{2\cdot \pi \cdot r_m \cdot r_t} \cdot B_m }}{\frac{ \frac{r_m\cdot r_t}{r_d} \cdot M + \frac{r_d}{2\cdot \pi \cdot r_m \cdot r_t} \cdot J_m + \frac{r_m}{2\cdot \pi \cdot r_t \cdot r_d} \cdot J_d }{\frac{r_m\cdot r_t}{r_d} \cdot B_{sys} + \frac{r_d}{2\cdot \pi r_tm \cdot r_t} \cdot B_m} \cdot s + 1}}&
 \end{flalign}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-It is possible to draw a block diagram for the drivetrain, from the motor torque to the vehicle's velocity with \eqref{eq:TransferFunctionTorqueToVelocity}. Furthermore, the motor needs the produced angular velocity to get affected by the load, i.e. drivetrain. The angular velocity was found in \eqref{eq:BlackBoxGearNewtonLaplaceNew}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=1]{figures/blockDiagramDrivetrain.pdf}
-	\caption{A block diagram of the combined drivetrain}
-	\label{fig:BlockDiagramDrivetrain}
-\end{figure}
-
-A block diagram describing the drivetrain has been built. In the following section the drivetrain's block diagram is combined with the motor's block diagram, seen in \figref{fig:motormodelBlock}.
+The mechanical part of the system is described by this transfer function, which in the following section is used in collaboration with the electrical model of the motor to describe the full velocity model.

@@ -1,47 +1,47 @@
 \subsection{Motor modelling}\label{motormodelling}
-A model of a motor consist of both a mechanical and an electrical system, due to the fact, that electrical current, \si{i_a(t)}, is converted into a rotational force called torque, \si{\tau_m}. A model of the mechanical and the electrical system is therefore created. The mechanical model from the motor provides the contributions the motor delivers to the drivetrain, see \secref{DriveTrain}, and the electrical model provides the motor's produced torque.
+A model of a motor is depicted in this section only as an electrical system, which however delivers a rotational force called torque, \si{\tau_m}. The electrical model provides the motor's produced torque to the drivetrain which is further discussed in \secref{DriveTrain}.
 
-\subsubsection{Mechanical model}
-A mechanical model is formed to analyse the forces and inertias affecting the mechanical system, and to see how the system will react to stimuli.
-
-Newtons second law of motion for rotational systems yields:
-
-\begin{flalign}
-\eq{\tau_m(t)}{J_m \cdot \ddot{\theta}_m(t)} \unit{N\cdot m}
-\label{eq:mechanicalmodel}
-\end{flalign}
-\hspace{6mm} Where:\\
-\begin{tabular}{p{1cm}lll}
-& \si{J_m}             & is the motor's inertia                   &\unitWh{kg\cdot m^2}\\
-& \si{\ddot{\theta}_m} & is the angular acceleration in the motor &\unitWh{\frac{rad}{s^2}}
-\end{tabular}
-
-This law is applied to the mechanical model and visualized in \figref{fig:MotorMechanicalModel}. Furthermore it is necessary to consider the friction affecting the rotation of the motor when it is spinning. The friction is in the opposite direction of the applied rotational force torque, see \figref{fig:MotorMechanicalModel}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.8]{figures/MotorMechanicalModel.pdf}
-	\caption{A free body diagram of the motor}
-	\label{fig:MotorMechanicalModel}
-\end{figure}
-
-From the figure an equation for the mechanical model can be derived.
-
-\begin{flalign}
-\eq{\tau_m(t)}{J_m \cdot \ddot{\theta}_m(t) + B \cdot \dot{\theta}_m(t)}\unit{N}
-\label{eq:mechaUnloadedMotor}
-\end{flalign}
-
-The equation is transferred into the frequency domain using the Laplace transform: 
-
-\begin{flalign}
-\eq{\tau_m(s)}{J_m(s) \cdot \omega_m \cdot s + B \cdot \omega_m}\unit{N}
-\label{eq:ThetadotforBlock}
-\end{flalign}
-
-The mechanical model of the motor has be derived. The mechanical contributions from the motor will be used to model the drivetrain. 
-
-Next step is to model the electrical part of the motor, and to find the motor's produced torque. 
+%\subsubsection{Mechanical model}
+%A mechanical model is formed to analyse the forces and inertias affecting the mechanical system, and to see how the system will react to stimuli.
+%
+%Newtons second law of motion for rotational systems yields:
+%
+%\begin{flalign}
+%\eq{\tau_m(t)}{J_m \cdot \ddot{\theta}_m(t)} \unit{N\cdot m}
+%\label{eq:mechanicalmodel}
+%\end{flalign}
+%\hspace{6mm} Where:\\
+%\begin{tabular}{p{1cm}lll}
+%& \si{J_m}             & is the motor's inertia                   &\unitWh{kg\cdot m^2}\\
+%& \si{\ddot{\theta}_m} & is the angular acceleration in the motor &\unitWh{\frac{rad}{s^2}}
+%\end{tabular}
+%
+%This law is applied to the mechanical model and visualized in \figref{fig:MotorMechanicalModel}. Furthermore it is necessary to consider the friction affecting the rotation of the motor when it is spinning. The friction is in the opposite direction of the applied rotational force torque, see \figref{fig:MotorMechanicalModel}.
+%
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[scale=0.8]{figures/MotorMechanicalModel.pdf}
+%	\caption{A free body diagram of the motor}
+%	\label{fig:MotorMechanicalModel}
+%\end{figure}
+%
+%From the figure an equation for the mechanical model can be derived.
+%
+%\begin{flalign}
+%\eq{\tau_m(t)}{J_m \cdot \ddot{\theta}_m(t) + B \cdot \dot{\theta}_m(t)}\unit{N}
+%\label{eq:mechaUnloadedMotor}
+%\end{flalign}
+%
+%The equation is transferred into the frequency domain using the Laplace transform: 
+%
+%\begin{flalign}
+%\eq{\tau_m(s)}{J_m(s) \cdot \omega_m \cdot s + B \cdot \omega_m}\unit{N}
+%\label{eq:ThetadotforBlock}
+%\end{flalign}
+%
+%The mechanical model of the motor has be derived. The mechanical contributions from the motor will be used to model the drivetrain. 
+%
+%Next step is to model the electrical part of the motor, and to find the motor's produced torque. 
 
 \subsubsection{Electrical model}
 The output needed from the motor's electrical model is the torque, \si{\tau_m}. To obtain the torque, the formula for translating the electrical current, \si{i_a}, to torque is utilized:

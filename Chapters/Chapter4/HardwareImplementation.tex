@@ -2,7 +2,7 @@
 \subsection{Microcontroller peripherals}
 Before choosing which pins on the Arduino Mega to connect the various hardware to, the peripherals\footnote{Hardware modules, such as timers, UARTs, etc.} in the microcontroller needs to be evaluated (each peripheral is only available on certain pins). First, the timers are considered. The microcontroller has 6 hardware timers, \emph{Timer 0 - Timer 5}.
 
-Timer 0 is reserved by the Arduino itself, and not be touched. \todo{source} This leaves 5 timers, that can be used freely.
+Timer 0 is reserved by the Arduino itself, and not to be touched. \todo{source} This leaves 5 timers, that can be used freely.
 
 It would be advantageous to utilize the input capture\footnote{An input capture timer samples a free running counter, whenever triggered by  an external event} functionality of the timers to read the hall sensors. After examining the Arduino Mega pinout \todo{source}, it is seen that only Timer 4 and 5 have their input capture pins available on the board. These are therefore chosen for the hall sensors.
    
@@ -45,6 +45,12 @@ All one-directional connections from the Arduino to  $\SI{3,3}{V}$ logic level i
 
 One-directional connection from  $\SI{3,3}{V}$ logic level output to Arduino inputs will be connected directly, as $\SI{3,3}{V}$ is above the minimum high level threshold. \todo{source}
 
-As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs to connect a $\SI{3,3}{V}$ system to a 5V system, this needs to be addressed as well. The creators of $\text{I}^2\text{C}$, Philips, recommends doing this with two mosfets, see \todo{ref}.
-=======
-This section will be about the implementation of the hardware components, that will be used on the vehicle, which was pick in \secref{Hardwarechoice}. The main component is the microcontroller, the Arduino Mega 2560, where all the other components is connected to. 
+As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs to connect a $\SI{3,3}{V}$ system to a 5V system, this needs to be addressed as well. The creators of $\text{I}^2\text{C}$, Philips, recommends doing this with two mosfets, see \figref{i2clevel}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.9]{figures/i2cLevel.pdf}
+	\caption{$\text{I}^2\text{C}$ Voltage level translator. [source: Philips]}
+	\label{i2clevel}
+\end{figure}
+

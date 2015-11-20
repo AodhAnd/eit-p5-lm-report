@@ -47,14 +47,14 @@ In this section a model of a motor is depicted only as an electrical system, whi
 The output needed from the motor's electrical model is the torque, \si{\tau_m}. To obtain the torque, the formula for translating the electrical current, \si{i_a}, to torque is utilized:
 
 \begin{flalign}\centering
-  \eq{\tau_m(t)}{K_t \cdot i_a(t)} \unit{N}
+  \eq{\tau_m(t)}{K_t \cdot i_a(t)} \unit{N \cdot m}
   \label{equ:motortorque}
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
 & \si{\tau_m} & is the rotational force torque &\unitWh{N \cdot m} \\
 & \si{i_a(t)} & is the electrical closed loop current &\unitWh{A}\\
-& \si{K_t} & is the motor constant &\unitWh{\frac{N \cdot m}{A}}
+& \si{K_t} & is the motor constant &\unitWh{N \cdot m \cdot A^{-1}}
 \end{tabular}
 
 An expression for the current, \si{i_a}, is required to derive a model for the electrical system. In \figref{fig:electricaldiagrammotor} an electrical diagram of the motor is displayed.
@@ -87,12 +87,12 @@ An expression for the current, \si{i_a}, is required to derive a model for the e
 By using Kirchoff voltage law on the closed loop, seen in \figref{fig:electricaldiagrammotor}, an expression including $i_a$ can be derived:
 
 \begin{flalign}
-\eq{V_m(t)}{R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + e_b}\unit{V} 
+\eq{U_m(t)}{R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + e_b}\unit{V} 
 \label{MotorClosedLoop}
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
-& \si{V_m(t)} & is the supply voltage                       &\unitWh{V} \\
+& \si{U_m(t)} & is the supply voltage                       &\unitWh{V} \\
 & \si{R_a}    & is the internal resistance in the motor     &\unitWh{\Omega}\\
 & \si{L_a}    & is the inductance in the motor              &\unitWh{H} \\
 & \si{e_b}    & is the electromotive force, also called EMF &\unitWh{V} \\
@@ -106,25 +106,25 @@ The electromotive force, \si{e_b}, is equivalent to:
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
 & \si{K_e}            & is the electromotive constant        &\unitWh{Wb} \\
-& \si{\dot{\theta}_m} & is the angular velocity in the motor &\unitWh{\frac{rad}{s}} \\
+& \si{\dot{\theta}_m} & is the angular velocity in the motor &\unitWh{rad \cdot s^{-1}} \\
 \end{tabular}
 
 The equivalent for the electromotive force is substituted into \eqref{MotorClosedLoop}.
 
-\begin{flalign}\eq{
-V_m(t)}{R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + K_e \cdot \dot{\theta}_m(t)}\unit{V}
+\begin{flalign}
+\eq{U_m(t)}{R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + K_e \cdot \dot{\theta}_m(t)}&
 \end{flalign}
 
 The Laplace transform is applied to the derived equation:
 
 \begin{flalign}
-\eq{V_m(s)}{R_a \cdot i_a(s) + L_a \cdot s \cdot i_a(s) + K_e \cdot \omega_m(s)}\unit{V} 
+\eq{U_m(s)}{R_a \cdot i_a(s) + L_a \cdot s \cdot i_a(s) + K_e \cdot \omega_m(s)}&
 \end{flalign}
 
 The equation is solved for \si{i_a}:
 
 \begin{flalign}
-\eq{i_a(s)}{\frac{V_m(s) - K_e \cdot \omega_m(s)}{sL_a + R_a} }\unit{A}
+\eq{i_a(s)}{\frac{U_m(s) - K_e \cdot \omega_m(s)}{sL_a + R_a}}&
 \end{flalign}
 
 By substituting the derived equation for $i_a$ into \eqref{equ:motortorque}, a new expression for the motor's torque is derived. 
@@ -135,10 +135,11 @@ By substituting the derived equation for $i_a$ into \eqref{equ:motortorque}, a n
   \label{eq:Totaltorquewithcurrentexpression}
 \end{flalign}
 
+By dividing with the voltage applied to the motor, $U_m$, a transfer function can be established:
+
 \begin{flalign}
 \eq{\frac{\tau_m}{U_m(s)}}{K_t \cdot \frac{ - K_e \cdot \omega_m(s)}{sL_a + R_a}}&
   \label{eq:TotaltorquewithcurrentexpressionTransferFunction}
 \end{flalign}
 
-
-An equation for the electrical model relative to the motor's torque has been derived.
+A transfer function for the electrical model relative to the motor's torque has been derived. Thus enabling setting up calculations for the vehicle's drivetrain.

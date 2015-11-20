@@ -1,4 +1,4 @@
-\section{Hardware choice}
+\section{Hardware choice} \label{Hardwarechoice}
 From the Requirements \todo{Ref to requirements}, the hardware components are chosen for the prototype. Beside the requirements for each components, there is considered the availability of the component and the implementation of the component in the system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -16,6 +16,7 @@ The requirements for the microcontroller are:
 \end{itemize} 
 
 \subsubsection{Arduino Mega 2560}
+Arduino microcontroller is 
 
 %https://www.arduino.cc/en/Main/ArduinoBoardMega2560
 
@@ -26,13 +27,14 @@ The storage is used for saving the edge map and the route for the vehicle \todo{
 
 The requirements for the storage are:
 \begin{itemize}
+\item Have to be controlled by the microcontroller.
 \item The data shall be retrievable, after a power cut to the storage. \todo{Re formulate}
 \item Have a storage of XX bytes. \todo{Number}
 \item The transfer speed is greater than XX bytes per second. \todo{Number}
 \end{itemize}
 
 \subsubsection{SD card}
-
+Secure Data card (SD card) is a non-volatile memory card. This give it the feature that the data will not be lost at a power cut off. It comes in various storage sizes, from 1 GB to 2 TB, depending which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The  difference between the different type, is the file system use on the card and the capacity cap. With the requirement of a storage size on XX bytes, the SDSC big enough with a capacity cap on 2 GB. The transfer speed for a SDSC card various between XX bytes per second to XX.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Motor Driver}
@@ -40,10 +42,13 @@ The motor driver is the connection between the microcontroller, the power supply
 
 The requirements for the motor driver are:
 \begin{itemize}
+\item Have to be controlled by the microcontroller.
 \item Can be powered by an external power source.
 \item Can handle up to 7 volts. \todo{Number}
 \item Can power the motor in both direction.
 \end{itemize}
+
+\subsubsection{Pololu Dual VNH5019}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -66,6 +71,7 @@ The data from the GOT system is send to the microcontroller with this component.
 
 The requirements for the wireless communication components are:
 \begin{itemize}
+\item Have to be controlled by the microcontroller.
 \item Have a reach greater than XX. \todo{Number}
 \item Powered by an external power supply.
 \item The transfer speed is greater than XX bytes per second. \todo{Number}
@@ -76,29 +82,18 @@ The requirements for the wireless communication components are:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\subsection{Velocity sensor}
-%The velocity sensor is used in the feedback for the control system.
-%
-%The requirements for the velocity sensor are:
-%\begin{itemize}
-%\item Having a sampling frequency greater than XX. \todo{Number}
-%\item Having a latency smaller than XX. \todo{Number}
-%\item Powered by an external power supply.
-%\end{itemize}
-%
-%\subsubsection{Hall sensor}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \subsection{Angular sensor}
 The angular sensor is used in the feedback for the control system.
 
 The requirements for the angular sensor are:
 \begin{itemize}
+\item Have to be controlled by the microcontroller.
 \item Having a sampling frequency greater than XX. \todo{Number}
 \item Having a latency smaller than XX. \todo{Number}
 \item Powered by an external power supply.
 \end{itemize}
+
+\subsubsection{HMC5883L}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

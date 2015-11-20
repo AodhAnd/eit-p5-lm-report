@@ -1,6 +1,4 @@
 \section{Hardware Implementation}
-In the former section, the hardware to be used was chosen. Now it needs to be implemented, and connected electrically and mechanically.
-
 \subsection{Microcontroller peripherals}
 Before choosing which pins on the Arduino Mega to connect the various hardware to, the peripherals\footnote{Hardware modules, such as timers, UARTs, etc.} in the microcontroller needs to be evaluated (each peripheral is only available on certain pins). First, the timers are considered. The microcontroller has 6 hardware timers, \emph{Timer 0 - Timer 5}.
 
@@ -48,3 +46,5 @@ All one-directional connections from the Arduino to  $\SI{3,3}{V}$ logic level i
 One-directional connection from  $\SI{3,3}{V}$ logic level output to Arduino inputs will be connected directly, as $\SI{3,3}{V}$ is above the minimum high level threshold. \todo{source}
 
 As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs to connect a $\SI{3,3}{V}$ system to a 5V system, this needs to be addressed as well. The creators of $\text{I}^2\text{C}$, Philips, recommends doing this with two mosfets, see \todo{ref}.
+=======
+This section will be about the implementation of the hardware components, that will be used on the vehicle, which was pick in \secref{Hardwarechoice}. The main component is the microcontroller, the Arduino Mega 2560, where all the other components is connected to. 

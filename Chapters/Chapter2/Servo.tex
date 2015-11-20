@@ -1,7 +1,7 @@
 \subsection{Servo} \label{Servo}
 On the vehicle there is a servo, which is a S3003 by Futaba. \todo{Insert ref to the datasheet}
 The servo is used for the steering of the vehicle. The way the servo turn the vehicle, is by braking the gears (part 3 on \figref{vehicleDescriptionDriveTrain} in \secref{sec:Vehicledescription}) in one side, and transfer that power over to the other side. The transfer of power is done by the differential gear box, which is explained in \secref{sec:Differentialgears}.
-
+\todo{Please add voltage requirements, needs to be referenced to later}
 The Servo is controlled by a PWM signal from a controller. The received PWM signal is converted into an angle by the servo and will set the position of the mechanical arm, mounted on the servo(See \figref{timeVSangle}). The mechanical arm is connected to two brakes, one for each gear, that the servo is set to brake on. When the arm rotates one way, it triggers the brake on that side, but does not affect the other side.
 
 \begin{figure}[H]

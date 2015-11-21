@@ -1,15 +1,18 @@
 \section{Velocity Model of the Vehicle}
-In this section the block named \textit{Vehicle} in \chapref{cha:ModelOfVehicle} \figref{fig:StartTotalModelsystem} is described and modelled in respect to velocity being the output of the system. In \figref{fig:Velocitymodelplantopen} the expanding of the block named \textit{Vehicle} is illustrated.
+In this section the driving part of the vehicle in \chapref{cha:ModelOfVehicle}, \figref{fig:completeMechanicalDiagram} is described and modelled. The following subsections will therefore focus on getting the relation between the input voltage applied to the motor and the output velocity of the system. The schematic in \chapref{cha:ModelOfVehicle}, \figref{fig:completeMechanicalDiagram} is reduced to the following \figref{fig:vehicleDescriptionDriveTrainBlackBox}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.2]{figures/vehicleDescriptionDriveTrainBlackBox.pdf}
-	\caption{A block diagram of the velocity model}
+	\caption{A mechanical diagram of the driving part of the system}
 	\label{fig:vehicleDescriptionDriveTrainBlackBox}
 \end{figure}
 
-\todo{When making the overall system get this streamlinned, Rasmus comment, there must be other things. Futhermore describe what is in the figure.}
+The system on \figref{fig:vehicleDescriptionDriveTrainBlackBox} is split again into four different parts to facilitate the modeling process.\\
+The first part is the motor itself which is the actuator and is controlled by an input voltage. The mechanical work -produced thereby in the form of a torque- is translated onto the motor shaft and to the motor gear, which is the second part.
+The third part consists of the largest part of the drivetrain, from and excluding the motor gear to the gear that sits on the same shaft as the drive wheel. These mechanical elements are made up into a single black box, which is named drivetrain gear hereafter.
+The last part describes the conversion from the rotary movement of the drive wheel to the translational movement of the vehicle.
 
-The velocity model of the vehicle has been split up into a motor and a drivetrain section. The motor receives an input from the controller, $U(s)$, regulating its supplied voltage. In return, the motor delivers a rotational force, $\tau(s)$ as an output to the drivetrain. The drivetrain generates the actual linear velocity as the output of the \textit{Vehicle} block, $Y(s)$. Furthermore is the drivetrain supplying the motor with an angular velocity, $\omega_m(s)$. The angular velocity  is dependent on the total inertia of the system, and will thereby ensure that the motor is affected by its load. The two sections, the motor and the drivetrain, is derived by only considering the parameters affecting the vehicle, when the vehicle is driving in a straight line. Thus, excluding the differential steering, see \todo{reference to differential steering}, and thereby only modelling the system when the wheels have exactly the same velocity.
+The velocity model of the vehicle is built in two main steps in the following subsections. The first step describes the motor's electrical behavior in response to an input voltage. In a second step, a model of the vehicle's velocity is made from the parts $2$ to $4$ in response the motor's torque. These two subsections are derived by only considering the parameters affecting the vehicle when it is driving in a straight line. Thus, the the two belts are supposed to have the exact same velocity, in this first model.
 
-In the following subsection the motor section in \figref{fig:Velocitymodelplantopen} will be modelled.
+In the following subsection the motor behavior is modelled.

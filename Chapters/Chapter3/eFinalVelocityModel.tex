@@ -1,13 +1,18 @@
 \section{Final Velocity Model}
-\eqref{eq:Totaltorquewithcurrentexpression} delivers the information needed to make a visual representation of the motor model. The input is the supply voltage, \si{V_m(s)} delivered to the motor and the output is the required torque, \si{\tau_m}, see \figref{fig:BlockDiagramDrivetrain}. The block representation of the system is used, when the system is to be simulated.
-
+\eqref{eq:Totaltorquewithcurrentexpression} along with the transfer function for the mechanical part, \eqref{eq:mechanicalTransFerfunction}, delivers the information needed to make a visual representation of the velocity model. The input is the supply voltage, \si{U_a(s)} delivered to the motor and the output is the vehicles velocity, \si{V(s)}, see \figref{fig:BlockDiagramDrivetrainComplicated}. 
+%
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{figures/totalVelocityModelDiagramComplicated.pdf}
 	\caption{A block diagram of the combined drivetrain}
-	\label{fig:BlockDiagramDrivetrain}
+	\label{fig:BlockDiagramDrivetrainComplicated}
 \end{figure}
+%
+Less complicated model:
 
-The angular velocity received from the drivetrain, see \figref{fig:Velocitymodelplantopen}, is dependent on the total inertia of the system, and is necessary to ensure the motor is affected by the load.
-
-A model of the electrical and mechanical part has been formed and a block representation of the motor's applied voltage and generated torque has been given. Next step is to model the drivetrain, which connects to the motor through the motor shaft.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/totalVelocityModelDiagramNotComplicated.pdf}
+	\caption{A block diagram of the combined drivetrain}
+	\label{fig:BlockDiagramDrivetrainNotComplicated}
+\end{figure}

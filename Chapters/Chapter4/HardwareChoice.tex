@@ -40,25 +40,47 @@ It comes in various storage sizes, from 1 GB to 2 TB, depending which type of SD
 
 The transfer speed for a SDSC card is 2 MB/s the slowest a card can maximum go by. With the requirement of a transfer speed greater than, the SDSC card is fast enough. 
 
-To use the SDSC card, it have to setup up with 7 connections to a controller, see \figref{SDcardpinout}. The setup of the SD card is different, depended on which mode that is used.
+To use the SDSC card, it have to setup up with 7 connections to a controller, see \figref{SDcardpinout}. The setup of the SD card is different, depended on which mode that is used. 
 
 \begin{minipage}{\linewidth}
       \centering
-      \begin{minipage}{0.65\linewidth}
+      \begin{minipage}{0.25\linewidth}
           \begin{figure}[H]
               \includegraphics[width=0.95\textwidth]{figures/sdcardpinout}
-              \caption{Illustration of a standard size SD card.} % http://elasticsheep.com/2010/01/reading-an-sd-card-with-an-atmega168/
+              \caption{Illustration of a micro size SD card.} % http://elasticsheep.com/2010/01/reading-an-sd-card-with-an-atmega168/
               \label{SDcardpinout}
           \end{figure}
       \end{minipage}
       \hspace{0.05\linewidth}
-      \begin{minipage}{0.25\linewidth}
-      		\begin{enumerate}
-      			\item Pinion gear
-      			\item Ring gear
-      			\item Spider gears
-      			\item Side gears
-      		\end{enumerate}
+      \begin{minipage}{0.65\linewidth}
+			\begin{table} [H]
+				\begin{tabular}{|l|l|l|l|}
+				
+				
+\hline
+\textbf{Pin} & \textbf{SPI}  & \textbf{One bit} 	& 	\textbf{Four bit}  \\
+\hline
+1			 &	Unused		 &	Unused			    &	Data 2			   \\
+\hline
+2			 &	Card Select	 &	Card Detection		&	Data 3			   \\
+\hline
+3			 &	Data in		 &	Command \& Response  &	Command \& Response \\
+\hline
+4			 &	Power		 &	Power			    &	Power			   \\
+\hline
+5			 &	Serial clock &	Serial clock		&	Serial clock	   \\
+\hline
+6			 &	Ground		 &	Ground			    &	Ground			   \\
+\hline
+7			 &	Data out	 &	Data 0			    &	Data 0			   \\
+\hline
+8			 &	Unused		 &	Unused			    &	Data 1			   \\
+\hline
+
+					
+					
+				\end{tabular}							
+			\end{table}			
       \end{minipage}
   \end{minipage}
 

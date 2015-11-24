@@ -44,7 +44,7 @@ To use the SDSC card, it have to setup up with 7 connections to a controller, se
 
 \begin{minipage}{\linewidth}
       \centering
-      \begin{minipage}{0.20\linewidth}
+      \begin{minipage}{0.30\linewidth}
           \begin{figure}[H]
               \includegraphics[width=0.95\textwidth]{figures/sdcardpinout}
               \caption{Illustration of a micro size SD card.} % http://elasticsheep.com/2010/01/reading-an-sd-card-with-an-atmega168/
@@ -52,7 +52,7 @@ To use the SDSC card, it have to setup up with 7 connections to a controller, se
           \end{figure}
       \end{minipage}
       \hspace{0.03\linewidth}
-      \begin{minipage}{0.75\linewidth}
+      \begin{minipage}{0.65\linewidth}
 			\begin{table} [H]
 				\begin{tabular}{|l|l|l|l|}
 				
@@ -64,7 +64,7 @@ To use the SDSC card, it have to setup up with 7 connections to a controller, se
 \hline
 2			 &	Card Select	 &	Card Detection		&	Data 3			   \\
 \hline
-3			 &	Data in		 &	Command \& Response  &	Command \& Response \\
+3			 &	Data in		 &	\begin{tabular}{@{}c@{}} Command \&  \\Response \end{tabular}  &	\begin{tabular}{@{}c@{}} Command \&  \\Response \end{tabular} \\
 \hline
 4			 &	Power		 &	Power			    &	Power			   \\
 \hline
@@ -83,6 +83,9 @@ To use the SDSC card, it have to setup up with 7 connections to a controller, se
 			\end{table}			
       \end{minipage}
   \end{minipage}
+  \todo{Talk with niels about table}
+
+
 
 The power needed for a SD card is 3.3 volt \todo{Check up with thomas}. There is three setups for the SD card: SPI, one bit and four bit. With the SPI setup, the communication between the SD card and the micro controller is on two lines. The SPI mode is the most used one for embedded systems.
 With the one bit setup, the commands between the SD card and micro controller is happening on line the data is send another line. With the four bit setup, there is connected three more data lines.

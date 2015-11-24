@@ -34,7 +34,69 @@ The requirements for the storage are:
 \end{itemize}
 
 \subsubsection{SD card}
-Secure Data card (SD card) is a non-volatile memory card. This give it the feature that the data will not be lost at a power cut off. It comes in various storage sizes, from 1 GB to 2 TB, depending which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The  difference between the different type, is the file system use on the card and the capacity cap. With the requirement of a storage size on XX bytes, the SDSC big enough with a capacity cap on 2 GB. The transfer speed for a SDSC card various between XX bytes per second to XX.
+Secure Data card (SD card) is a non-volatile memory card. This give it the feature that the data will not be lost at a power cut off. 
+
+It comes in various storage sizes, from 1 GB to 2 TB, depending which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The  difference between the different type, is the file system use on the card and the capacity cap. With the requirement of a storage size on XX bytes, the SDSC big enough with a capacity cap on 2 GB. 
+
+The transfer speed for a SDSC card is 2 MB/s the slowest a card can maximum go by. With the requirement of a transfer speed greater than, the SDSC card is fast enough. 
+
+To use the SDSC card, it have to setup up with 7 connections to a controller, see \figref{SDcardpinout}. The setup of the SD card is different, depended on which mode that is used. 
+
+\begin{minipage}{\linewidth}
+      \centering
+      \begin{minipage}{0.30\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=0.95\textwidth]{figures/sdcardpinout}
+              \caption{Illustration of a micro size SD card.} % http://elasticsheep.com/2010/01/reading-an-sd-card-with-an-atmega168/
+              \label{SDcardpinout}
+          \end{figure}
+      \end{minipage}
+      \hspace{0.03\linewidth}
+      \begin{minipage}{0.65\linewidth}
+			\begin{table} [H]
+				\begin{tabular}{|l|l|l|l|}
+				
+				
+\hline
+\textbf{Pin} & \textbf{SPI}  & \textbf{One bit} 	& 	\textbf{Four bit}  \\
+\hline
+1			 &	Unused		 &	Unused			    &	Data 2			   \\
+\hline
+2			 &	Card Select	 &	Card Detection		&	Data 3			   \\
+\hline
+3			 &	Data in		 &	\begin{tabular}{@{}c@{}} Command \&  \\Response \end{tabular}  &	\begin{tabular}{@{}c@{}} Command \&  \\Response \end{tabular} \\
+\hline
+4			 &	Power		 &	Power			    &	Power			   \\
+\hline
+5			 &	Serial clock &	Serial clock		&	Serial clock	   \\
+\hline
+6			 &	Ground		 &	Ground			    &	Ground			   \\
+\hline
+7			 &	Data out	 &	Data 0			    &	Data 0			   \\
+\hline
+8			 &	Unused		 &	Unused			    &	Data 1			   \\
+\hline
+
+					
+					
+				\end{tabular}							
+			\end{table}			
+      \end{minipage}
+  \end{minipage}
+  \todo[Talk with niels about table}
+
+
+
+The power needed for a SD card is 3.3 volt \todo{Check up with thomas}. There is three setups for the SD card: SPI, one bit and four bit. With the SPI setup, the communication between the SD card and the micro controller is on two lines. The SPI mode is the most used one for embedded systems.
+With the one bit setup, the commands between the SD card and micro controller is happening on line the data is send another line. With the four bit setup, there is connected three more data lines.
+
+In the project, the SPI setup will be used, as it is the most used method and there is not needed the extra transfer speed from the four bit setup.
+
+
+A SDSC card, with a SPI setup, will be use for the project, as it have a capacity and transfer speed that meets the requirements. The data will be saved, if the power is cut off. The last requirement, the connections to the microcontroller, is possible, because the Arduino Mega 2560 controller contains  digital I/O pins, that can be use for the SPI setup for the SD card.
+
+%https://www.sdcard.org/developers/overview/capacity/index.html
+%https://www.sdcard.org/developers/overview/speed_class/
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Motor Driver}
@@ -44,7 +106,7 @@ The requirements for the motor driver are:
 \begin{itemize}
 \item Have to be controlled by the microcontroller.
 \item Can be powered by an external power source.
-\item Can handle up to 7 volts. \todo{Number}
+\item Can handle up to 7.2 volts. \todo{Number}
 \item Can power the motor in both direction.
 \end{itemize}
 
@@ -57,12 +119,13 @@ The external power supply have to both power the motor, which need a high voltag
 
 The requirements for the power supply are:
 \begin{itemize}
-\item Voltage output of 7 volts. \todo{Number}
+\item Voltage output of 7.2 volts. \todo{Number}
 \item Deliverer a stable power output.
 \item Can run the motor at full speed for XX. \todo{Number}
 \end{itemize}
 
 \subsubsection{Battery pack}
+For the project there will be used a rechargeable battery pack on 7.2 volts. As the prototype is not set to run a long time, less than XX, a normal battery pack used for XX \todo{Thomas again} can be used. The battery pack will deliverer a stable power output as long as the power level in the battery pack. In appendix XX \todo{Make test}, it can be seen, that the battery pack can deliverer a stable power output for XX minutes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -76,9 +139,13 @@ The requirements for the wireless communication components are:
 \item Powered by an external power supply.
 \item The transfer speed is greater than XX bytes per second. \todo{Number}
 \item Have a loss of bits smaller than XX. \todo{Is this needed and what number}
+\item Can be implemented in the GOT code.
 \end{itemize}
 
 \subsubsection{Xbee}
+Xbee are small radio moduls, that is easy to set up. To run the Xbee moduls, there is needed a power on 3.3 volts, a ground and a UART on 3.3 volts. It have a transfer speed up to 115.2 kilobits per second and have a reach up to 100 meters indoor and 300 meters outdoor. It transmit with 1 millivolt (0 dBm) and can receive downto -96 dBm. It transmit at a 2.4 GHz frequency \todo{Check with thomas}. The Xbee is al set from the start with the under level for transmission, so there is only needed a presentation layer for a protocol to work with the transmission.
+
+%http://www.digi.com/products/xbee-rf-solutions/modules/xbee-digimesh-2-4#specifications
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

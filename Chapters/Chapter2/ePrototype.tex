@@ -1,4 +1,4 @@
-\section{Prototype, Interfaces and Submodules}
+\section{Prototype, Interfaces and Submodules} \label{Finalprototype}
 %The overall functionalities for the project have been limited, due to time limitations and to focus on the scope of the project. In this project a prototype will therefore be made to show the main functionalities necessary to make an automated vehicle containing principles for lawn mowing.
 %In short, the final prototype includes a regulator, which will make it possible to follow a path from A to B. It is able to continue if the wireless connection is lost between the prototype and the GoT system for some duration. Furthermore it is able to plan a route within a given area and store these calculated data points locally, on the vehicle. The rough outline of the design is shown in \figref{fig:systemOverview1} to give an idea of the final prototype setup.
 
@@ -35,7 +35,7 @@ In the following, apart from - \textit{Storage}, \textit{Read/Write Map} and \te
 The \textit{GoT Transmitter} placed on the vehicle sends a signal containing the sended time to the \textit{GoT Satellites}, placed in the area in which the vehicle needs to operate, and to the \textit{GoT Master}. The satellites transmit the signal recieved to the master as soon as they recieve it. The master then relays those informations to the \textit{GoT on Computer} that will calculate the position of the car.
 
 \subsubsection{Wireless Module}
-The Wireless module makes it possible to transmit the coordinates from the GoT system to the lawn mower. If the connection is disturbed, it should be detected, to ensure invalid position data is not used.
+The Wireless module should ensure communication with the vehicle. It is thereby possible to transmit coordinates from the GoT system to the vehicle. If a packet is disturbed or sent incorrectly it should be possible to detect it, so invalid data is not used by the prototype. Furthermore if the coordinates which is sent from the GoT system is nonsensical, e.g the coordinate transmitted jumps from one location to a location which is unrealistic for the vehicle to reach in the amount of time between received coordinates, it should also be disregarded.
 
 \subsubsection{Edge Map}
 The first time the user will initialise the lawn mower, an \textit{Edge Map} will be created thanks to the GoT system. This edge map will determine the areas that the car is allowed to go or not, in regards of specifications or objects on the lawn.  

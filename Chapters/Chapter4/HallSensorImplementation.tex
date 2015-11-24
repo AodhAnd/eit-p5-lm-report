@@ -1,4 +1,4 @@
-\section{Hall Sensor}
+\section{Hall Sensors}\label{sec:hallFiltering}
 
 The velocity calculation is done trough the Hall sensors. There are four magnets on the gear at approximatly a quarter of a turn of distance between each. One way of getting the speed is by calculating the time between two consecutive pulses and relating it to the distance traveled during that time, given by a quarter turn of the drive wheel. A plot of the speed can be seen on \figref{unfilteredHall}.
 
@@ -12,8 +12,7 @@ The velocity calculation is done trough the Hall sensors. There are four magnets
 
 As seen from the graph, this method yields inaccurate measurements due to uneven placement of the magnets.\\
 
-
-The new approach is to get the time the wheel take to make a full turn, to have the exact time and distance of a rotation. The speed will be calculated from a full turn of the drive wheel. Each magnet pulse will then be compared to its own last pass. This means that the first 4 pulses does not yield a speed, since the time of the first rotation happens between the 1st and the 5th pulse. However, the remaining measurements will have the same sampling frequency as the previous. A plot of the measurements can be seen on \figref{filteredHall}.
+The new approach is to get the time the wheel take to make a full turn, to have the exact time and distance of a rotation. The speed will be calculated from a full turn of the drive wheel. Each magnet pulse will then be compared to its own last pass. This means that the first 4 pulses does not yield a speed, since the time of the first rotation happens between the \si{1^{st}} and the \si{5^{th}} pulse. However, the remaining measurements will have the same sampling frequency as the previous. A plot of the measurements can be seen on \figref{filteredHall}.
 
 \begin{figure}[H]
 	\centering
@@ -22,16 +21,17 @@ The new approach is to get the time the wheel take to make a full turn, to have 
 	\label{filteredHall}
 \end{figure}
 
-The difference between the two plots is that at constant speed, the time measured at each outputs is uneven on \figref{unfilteredHall}, and more even in \figref{filteredHall}. A flowchart of the implementation of the functions of the Hall sensors can be seen on \figref{hallFlowchart}.
+The difference between the two plots is that at constant speed, the time measured at each outputs is uneven on \figref{unfilteredHall}, and more even in \figref{filteredHall}. 
+% A flowchart of the implementation of the functions of the Hall sensors can be seen on \figref{hallFlowchart}.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.9]{figures/hallFlowchart.pdf}
-	\caption{Flowchart of the two main functions \textit{tSpeed} and \textit{getSpeed} of the Hall sensors implementation}
-	\label{hallFlowchart}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[scale=0.9]{figures/hallFlowchart.pdf}
+% 	\caption{Flowchart of the two main functions \textit{tSpeed} and \textit{getSpeed} of the Hall sensors implementation}
+% 	\label{hallFlowchart}
+% \end{figure}
 
-This flowchart explains the way of getting the time at each outputs. The Hall sensors use the timers 4 and 5 to register the time of the output. The first function \textit{tSpeed} describes the storing of the two timers values in the registers, the second is a subfunction of the first one, and the last function \textit{getSpeed} is the calculation of the speed from the raw data of a variable in the function \textit{tSpeed}. The two functions \textit{tSpeed} and \textit{getSpeed} are functions of the Hall module.\\
+% This flowchart explains the way of getting the time at each outputs. The Hall sensors use the timers 4 and 5 to register the time of the output. The first function \textit{tSpeed} describes the storing of the two timers values in the registers, the second is a subfunction of the first one, and the last function \textit{getSpeed} is the calculation of the speed from the raw data of a variable in the function \textit{tSpeed}. The two functions \textit{tSpeed} and \textit{getSpeed} are functions of the Hall module.\\
 
 
 \subsubsection{Minimum Speed}

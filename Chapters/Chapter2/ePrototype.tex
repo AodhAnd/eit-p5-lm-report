@@ -34,6 +34,8 @@ In the following, apart from - \textit{Storage}, \textit{Read/Write Map} and \te
 
 The \textit{GoT Transmitter} placed on the vehicle sends a signal containing the sended time to the \textit{GoT Satellites}, placed in the area in which the vehicle needs to operate, and to the \textit{GoT Master}. The satellites transmit the signal recieved to the master as soon as they recieve it. The master then relays those informations to the \textit{GoT on Computer} that will calculate the position of the car.
 
+\subsubsection{Wireless Module}
+The Wireless module makes it possible to transmit the coordinates from the GoT system to the lawn mower. If the connection is disturbed, it should be detected, to ensure invalid position data is not used.
 
 \subsubsection{Edge Map}
 The first time the user will initialise the lawn mower, an \textit{Edge Map} will be created thanks to the GoT system. This edge map will determine the areas that the car is allowed to go or not, in regards of specifications or objects on the lawn.  
@@ -50,6 +52,8 @@ The angular position is measured thanks to the \textit{Angular Sensors}, that wi
 
 \subsubsection{Course Correction}
 Thanks to all the informations from the different sensors for the speed, position, and angular position, the \textit{Course Correction} can decide how to react in consequence. It will send a instruction to the Speed Control and to the \textit{Servo Motor}, that will act directly on the steering of the vehicle, to try to stay on the desired path.
+
+
 
 \subsection{Interfaces}
 %- To Tom and Rasmus \newline

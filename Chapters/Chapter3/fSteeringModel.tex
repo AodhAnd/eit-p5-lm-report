@@ -1,7 +1,6 @@
 \section{Steering Model of the Vehicle}\label{sec:SteeringModel}
-Header
+The following section will describe and model the steering of the vehicle. The relation between the PWM sent to the servo and the actual steering of the vehicle will be found. A overview of the braking system can be seen in \figref{steeringMechanical}.
 
-simplified figure of the steering
  \begin{figure}[H]
  	\centering
  	\includegraphics[scale=0.6]{figures/steeringMechanical.pdf}
@@ -9,7 +8,7 @@ simplified figure of the steering
  	\label{steeringMechanical}
  \end{figure}
 
-Decription of how the vehicles steering is working
+When the servo turns one way, it push the brake pads on the brake disc, to add a friction. The differential gears will transfer the power from one belt to the other if one brake is triggered.
 
 \subsection{Steering Parameters}
  To obtain a steering model everything in the system between the input and the output is black boxed. Second or first order, if it is second the black box should be expanded, if it is first there is no need because then we have all the parameters from the test.

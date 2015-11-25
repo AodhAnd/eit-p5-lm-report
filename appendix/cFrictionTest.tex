@@ -5,11 +5,11 @@
 
 \subsection{Purpose}
 The purpose of the test is to find the total friction, $B$, of the vehicle.
-Elgaard Sørensen
+% ?? Elgaard Sørensen
 \subsubsection{Setup}
 \begin{figure}[H]
   \centering
-	\includegraphics[scale=0.5]{figures/FrictionTest.pdf}
+	\includegraphics[scale=1]{figures/frictionTestSetup.pdf}
 	\caption{A diagram of the test setup}
 \end{figure}
 
@@ -32,10 +32,10 @@ Elgaard Sørensen
 \subsection{Procedure}
 
 \begin{enumerate}
-  \item Connect the power supply's power channel to the motor and the ground channel to the multimeter.
+  \item Set up the electrical circuit to power the motor with current, so that it is possible to read the current value while changing it with the power supply.
   \item Place the vehicle in the middle of the treadmill.
-  \item Set the power supply to current limiting at a maximum of $4$ amperes, the vehicle is not running, but ready to run when the power supply is set above $4$ amperes later. 
-  \item Activate the treadmill to run at the required speed, and at the same time correct the power supply so the vehicle receives more than $4$ amperes and thereby making it move.
+  \item Set the power supply to current limiting at a maximum of \si{4\ A}, the vehicle is not running, but ready to run when the power supply is set above \si{4\ A} later. 
+  \item Activate the treadmill to run at the required speed, and at the same time correct the power supply so the vehicle receives more than \si{4\ A} and thereby making it move.
   \item Correct the speed of the vehicle with the power supply until the vehicle has the same velocity as the treadmill.
   \item Read the current on the multimeter.
   \item Repeat the process with different velocities.
@@ -45,7 +45,7 @@ Elgaard Sørensen
 The raw data extracted from the measurements is the vehicle's velocity in $[km \cdot h^{-1}]$ and the current needed for achieving the specific velocity. The velocity is calculated from $[km \cdot h^{-1}]$ to a linear velocity $[m \cdot s^{-1}]$:
 
 \begin{flalign}
-\eq{V}{\frac{V_m \cdot 10^{3}}{3600}} \unit{m \cdot s^{-1}}
+\eq{V}{V_m \cdot \frac{10^{3}}{3600}} \unit{m \cdot s^{-1}}
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
@@ -60,7 +60,7 @@ By using linear velocity $[m \cdot s^{-1}]$, the motor's angular velocity $[rad 
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
-& \si{\omega_m} & is the motor's angular velocity                   &\unitWh{\frac{rad}{s}}\\
+& \si{\omega_m} & is the motor's angular velocity                   &\unitWh{rad \cdot s^{-1}}\\
 & $N$           & is the gear ratio of the vehicle                  &\unitWh{\cdot}\\
 & $r_t$         & is the radius of the two wheels driving the belts &\unitWh{m}\\
 \end{tabular}
@@ -75,7 +75,7 @@ The motor's torque and angular velocity is plotted:
 \end{figure}
 
 The red line in \figref{TotalFriction} is the tendency line, the slope indicates the friction and the offset is the stiction of the system. The total friction of the system is therefore:
-
+%
 \begin{flalign}
-\eq{B_{tot}}{4.7 \cdot 10^{-6}} \ \si{N \cdot m \cdot rad^{-1} \cdot s}&
+\eq{B_{tot}}{4,7 \cdot 10^{-6}} \ \si{N \cdot m \cdot rad^{-1} \cdot s}&
 \end{flalign}

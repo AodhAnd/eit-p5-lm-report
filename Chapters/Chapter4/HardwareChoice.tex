@@ -33,7 +33,7 @@ The requirements for the storage are:
 \item The transfer speed is greater than XX bytes per second. \todo{Number}
 \end{itemize}
 
-\subsubsection{SD card}
+\subsubsection{SD card} \label{SDcard}
 Secure Data card (SD card) is a non-volatile memory card. This give it the feature that the data will not be lost at a power cut off. 
 
 It comes in various storage sizes, from 1 GB to 2 TB, depending which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The  difference between the different type, is the file system use on the card and the capacity cap. With the requirement of a storage size on XX bytes, the SDSC big enough with a capacity cap on 2 GB. 
@@ -87,7 +87,7 @@ To use the SDSC card, it have to setup up with 7 connections to a controller, se
 
 
 
-The power needed for a SD card is 3.3 volt \todo{Check up with thomas}. There is three setups for the SD card: SPI, one bit and four bit. With the SPI setup, the communication between the SD card and the micro controller is on two lines. The SPI mode is the most used one for embedded systems.
+The power needed for a SD card is 3.3 volts\todo{Check up with thomas}. There is three setups for the SD card: SPI, one bit and four bit. With the SPI setup, the communication between the SD card and the micro controller is on two lines. The SPI mode is the most used one for embedded systems.
 With the one bit setup, the commands between the SD card and micro controller is happening on line the data is send another line. With the four bit setup, there is connected three more data lines.
 
 In the project, the SPI setup will be used, as it is the most used method and there is not needed the extra transfer speed from the four bit setup.

@@ -174,17 +174,16 @@ $\omega_m(t)$ is converted to a linear velocity using \eqref{eq:ratioes} and \eq
 \end{flalign}
 
 Using the previously derived equations, \eqref{eq:BlackBoxGearNewtonSecLawLaplace&MotorGearNewtonSecLawLaplace&&BeltContactForceLaplace}, \eqref{eq:omegaDtoLinearLaplace} and \eqref{eq:omegaMtoLinearLaplace}, the final transfer function, describing the drivetrain, including the mechanical aspect from the motor, is constructed:
-
+%
 \begin{flalign}
 \eq{V(s) \cdot (M \cdot s - B_{sys})}{\frac{\tau_m(s) \cdot r_d}{r_m\cdot r_t} - \frac{\frac{V(s)\cdot r_d}{2\cdot \pi \cdot r_t\cdot r_m}\cdot r_d}{r_m\cdot r_t}\cdot (B_m + J_m \cdot s) - \frac{\frac{V(s)}{2\cdot \pi \cdot r_t}}{r_t}\cdot J_d\cdot s}&\nonumber
 \end{flalign}
-%
+
 After rearranging to achieve standard form:
-\large{
-\begin{flalign}
-\eq{\frac{V(s)}{\tau_m(s)}}{\frac{\frac{1}{ \frac{r_m\cdot r_t}{r_d} \cdot B_{sys} + \frac{r_d}{2\cdot \pi \cdot r_m \cdot r_t} \cdot B_m }}{\frac{ \frac{r_m\cdot r_t}{r_d} \cdot M + \frac{r_d}{2\cdot \pi \cdot r_m \cdot r_t} \cdot J_m + \frac{r_m}{2\cdot \pi \cdot r_t \cdot r_d} \cdot J_d }{\frac{r_m\cdot r_t}{r_d} \cdot B_{sys} + \frac{r_d}{2\cdot \pi r_m \cdot r_t} \cdot B_m} \cdot s + 1}}&\label{eq:mechanicalTransFerfunction}
-\end{flalign}
-}
-\normalsize
+
+\large{\si{\frac{V(s)}{\tau_m(s)} =}}
+\Large{
+\si{\frac{\frac{1}{ \frac{r_m\cdot r_t}{r_d} \cdot B_{sys} + \frac{r_d}{2\cdot \pi \cdot r_m \cdot r_t} \cdot B_m }}{\frac{ \frac{r_m\cdot r_t}{r_d} \cdot M + \frac{r_d}{2\cdot \pi \cdot r_m \cdot r_t} \cdot J_m + \frac{r_m}{2\cdot \pi \cdot r_t \cdot r_d} \cdot J_d }{\frac{r_m\cdot r_t}{r_d} \cdot B_{sys} + \frac{r_d}{2\cdot \pi \cdot r_m \cdot r_t} \cdot B_m} \cdot s + 1}}}\normalsize\vspace{-1.9cm}\begin{flalign}\label{eq:mechanicalTransFerfunction}\end{flalign}
+\\
 
 The mechanical part of the system is described by the above transfer function, \eqref{eq:mechanicalTransFerfunction}, which in the following section is used in collaboration with the electrical model of the motor to describe the full velocity model of the vehicle.

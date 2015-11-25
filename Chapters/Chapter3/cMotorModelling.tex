@@ -87,17 +87,16 @@ An expression for the current, \si{i_a}, is required to derive a model for the e
 By using Kirchoff voltage law on the closed loop, seen in \figref{fig:electricaldiagrammotor}, an expression including $i_a$ can be derived:
 
 \begin{flalign}
-\eq{U_m(t)}{R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + e_b}\unit{V} 
+\eq{U_a(t)}{R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + e_b}\unit{V} 
 \label{MotorClosedLoop}
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
-& \si{U_m(t)} & is the supply voltage                       &\unitWh{V} \\
+& \si{U_a(t)} & is the supply voltage                       &\unitWh{V} \\
 & \si{R_a}    & is the internal resistance in the motor     &\unitWh{\Omega}\\
 & \si{L_a}    & is the inductance in the motor              &\unitWh{H} \\
 & \si{e_b}    & is the electromotive force, also called EMF &\unitWh{V} \\
 \end{tabular}
-\todo{We need to decide whether to use $U_m$ or $U_a$ as a notation !!}
 
 The electromotive force, \si{e_b}, is equivalent to:
 
@@ -113,33 +112,33 @@ The electromotive force, \si{e_b}, is equivalent to:
 The equivalent for the electromotive force is substituted into \eqref{MotorClosedLoop}.
 
 \begin{flalign}
-\eq{U_m(t)}{R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + K_e \cdot \dot{\theta}_m(t)}&
+\eq{U_a(t)}{R_a \cdot i_a(t) + L_a \cdot \frac{di_a}{dt} + K_e \cdot \dot{\theta}_m(t)}&
 \end{flalign}
 
 The Laplace transform is applied to the derived equation:
 
 \begin{flalign}
-\eq{U_m(s)}{R_a \cdot i_a(s) + L_a \cdot s \cdot i_a(s) + K_e \cdot \omega_m(s)}&
+\eq{U_a(s)}{R_a \cdot i_a(s) + L_a \cdot s \cdot i_a(s) + K_e \cdot \omega_m(s)}&
 \end{flalign}
 
 The equation is solved for \si{i_a}:
 
 \begin{flalign}
-\eq{i_a(s)}{\frac{U_m(s) - K_e \cdot \omega_m(s)}{sL_a + R_a}}&
+\eq{i_a(s)}{\frac{U_a(s) - K_e \cdot \omega_m(s)}{L_a \cdot s + R_a}}&
 \end{flalign}
 
 By substituting the derived equation for $i_a$ into \eqref{equ:motortorque}, a new expression for the motor's torque is derived. 
 
 \begin{flalign}
 \eq{\tau_m}{K_t \cdot i_a(s)}&\nonumber\\
-\eq{\tau_m}{K_t \cdot \frac{U_m(s) - K_e \cdot \omega_m(s)}{sL_a + R_a}}
+\eq{\tau_m}{K_t \cdot \frac{U_a(s) - K_e \cdot \omega_m(s)}{L_a \cdot s + R_a}}
   \label{eq:Totaltorquewithcurrentexpression}
 \end{flalign}
 
-By dividing with the voltage applied to the motor, $U_m$, a transfer function can be established:
+By dividing with the voltage applied to the motor, $U_a$, a transfer function can be established:
 
 \begin{flalign}
-\eq{\frac{\tau_m}{U_m(s)}}{K_t \cdot \frac{ - K_e \cdot \omega_m(s)}{sL_a + R_a}}&
+\eq{\frac{\tau_m}{U_a(s) - K_e \cdot \omega_m(s)}}{\frac{K_t}{L_a \cdot s + R_a}}&
   \label{eq:TotaltorquewithcurrentexpressionTransferFunction}
 \end{flalign}
 

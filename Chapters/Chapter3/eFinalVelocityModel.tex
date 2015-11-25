@@ -1,4 +1,4 @@
-\section{Final Velocity Model}
+\subsection{Final Velocity Model}
 The expression for the output torque, \si{\tau_m}, of the motor model, \eqref{eq:Totaltorquewithcurrentexpression}, along with the transfer function for the mechanical part, \eqref{eq:mechanicalTransFerfunction}, delivers the information needed to make a visual representation of the velocity model. The input is the supply voltage, \si{U_a(s)} delivered to the motor and the output is the vehicles velocity, \si{V(s)}, see \figref{fig:BlockDiagramDrivetrainComplicated}. 
 %
 \begin{figure}[H]
@@ -28,11 +28,3 @@ Remembering the conversion from rotational to linear velocity in the drivetrain 
 \end{figure}
 %
 In order to use this model in simulation, all terms must have a known value. To accomplish this, several tests has been carried out. The tests determining the generator constant, \si{K_e}, the motor constant, \si{K_t}, the armature inductance, \si{L_a}, and the armature resistance, \si{R_a}, are documented in \appref{app:motorTests}. The value of the total friction of the system, \si{B_{tot}}, is found in \appref{app:frictionTest} and the total inertia, \si{J_{tot}}, in \appref{app:inertiaTest}. The gear ratio, \si{N}, and the radius of the drive wheel, \si{r_t}, are measured directly on the vehicle.
-
-
-
-
-
-
-
-

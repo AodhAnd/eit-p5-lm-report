@@ -12,7 +12,8 @@ In the former section a approximation of the velocity model has been established
   \label{SimulationIRLsteprespons2}
 \end{figure}
 
-In \figref{SimulationIRLsteprespons2} the red line is the measured data from the vehicle's step-response. To ensure enough data points is registered by the hall-sensor, when performing the step-response of the vehicle, the vehicle is set to drive at 1 m/s at the start of the test. The vehicle preserves this velocity continuously for three seconds, before the vehicle is set to drive at it's maximum velocity. The simulation (the blue line) is set to have the same milestones as the measured step-response of the vehicle. 
+In \figref{SimulationIRLsteprespons2} the red line is the measured data from the vehicle's step-response. To ensure enough data points is registered by the Hall sensor, when performing the step-response of the vehicle, the vehicle is set to drive at \si{1 m\cdot s^{-1}} at the start of the test. The vehicle preserves this velocity continuously for three seconds, before the vehicle is set to drive at its maximum velocity. The simulation (the blue line) is set to have the same milestones as the measured step-response of the vehicle.
+The simulation uses a first order model as described in the previous section, however, the gain and time constant are found by step testing, as documented in \appref{app:gainTest} and \appref{app:inertiaTest}.
 
 The occurrence of stiction in in the start of the simulation- and measured step-response, has been eliminated to a certain degree, which makes it insignificant. Furthermore, even though the vehicle is moving at a velocity of $0$ \si{m \cdot s^{-1}}, the velocity is registered to be $0.04$ \si{m \cdot s^{-1}}, see why in \todo{secref{Hallfiltering}}. 
 

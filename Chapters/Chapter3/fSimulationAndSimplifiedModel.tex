@@ -1,5 +1,5 @@
 \subsection{Simulation and Simplified Model}
-The previous sections show a velocity model of the system which is modeled in this section. As mentioned in the inertia test, \appref{app:inertiaTest}, the armature inductance is so small that it might not be necessary include for a good simulation. If the armature inductance is nechlectable the system will appear as a first order system instead of a second order, since setting \si{L_a} to zero will remove the second order term. This effect is here shown on the transfer function:
+The previous sections show a velocity model of the system which is modelled in this section. As mentioned in the inertia test, \appref{app:inertiaTest}, the armature inductance is so small that it is not necessary to include for a good simulation. If the armature inductance is neglectable, and removed, the system will appear as a first order system instead of a second order. Therefore \si{L_a} is set to zero and hence removing the second order term. This effect is illustrated in the transfer function:
 %
 \begin{flalign}
   \eq{\frac{V(s)}{U_a(s)}}{ \frac{K_t}{L_a \cdot J_{tot} \cdot s^2 + (R_a \cdot J_{tot} + L_a \cdot B_{tot}) \cdot s + R_a \cdot B_{tot} + K_t \cdot K_e }}\nonumber\\
@@ -9,22 +9,22 @@ The previous sections show a velocity model of the system which is modeled in th
   \label{eq:simplifiedTransferVel}
 \end{flalign}
 %
-By inspection of this this first order expression in \eqref{eq:simplifiedTransferVel} the terms for the time constant and the gain are extracted:
+By inspection of the first order expression, in \eqref{eq:simplifiedTransferVel}, the terms for the time constant and the gain are extracted:
 \begin{flalign}
   \eq{K}{\frac{K_t}{R_a \cdot B_{tot} + K_t\cdot K_e}}&\nonumber\\
   \eq{\tau }{ \frac{R_a \cdot J}{R_a \cdot B_{tot} + K_t \cdot K_e} }\nonumber&
 \end{flalign}
 %
-The model is approximated based on this gain and time constant. To verify that this is a viable approximation, the following simplified model, \figref{fig:BlockDiagramDrivetrainSimplified},is created:
+To verify that this is a viable approximation, the following simplified model, in \figref{fig:BlockDiagramDrivetrainSimplified}, is created:
 %
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale = .5]{figures/totalVelocityModelDiagramSimplified.pdf}
-	\caption{A block diagram showing the simplification}
+	\caption{A block diagram showing a simplified model}
 	\label{fig:BlockDiagramDrivetrainSimplified}
 \end{figure}
 %
-Where \si{K} is the gain of the system and \si{\tau} is the time constant. This simple first order model of the system is simulated alongside the second order model to verify that the vehicle can indeed be handled as a first order system. The plot of the two simulations are shown on \figref{fig:ComparisonOf1stAnd2ndOrderModels}.
+Where \si{K} is the gain of the system and \si{\tau} is the time constant. This simplified first order model of the system is simulated alongside the second order model, to verify that the vehicle can indeed be handled as a first order system. The plot of the two simulations are illustrated in \figref{fig:ComparisonOf1stAnd2ndOrderModels}.
 %
 \begin{figure}[H]
 	\centering
@@ -33,4 +33,4 @@ Where \si{K} is the gain of the system and \si{\tau} is the time constant. This 
 	\label{fig:ComparisonOf1stAnd2ndOrderModels}
 \end{figure}
 %
-In the following section this first order model is verified directly by comparison with recorded data of the vehicle's step response.
+In the following section the simplified model is verified directly by comparison with recorded data of the vehicle's step response.

@@ -87,7 +87,7 @@ To use the SDSC card, it have to setup up with 7 connections to a controller, se
 
 
 
-The power needed for a SD card is 3.3 volt \todo{Check up with thomas}. There is three setups for the SD card: SPI, one bit and four bit. With the SPI setup, the communication between the SD card and the micro controller is on two lines. The SPI mode is the most used one for embedded systems.
+The power needed for a SD card is 3.3 volts\todo{Check up with thomas}. There is three setups for the SD card: SPI, one bit and four bit. With the SPI setup, the communication between the SD card and the micro controller is on two lines. The SPI mode is the most used one for embedded systems.
 With the one bit setup, the commands between the SD card and micro controller is happening on line the data is send another line. With the four bit setup, there is connected three more data lines.
 
 In the project, the SPI setup will be used, as it is the most used method and there is not needed the extra transfer speed from the four bit setup.

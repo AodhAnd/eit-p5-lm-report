@@ -10,7 +10,7 @@ The realtime operating system needs a timer, for running it's scheduler. Timer 1
 
 This leaves Timer 2 and 3. According to \cite{Atmega}, Timer 2 is an 8 bit timer, and Timer 3 is 16 bit. 
 
-Timer 3 is chosen for the servo. This, because the higher resolution makes it easier to generate the short duty cycles required by the servo (500us to 2500us on-time, in a 30ms period, see \subsecref{Servo})
+Timer 3 is chosen for the servo. This, because the higher resolution makes it easier to generate the short duty cycles required by the servo (\si{500\ \mu s} to \si{2500\ \mu s} on-time, in a \si{30\ ms} period, see \subsecref{Servo})
 
 The last timer is chosen for the DC-motor.
 

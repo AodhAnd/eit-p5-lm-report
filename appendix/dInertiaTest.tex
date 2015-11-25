@@ -33,7 +33,7 @@ In this test a two-step input is used to get the system's response. The reason f
 %% Derivation of inertia formula %%
 \subsubsection{Inertia formula}
 
-From \figref{fig:BlockDiagramDrivetrainNotComplicated}, it is possible to neglect the motor's armature inductance, \si{L_a}, which is very small before the armature's resistance \si{R_a}, see \appref{app:motorTests}. The derived simplified transfer function of the motorshaft's angular velocity, relative to the voltage input is then:
+From \figref{fig:BlockDiagramDrivetrainNotComplicated}, it is possible to neglect the motor's armature inductance, \si{L_a}, which is very small before the armature's resistance \si{R_a}, see \appref{app:motorTestArmatureResistance}. The derived simplified transfer function of the motorshaft's angular velocity, relative to the voltage input is then:
 %-- Velocity model Tf with neglected La --%
 \begin{flalign}
 \eq{\frac{\omega(s)}{U_a(s)}}{\frac{\frac{K_t}{R_a} \cdot \frac{\frac{1}{B_{tot}}}{\frac{J_{tot}}{B_{tot}} \cdot s + 1}}{1 + \frac{K_t \cdot K_e}{R_a} \cdot \frac{\frac{1}{B_{tot}}}{\frac{J_{tot}}{B_{tot}} \cdot s + 1}}}&

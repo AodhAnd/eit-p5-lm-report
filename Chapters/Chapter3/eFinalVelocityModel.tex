@@ -8,6 +8,21 @@ The expression for the output torque, \si{\tau_m}, of the motor model, \eqref{eq
 	\label{fig:BlockDiagramDrivetrainComplicated}
 \end{figure}
 %
+
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}lll}
+  & \si{L_a}    & is the armature inductance found in \appref{app:motorTestArmatureInductance}    &\\
+  & \si{R_a}    & is the armature resistance found in \appref{app:motorTestArmatureResistance}    &\\
+  & \si{K_e}    & is the generator constant  found in \appref{app:motorTestGeneratorConstant}     &\\
+  & \si{K_t}    & is the motor constant  found in \appref{app:motorTestMotorConstant}             &\\
+  & \si{M}       & is the mass of the vehicle found in \secref{sec:Vehicledescription}            &\\
+  & \si{J_m}    & is the motor's moment of inertia found in \appref{app:motorTestMomentOfInertia} &\\
+  & \si{B_m}     & is the friction of the motor found in \appref{app:motorTestFriction}           &\\
+  & \si{J_d}     & is the drivetrain's moment of inertia which is unknown                         &\\
+  & \si{B_{sys}} & is the friction in the system, excluding the motor, which is unknown           &
+\end{tabular}
+
+
 Inspecting the above model of the drivetrain, the following two terms are extracted for closer analysis:
 \begin{flalign}
   &\si{ \frac{r_m\cdot r_t}{r_d} \cdot B_{sys} + \frac{r_d}{2\cdot \pi \cdot r_m \cdot r_t} \cdot B_m }\label{BTotLinear}&
@@ -27,4 +42,4 @@ Remembering the conversion from rotational to linear velocity in the drivetrain 
 	\label{fig:BlockDiagramDrivetrainNotComplicated}
 \end{figure}
 %
-In order to use this model in simulation, all terms must have a known value. To accomplish this, several tests has been carried out. The tests determining the generator constant, \si{K_e}, the motor constant, \si{K_t}, the armature inductance, \si{L_a}, and the armature resistance, \si{R_a}, are documented in \appref{app:motorTests}. The value of the total friction of the system, \si{B_{tot}}, is found in \appref{app:frictionTest} and the total inertia, \si{J_{tot}}, in \appref{app:inertiaTest}. The gear ratio, \si{N}, and the radius of the drive wheel, \si{r_t}, are measured directly on the vehicle.
+In order to use this model in simulation, all terms must have a known value. To accomplish this, several tests has been carried out. Tests are carried out to determine the generator constant, \si{K_e}, the motor constant, \si{K_t}, the armature inductance, \si{L_a}, and the armature resistance, \si{R_a}, in \appref{app:motorTestGeneratorConstant}, \appref{app:motorTestMotorConstant}, \appref{app:motorTestArmatureInductance} and \appref{app:motorTestArmatureResistance}. The value of the total friction of the system, \si{B_{tot}}, is found in \appref{app:frictionTest} and the total inertia, \si{J_{tot}}, in \appref{app:inertiaTest}. The gear ratio, \si{N}, and the radius of the drive wheel, \si{r_t}, are measured directly on the vehicle.

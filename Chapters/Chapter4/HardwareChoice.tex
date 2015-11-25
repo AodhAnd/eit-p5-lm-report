@@ -143,7 +143,15 @@ The requirements for the wireless communication components are:
 \end{itemize}
 
 \subsubsection{Xbee}
-Xbee are small radio moduls, that is easy to set up. To run the Xbee moduls, there is needed a power on 3.3 volts, a ground and a UART on 3.3 volts. It have a transfer speed up to 115.2 kilobits per second and have a reach up to 100 meters indoor and 300 meters outdoor. It transmit with 1 millivolt (0 dBm) and can receive downto -96 dBm. It transmit at a 2.4 GHz frequency \todo{Check with thomas}. The Xbee is al set from the start with the under level for transmission, so there is only needed a presentation layer for a protocol to work with the transmission.
+Xbee are small radio moduls, that is easy to set up. Overview of the Xbee can be seen on \figref{}.
+
+\begin{figure}[H]
+	\includegraphics[width=0.45\textwidth]{figures/XbeeIO}
+		\caption{Pinout for the Xbee radio modul.} % http://jeromeabel.net/ressources/xbee-arduino
+	\label{Xbeepinout}
+\end{figure}
+
+To run the Xbee moduls, there is needed a power on 3.3 volts, a ground and a UART on 3.3 volts. It have a transfer speed up to 115.2 kilobits per second and have a reach up to 100 meters indoor and 300 meters outdoor. It transmit with 1 millivolt (0 dBm) and can receive downto -96 dBm. It transmit at a 2.4 GHz frequency \todo{Check with thomas}. The Xbee is al set from the start with the under level for transmission, so there is only needed a presentation layer for a protocol to work with the transmission.
 
 %http://www.digi.com/products/xbee-rf-solutions/modules/xbee-digimesh-2-4#specifications
 
@@ -164,45 +172,7 @@ The requirements for the angular sensor are:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%1. Micro controller
-%- Timers
-%- In and out pins (Analogue or digital???)
-%- Can be powered by external power source
-%- Frequency on the CPU
-%- Serial???
-%
-%2. SD card
-%- Saved, even when the there is a power cut
-%- Size
-%- Speed of transfer
-%
-%3. Motor driver
-%- External powers source
-%- Can handle 7 volts (Motor req)
-%- Can power the motor both ways
-%
-%4. Batteries
-%- Deliver a stable power
-%- 7 Volts
-%- Drive time
-%
-%5. Xbee
-%- Transfer speed
-%- Communication with the micro controller
-%- Distance of sending radius
-%- Reliability
-%- Powered by batteries or micro controller
-%
-%6. Hall sensor
-%- Sampling frequency
-%- Reliability
-%- Latency
-%
-%7. Angular sensor
-%- Sampling frequency
-%- Reliability
-%- Latency
-%
+%Note: Insert Hall sensor and servo into the header.
 %Note: Insert speed of sampling in the GOT
 
 %Pins on the arduino
@@ -212,6 +182,3 @@ The requirements for the angular sensor are:
 %Angular (1 SDL and 1 SDA)
 %Servo (1 PWM)
 %Motor (1 PWM)
-
-
-% Something about philips stuff

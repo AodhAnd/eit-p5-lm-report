@@ -21,29 +21,29 @@ The final prototype includes a regulator, which will make it possible to follow 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=.9]{figures/systemOverview2}
-	\caption{Overview of the software and electronic parts of the system prototype, where the gray modules are hardware and the white are software}
+	\caption{Overview of the software and electronic parts of the system prototype, where the gray modules are hardware and the white are software. The dotted lines are wireless signals while the others are wire signals}
 	\label{fig:systemOverview2}
 \end{figure}
 
 \subsection{Modules}
-In the following, apart from - \textit{Storage}, \textit{Read/Write Map} and \textit{Wireless Modules} - all the modules from the system prototype are described to understand the basis of the prototype.
+In the following all the modules from the system prototype which needs further explanation are described to obtain a basic understanding of the prototype.
 
-\subsubsection{GoT System}
-%The GoT satellites is placed in the area in which the vehicle needs to operate. These satellites receives information from the vehicle. The time which the vehicles transmitter sends out bursts is received by the GoT master. Furthermore the time which the satellites receives the information send from the vehicles transmitter is transmitted to the GoT master. The GoT master then relays the information received from the vehicle directly to the 
-
-The \textit{GoT Transmitter} placed on the vehicle sends a signal containing the sended time to the \textit{GoT Satellites}, placed in the area in which the vehicle needs to operate, and to the \textit{GoT Master}. The satellites transmit the signal recieved to the master as soon as they recieve it. The master then relays those informations to the \textit{GoT on Computer} that will calculate the position of the car.
+%\subsubsection{GoT System}
+%%The GoT satellites is placed in the area in which the vehicle needs to operate. These satellites receives information from the vehicle. The time which the vehicles transmitter sends out bursts is received by the GoT master. Furthermore the time which the satellites receives the information send from the vehicles transmitter is transmitted to the GoT master. The GoT master then relays the information received from the vehicle directly to the 
+%
+%The \textit{GoT Transmitter} placed on the vehicle transmits a signal containing the time at which it send the ultra sound signal to the \textit{GoT Satellites} to the \textit{GoT Master}. The satellites transmit the signal recieved to the master as soon as they recieve it. The master then relays those informations to the \textit{GoT on Computer} that will calculate the position of the car.
 
 \subsubsection{Wireless Module}
 The Wireless module should ensure communication with the vehicle. It is thereby possible to transmit coordinates from the GoT system to the vehicle. If a packet is disturbed or sent incorrectly it should be possible to detect it, so invalid data is not used by the prototype. Furthermore if the coordinates which is sent from the GoT system is nonsensical, e.g the coordinate transmitted jumps from one location to a location which is unrealistic for the vehicle to reach in the amount of time between received coordinates, it should also be disregarded.
 
-\subsubsection{Edge Map}
-The first time the user will initialise the lawn mower, an \textit{Edge Map} will be created thanks to the GoT system. This edge map will determine the areas that the car is allowed to go or not, in regards of specifications or objects on the lawn.  
+%\subsubsection{Edge Map}
+%The first time the user will initialise the lawn mower, an \textit{Edge Map} will be created thanks to the GoT system. This edge map will determine the areas that the car is allowed to go or not, in regards of specifications or objects on the lawn.  
 
-\subsubsection{Route Planning}
-The Route Planning module calculates a route from the points gathered from the Edge Map. The route will be in straight lanes, as in the Bosch Logicut system \secref{roboMowers}, to guarantee that the whole lawn is cut. 
+%\subsubsection{Route Planning}
+%The Route Planning module calculates a route from the points gathered from the Edge Map. The route will be in straight lanes, as in the Bosch Logicut system \secref{roboMowers}, to guarantee that the whole lawn is cut.
 
 \subsubsection{Speed Control}
-The speed is controled by the \textit{Hall Sensors} placed on the drive wheel. The submodule \textit{Get Speed} will relay this speed to the \textit{Speed Control} taking the belts into account. The new wanted speed will be sent to the \textit{Motor Driver}, which will finally instruct the \textit{Drive Motor} how to run.
+The speed is controlled by the \textit{Hall Sensors} placed on the drive wheel. The submodule \textit{Get Speed} will relay this speed to the \textit{Speed Control} taking the belts into account. The new wanted speed will be sent to the \textit{Motor Driver}, which will finally instruct the \textit{Drive Motor} how to run.
 
 
 \subsubsection{Angular Sensors}

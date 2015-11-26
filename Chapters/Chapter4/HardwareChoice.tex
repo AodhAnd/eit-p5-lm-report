@@ -1,5 +1,5 @@
 \section{Hardware choice} \label{Hardwarechoice}
-From the Requirements (see \secref{Requirements}, the hardware components are chosen for the prototype. The hardware components on the vehicle (the servo for steering and the hall sensor for velocity measurement) is already chosen and will not include in this section. Beside the requirements for each components, there is considered the availability of the component and the implementation of the component in the system. 
+From the Requirements (see \secref{Requirements}), the hardware components are chosen for the prototype. The hardware components on the vehicle (the servo for steering and the hall sensor for velocity measurement) is already chosen and will not include in this section. Beside the requirements for each components, there is considered the availability of the component and the implementation of the component in the system. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -16,11 +16,11 @@ The requirements for the microcontroller are:
 \end{itemize} 
 
 \subsubsection{Arduino Mega 2560}
-The Arduino Mega 2560 is a 8-bit microcontroller (See \figref{}, which is a bigger version of the standard Arduino Uno. 
+The Arduino Mega 2560 is a 8-bit microcontroller (See \figref{ArdGenMega}), which is a bigger version of the standard Arduino Uno. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.45\textwidth]{figures/ArdGenMega}
+	\includegraphics[width=0.60\textwidth]{figures/ArdGenMega}
 		\caption{A Arduino/Genuino Mega 2560} 
 	\label{ArdGenMega}
 \end{figure}
@@ -37,12 +37,12 @@ With the choice of using a Arduino Mega, the rest of the hardware components hav
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Storage}
-The storage is used for saving the edge map and the route for the vehicle \todo{Ref to last place this is mention}. This data have to be saved from use to use of the vehicle. 
+The storage is used for saving the edge map and the route for the vehicle. This data have to be saved from use to use of the vehicle. 
 
 The requirements for the storage are:
 \begin{itemize}
 \item Have to be controlled by the microcontroller.
-\item The data shall be retrievable, after a power cut to the storage. \todo{Re formulate}
+\item The data shall be retrievable, after a power cut to the storage.
 \item Have a storage of XX bytes. \todo{Number}
 \item The transfer speed is greater than XX bytes per second. \todo{Number}
 \end{itemize}
@@ -58,14 +58,8 @@ To use the SDSC card, it have to setup up with 7 connections to a controller, se
 
 \begin{minipage}{\linewidth}
       \centering
-      \begin{minipage}{0.30\linewidth}
-          \begin{figure}[H]
-              \includegraphics[width=0.95\textwidth]{figures/sdcardpinout}
-              \caption{Illustration of a micro size SD card.} % http://elasticsheep.com/2010/01/reading-an-sd-card-with-an-atmega168/
-              \label{SDcardpinout}
-          \end{figure}
-      \end{minipage}
-      \hspace{0.03\linewidth}
+      
+
       \begin{minipage}{0.65\linewidth}
 			\begin{table} [H]
 				\begin{tabular}{|l|l|l|l|}
@@ -96,12 +90,21 @@ To use the SDSC card, it have to setup up with 7 connections to a controller, se
 				\end{tabular}							
 			\end{table}			
       \end{minipage}
+      \hspace{0.03\linewidth}
+      \begin{minipage}{0.30\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=0.95\textwidth]{figures/sdcardpinout}
+              \caption{Illustration of a micro size SD card.} % http://elasticsheep.com/2010/01/reading-an-sd-card-with-an-atmega168/
+              \label{SDcardpinout}
+          \end{figure}
+      \end{minipage}
+      
   \end{minipage}
   \todo{Talk with niels about table}
 
 
 
-The power needed for a SD card is 3.3 volts\todo{Check up with thomas}. There is three setups for the SD card: SPI, one bit and four bit. With the SPI setup, the communication between the SD card and the micro controller is on two lines. The SPI mode is the most used one for embedded systems.
+The power needed for a SD card is 3.3 volts. There is three setups for the SD card: SPI, one bit and four bit. With the SPI setup, the communication between the SD card and the micro controller is on two lines. The SPI mode is the most used one for embedded systems.
 With the one bit setup, the commands between the SD card and micro controller is happening on line the data is send another line. With the four bit setup, there is connected three more data lines.
 
 In the project, the SPI setup will be used, as it is the most used method and there is not needed the extra transfer speed from the four bit setup.
@@ -120,7 +123,7 @@ The requirements for the motor driver are:
 \begin{itemize}
 \item Have to be controlled by the microcontroller.
 \item Can be powered by an external power source.
-\item Can handle up to 7.2 volts. \todo{Number}
+\item Can handle up to 7.2 volts.
 \item Can power the motor in both direction.
 \end{itemize}
 
@@ -129,7 +132,7 @@ The Pololu dual VHN5019 motor driver shield (see \figref{MotorDrive}) is special
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.45\textwidth]{figures/Motordriver}
+	\includegraphics[width=0.50\textwidth]{figures/Motordriver}
 		\caption{The motor shield atop of a Arduino Uno.} 
 	\label{MotorDrive}
 \end{figure}
@@ -138,16 +141,21 @@ With the motor shield, it is possible to power the Arduino from a external power
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.45\textwidth]{figures/MotordriverIO}
+	\includegraphics[width=0.60\textwidth]{figures/MotordriverIO}
 		\caption{Setup for the mort shield.}
 	\label{MotorDriveIO}
 \end{figure}
 
 There is two H-bridges on the board, to control two motors. As the project only have one motor, the two H-bridges will be used as one H-bridges. This will give a smaller current through the transistors in the two H-bridges and protect the system.
 
-%Make thomas find picture.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\textwidth]{figures/Hbridges}
+		\caption{Illustration of the H-bridge, that the motor shield have two of.}
+	\label{Hbridges}
+\end{figure}.
 
-Each of the H-bridges is controlled by a PWM signal from the Arduino. But as the two H-bridges is setup to XX mode, \todo{Thomas} the first H-bridge is set to be controlled by the PWM signal and therefore control the voltage running out of the H-bridge. The second H-bridge will be set directly to ground and therefore not needed to have a PWM signal attach to it. For the vehicle to go the other direction, the H-bridges have to chance setting to the other H-bridge setting.
+Each of the H-bridges is controlled by a PWM signal from the Arduino. But as the H-bridges are used as one, only one will be controlled by a PWM signal. This is done by putting both H-bridges into cruise mode, one to high and the other to ground. Then the PWM signal to the H-bridge, that is set to high, will regulate the voltage sent through the motor. If the voltage have to go reverse through the motor, the settings for the two H-bridges shall swap around.
 
 The Pololu dual VHN5019 motor driver shield will be used in this project, as it is made for the Arduino and therefore easy to implement. There to, it power the Arduino through a external power source and get a high enough power output, in each direction for the motor.
 
@@ -161,26 +169,25 @@ The external power supply have to both power the motor, which need a high voltag
 
 The requirements for the power supply are:
 \begin{itemize}
-\item Voltage output of 7.2 volts. \todo{Number}
+\item Voltage output of 7.2 volts.
 \item Deliverer a stable power output.
 \item Can run the motor at full speed for XX. \todo{Number}
 \end{itemize}
 
 \subsubsection{Battery pack}
-For the project there will be used a rechargeable battery pack on 7.2 volts. As the prototype is not set to run a long time, less than XX, a normal battery pack used for XX \todo{Thomas again} can be used. The battery pack will deliverer a stable power output as long as the power level in the battery pack. In appendix XX \todo{Make test}, it can be seen, that the battery pack can deliverer a stable power output for XX minutes.
+For the project there will be used a rechargeable battery pack on 7.2 volts. As the prototype is not set to run a long time, less than XX, a normal battery pack used for model vehicles can be used. The battery pack will deliverer a stable power output as long as the power level in the battery pack. In appendix XX \todo{Make test}, it can be seen, that the battery pack can deliverer a stable power output for XX minutes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Wireless communication}
-The data from the GOT system is send to the microcontroller with this component. The transmitter will be located at the computer for the GOT system and the receiver on the vehicle.
+The data from the GOT system is send to the microcontroller with this component. The transmitter will be located at the computer for the GOT system and the receiver on the vehicle. As the prototype will be tested in the control lab, the distance that the wireless communication have to send is less than 10 meters.
 
 The requirements for the wireless communication components are:
 \begin{itemize}
 \item Have to be controlled by the microcontroller.
-\item Have a reach greater than XX. \todo{Number}
+\item Have a reach greater than 10 meter. 
 \item Powered by an external power supply.
 \item The transfer speed is greater than XX bytes per second. \todo{Number}
-\item Have a loss of bits smaller than XX. \todo{Is this needed and what number}
 \item Can be implemented in the GOT code.
 \end{itemize}
 
@@ -189,29 +196,31 @@ Xbee are small radio modules, that is easy to set up. Overview of the Xbee, seen
 
 
 \begin{minipage}{\linewidth}
-      \centering
-      \begin{minipage}{0.30\linewidth}
-      \centering
-          \begin{figure}[H]
-              \includegraphics[width=0.95\textwidth]{figures/Xbee}
-              \caption{The Xbee radio modules} 
-              \label{XbeeLook}
-          \end{figure}
-      \end{minipage}
-      \hspace{0.03\linewidth}
-      \begin{minipage}{0.65\linewidth}
-\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.45\textwidth]{figures/XbeeIO}
-		\caption{Pinout for the Xbee radio modul.} 
-	\label{Xbeepinout}
-\end{figure}
-      \end{minipage}
-  \end{minipage}
+	\begin{minipage}{0.45\linewidth}      
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.95\textwidth]{figures/Xbee}
+			\caption{The Xbee radio modules} 
+			\label{XbeeLook}
+		\end{figure}
+	\end{minipage}
+	\hspace{0.03\linewidth}
+	\begin{minipage}{0.45\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.95\textwidth]{figures/XbeeIO}
+			\caption{Pinout for the Xbee radio modul.} 
+			\label{Xbeepinout}
+		\end{figure}
+	\end{minipage}
+\end{minipage}
 
-The Xbee modules communicates through a UART connection (the TX and RX pin). As the Arduino have three UART connections, beside the one use to program the Arduino with, the Xbee can be connected. The software for the GOT system is running on C\# \todo{insert ref} and the computer running the software have some serial port, that can be connected to the software and the Xbee. So the Xbee can be used for the connection between the GOT system and the Arduino.
+\todo{Snak med vinkel om at få teksten align}
 
-To run the Xbee modules, there is needed a power on 3.3 volts, a ground and a UART on 3.3 volts. The rest of the pins will not be needed in this project. It have a transfer speed up to 115.2 kilobits per second and have a reach up to 100 meters indoor and 300 meters outdoor. It transmit with 1 millivolt (0 dBm) and can receive downto -96 dBm and transmits at a 2.4 GHz frequency \todo{Check with thomas}. The Xbee is already ready for communication, with the lower level of communication, XX, already design. A presentation layer can be added to the protocol, to add more error handling and to set up how the data shall be send.
+The Xbee modules communicates through a UART connection (the TX and RX pin). As the Arduino have three UART connections, beside the one use to program the Arduino with, the Xbee can be connected. The software for the GOT system is running on C\# (See in appendix \secref{GoTDescription}) and the computer running the software have some serial port, that can be connected to the software and the Xbee. So the Xbee can be used for the connection between the GOT system and the Arduino.
+
+To run the Xbee modules, there is needed a power on 3.3 volts, a ground and a UART on 3.3 volts. The rest of the pins will not be needed in this project. It have a transfer speed up to 115.2 kilobits per second and have a reach up to 100 meters indoor and 300 meters outdoor. It transmit with 1 millivolt (0 dBm) and can receive downto -96 dBm and transmits at a 2.4 GHz frequency. The Xbee is already ready for communication, with the lower level of communication, the physical layer, already design. A transportation layer can be added to the protocol, to add more error handling and to set up how the data shall be send. \todo{Not sure if that is all the layers}
 
 %http://www.digi.com/products/xbee-rf-solutions/modules/xbee-digimesh-2-4#specifications
 
@@ -233,16 +242,17 @@ On Sparksfun's "9 degrees of freedom" board, there is mounted a magnetometer, th
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.45\textwidth]{figures/NineDegree}
+	\includegraphics[width=0.50\textwidth]{figures/NineDegree}
 		\caption{Sparksfun's "9 degrees of freedom" sensor stick} 
 	\label{NineDegree}
 \end{figure}
 
 The "9 degrees of freedom" sensor stick, see \figref{NineDegree}, will be used in the project. Beside the magnetometer, there is a accelerometer and a gyroscope on the board, but these will not be used. The "9 degrees of freedom" sensor stick is madded to be used with a micro controller and comes with software to Arduino. It needs a I2C bus to communicated with the Arduino, which the Arduino have one of, which it not in use.
 
+
+From the requirements for the system to the hardware parts, these components have been chosen. After have chosen the different hardware components for the prototype, the different components have to be implemented in the system.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Note: Insert speed of sampling in the GOT.
 %Note: Missing a tail.
 
 %Pins on the arduino

@@ -25,7 +25,7 @@ The Arduino Mega 2560 is a 8-bit microcontroller (See \figref{ArdGenMega}), whic
 	\label{ArdGenMega}
 \end{figure}
 
-It have 54 digital ports, where 15 of them can be used to PWM signals, which run all run at logic 5 volts. It have 6 timers and the CPU runs at 16 megahertz. One of the timers, do the Arduino use it self. There to also 4 UART, used to serial communication and a I2C bus. The Arduino can be powered though a USB cable or with a external power source
+It have 54 digital ports, where 15 of them can be used to PWM signals, which run all run at logic 5 volts. It have 6 timers and the CPU runs at 16 megahertz. One of the timers, do the Arduino use it self. There to also 4 UART, used to serial communication, a setup to SPI communication and a I2C bus. The Arduino can be powered though a USB cable or with a external power source
 
 The Arduino Mega board will be used in this project. It have the connections to set up the already chosen hardware and have many different type of connections to set up the other hardware components. The Arduino is programmable through the Arduino software, which is writing in a slightly different type of C. The Arduino can take C and C++ files, which will making libraries and implementing them easy. 
 
@@ -107,10 +107,10 @@ To use the SDSC card, it have to setup up with 7 connections to a controller, se
 The power needed for a SD card is 3.3 volts. There is three setups for the SD card: SPI, one bit and four bit. With the SPI setup, the communication between the SD card and the micro controller is on two lines. The SPI mode is the most used one for embedded systems.
 With the one bit setup, the commands between the SD card and micro controller is happening on line the data is send another line. With the four bit setup, there is connected three more data lines.
 
-In the project, the SPI setup will be used, as it is the most used method and there is not needed the extra transfer speed from the four bit setup.
+In the project, the SPI setup will be used, as it is the most used method and there is not needed the extra transfer speed from the four bit setup. There to have the Arduino 4 pins, that can be set up to SPI communication.
 
 
-A SDSC card, with a SPI setup, will be use for the project, as it have a capacity and transfer speed that meets the requirements. The data will be saved, if the power is cut off. The last requirement, the connections to the microcontroller, is possible, because the Arduino Mega 2560 controller contains  digital I/O pins, that can be use for the SPI setup for the SD card.
+A SDSC card, with a SPI setup, will be use for the project, as it have a capacity and transfer speed that meets the requirements. The data will be saved, if the power is cut off. The last requirement, the connections to the microcontroller, is possible, because the Arduino Mega 2560 controller contains digital I/O pins, that can be use for the SPI setup for the SD card.
 
 %https://www.sdcard.org/developers/overview/capacity/index.html
 %https://www.sdcard.org/developers/overview/speed_class/

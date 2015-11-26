@@ -1,9 +1,8 @@
 \subsection{Steering}
-
-
+To steer the vehicle with a certain angle a servo motor is utilized. When the servo motor rotate to a specific angle, which is not the servos middle position, it will pull on one of the brakes. Thus affecting the output of the differential gear and change the velocity on the belts placed on each side of the vehicle. The difference in belt velocities yields the angle of the moving vehicle.
 
 \subsubsection{Brakes}
-The vehicle is turning by pulling the brakes, to slow down one side of the belts and then make the vehicle turn without changing the motor input velocity. An overview of one side of the brake can be seen in \figref{Brakes}. The servo, pulling the brakes, is explained later in \secref{Servo}.
+The moving vehicle turns by only pulling on one of it's brakes. if one of the belts is slower than the other it will make the vehicle turn regardless of changes in the motor output torque. A mechanical drawing of one of the brakes can be seen in \figref{Brakes}. 
 
  \begin{figure}[H]
 	\centering
@@ -12,6 +11,4 @@ The vehicle is turning by pulling the brakes, to slow down one side of the belts
 	\label{Brakes}
 \end{figure}
 
-When the servo turns on it self, it pulls an arm connected to a rotating cylinder, pushing a piston when it rotates. This piston push the brake pads one to each other. This will apply a friction on the brake disc, connected to the gear of the belts. The brakes can not be pulled simultaneously.\\
-
-Now that the brakes are described, the servo pulling them will be described.
+When the servo rotate to a specific angle, it pulls an arm connected to a rotating cylinder, pushing the piston, seen in \figref{Brakes}, when it rotates. The piston pushes the brake pad closest to it and thereby adding friction to the brake disc.

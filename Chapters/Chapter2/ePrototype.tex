@@ -34,16 +34,16 @@ In the following all the modules from the system prototype which needs further e
 %The \textit{GoT Transmitter} placed on the vehicle transmits a signal containing the time at which it send the ultra sound signal to the \textit{GoT Satellites} to the \textit{GoT Master}. The satellites transmit the signal recieved to the master as soon as they recieve it. The master then relays those informations to the \textit{GoT on Computer} that will calculate the position of the car.
 
 \textbf{Computer and Position Decoder:}
-The computer handles the calculation of the current position of the vehicle\appref{GoTDescription}. If a packet is disturbed or sent incorrectly it should be possible to detect it, so invalid data is not used by the prototype. It may occur that the coordinates which are sent from the GoT system is out of sensible range, e.g the coordinate transmitted jumps from one location to a location which is unrealistic, for the vehicle to reach in the amount of time between received coordinates. In this event the out of range coordinate should also be disregarded. The computer must compile a package containg the coordinates. The position decoder must be able to decode the send package.
+The computer handles the calculation of the current position of the vehicle \appref{GoTDescription}. If a packet is disturbed or sent incorrectly it should be possible to detect it, so invalid data is not used by the prototype. It may occur that the coordinates which are sent from the GoT system is out of sensible range, e.g the coordinate transmitted jumps from one location to a location which is unrealistic, for the vehicle to reach in the amount of time between received coordinates. In this event the out of range coordinate should also be disregarded. The computer must compile a package containg the coordinates. The position decoder must be able to decode the send package.
 
 \textbf{Course Correction:}
-Course correction receives the vehicles position and the next destination on the path. These informations constitutes a path segment on which it is the course correction's task to stay. To accomplish this it receives the angle and the speed of the vehicle, and uses this information to correct its course along the current path segment.
+This module receives the vehicles position and the next destination on the path. These informations constitutes a path segment on which it is the course correction's task to stay. To accomplish this it receives the angle and the speed of the vehicle, and uses this information to correct its course along the current path segment.
 
 \textbf{Read/Write Map:}
 This module handles the writing of coordinates to the nonvolatile storage device, as well as the reading of next desired destination from the stored map.
 
 \textbf{Speed Control:}
-The speed control retrieves the speed of the vehicle from the Get Speed module. This is used, through control, to obtain a steady speed. Furthermore it handles any request of change in speed delivered by the course correction.
+This module retrieves the speed of the vehicle from the Get Speed module. This is used, through control, to obtain a steady speed. Furthermore it handles any request of change in speed delivered by the course correction.
 
 %\subsubsection{Edge Map}
 %The first time the user will initialise the lawn mower, an \textit{Edge Map} will be created thanks to the GoT system. This edge map will determine the areas that the car is allowed to go or not, in regards of specifications or objects on the lawn.  
@@ -59,23 +59,45 @@ The speed control retrieves the speed of the vehicle from the Get Speed module. 
 %In the subsection an explanation of the different interfaces between the modules is made. We have thought about making it like a high layer interface, where we only explain what we need the different modules to give each other. Like one module needs to get the map edge, i.e. coordinates, but since it is this early in the report and it would be more overview by writing map edge rather than coordinates. But as you can see in \figref{fig:systemOverview2} the layers of information are different, one is raw angle data and another time send. Is this okay or should we change something else?
 %\indent
 %The interfaces of the system is very important when designing each of the adjacent submodules. The existing interfaces as well as the ones presumed are also important in the process of analyzing the system capabilities width focus on requirements of the prototype. Width that in mind follows a brief review of the interfaces between each submodule.
-In this section a high layer interface between the modules will be presented. This will help designing each of the adjacent submodules.
+In this section a high layer interface between the modules will be presented. This provides information for designing each of the adjacent submodules individually.
 
-\subsubsection{GoT System Interfaces}
-The GoT Transmitter sends the \textit{Time send} trough an \textit{Ultra sound} burst to the GoT Satellites, and trough an electromagnetic signal to the GoT Master. The same way, the GoT Satellites tranmits the \textit{Time received} by a electromagnetic signal to the GoT Master. The \textit{Position and time} will then be transmitted from the GoT Master to the GoT Computer, and then to the Wireless Module.
+\textbf{8 - Package Containing Position:}
+The GoT Transmitter sends the Time send trough an Ultra sound burst to the GoT Satellites, and trough an electromagnetic signal to the GoT Master. The same way, the GoT Satellites tranmits the \textit{Time received} by a electromagnetic signal to the GoT Master. The Position and time will then be transmitted from the GoT Master to the GoT Computer, and then to the Wireless Module.
 
-\subsubsection{Route Planning, Storage and Read/Write Map Interfaces}
-The Edge Map submodule sends the \textit{Map edge} to Route Planning, that will send a \textit{Route} to Read/Write Map. The Route to follow will then be transmited to the Course Correction submodule for a path correction, and to the Storage for saving.
+\textbf{7 \& 4 - Angle/Servo Control Signal \& PWM Signal:}
 
-\subsubsection{Speed Control Interfaces}
-The Hall Sensors send \textit{Hall sensor pulses} to the submodule Get Speed, that will process it to transmit the \textit{Belt speed} to the Speed Control. A \textit{PWM signal} containing the new wanted speed will then be sent to the Motor Driver, wich will convert it to the final \textit{Motor control signal} and sent it to the Drive Motor.
+\textbf{2 \& 1 - Angle \& Raw Angle Data:}
 
-\subsubsection{Angular Sensors Interfaces}
-The Angular Sensors will send a \textit{Raw angle data} to the submodule  Get Angles, that will process it and send the \textit{Processed angle data} to Course Correction.
+\textbf{6, 5 \& 4 - Desired Speed, Motor Control Signal \& PWM Signal:}
 
-\subsubsection{Course Correction Interfaces}
-The Course Correction submodule receives the \textit{Position and Time} from the Wireless Module, the \textit{Route} to follow from Read/Write Map, and the \textit{Processed angle data} from Get Angles. With all those information, a decision will be sent to the Speed Control through the \textit{Desired speed}, and to the Servo Motor with an \textit{Angle/servo control signal}.\\\\
+\textbf{11 \& 3 - Hall Sensor Pulses \& Belt Speed:}
 
+\textbf{13 - Route Coordinates:}
+
+\todo{***********HALL SENSOR FILTERING BOX IN PICTURE**********************}
+
+
+
+
+
+
+
+
+
+
+
+
+%Route Planning, Storage and Read/Write Map Interfaces:
+%The Edge Map submodule sends the Map edge to Route Planning, that will send a Route to Read/Write Map. The Route to follow will then be transmited to the Course Correction submodule for a path correction, and to the Storage for saving.
+
+%\textbf{Speed Control Interfaces:}
+%The Hall Sensors send Hall sensor pulses to the submodule Get Speed, that will process it to transmit the Belt speed to the Speed Control. A PWM signal containing the new wanted speed will then be sent to the Motor Driver, wich will convert it to the final Motor control signal and sent it to the Drive Motor.
+%
+%\textbf{Angular Sensors Interfaces:}
+%The Angular Sensors will send a Raw angle data to the submodule  Get Angles, that will process it and send the Processed angle data to Course Correction.
+%
+%\textbf{Course Correction Interfaces:}
+%The Course Correction submodule receives the Position and Time from the Wireless Module, the Route to follow from Read/Write Map, and the Processed angle data from Get Angles. With all those information, a decision will be sent to the Speed Control through the Desired speed, and to the Servo Motor with an Angle/servo control signal.
 
 Now that the vehicle had been descibed and the prototype defined, the modelling of the vehicle can be made.
 

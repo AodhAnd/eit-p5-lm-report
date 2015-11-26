@@ -14,16 +14,16 @@
 
 %Previously the rough prototype design is presented. To provide a more broad overview of the system, an exploded view of functionalities, their submodules and interfaces is presented in \figref{fig:systemOverview2}.
 
-The overall functionalities for the project have been limited, due to time limitations and to focus on the scope of the project. A prototype will therefore be made to show the main functionalities necessary to make an automated vehicle containing principles for lawn mowing.\\
-The final prototype includes a regulator, which will make it possible to follow a path from A to B. It is able to continue if the wireless connection is lost between the prototype and the GoT system for some duration. Furthermore it is able to plan a route within a given area and store these calculated data points locally, on the vehicle. The outline of the design is shown in \figref{fig:systemOverview2} to give an idea of the final prototype setup. In this section, the modules will be first presented, then the interfaces will describe the interaction between them.
+The overall functionalities for the project have been constrained, due to time limitations and to focus on the main scope of the semester. A prototype is therefore made to illustrate the main functionalities necessary to make an automated vehicle, containing principles for lawn mowing.
+
+The final prototype includes a regulator, which will make it possible to follow a path from A to B. It is able to continue if the wireless connection is lost between the prototype and the GoT system for some duration. The outline of the design is shown in \figref{fig:systemOverview2} to give an idea of the final prototype setup. In this section, the different functional blocks are put forth along with the interfaces describing the interaction between them.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=.9]{figures/systemOverview2}
-	\caption{Overview of the softaware and electronic parts of the system prototype}
+	\caption{Overview of the software and electronic parts of the system prototype, where the gray modules are hardware and the white are software}
 	\label{fig:systemOverview2}
 \end{figure}
-\todo{got transmitter instead of ultra sound and radio link, the 10 is also a time, the 12 and 9 are an electromagnetic signal}
 
 \subsection{Modules}
 In the following, apart from - \textit{Storage}, \textit{Read/Write Map} and \textit{Wireless Modules} - all the modules from the system prototype are described to understand the basis of the prototype.

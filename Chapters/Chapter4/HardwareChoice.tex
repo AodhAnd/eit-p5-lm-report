@@ -111,6 +111,34 @@ The requirements for the motor driver are:
 \end{itemize}
 
 \subsubsection{Pololu Dual VNH5019}
+The Pololu dual VHN5019 motor driver shield (see \figref{MotorDrive}) is special design to Arduino boards. It can be placed directly atop of the the Arduino, where the pin will connect to the right pins on the Arduino. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/Motordriver}
+		\caption{The motor shield atop of a Arduino Uno.} 
+	\label{MotorDrive}
+\end{figure}
+
+With the motor shield, it is possible to power the Arduino from a external power source, which also deliver the power to the motor. It is also possible to have the motor shield and the Arduino powered separately. This is determined by a jumper setting on the shield, see \figref{MotorDriveIO}. The motor shield need a power voltage between 7 volts and 12 volts.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/MotordriverIO}
+		\caption{Setup for the mort shield.}
+	\label{MotorDriveIO}
+\end{figure}
+
+There is two H-bridges on the board, to control two motors. As the project only have one motor, the two H-bridges will be used as one H-bridges. This will give a smaller current through the transistors in the two H-bridges and protect the system.
+
+%Make thomas find picture.
+
+Each of the H-bridges is controlled by a PWM signal from the Arduino. But as the two H-bridges is setup to XX mode, \todo{Thomas} the first H-bridge is set to be controlled by the PWM signal and therefore control the voltage running out of the H-bridge. The second H-bridge will be set directly to ground and therefore not needed to have a PWM signal attach to it. For the vehicle to go the other direction, the H-bridges have to chance setting to the other H-bridge setting.
+
+The Pololu dual VHN5019 motor driver shield will be used in this project, as it is made for the Arduino and therefore easy to implement. There to, it power the Arduino through a external power source and get a high enough power output, in each direction for the motor.
+
+%Source: The datasheet
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -143,15 +171,18 @@ The requirements for the wireless communication components are:
 \end{itemize}
 
 \subsubsection{Xbee}
-Xbee are small radio moduls, that is easy to set up. Overview of the Xbee can be seen on \figref{}.
+Xbee are small radio modules, that is easy to set up. Overview of the Xbee and it pin layout can be seen on \figref{Xbeepinout}.
 
 \begin{figure}[H]
+	\centering
 	\includegraphics[width=0.45\textwidth]{figures/XbeeIO}
 		\caption{Pinout for the Xbee radio modul.} % http://jeromeabel.net/ressources/xbee-arduino
 	\label{Xbeepinout}
 \end{figure}
 
-To run the Xbee moduls, there is needed a power on 3.3 volts, a ground and a UART on 3.3 volts. It have a transfer speed up to 115.2 kilobits per second and have a reach up to 100 meters indoor and 300 meters outdoor. It transmit with 1 millivolt (0 dBm) and can receive downto -96 dBm. It transmit at a 2.4 GHz frequency \todo{Check with thomas}. The Xbee is al set from the start with the under level for transmission, so there is only needed a presentation layer for a protocol to work with the transmission.
+The Xbee modules communicates through a UART connection (the TX and RX pin). As the Arduino have three UART connections, beside the one use to program the Arduino with, the Xbee can be connected. The software for the GOT system is running on C\# \todo{insert ref} and the computer running the software have some serial port, that can be connected to the software and the Xbee. So the Xbee can be used for the connection between the GOT system and the Arduino.
+
+To run the Xbee modules, there is needed a power on 3.3 volts, a ground and a UART on 3.3 volts. The rest of the pins will not be needed in this project. It have a transfer speed up to 115.2 kilobits per second and have a reach up to 100 meters indoor and 300 meters outdoor. It transmit with 1 millivolt (0 dBm) and can receive downto -96 dBm and transmits at a 2.4 GHz frequency \todo{Check with thomas}. The Xbee is already ready for communication, with the lower level of communication, XX, already design. A presentation layer can be added to the protocol, to add more error handling and to set up how the data shall be send.
 
 %http://www.digi.com/products/xbee-rf-solutions/modules/xbee-digimesh-2-4#specifications
 
@@ -169,11 +200,22 @@ The requirements for the angular sensor are:
 \end{itemize}
 
 \subsubsection{HMC5883L}
+On Sparksfun's "9 degrees of freedom" board, there is mounted a magnetometer, the HMC5883L. There will be used a magnetometer as the angular sensor, as the magnetometer can be setup as a compass and give out a angle compared to north. As the direction to north always is the same, the system will not need a new calibration of the angular sensor, if used in a new area. This will have to be needed, if the direction was taken from a local direction point, like a point in the GOT system.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/NineDegree}
+		\caption{Sparksfun's "9 degrees of freedom" sensor stick} 
+	\label{NineDegree}
+\end{figure}
+
+The "9 degrees of freedom" sensor stick, see \figref{NineDegree}, will be used in the project. Beside the magnetometer, there is a accelerometer and a gyroscope on the board, but these will not be used. The "9 degrees of freedom" sensor stick is madded to be used with a micro controller and comes with software to Arduino. It needs a I2C bus to communicated with the Arduino, which the Arduino have one of, which it not in use.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Note: Insert Hall sensor and servo into the header.
-%Note: Insert speed of sampling in the GOT
+%Note: Insert speed of sampling in the GOT.
+%Note: Insert ekstra pic to Xbee.
 
 %Pins on the arduino
 %SD card (4 I/O)

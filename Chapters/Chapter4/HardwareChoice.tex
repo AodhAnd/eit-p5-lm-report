@@ -1,5 +1,5 @@
 \section{Hardware choice} \label{Hardwarechoice}
-From the Requirements \todo{Ref to requirements}, the hardware components are chosen for the prototype. Beside the requirements for each components, there is considered the availability of the component and the implementation of the component in the system.
+From the Requirements (see \secref{Requirements}, the hardware components are chosen for the prototype. The hardware components on the vehicle (the servo for steering and the hall sensor for velocity measurement) is already chosen and will not include in this section. Beside the requirements for each components, there is considered the availability of the component and the implementation of the component in the system. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -16,7 +16,21 @@ The requirements for the microcontroller are:
 \end{itemize} 
 
 \subsubsection{Arduino Mega 2560}
-Arduino microcontroller is 
+The Arduino Mega 2560 is a 8-bit microcontroller (See \figref{}, which is a bigger version of the standard Arduino Uno. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/ArdGenMega}
+		\caption{A Arduino/Genuino Mega 2560} 
+	\label{ArdGenMega}
+\end{figure}
+
+It have 54 digital ports, where 15 of them can be used to PWM signals, which run all run at logic 5 volts. It have 6 timers and the CPU runs at 16 megahertz. One of the timers, do the Arduino use it self. There to also 4 UART, used to serial communication and a I2C bus. The Arduino can be powered though a USB cable or with a external power source
+
+The Arduino Mega board will be used in this project. It have the connections to set up the already chosen hardware and have many different type of connections to set up the other hardware components. The Arduino is programmable through the Arduino software, which is writing in a slightly different type of C. The Arduino can take C and C++ files, which will making libraries and implementing them easy. 
+
+
+With the choice of using a Arduino Mega, the rest of the hardware components have to have a connection possibility with it, as the Arduino will be used as the master of the system. 
 
 %https://www.arduino.cc/en/Main/ArduinoBoardMega2560
 
@@ -171,14 +185,29 @@ The requirements for the wireless communication components are:
 \end{itemize}
 
 \subsubsection{Xbee}
-Xbee are small radio modules, that is easy to set up. Overview of the Xbee and it pin layout can be seen on \figref{Xbeepinout}.
+Xbee are small radio modules, that is easy to set up. Overview of the Xbee, seen on \figref{XbeeLook} and it pin layout can be seen on \figref{Xbeepinout}.
 
+
+\begin{minipage}{\linewidth}
+      \centering
+      \begin{minipage}{0.30\linewidth}
+      \centering
+          \begin{figure}[H]
+              \includegraphics[width=0.95\textwidth]{figures/Xbee}
+              \caption{The Xbee radio modules} 
+              \label{XbeeLook}
+          \end{figure}
+      \end{minipage}
+      \hspace{0.03\linewidth}
+      \begin{minipage}{0.65\linewidth}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.45\textwidth]{figures/XbeeIO}
-		\caption{Pinout for the Xbee radio modul.} % http://jeromeabel.net/ressources/xbee-arduino
+		\caption{Pinout for the Xbee radio modul.} 
 	\label{Xbeepinout}
 \end{figure}
+      \end{minipage}
+  \end{minipage}
 
 The Xbee modules communicates through a UART connection (the TX and RX pin). As the Arduino have three UART connections, beside the one use to program the Arduino with, the Xbee can be connected. The software for the GOT system is running on C\# \todo{insert ref} and the computer running the software have some serial port, that can be connected to the software and the Xbee. So the Xbee can be used for the connection between the GOT system and the Arduino.
 
@@ -213,9 +242,8 @@ The "9 degrees of freedom" sensor stick, see \figref{NineDegree}, will be used i
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Note: Insert Hall sensor and servo into the header.
 %Note: Insert speed of sampling in the GOT.
-%Note: Insert ekstra pic to Xbee.
+%Note: Missing a tail.
 
 %Pins on the arduino
 %SD card (4 I/O)

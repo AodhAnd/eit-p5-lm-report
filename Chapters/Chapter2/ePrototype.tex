@@ -14,7 +14,7 @@
 
 %Previously the rough prototype design is presented. To provide a more broad overview of the system, an exploded view of functionalities, their submodules and interfaces is presented in \figref{fig:systemOverview2}.
 
-The overall functionalities for the project have been constrained, due to time limitations and to focus on the main scope of the semester. A prototype is therefore made to illustrate the main functionalities necessary to make an automated vehicle, containing principles for lawn mowing.
+The overall functionalities for the project have been constrained from the Use-Case \secref{sec:UseCase}, due to time limitations and to focus on the main scope of the semester. A prototype is therefore made to illustrate the main functionalities necessary to make an automated vehicle, containing principles for lawn mowing.
 
 The final prototype includes a regulator, which will make it possible to follow a path from A to B. It is able to continue if the wireless connection is lost between the prototype and the GoT system for some duration. The outline of the design is shown in \figref{fig:systemOverview2} to give an idea of the final prototype setup. In this section, the different functional blocks are put forth along with the interfaces describing the interaction between them.
 
@@ -33,8 +33,17 @@ In the following all the modules from the system prototype which needs further e
 %
 %The \textit{GoT Transmitter} placed on the vehicle transmits a signal containing the time at which it send the ultra sound signal to the \textit{GoT Satellites} to the \textit{GoT Master}. The satellites transmit the signal recieved to the master as soon as they recieve it. The master then relays those informations to the \textit{GoT on Computer} that will calculate the position of the car.
 
-\subsubsection{Wireless Module}
-The Wireless module should ensure communication with the vehicle. It is thereby possible to transmit coordinates from the GoT system to the vehicle. If a packet is disturbed or sent incorrectly it should be possible to detect it, so invalid data is not used by the prototype. Furthermore if the coordinates which is sent from the GoT system is nonsensical, e.g the coordinate transmitted jumps from one location to a location which is unrealistic for the vehicle to reach in the amount of time between received coordinates, it should also be disregarded.
+\textbf{Computer and Position Decoder:}
+The computer handles the calculation of the current position of the vehicle\appref{GoTDescription}. If a packet is disturbed or sent incorrectly it should be possible to detect it, so invalid data is not used by the prototype. It may occur that the coordinates which are sent from the GoT system is out of sensible range, e.g the coordinate transmitted jumps from one location to a location which is unrealistic, for the vehicle to reach in the amount of time between received coordinates. In this event the out of range coordinate should also be disregarded. The computer must compile a package containg the coordinates. The position decoder must be able to decode the send package.
+
+\textbf{Course Correction:}
+Course correction receives the vehicles position and the next destination on the path. These informations constitutes a path segment on which it is the course correction's task to stay. To accomplish this it receives the angle and the speed of the vehicle, and uses this information to correct its course along the current path segment.
+
+\textbf{Read/Write Map:}
+This module handles the writing of coordinates to the nonvolatile storage device, as well as the reading of next desired destination from the stored map.
+
+\textbf{Speed Control:}
+The speed control retrieves the speed of the vehicle from the Get Speed module. This is used, through control, to obtain a steady speed. Furthermore it handles any request of change in speed delivered by the course correction.
 
 %\subsubsection{Edge Map}
 %The first time the user will initialise the lawn mower, an \textit{Edge Map} will be created thanks to the GoT system. This edge map will determine the areas that the car is allowed to go or not, in regards of specifications or objects on the lawn.  
@@ -42,17 +51,8 @@ The Wireless module should ensure communication with the vehicle. It is thereby 
 %\subsubsection{Route Planning}
 %The Route Planning module calculates a route from the points gathered from the Edge Map. The route will be in straight lanes, as in the Bosch Logicut system \secref{roboMowers}, to guarantee that the whole lawn is cut.
 
-\subsubsection{Speed Control}
-The speed is controlled by the \textit{Hall Sensors} placed on the drive wheel. The submodule \textit{Get Speed} will relay this speed to the \textit{Speed Control} taking the belts into account. The new wanted speed will be sent to the \textit{Motor Driver}, which will finally instruct the \textit{Drive Motor} how to run.
-
-
-\subsubsection{Angular Sensors}
-The angular position is measured thanks to the \textit{Angular Sensors}, that will send data to the submodule \textit{Get Angle}, in charge to send the angle to the Speed Control and to the Course Correction submodule.
-
-\subsubsection{Course Correction}
-Thanks to all the informations from the different sensors for the speed, position, and angular position, the \textit{Course Correction} can decide how to react in consequence. It will send a instruction to the Speed Control and to the \textit{Servo Motor}, that will act directly on the steering of the vehicle, to try to stay on the desired path.
-
-
+%\subsubsection{Angular Sensors}
+%The angular position is measured thanks to the \textit{Angular Sensors}, that will send data to the submodule \textit{Get Angle}, in charge to send the angle to the Speed Control and to the Course Correction submodule.
 
 \subsection{Interfaces}
 %- To Tom and Rasmus \newline

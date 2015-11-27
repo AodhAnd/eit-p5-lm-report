@@ -7,34 +7,34 @@
 %	\end{itemize}
 \item \textbf{There must be a one-way wireless communication from the GoT system to the vehicle}
 	\begin{itemize}
-	\item[] The vehicle needs to receive its own location by wireless communication, and thereby make it possible for the vehicle to change it's direction, if necessary, and drive without cables, see \secref{Finalprototype}.
+	\item[] The vehicle needs to be able to receive its own location, additionally, it should be wireless so the vehicle can drive without cables attached, and thereby be able to move freely, \secref{Finalprototype}
 	\end{itemize}
 \item \textbf{It shall be possible for the prototype to disregard incorrect packets sent from the GoT system}
 	\begin{itemize}
-	\item[] why and from where?
+	\item[] To ensure that invalid data is not utilized, \secref{Finalprototype}
 	\end{itemize}
 	\item \textbf{The prototype must be able to disregard erroneous coordinates sent from the GoT system}
 	\begin{itemize}
-	\item[] Ensures that if the GoT system delivers an unrealistic coordinate, e.g. created by noise, to the vehicle, it is disregarded, see \secref{Finalprototype}.
+	\item[] If the GoT system delivers an unrealistic coordinate, e.g. created by noise, to the vehicle, \secref{Finalprototype}.
 	\end{itemize}
-\item \textbf{The prototype must be able to access the route, which it has to follow, from a storage space located on the prototype}
+\item \textbf{The prototype must be able to access the route, which it has to follow, from a storage space located on the vehicle}
 	\begin{itemize}
-	\item[] why and from where?
+	\item[] To simulate the use-case, see \secref{sec:UseCase}, the route needs to be stored on the vehicle, and thereby making it accessible for the functionality course correction, \secref{Finalprototype}.
 	\end{itemize}
-\item \textbf{The prototype must be able to measure the voltage on it's battery}
+\item \textbf{The prototype must be able to shut down, if the battery voltage is below its cut-off specification}
 	\begin{itemize}
-	\item[] why and from where?
+	\item[] To ensure the battery is not damaged, \secref{Finalprototype}.
 	\end{itemize}
-\item \textbf{It shall be possible for the prototype to follow a predetermined route within the edge map}
+\item \textbf{It shall be possible for the prototype to follow a predetermined route}
 	\begin{itemize}
-	\item[] why and from where?
+	\item[] This is to simulate a lawn mower, which is able to cut grass by following a route, \secref{sec:PrototypeConstraints}
 	\end{itemize}
 \item \textbf{It shall be possible for the prototype to return to the predetermined route if disturbed}
 	\begin{itemize}
-	\item[] why and from where?
+	\item[] E.g. if the vehicle slips or is moved, \secref{sec:UseCase}
 	\end{itemize}
 \item \textbf{The prototype shall be able to keep a predetermined velocity when going up - or downhill}
 	\begin{itemize}
-	\item[] why and from where?
+	\item[] To ensure the vehicle does not become unstable, \secref{sec:UseCase}
 	\end{itemize}
 \end{enumerate}

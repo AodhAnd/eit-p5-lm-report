@@ -21,7 +21,7 @@ The final prototype includes a regulator, which will make it possible to follow 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=.9]{figures/systemOverview2}
-	\caption{Overview of the software and electronic parts of the system prototype, where the gray modules are hardware and the white are software. The dotted lines are wireless signals while the others are wire signals}
+	\caption{Overview of the software and electronic parts of the system prototype, where the gray modules are hardware and the white are software.}
 	\label{fig:systemOverview2}
 \end{figure}
 
@@ -61,19 +61,50 @@ This module retrieves the speed of the vehicle from the Get Speed module. This i
 %The interfaces of the system is very important when designing each of the adjacent submodules. The existing interfaces as well as the ones presumed are also important in the process of analyzing the system capabilities width focus on requirements of the prototype. Width that in mind follows a brief review of the interfaces between each submodule.
 In this section a high layer interface between the modules will be presented. This provides information for designing each of the adjacent submodules individually.
 
-\textbf{8 - Package Containing Position:}
+\textbf{Package Containing Position (8):}
 The data communicated from the GoT system to the vehicle contains the last recorded position of the vehicle. This position is presented in the form of an x- and a y-coordinate, which must be included in the data package. Additionally each package must contain decode information for the receiver, including how to separate each package along with error handling.
 
-\textbf{7 \& 4 - Angle/Servo Control Signal \& PWM Signal:}
+Ultra sound (10)
+Time send (12)
+Time received (9)
+
+\textbf{Angle/Servo Control Signal (7) and PWM Signal (4):}
 Course correction will ask the vehicle to turn or make small adjustments of the angle. This angle is realized through the servo motor which breaks on either belt aproprite to the required angle. For the servo to understand the angle the servo driver must translate it into a PWM signal, which makes the servo turn to a specific position for each pulse width.
 
-\textbf{2 \& 1 - Angle \& Raw Angle Data:}
 
-\textbf{6, 5 \& 4 - Desired Speed, Motor Control Signal \& PWM Signal:}
+\textbf{Route Coordinates (13), Current Position(14), Battery Voltage (15)\\ and Desired Angle (16):}
 
-\textbf{11 \& 3 - Hall Sensor Pulses \& Belt Speed:}
 
-\textbf{13 - Route Coordinates:}
+\textbf{Raw Angle Data (1), Current Angle (2) and Desired Angle (16):}
+
+
+
+\textbf{Desired Speed (6), Motor Control Signal (5) and PWM Signal (4):}
+
+
+
+\textbf{Hall Sensor Pulses (11) and Belt Speed (3):}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hall sensor pulses
+Belt speed
+Desired speed
+PWM signal
+Motor control signal
+
 
 
 

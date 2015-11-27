@@ -14,6 +14,13 @@ Timer 3 is chosen for the servo. This, because the higher resolution makes it ea
 
 The last timer is chosen for the DC-motor.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.75]{figures/MegaSetup.pdf}
+	\caption{Hey}
+	\label{MegaSetup}
+\end{figure}
+
 As the timers has now been designated, the next will be the various serial ports. The XBee module needs to connect to a serial port, and UART3 is chosen, as it makes it easiest to route the PCB traces. The SD-card needs an SPI connection, and must therefore be connected to the SPI pins. Lastly, the "9 Degrees of Freedom"-board needs an $\text{I}^2\text{C}$ connection, and has to be connected to the Arduino's $\text{I}^2\text{C}$ pins.
 
 As all hardware modules have now been assigned pins on the Arduino, the electrical requirements of each module will now be considered.

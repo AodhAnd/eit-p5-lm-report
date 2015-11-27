@@ -37,7 +37,7 @@ In the following all the modules from the system prototype which needs further e
 The computer handles the calculation of the current position of the vehicle \appref{GoTDescription}. If a packet is disturbed or sent incorrectly it should be possible to detect it, so invalid data is not used by the prototype. It may occur that the coordinates which are sent from the GoT system is out of sensible range, e.g the coordinate transmitted jumps from one location to a location which is unrealistic, for the vehicle to reach in the amount of time between received coordinates. In this event the out of range coordinate should also be disregarded. The computer must compile a package containg the coordinates. The position decoder must be able to decode the send package.
 
 \textbf{Course Correction:}
-This module receives the vehicles position and the next destination on the path. These informations constitutes a path segment on which it is the course correction's task to stay. To accomplish this it receives the angle and the speed of the vehicle, and uses this information to correct its course along the current path segment.
+This module receives the vehicles position from the GoT and the next destination on the path, which is located in the storage. These informations constitutes a path segment on which it is the course correction's task to stay. To accomplish this it receives the angle and the speed of the vehicle, and uses this information to correct its course along the current path segment.
 
 \textbf{Read/Write Map:}
 This module handles the writing of coordinates to the nonvolatile storage device, as well as the reading of next desired destination from the stored map.
@@ -62,9 +62,10 @@ This module retrieves the speed of the vehicle from the Get Speed module. This i
 In this section a high layer interface between the modules will be presented. This provides information for designing each of the adjacent submodules individually.
 
 \textbf{8 - Package Containing Position:}
-The GoT Transmitter sends the Time send trough an Ultra sound burst to the GoT Satellites, and trough an electromagnetic signal to the GoT Master. The same way, the GoT Satellites tranmits the \textit{Time received} by a electromagnetic signal to the GoT Master. The Position and time will then be transmitted from the GoT Master to the GoT Computer, and then to the Wireless Module.
+The data communicated from the GoT system to the vehicle contains the last recorded position of the vehicle. This position is presented in the form of an x- and a y-coordinate, which must be included in the data package. Additionally each package must contain decode information for the receiver, including how to separate each package along with error handling.
 
 \textbf{7 \& 4 - Angle/Servo Control Signal \& PWM Signal:}
+Course correction will ask the vehicle to turn or make small adjustments of the angle. This angle is realized through the servo motor which breaks on either belt aproprite to the required angle. For the servo to understand the angle the servo driver must translate it into a PWM signal, which makes the servo turn to a specific position for each pulse width.
 
 \textbf{2 \& 1 - Angle \& Raw Angle Data:}
 
@@ -73,14 +74,6 @@ The GoT Transmitter sends the Time send trough an Ultra sound burst to the GoT S
 \textbf{11 \& 3 - Hall Sensor Pulses \& Belt Speed:}
 
 \textbf{13 - Route Coordinates:}
-
-\todo{***********HALL SENSOR FILTERING BOX IN PICTURE**********************}
-
-
-
-
-
-
 
 
 
@@ -99,7 +92,7 @@ The GoT Transmitter sends the Time send trough an Ultra sound burst to the GoT S
 %\textbf{Course Correction Interfaces:}
 %The Course Correction submodule receives the Position and Time from the Wireless Module, the Route to follow from Read/Write Map, and the Processed angle data from Get Angles. With all those information, a decision will be sent to the Speed Control through the Desired speed, and to the Servo Motor with an Angle/servo control signal.
 
-Now that the vehicle had been descibed and the prototype defined, the modelling of the vehicle can be made.
+Now that the vehicle had been described and the prototype defined, the modeling of the vehicle can be made.
 
 
 %---------------------------------------------------------------------------------------------------------------------------\\

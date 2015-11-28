@@ -10,9 +10,12 @@ The realtime operating system needs a timer, for running it's scheduler. Timer 1
 
 This leaves Timer 2 and 3. According to \cite{Atmega}, Timer 2 is an 8 bit timer, and Timer 3 is 16 bit. 
 
-Timer 3 is chosen for the servo. This, because the higher resolution makes it easier to generate the short duty cycles required by the servo (\si{500\ \mu s} to \si{2500\ \mu s} on-time, in a \si{30\ ms} period, see \subsecref{Servo})
+Timer 3 is chosen for the PWM signal to the servo. This, because the higher resolution makes it easier to generate the short duty cycles required by the servo (\si{500\ \mu s} to \si{2500\ \mu s} on-time, in a \si{30\ ms} period, see \subsecref{Servo})
 
-The last timer is chosen for the DC-motor.
+The last timer is chosen for the PWM signal to the DC-motor.
+
+As the timers has now been designated, the next will be the various serial ports. They are designated as shown on \figref{MegaSetup}.
+
 
 \begin{figure}[H]
 	\centering
@@ -21,7 +24,18 @@ The last timer is chosen for the DC-motor.
 	\label{MegaSetup}
 \end{figure}
 
-As the timers has now been designated, the next will be the various serial ports. The XBee module needs to connect to a serial port, and UART3 is chosen, as it makes it easiest to route the PCB traces. The SD-card needs an SPI connection, and must therefore be connected to the SPI pins. Lastly, the "9 Degrees of Freedom"-board needs an $\text{I}^2\text{C}$ connection, and has to be connected to the Arduino's $\text{I}^2\text{C}$ pins.
+The XBee module needs to connect to a serial port, and UART3 is chosen, as it makes it easiest to route the PCB traces. UART3 is located at pins 0 and 1. 
+
+The SD-card needs an SPI connection, and must therefore be connected to the SPI pins 50, 51, 52 and 53. 
+
+The "9 Degrees of Freedom"-board needs an $\text{I}^2\text{C}$ connection, and has to be connected to the Arduino's $\text{I}^2\text{C}$ pins 20 and 21. 
+
+The PWM signals to the motor and servo can be set to any of the PWM pins. For easiest route, pin 9 for the motor and pin 5 for the servo is selected.
+
+The input from the hall sensors will be measured by the input capture pins (ICP4 and ICP5), where timer4 and timer5 is connected to. On the Arduino board, it is pin 46 and 47.
+
+Lastly will the voltage divider, for the power monitoring, be connected to a analogue pin, which will be pin A9.
+
 
 As all hardware modules have now been assigned pins on the Arduino, the electrical requirements of each module will now be considered.
 
@@ -57,4 +71,20 @@ As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs t
 	\caption{$\text{I}^2\text{C}$ Voltage level translator. [source: Philips]}
 	\label{i2clevel}
 \end{figure}
+
+\subsection{Voltage divider}
+
+The power monitor need a voltage divider, see \secref{Hardwarechoice}. With a measurement interval on 0 to 5 volts in 1023 for the analogue pin on the Arduino, the voltage divider is need to design, to measure the whole interval for the battery pack. As the battery pack can have a voltage up to 8,4 volt \todo{Source, thomas}, the transfer constant for the voltage divider need to be smaller than 0,59 to measure the whole interval. The smaller the transfer constant, the bigger the interval is and the bigger will each step be. To make sure that there will not come a bigger voltage than 5 volts on the output from the voltage divider, the transfer constant is set to 0,5. This will give a maximum voltage into the voltage divider on 10 volts, before there will come more than 5 volts out on the output. To get a transfer constant on 0,5 the resistors in the voltage divider need to be the same, see \eqref{}.
+
+%Insert ref.
+
+For the size of the resistors, the output impedance for the voltage divider have to be take into consideration. For the analogue pins on the Arduino, it is recommend to have a output impedance smaller than 10 $k\Omega$, or the it will begin to disturb the reading on the pin.
+To make sure that is does not happen, the resistors in the voltage divider is set to the half of the maximum output impedance, 5 $k\Omega$. The closet resistor in the E96 series is 4,99 $k\Omega$, which will be use for both resistors. 
+
+The final voltage divider circuit for the power monitor can be seen on \figref{}.
+
+%Insert pic.
+
+To filter the high frequency noise out, there is also implemented a 100 $nF$ capacitor in the voltage divider.
+
 

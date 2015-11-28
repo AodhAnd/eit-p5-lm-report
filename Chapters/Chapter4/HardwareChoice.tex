@@ -261,6 +261,19 @@ The requirements for the angular sensor are:
 \end{itemize}
 
 \subsubsection{Voltage divider}
+A voltage divider is a electronic circuit, that divide the input voltage with a constant, that is depending on the values on the resistor, that is used in the circuit, see \figref{}.
+
+%Insert pic
+
+The output of the voltage divider can be find with \eqref{VoltageDividere}. 
+
+\begin{flalign}
+\eq{V_{out}}{\frac{Z_2}{Z_1 \cdot Z_2} \cdot V_{in}}\unit{V} 
+\label{VoltageDividere}
+\end{flalign}
+
+The input will be set to the battery pack and the output, to a analogue pin on the Arduino. The analogue pin on the Arduino can measure from 0 volts to 5 volts with a accuracy of 10 bits. This gives 1023 steps from 0 to 5 volts and each step is 4,9 millivolts. The size of each step and the interval for the measuring is multiply by the constant from the voltage divider, so it is possible to measure voltage over 5 volts. 
+A voltage divider will be used, as it can be scaled to the interval that it have to measure inside. The voltage divider will be connected to a analogue pin on the Arduino, that will make the measurement on the output of the voltage divider.
 
 
 From the requirements for the system to the hardware parts, these components have been chosen. After have chosen the different hardware components for the prototype, the different components have to be implemented in the system.

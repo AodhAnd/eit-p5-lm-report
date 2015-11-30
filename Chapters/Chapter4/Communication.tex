@@ -2,3 +2,32 @@
 
 \subsection{Transport Layer}
 
+%Notes:
+%We use UDP, no connections
+
+%OSI
+%The physical layer is the Xbee
+%The data link layer is halfway done in the code, where the package is split up in bytes. The adressing is done on the XBee and in the serial port libeary 
+%The network layer may not be used here as we just transmit 360 degree
+%The transport layer is the setup of how the package is setup
+%The rest of the layers is not used.
+
+%Package gonna be:
+%- Header		1 Byte
+%- Destanation	½ Byte
+%- Source		½ Byte
+%- Type			7 bit = 0,875 Byte
+%- Data			45 bit = 5,625 Byte
+%- Checksum		2½ Byte
+%- Trailer		1 Byte
+%				12 Byte
+
+%Checksum on 20 bit.
+
+%Error handling at:
+%- Header
+%- Destanation
+%- Maybe Source
+%- Type
+%- Checksum
+%- Trailer

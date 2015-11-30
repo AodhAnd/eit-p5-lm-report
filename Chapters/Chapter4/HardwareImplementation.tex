@@ -77,9 +77,10 @@ As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs t
 The power monitor need a voltage divider, see \secref{Hardwarechoice}. With a measurement interval on 0 to 5 volts in 1023 for the analogue pin on the Arduino, the voltage divider is need to design, to measure the whole interval for the battery pack. As the battery pack can have a voltage up to 8,4 volt \todo{Source, thomas}, the transfer constant for the voltage divider need to be smaller than 0,59 to measure the whole interval. The smaller the transfer constant, the bigger the interval is and the bigger will each step be. To make sure that there will not come a bigger voltage than 5 volts on the output from the voltage divider, the transfer constant is set to 0,5. This will give a maximum voltage into the voltage divider on 10 volts, before there will come more than 5 volts out on the output. To get a transfer constant on 0,5 the resistors in the voltage divider need to be the same, see \eqref{VolDivRes1} to \eqref{VolDivRes3}.
 
 %\begin{flalign}
-%\eq{R}{R_1 $=$ R_2}\unit{V}
+%\eq{R}{$R_1 = R_2$}\unit{\Omega}
 %\label{VolDivRes1}
 %\end{flalign}
+\todo{Need to setup this equation, Niels please help me}
 
 \begin{flalign}
 \eq{V_{out}}{\frac{R}{R \cdot R} \cdot V_{in}}\unit{V}
@@ -94,10 +95,29 @@ The power monitor need a voltage divider, see \secref{Hardwarechoice}. With a me
 For the size of the resistors, the output impedance for the voltage divider have to be take into consideration. For the analogue pins on the Arduino, it is recommend to have a output impedance smaller than 10 $k\Omega$, or the it will begin to disturb the reading on the pin.
 To make sure that is does not happen, the resistors in the voltage divider is set to the half of the maximum output impedance, 5 $k\Omega$. The closet resistor in the E96 series is 4,99 $k\Omega$, which will be use for both resistors. 
 
-The final voltage divider circuit for the power monitor can be seen on \figref{}.
-
-%Insert pic.
+The final voltage divider circuit for the power monitor can be seen on \figref{VoltDivFigFinal}.
+\begin{figure}[h!]
+\centering
+\begin{circuitikz}
+\draw (0,2)
+to[short,l=$V_{in}$] (1,2)
+to[short] (2,2)
+to[R=$R_1$] (2,0)
+to[R=$R_2$] (2,-2);
+\draw (2,-2) 
+to[short] node[ground] {} (2,-3);
+\draw (2,0)
+to[short] (3,0)
+to[short,l=$V_{out}$] (4,0);
+\draw (2,0)
+to[C=$C_1$] (0,0)
+to[short] node[ground] {} (0,-1);
+\end{circuitikz}
+\caption{The implemented voltage divider} 
+\label{VoltDivFigFinal}
+\end{figure}
 
 To filter the high frequency noise out, there is also implemented a 100 $nF$ capacitor in the voltage divider.
 
+With all the hardware components physically implemented on the vehicle and to the microcontroller, there will be the brain of the system, there will be look at the implementation of the hardware components, in the Arduino software.
 

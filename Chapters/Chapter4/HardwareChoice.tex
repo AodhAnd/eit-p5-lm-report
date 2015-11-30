@@ -261,9 +261,27 @@ The requirements for the angular sensor are:
 \end{itemize}
 
 \subsubsection{Voltage divider}
-A voltage divider is a electronic circuit, that divide the input voltage with a constant, that is depending on the values on the resistor, that is used in the circuit, see \figref{}.
+A voltage divider is a electronic circuit, that divide the input voltage with a constant, that is depending on the values on the resistor, that is used in the circuit, see \figref{VoltDivFig}.
 
-%Insert pic
+\begin{figure}[h!]
+\centering
+\begin{circuitikz}
+\draw (0,0)
+to[V,v=$V_{in}$] (0,2)
+to[short] (2,2)
+to[R=$R_1$] (2,0)
+to[R=$R_2$] (2,-2)
+to[short] (0,-2)
+to[short] (0,0);
+\draw (2,-2) 
+to[short] node[ground] {} (2,-3);
+\draw (2,0)
+to[short] (3,0)
+to[short,l=$V_{out}$] (4,0);
+\end{circuitikz}
+\caption{Standard voltage divider} 
+\label{VoltDivFig}
+\end{figure}
 
 The output of the voltage divider can be find with \eqref{VoltageDividere}. 
 

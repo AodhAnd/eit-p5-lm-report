@@ -14,20 +14,46 @@
 
 %Package gonna be:
 %- Header		1 Byte
-%- Destanation	½ Byte
-%- Source		½ Byte
+%- Source		1 Byte
 %- Type			7 bit = 0,875 Byte
 %- Data			45 bit = 5,625 Byte
 %- Checksum		2½ Byte
 %- Trailer		1 Byte
 %				12 Byte
 
+%Header is 		1000 0001
+%Source is 		0000 0001
+%Type is   		0001 101
+%Data is   		XXXX XXXX
+%		   		XXXX XXXY
+%		   		YYYY YYYY
+%		   		YYYY YYZZ
+%		   		ZZZZ ZZZZ
+%		   		ZZZZ Z
+%Checksum is	CCCC CCCC
+%				CCCC CCCC
+%				CCCC
+%Trailer is		0111 1110
+
 %Checksum on 20 bit.
 
 %Error handling at:
-%- Header
-%- Destanation
-%- Maybe Source
-%- Type
-%- Checksum
-%- Trailer
+%- Header 	(error 1)
+%- Source 	(error 2)
+%- Type   	(error 3)
+%- Checksum	(error 4)
+%- Trailer	(error 5)
+
+%Biggest problem, is if there is a miss in the start and the system come in the package in the wrong way.
+
+%If 4 = Header
+%If 5 = Source
+%If 6 = Type + ran bit
+%If next 3 = Trailer
+
+%Header is 4 to 8
+%Source is 5 to 9
+%Type is 6 to 10
+%Trailer is next 3 to 7
+
+%5 pair of problem

@@ -1,19 +1,74 @@
 \chapter{Filter}
 
-\section{Requirements}
+a digital filter is 
+
+\section{Filter Requirements}
 
 \textbf{Passband requirements:}
-
 \begin{flalign}
-0.89125 &\leq |H(e^{j\omega}| \leq 1
+0.89125 &\leq |H(e^{j\omega}| \leq 1 \unit{dB}\\
+0 &\leq \omega \leq 0.3\pi \unit{rad}
 \end{flalign}
 
 \textbf{Stopband requirements:}
+\begin{flalign}
+|H(e^{j\omega})| &\leq 0.01 \unit{dB}\\
+0.3 &\leq \omega \leq \pi \unit{rad}
+\end{flalign}
 
+\subsection{Filter Type}
 
 \section{Design}
 
 \subsection{General transfer function}
 
-\subsection{Transformation to discrete time}
+Pre-warping: 
 
+\begin{flalign}
+\eq{\Omega}{2 \cdot T_d \cdot \tan{\frac{0.3 \pi}{2}}} \\
+\end{flalign}
+
+Magnitude squared function:
+
+\begin{flalign}
+\eq{|H(e^{j\omega}|^2}{\frac{1}{1+(\frac{\Omega}{\Omega_c})^{2N}}} \\
+\end{flalign}
+
+Poles:
+
+\begin{flalign}
+\eq{P_k}{\Omega_c \cdot e^{j(\frac{2 \cdot k -1}{2 \cdot N} \cdot \pi + \frac{\pi}{2})}} \\
+\eq{k}{1,2 \dotsc N}
+\end{flalign}
+
+General transfer function:
+
+\begin{flalign}
+\eq{H(s)}{\frac{G_o}{\prod\limits_{k = 1}^N (s-P_k)}}
+\end{flalign}
+
+Transfer function:
+
+\begin{flalign}
+\eq{H(s)}{\frac{G_o}{(s-e^{j\cdot \frac{2}{3} \cdot \pi})}}
+\end{flalign}
+
+\subsection{Bilinear vs. Impulse Invariance}
+
+\subsection{Transforming the filter to Z-domain}
+
+Standard formula:
+
+\begin{flalign}
+H(z) &= \frac{B(z)}{A(z)} = \frac{b_0 + b_1z^-1 + b_2z^-2 + \dotsc + b_Nz^{-N}}{1 + a_1z^-1 + a_2z^-2 + \dotsc + a_Mz^{-M}}
+\end{flalign}
+
+\section{Implementation}
+
+\subsubsection{Direct Form I}
+
+\subsubsection{Direct Form II}
+
+\subsection{code generation}
+
+\section{Results}

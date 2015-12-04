@@ -1,95 +1,87 @@
 \section{Hardware choice} \label{Hardwarechoice}
 Hardware components are chosen from the Requirements (see \secref{Requirements}) to build a prototype. 
 Some of the hardware components are given with the vehicle (the servo used for steering and the Hall sensors used for velocity measurement) and therefore, aren't described in this section. 
-Besides the requirements, the availability of the components and their implementation in the system have to be considered. 
+Besides the requirements, the availability of the components and their implementation in the system have to be considered.\todo{What consideration do we have regarding the implementation ?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Microcontroller}
-The microcontroller is the brain of the system. The purpose of the controller is to connect all the other hardware components, contain the software script for the system and control the rest of the system, with help of signals, controlled by the script.
+The microcontroller is the brain of the system. The purpose of the microcontroller is to connect all the other hardware components. It also contains the software code necessary to control the rest of the system by sending and receiving electrical signals as needed.
 
 The requirements for the microcontroller are:
 \begin{itemize}
-\item Have a CPU, that have a frequency greater than XX. \todo{Number}
+\item Have a CPU, that has a frequency greater than \si{XX\ MHz}. \todo{Number}
 \item Having I/O connections, both digital and analogue.
-\item Having 5 free timers, to control different part of the system parallel with each other.
 \item Having output connections, that can transmit PWM signals.
-\item Can be powered by an external power source.
-\end{itemize} 
+\item Having 5 free timers,\todo{Where do we have this number from (in the report)?} to run and control the different parts of the system in parallel.
+\item Can be powered by an external power source.\todo{?}
+\end{itemize}
 
 \subsubsection{Arduino Mega 2560}
-The Arduino Mega 2560 is a 8-bit microcontroller (See \figref{ArdGenMega}), which is a bigger version of the standard Arduino Uno. 
+The Arduino Mega 2560 is a microcontroller board, which comes with an 8-bit ATmega2560 integrated circuit and extends its I/O ports, see \figref{ArduinoMega} \cite{MegaInfo}. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.60\textwidth]{figures/ArdGenMega}
-		\caption{A Arduino/Genuino Mega 2560} 
-	\label{ArdGenMega}
+	\includegraphics[width=0.5\textwidth]{figures/ArduinoMega.png}
+		\caption{An Arduino Mega 2560 board [source: Arduino site]} 
+	\label{ArduinoMega}
 \end{figure}
+%
+It has \si{54} digital ports with a 5 volts logic. From these, \si{15} can be used to generate PWM signals. The CPU runs at \si{16 MHz} and the chip has \si{6} integrated timers, one of which is used by the Arduino itself. There are also 4 UARTs, used in serial communication, as well as a setup for SPI communication and an I2C bus. The Arduino can be powered though a USB cable or with an external power source.
 
-It has 54 digital ports, where 15 of them can be used to generate PWM signals, which run all run at logic 5 volts. It have 6 timers and the CPU runs at 16 megahertz. One of the timers, do the Arduino use it self. There to also 4 UART, used to serial communication, a setup to SPI communication and a I2C bus. The Arduino can be powered though a USB cable or with a external power source
+The Arduino Mega board is the one that is used in this project, since it ships with all the connections needed to use the already chosen hardware and has many different types of connections to set up the other hardware components. The Arduino is programmable through a serial connection, with the help of avrdude\cite{Avrdude} or simply through the Arduino IDE\cite{ArduinoIDE} which can compile C, C++ and Arduino (syntax very close to C and C++) files.\\
+%
+By chosing this Arduino microcontroller board as the central hardware component, the rest of them need to be compatible with it.
 
-The Arduino Mega board will be used in this project. It have the connections to set up the already chosen hardware and have many different type of connections to set up the other hardware components. The Arduino is programmable through the Arduino software, which is writing in a slightly different type of C. The Arduino can take C and C++ files, which will making libraries and implementing them easy. 
-
-
-With the choice of using a Arduino Mega, the rest of the hardware components have to have a connection possibility with it, as the Arduino will be used as the master of the system. 
-
-%https://www.arduino.cc/en/Main/ArduinoBoardMega2560
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%-STORAGE-%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Storage}
-The storage is used for saving the edge map and the route for the vehicle. This data have to be saved from use to use of the vehicle. 
+The storage is used for saving the edge map and the route planned for the vehicle. All this data have to be saved from one usage to the other.
 
 The requirements for the storage are:
 \begin{itemize}
-\item Have to be controlled by the microcontroller.
+\item It has to be controlled by the microcontroller.
 \item The data shall be retrievable, after a power cut to the storage.
-\item Have a storage of XX bytes. \todo{Number}
-\item The transfer speed is greater than XX bytes per second. \todo{Number}
+\item It has Have a storage of \si{XX\ MB}. \todo{Number}
+\item The transfer speed is greater than \si{XX\ MB/s}. \todo{Number}
 \end{itemize}
 
 \subsubsection{SD card} \label{SDcard}
-Secure Data card (SD card) is a non-volatile memory card. This give it the feature that the data will not be lost at a power cut off. 
+Secure Digital (SD) card is a type of non-volatile flash memory cards. This means that the data will not be lost during a power cut off.\\
+%
+It comes in various storage sizes, from 1 GB to 2 TB, depending on which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The  difference between the different type, is the file system use on the card and the maximum capacity. With the requirement of a storage size on XX bytes, the SDSC is big enough with a capacity of 2 GB.\\
+%
+The lowest transfer speed for an SDSC card is \si{2 MB/s}. With the requirement of a transfer speed greater than \si{XX\ bit/s}, the SDSC card is fast enough. 
 
-It comes in various storage sizes, from 1 GB to 2 TB, depending which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The  difference between the different type, is the file system use on the card and the capacity cap. With the requirement of a storage size on XX bytes, the SDSC big enough with a capacity cap on 2 GB. 
-
-The transfer speed for a SDSC card is 2 MB/s the slowest a card can maximum go by. With the requirement of a transfer speed greater than, the SDSC card is fast enough. 
-
-To use the SDSC card, it have to setup up with 7 connections to a controller, see \figref{SDcardpinout}. The setup of the SD card is different, depended on which mode that is used. 
+To use the SDSC card and connect it to the microcontroller, 7 connection pins are required, see \figref{SDcardpinout}. The setup of the SD card is different, depended on which mode is used.
 
 \begin{minipage}{\linewidth}
       \centering
-      
-
       \begin{minipage}{0.65\linewidth}
 			\begin{table} [H]
 				\begin{tabular}{|l|l|l|l|}
-				
-				
+								
 \hline
-\textbf{Pin} & \textbf{SPI}  & \textbf{One bit} 	& 	\textbf{Four bit}  \\
+\textbf{Pin} & \textbf{SPI}  		& \textbf{One bit} 	& 	\textbf{Four bit}  \\
 \hline
-1			 &	Unused		 &	Unused			    &	Data 2			   \\
+1			 &	Unused		 		&	Unused			    &	Data 2			   \\
 \hline
-2			 &	Card Select	 &	Card Detection		&	Data 3			   \\
+2			 &	Card Select	 		&	Card Detection		&	Data 3			   \\
 \hline
-3			 &	Data in		 &	\begin{tabular}{@{}c@{}} Command \&  \\Response \end{tabular}  &	\begin{tabular}{@{}c@{}} Command \&  \\Response \end{tabular} \\
+3			 &	Data In		 		&	\begin{tabular}{@{}c@{}} Command \&  \\Response \end{tabular}  &	\begin{tabular}{@{}c@{}} Command \&  \\Response \end{tabular} \\
 \hline
-4			 &	Power		 &	Power			    &	Power			   \\
+4			 &	Power 				&	Power			    &	Power			   \\
 \hline
-5			 &	Serial clock &	Serial clock		&	Serial clock	   \\
+5			 &	Serial clock 		&	Serial clock		&	Serial clock	   \\
 \hline
-6			 &	Ground		 &	Ground			    &	Ground			   \\
+6			 &	Ground		 		&	Ground			    &	Ground			   \\
 \hline
-7			 &	Data out	 &	Data 0			    &	Data 0			   \\
+7			 &	Data Out	 		&	Data 0			    &	Data 0			   \\
 \hline
-8			 &	Unused		 &	Unused			    &	Data 1			   \\
-\hline
-
-					
-					
-				\end{tabular}							
+8			 &	Unused		 		&	Unused			    &	Data 1			   \\
+\hline		
+				\end{tabular}
+				\caption{SD card pinout configuration}							
 			\end{table}			
       \end{minipage}
       \hspace{0.03\linewidth}
@@ -106,13 +98,14 @@ To use the SDSC card, it have to setup up with 7 connections to a controller, se
 
 
 
-The power needed for a SD card is 3.3 volts. There is three setups for the SD card: SPI, one bit and four bit. With the SPI setup, the communication between the SD card and the micro controller is on two lines. The SPI mode is the most used one for embedded systems.
-With the one bit setup, the commands between the SD card and micro controller is happening on one connection and the data is send on another connection. With the four bit setup, there is connected three more data connection.
+The power needed for a SD card is 3.3 volts. There are three possible setups for the SD card: SPI, One-Bit and Four-Bit.
+With the SPI setup, the communication between the SD card and the microcontroller is made on two lines. The SPI mode is the most used one for embedded systems.\todo{source !}
+With the One-Bit setup, the commands between the SD card and microcontroller are sent on one line and the data is sent though another one.
+With the Four-Bit setup, three more data connections are used.\\
+%
+In this project, the SPI setup is used, as it is the most used method and the extra transfer speed from the Four-Bit setup is not needed. There to have the Arduino 4 pins, that can be set up to SPI communication.\todo{??}\\
 
-In the project, the SPI setup will be used, as it is the most used method and there is not needed the extra transfer speed from the four bit setup. There to have the Arduino 4 pins, that can be set up to SPI communication.
-
-
-A SDSC card, with a SPI setup, will be use for the project, as it have a capacity and transfer speed that meets the requirements. The data will be saved, if the power is cut off. The last requirement, the connections to the microcontroller, is possible, because the Arduino Mega 2560 controller contains digital I/O pins, that can be use for the SPI setup for the SD card.
+The choice for this project is made towards an SDSC card, with a SPI setup, as the capacity and transfer speed meet the requirements. The data will be saved, if the power is cut off. The last requirement, the connections to the microcontroller, is possible since the Arduino Mega 2560 controller contains digital I/O pins, that can be used for the SPI setup of the SD card.
 
 %https://www.sdcard.org/developers/overview/capacity/index.html
 %https://www.sdcard.org/developers/overview/speed_class/

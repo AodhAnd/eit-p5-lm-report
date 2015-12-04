@@ -11,9 +11,9 @@ The drivetrain translates the torque $\tau_m$, given by the motor, into the actu
 To make it more manageable the modeling of the drivetrain is limited to only modeling parts of the total drivetrain system.
 
 \subsubsection{Model of the Internal Gears}\label{BlackBoxModel}
-To get a rough approximation of the effect of the drivetrain, a black boxed model is used. The black box in the model is placed between box 1 and including box 3 seen in \chapref{sec:Vehicledescription} \figref{vehicleDescriptionDriveTrain}. The gear, $G_m$, connected to the motor shaft, is connected to the gear, $G_d$, which represents the gears and shafts that has been black boxed. The output of black box is given on the shaft connected to the drive-wheel, $G_t$, see \figref{fig:DrivetrainMechanicalModel}. The number of teeth on the gear, $G_d$, represents the gear ratios throughout the drivetrain, such that the gear ratio between $G_m$ and the output at the drive gear is given by: $\frac{N_m}{N_d}$, where $N_m$ is the number of teeth on the motor gear and $N_d$ is the calculated number of teeth on the black box gear.
+To get a rough approximation of the effect of the drivetrain, a black boxed model is used. The black box in the model is placed between box 1 and including box 3 seen in \figref{vehicleDescriptionDriveTrain}. The gear, $G_m$, connected to the motor shaft, is connected to the gear, $G_d$, which represents the gears and shafts that has been black boxed. The output of black box is given on the shaft connected to the drive-wheel, $G_t$, see \figref{fig:DrivetrainMechanicalModel}. The number of teeth on the gear, $G_d$, represents the gear ratios throughout the drivetrain, such that the gear ratio between $G_m$ and the output at the drive gear is given by: $\frac{N_m}{N_d}$, where $N_m$ is the number of teeth on the motor gear and $N_d$ is the calculated number of teeth on the black box gear.
 
-The torque of the motor along with the contributions from the load, i.e. the drivetrain, affecting the motor shaft, is depicted in as a free body diagram in \figref{fig:MotorGearFreeBodyDiagram}.
+The torque of the motor along with the contributions from the load, i.e. the drivetrain, affecting the motor shaft, is depicted as a free body diagram in \figref{fig:MotorGearFreeBodyDiagram}.
 
 \begin{figure}[H]
 	\centering
@@ -39,7 +39,7 @@ The radius of the motor gear times the contact force, $r_m \cdot f_c$, is the to
 & $f_c$							& is the contact force between the two gears                     &\unitWh{N}
 \end{tabular}
 
-To find the output of the drivetrain, a free body diagram is developed and illustrated in \figref{fig:BlackBoxGearFreeBodyDiagram}. The figure represents the system's effecting torques on the blackbox gear, $G_d$, and the translation of these to the drive wheel.
+To find the output of the drivetrain, a free body diagram is is depicted and illustrated in \figref{fig:BlackBoxGearFreeBodyDiagram}. The figure represents the system's effecting torques on the blackbox gear, $G_d$, and the translation of these to the drive wheel.
 
 \begin{figure}[H]
 	\centering
@@ -72,7 +72,7 @@ It is necessary to find the translation between the drive-gear and the belt to b
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{figures/mechanicalDrawingBelt.pdf}
-	\caption{A mechanical diagram of the drive-gear rotating the belt affected by the vehicle's mass}
+	\caption{A mechanical diagram of the drive-gear rotating the belt. The mass, M, pressing down on the vehicle's wheels.}
 	\label{fig:BeltMechanicalDiagram}
 \end{figure}
 
@@ -99,10 +99,10 @@ From \figref{fig:BeltFreeBodyDiagram}, a mechanical equation of the vehicle's re
 & $B_{sys}$   & is the coefficient of the friction throughout the rotational parts   &\unitWh{N \cdot s \cdot m^{-1}} \\
 \end{tabular}
 
-In the following section the three mechanical equations, \eqref{eq:MotorGearNewtonSecLaw}, \eqref{eq:BlackBoxGearNewtonSecLaw1} and \eqref{eq:BeltMassNewtonSecLaw} is combined.
+In the following section the three mechanical equations, \eqref{eq:MotorGearNewtonSecLaw}, \eqref{eq:BlackBoxGearNewtonSecLaw} and \eqref{eq:BeltMassNewtonSecLaw} is combined.
 
 \subsubsection{Model of the Combined Drivetrain}\label{DrivetrainModeling}
-In this section a model will be created of the combined drivetrain, by assembling the derived mechanical equations, \eqref{eq:MotorGearNewtonSecLaw}, \eqref{eq:BlackBoxGearNewtonSecLaw1} and \eqref{eq:BeltMassNewtonSecLaw}. This allows to get a linear velocity of the vehicle, \si{V(s)}, from the torque, \si{\tau_m}, delivered by the motor. The three equations are linked through the contact forces \si{f_c} and \si{f_b}.\\\\
+In this section a model will be created of the combined drivetrain, by assembling the three derived mechanical equations, \eqref{eq:MotorGearNewtonSecLaw}, \eqref{eq:BlackBoxGearNewtonSecLaw} and \eqref{eq:BeltMassNewtonSecLaw}. This allows to get a linear velocity of the vehicle, \si{V(s)}, from the torque, \si{\tau_m}, delivered by the motor. The three equations are linked through the contact forces \si{f_c} and \si{f_b}.\\\\
 %
 The Laplace-transform is applied on the three equations in order to deduce a transfer function of the input torque, \si{\tau_m(s)}, to the output velocity, \si{V(s)}:
 %
@@ -173,6 +173,8 @@ $\omega_m(t)$ is converted to a linear velocity using \eqref{eq:ratioes} and \eq
 \label{eq:omegaMtoLinearLaplace}
 \end{flalign}
 
+\todo{Remove 2 pi}
+ 
 Using the previously derived equations, \eqref{eq:BlackBoxGearNewtonSecLawLaplace&MotorGearNewtonSecLawLaplace&&BeltContactForceLaplace}, \eqref{eq:omegaDtoLinearLaplace} and \eqref{eq:omegaMtoLinearLaplace}, the final transfer function, describing the drivetrain, including the mechanical aspect from the motor, is constructed:
 %
 \begin{flalign}

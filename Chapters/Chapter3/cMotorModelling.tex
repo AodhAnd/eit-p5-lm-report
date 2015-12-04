@@ -47,7 +47,7 @@ In this section a model of a motor is depicted only as an electrical system, whi
 The output needed from the motor's electrical model is the torque, \si{\tau_m}. To obtain the torque, the formula for translating the electrical current, \si{i_a}, to torque is utilized:
 
 \begin{flalign}\centering
-  \eq{\tau_m(t)}{K_t \cdot i_a(t)} \unit{N \cdot m}
+  \eq{\tau_m(t)}{K_t \cdot i_a} \unit{N \cdot m}
   \label{equ:motortorque}
 \end{flalign}
 \hspace{6mm} Where:\\
@@ -135,11 +135,11 @@ By substituting the derived equation for $i_a$ into \eqref{equ:motortorque}, a n
   \label{eq:Totaltorquewithcurrentexpression}
 \end{flalign}
 
-By dividing with the voltage applied to the motor, $U_a$, a transfer function can be established:
+By dividing with the voltage applied to the motor, $U_a$, a relation can be established:
 
 \begin{flalign}
 \eq{\frac{\tau_m}{U_a(s) - K_e \cdot \omega_m(s)}}{\frac{K_t}{L_a \cdot s + R_a}}&
   \label{eq:TotaltorquewithcurrentexpressionTransferFunction}
 \end{flalign}
 
-A transfer function for the electrical model relative to the motor's torque has been derived. Thus enabling setting up calculations for the vehicle's drivetrain.
+A relation for the electrical model relative to the motor's torque has been derived. Thus enabling setting up calculations for the vehicle's drivetrain.

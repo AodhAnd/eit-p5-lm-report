@@ -4,7 +4,7 @@ From the Requirements (see \secref{Requirements}), the hardware components are c
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Microcontroller}
-The microcontroller is the brain of the system. The purpose of the controller is to connect all the other hardware component, contain the software script of the system and control the rest of the system, with help of signals, controlled by the script.
+The microcontroller is the brain of the system. The purpose of the controller is to connect all the other hardware components, contain the software script for the system and control the rest of the system, with help of signals, controlled by the script.
 
 The requirements for the microcontroller are:
 \begin{itemize}
@@ -25,7 +25,7 @@ The Arduino Mega 2560 is a 8-bit microcontroller (See \figref{ArdGenMega}), whic
 	\label{ArdGenMega}
 \end{figure}
 
-It have 54 digital ports, where 15 of them can be used to PWM signals, which run all run at logic 5 volts. It have 6 timers and the CPU runs at 16 megahertz. One of the timers, do the Arduino use it self. There to also 4 UART, used to serial communication, a setup to SPI communication and a I2C bus. The Arduino can be powered though a USB cable or with a external power source
+It has 54 digital ports, where 15 of them can be used to generate PWM signals, which run all run at logic 5 volts. It have 6 timers and the CPU runs at 16 megahertz. One of the timers, do the Arduino use it self. There to also 4 UART, used to serial communication, a setup to SPI communication and a I2C bus. The Arduino can be powered though a USB cable or with a external power source
 
 The Arduino Mega board will be used in this project. It have the connections to set up the already chosen hardware and have many different type of connections to set up the other hardware components. The Arduino is programmable through the Arduino software, which is writing in a slightly different type of C. The Arduino can take C and C++ files, which will making libraries and implementing them easy. 
 
@@ -105,7 +105,7 @@ To use the SDSC card, it have to setup up with 7 connections to a controller, se
 
 
 The power needed for a SD card is 3.3 volts. There is three setups for the SD card: SPI, one bit and four bit. With the SPI setup, the communication between the SD card and the micro controller is on two lines. The SPI mode is the most used one for embedded systems.
-With the one bit setup, the commands between the SD card and micro controller is happening on line the data is send another line. With the four bit setup, there is connected three more data lines.
+With the one bit setup, the commands between the SD card and micro controller is happening on one connection and the data is send on another connection. With the four bit setup, there is connected three more data connection.
 
 In the project, the SPI setup will be used, as it is the most used method and there is not needed the extra transfer speed from the four bit setup. There to have the Arduino 4 pins, that can be set up to SPI communication.
 
@@ -249,11 +249,54 @@ On Sparksfun's "9 degrees of freedom" board, there is mounted a magnetometer, th
 
 The "9 degrees of freedom" sensor stick, see \figref{NineDegree}, will be used in the project. Beside the magnetometer, there is a accelerometer and a gyroscope on the board, but these will not be used. The "9 degrees of freedom" sensor stick is madded to be used with a micro controller and comes with software to Arduino. It needs a I2C bus to communicated with the Arduino, which the Arduino have one of, which it not in use.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Power monitor}
+The power monitor is used to give a feedback to the system on the level of power in the battery pack.
+
+The requirements for the angular sensor are:
+\begin{itemize}
+\item Have to be controlled by the microcontroller.
+\item Measure the battery pack voltage output downto 5,7 volt.
+\end{itemize}
+
+\subsubsection{Voltage divider}
+A voltage divider is a electronic circuit, that divide the input voltage with a constant, that is depending on the values on the resistor, that is used in the circuit, see \figref{VoltDivFig}.
+
+\begin{figure}[h!]
+\centering
+\begin{circuitikz}
+\draw (0,0)
+to[V,v=$V_{in}$] (0,2)
+to[short] (2,2)
+to[R=$R_1$] (2,0)
+to[R=$R_2$] (2,-2)
+to[short] (0,-2)
+to[short] (0,0);
+\draw (2,-2) 
+to[short] node[ground] {} (2,-3);
+\draw (2,0)
+to[short] (3,0)
+to[short,l=$V_{out}$] (4,0);
+\end{circuitikz}
+\caption{Standard voltage divider} 
+\label{VoltDivFig}
+\end{figure}
+
+The output of the voltage divider can be find with \eqref{VoltageDividere}. 
+
+\begin{flalign}
+\eq{V_{out}}{\frac{R_2}{R_1 \cdot R_2} \cdot V_{in}}\unit{V} 
+\label{VoltageDividere}
+\end{flalign}
+
+The input will be set to the battery pack and the output, to a analogue pin on the Arduino. The analogue pin on the Arduino can measure from 0 volts to 5 volts with a accuracy of 10 bits. This gives 1023 steps from 0 to 5 volts and each step is 4,9 millivolts. The size of each step and the interval for the measuring is multiply by the constant from the voltage divider, so it is possible to measure voltage over 5 volts. 
+A voltage divider will be used, as it can be scaled to the interval that it have to measure inside. The voltage divider will be connected to a analogue pin on the Arduino, that will make the measurement on the output of the voltage divider.
+
 
 From the requirements for the system to the hardware parts, these components have been chosen. After have chosen the different hardware components for the prototype, the different components have to be implemented in the system.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Note: Missing a tail.
 
 %Pins on the arduino
 %SD card (4 I/O)

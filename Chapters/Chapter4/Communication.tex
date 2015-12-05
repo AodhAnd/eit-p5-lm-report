@@ -1,19 +1,29 @@
 \chapter{Communication}
-To get the data from the computer with the GOT software on, to the Arduino on the vehicle, there is needed a communication system. This will be done through two Xbee radio modules. The communication setup for the Xbee modules will be explain in this chapter.
+To get the data from the computer, that is used for the GoT system, to the Arduino on the vehicle, there is needed a communication system. This will be done through two Xbee radio modules. The communication setup for the Xbee modules will be explain in this chapter.
 
 \subsection{Wireless communication with Xbee}
 
+%Notes:
+%We use UDP, no connections
+
+%OSI
+%The physical layer is the Xbee
+%The data link layer is halfway done in the code, where the package is split up in bytes. The adressing is done on the XBee and in the serial port libeary 
+%The network layer may not be used here as we just transmit 360 degree
+%The transport layer is the setup of how the package is setup
+%The rest of the layers is not used.
+
+
 \subsection{Transport Layer}
-To understand the what each byte means, when they are send from the transmitter to receiver, there have to make a protocol for the transport layer. The use of a protocol for the transport layer will make sure that each end of the communication system understand how each package of bytes is build up.
+To understand the what each byte contains, when they are send from the transmitter to receiver, there is made a protocol for the transport layer. The use of a protocol for the transport layer will make sure that each end of the communication system understand how each package of bytes is build up.
 
-The main object for the communication link is to send the data from the GOT system. To make sure that the data is received correctly and that none disturbances, like bit shifting, have chance the data, there will also be send error handling parts with it. The error handling will only throw  away damage package and will not try to repair them. This is because the sampling time for the GOT system is so low, that the vehicle can go on, even if one or two package gets thrown away. Also if the system try to repair the package, the package had to send again or be bigger.
+The main object for the communication system is to send the data from the GoT system to the Arduino. To make sure that the data is received correctly and that none disturbances, like bit shifting, have changed the data, there will also be send error handling parts with the data. The error handling will not repair damaged packages, but throw them away instead. This is because the sampling time for the GoT system is so low (10 hertz), that the vehicle can go on, even if one or two package gets thrown away. Also if the system try to repair the package, the package had to be resend or have a repair part included, which will make the packages bigger.
 
-To make the protocol, each part have to be converted into bit arrays.
+To make the protocol, each part of the package have to be converted into bit arrays.
 
 \subsubsection{Data}
-The data from the GOT system is considered as the three coordinates (X, Y and Z) that the GOT system have measure for the vehicle. Each of these coordinates can have a value from -9000 to 9000. To contain number of this size, there is needed a 15 bit signed integer. 14 bit is used for the magnitude of the number, which can go up to 16385 ($2^{14}-1$). The last bit is used to indicate if the number is positive or negative, called signed bit. The signed bit will be placed at the end of the 15 bit integer. As both the Arduino and the computer where the GOT software is implemented, use big endians, this will also be apply to the integer. This means that the bit with highest value will be just before the sign bit and the bit with the lowest value at the start. This will give the bit array seen on \tableref{CoorSetup}.
-
-\todo{Insert value number into the GOT description}
+\todo{Insert value number into the GoT description}
+The data from the GoT system is considered as the three coordinates (X, Y and Z) that the GoT system have measure for the vehicle. Each of these coordinates can have a value from -9000 to 9000 (See \secref{GoTDescription}). To contain number of this size, there is needed a 15 bit signed integer. 14 bit is used for the magnitude of the number, which can go up to 16385 ($2^{14}-1$). The last bit is used to indicate if the number is positive or negative, called signed bit. The signed bit will be placed at the end of the 15 bit integer. As both the Arduino and the computer, for the GOT system, use big endians, this will also be apply to the protocol. This means that the bit with highest value will be next to the sign bit and the bit with the lowest value at the start of the bit array. This will give the bit array seen on \tableref{CoorSetup}.
 
 \begin{table}[H]
 \centering
@@ -27,7 +37,7 @@ $2^0$ & $2^1$ & $2^2$ & $2^3$ & $2^4$ & $2^5$ & $2^6$ & $2^7$ & $2^8$ & $2^9$ & 
 \label{CoorSetup}
 \end{table}
 
-The structure of the bit array is called signed magnitude. Another structure that could be used is ones' complement. Here the number is inverted, if the signed bit is true. But for easier the implementation into the code for the GOT system, the none inverted version (signed magnitude is used. This version is easier, because the code will see if the number is negative. If it is, the signed bit will be set to true else it will be false. Then the numbers magnitude will be put into the bit array. When converting it back, there is only needed to multiply the magnitude by minus one, if the signed bit is true.
+The representation of the integer is called signed magnitude. Another representation that could be used is ones' complement. Here the number is inverted, if the signed bit is true. But for easier the implementation into the code for the GOT system, signed magnitude is used. This is easier because the code will first check if the number is positive or negative. If negative, the sign bit is set and the number is multiply by minus one, to get the magnitude. Then the magnitude will then be converted into the bit array. When converting it back, there is only needed to multiply the magnitude by minus one, if the signed bit is true.
 
 \subsubsection{Header}
 The header of the protocol contains the information about who have to receive the package(Destination) and the length of the package (Length). These information about the package is needed, to make communication in bigger networks easier to handle. 
@@ -71,7 +81,7 @@ If the the outcome is not all true, there is a foul in either the data or in the
 A foul that the checksum can not detect is if there is more than one foul and these changing in bit arrays goes out with each other, when the parts is added together. The chance for this is very small, as the changes have to go exactly out with each other. By only having 4 parts of 20 bits, the chances for this to happen is smaller than if the checksum was set, for example to 10 bit and therefore addition have to happen with 7 parts of 10 bit. This will give more bits, there have the same value, so there is a higher chance, for the changing in the part to go out with each other. This is the reason for using a bigger checksum, even if it takes more place.
 
 \subsubsection{Start and end byte}
-As the GOT system send a package each time it makes a measurement of the coordinates, there can come a queue of package at the Arduino, if it does not read fast enough. This can give the problem that the system can not tell the package from each other. This is avoided by adding a start byte at the start of the package and a end byte in the end of the package. When the system wants to find the start of the package, it will search for the start byte. When it have found this byte, it will read the header, data and checksum and then look for the end byte. If the end byte is not there, it means that the package was not received correctly and is thrown away. If the end byte is there, the system will take the whole package and make error handling on it.
+As the GoT system send a package each time it makes a measurement of the coordinates, there can come a queue of package at the Arduino, if it does not read fast enough. This can give the problem that the system can not tell the package from each other. This is avoided by adding a start byte at the start of the package and a end byte in the end of the package. When the system wants to find the start of the package, it will search for the start byte. When it have found this byte, it will read the header, data and checksum and then look for the end byte. If the end byte is not there, it means that the package was not received correctly and is thrown away. If the end byte is there, the system will take the whole package and make error handling on it. The start byte will be set to 0000 1111. To have the start and end byte as different as possible, as the end byte will come just before the next start byte, the end byte is the inverted version of the start byte, which is 1111 0000.
 
 With the data, header, checksum, start and end byte, a package will look like the illustration on \tableref{PackageLook}
 
@@ -100,88 +110,63 @@ With the data, header, checksum, start and end byte, a package will look like th
 \label{PackageLook}
 \end{table}
 
-This give a package length on 96 bit (12 byte). As the GOT system have a sampling frequency on 10 Hertz and each sampling give out 12 byte, the transfer speed for the Xbee have to be greater than 120 byte per second. 
+This give a package length on 96 bit (12 byte). As the GoT system have a sampling frequency on 10 Hertz and each sampling give out 12 byte, the transfer speed for the Xbee have to be greater than 120 byte per second. 
 
 \subsubsection{Error handling}
+As there is a chance that the package is getting damaged under the way from the transmitter to the receiver, there is used some error handling, to check the packages for error and throw the damage packages away. One of these is the checksum, which is explained further up in this section. Besides the checksum, the start and end byte is used to see if the number of byte received is right, according to the length in the header.
 
-%Struture for the part
+But as with the checksum, where a foul will not be detected, if there are more fouls and these cancel each other out in the check with the checksum. The same way is there a way that the error handling with the start and end byte can not detect a foul. This come out from the way the receiver receive the package and throw them away (Seen on \figref{FlowReceiver}).
 
-%- Xbee
-%- Transport layer
-%- - Protocol setup
-%- - Data
-%- - Source & Type
-%- - Checksum
-%- - Header and trailer
-%- - Chance for error
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{figures/FlowReceiver.pdf}
+\caption{Flow chart over the error handling in the receiver part.}
+\label{FlowReceiver}
+\end{figure}
+
+If the package is transmitted correctly, the 1st byte will be the start byte, the 2nd byte will be the destination ID of the receiver. The 3rd byte will contain 7 bit for the length and 1 bit for the x coordinate. If the length is correct, it will be 96, which is 12 byte. The last byte, the 12th one, is the end byte. Then if these condition is all correct, then the receiver will check the checksum. If that one is also correct, the system will convert the data and return it to the rest of the system.
+
+If there is an error, then all the byte, that have been read will be thrown away. This is because that the byte is taken from the buffer, that the receiving Xbee have and can not be put back, after it have been read\todo{Talk with thomas about this}. So if the start byte and destination is correct, but the end byte is not, the whole package is thrown away and there will be looking for a new start byte. If the start byte is not correct, then only that byte will thrown away. This is done so, because if the receiver begin to read in the middle of a package, it will not throw all 12 byte away each time, but only a byte, until it finds the start byte.
+
+A problem that comes with this method, is that the start byte is only on a byte and a byte in the data and checksum part can have the same value as it. If the receiver then by fault begin to look after the start byte in these part and find it, it can become a problem. The problem will first happen, if the byte afterwards is equal to the receivers destination ID and the byte after that, first seven bits is equal to 96. If this is the case, the receiver will think that is have found the start byte and the header and will read the next 9 byte. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c | m{0.1cm} m{0.1cm} m{0.1cm} m{0.1cm} m{0.1cm} m{0.1cm} m{0.1cm} m{0.1cm} | c | m{0.1cm} m{0.1cm} m{0.1cm} m{0.1cm} m{0.1cm} m{0.1cm} m{0.1cm} m{0.1cm} | l }
+\multicolumn{9}{c}{Normal reading} & \multicolumn{9}{c}{Displaced reading} &  \\
+\cline{2-9} \cline{11-18}
+1st byte & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 5th byte & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & $\leftarrow$ Start byte \\
+\cline{2-9} \cline{11-18}
+2nd byte & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 6th byte & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & $\leftarrow$ Destination \\
+\cline{2-9} \cline{11-18}
+3rd byte & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 7th byte & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & $\leftarrow$ Length (First seven bit)\\
+\cline{2-9} \cline{11-18}
+4th byte & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 8th byte & 0 & 1 & 1 & 1 & 0 & 0 & 1 & 1 & \\
+\cline{2-9} \cline{11-18}
+5th byte & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 9th byte & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 1 & \\
+\cline{2-9} \cline{11-18}
+6th byte & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 10th byte & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & \\
+\cline{2-9} \cline{11-18}
+7th byte & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 11th byte & 0 & 0 & 1 & 1 & 0 & 1 & 1 & 1 & \\
+\cline{2-9} \cline{11-18}
+8th byte & 0 & 1 & 1 & 1 & 0 & 0 & 1 & 1 & 12th byte & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & \\
+\cline{2-9} \cline{11-18}
+9th byte & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 1 & 1st byte & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & \\
+\cline{2-9} \cline{11-18}
+10th byte & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 2nd byte & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & \\
+\cline{2-9} \cline{11-18}
+11th byte & 0 & 0 & 1 & 1 & 0 & 1 & 1 & 1 & 3rd byte & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & \\
+\cline{2-9} \cline{11-18}
+12th byte & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 4th byte & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & $\leftarrow$ End byte\\
+\cline{2-9} \cline{11-18}
+\end{tabular}
+\caption{Example of a normal reading of a package and a displaced reading of a package. The package contains the coordinates (-8222, 515, -3699). For the displaced reading, after the first package, there comes another package, that is equal to the first one.}
+\label{errorPro}
+\end{table}
+
+As the check with the checksum not will go through, as the checksum not will be the original checksum for the package, but another part of the package (see \tableref{errorPro}). As this checksum is not calculated to fit, the chance for the check goes through is so small that it will not be considerer to happen. But the consequence of the check with the check sum not going through, is that the 12 byte is thrown away and with this, the start byte for the next package. This will happen no matter if the end byte is correct or not, just as long as the system finds the start byte and the header. In worst case scenario, the next three byte, after the one that got thrown away, is equal to the start byte and header again, the same scenario will repeat it self and will go on, onto the three byte no longer equals the start byte and header.
+
+These scenario about reading in the middle of a package is not that common, as there is needed for three bytes to be precisely a like the start byte and the header (The last bit in the last byte is from the x coordinate, so is not needed to be the same). Even if the data and checksum parts is 8 bytes long together, the chance is small and the system have  to not recognize the real start byte and header first. Even if both things happens, as the coordinate will chance for each package, the chance for it to happen more times in a row is so small, that it will not be considered.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%Notes:
-%We use UDP, no connections
-
-%OSI
-%The physical layer is the Xbee
-%The data link layer is halfway done in the code, where the package is split up in bytes. The adressing is done on the XBee and in the serial port libeary 
-%The network layer may not be used here as we just transmit 360 degree
-%The transport layer is the setup of how the package is setup
-%The rest of the layers is not used.
-
-%Package gonna be:
-%- Header		1 Byte
-%- Source		1 Byte
-%- Type			7 bit = 0,875 Byte
-%- Data			45 bit = 5,625 Byte
-%- Checksum		2½ Byte
-%- Trailer		1 Byte
-%				12 Byte
-
-%Header is 		1000 0001
-%Source is 		0000 0001
-%Type is   		0001 101
-%Data is   		XXXX XXXX
-%		   		XXXX XXXY
-%		   		YYYY YYYY
-%		   		YYYY YYZZ
-%		   		ZZZZ ZZZZ
-%		   		ZZZZ Z
-%Checksum is	CCCC CCCC
-%				CCCC CCCC
-%				CCCC
-%Trailer is		0111 1110
-
-%Checksum on 20 bit.
-
-%Error handling at:
-%- Header 	(error 1)
-%- Source 	(error 2)
-%- Type   	(error 3)
-%- Checksum	(error 4)
-%- Trailer	(error 5)
-
-%Biggest problem, is if there is a miss in the start and the system come in the package in the wrong way.
-
-%If 4 = Header
-%If 5 = Source
-%If 6 = Type + ran bit
-%If next 3 = Trailer
-
-%Header is 4 to 8
-%Source is 5 to 9
-%Type is 6 to 10
-%Trailer is next 3 to 7
-
-%5 pair of problem
+%Insert tail

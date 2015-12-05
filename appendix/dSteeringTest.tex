@@ -1,97 +1,81 @@
 \pagebreak
-\section{Steering Order Test} \label{app:steeringOrderTest}
+\section{Steering Test} \label{app:steeringOrderTest}
 \textbf{Name: Group 510}\\
 \textbf{Date: 11/11 - 2015}
 
 \subsection{Purpose}
-The purpose of the test is to find the needed order of the steering model, with a PWM signal as an input and the vehicle's angular velocity as an output.
-
-\subsection{Theory}
-As explained in \secref{sec:SteeringModel}, the input to the steering model is a PWM signal, which is applied to the servo motor. A specific PWM signal will make the servo rotate a specific amount. The servo controls the brakes and by rotating the servo, away from its middel position, the brakes will affect the wheels, on each side of the vehicle, differently, thus making the vehicle turn. These things are explained in more detail in \secref{sec:Vehicledescription}. The output from the test is the vehicle's angular velocity.
-
-The objective is to get an angular velocity as an output with a PWM signal as an input. A test is performed where the vehicle drives in a circle, see \figref{fig:VehicletestSteeringCircle}. In the test it is not necessary for the vehicle to drive a complete circle, to get the needed parameters to calculate the angular velocity of the vehicle, only an arc of the circle is needed.
-
-\begin{figure}[H]
-  \centering
-	\includegraphics[scale=0.7]{figures/steeringmodelrotation.pdf}
-	\caption{A diagram of the test setup}
-	\label{fig:VehicletestSteeringCircle}
-\end{figure}
-
-To get the vehicle's angular velocity, the radius of the circle is needed. By using the illustration of the circle, in which the vehicle is driving, the equation for the radius can be derived.
-
-\begin{flalign}
-\eq{b}{\frac{m3^2 - m2^2 + m1^2}{2*m3}} \unit{\cdot}
-\end{flalign}
-
-\begin{flalign}
-\eq{h}{\sqrt{(m1^2 - \frac{m1^2 - m2^2 + m3^2}{2*m3})^2}} \unit{\cdot}
-\end{flalign}
-
-\begin{flalign}
-\eq{y}{\frac{b^2-b \cdot m3 + h^2}{2*m3}} \unit{\cdot}
-\end{flalign}
-
-\begin{flalign}
-\eq{x}{\frac{m3}{2}} \unit{\cdot}
-\end{flalign}
-
-The y component of the C coordinate has been found, it is therefore possible to use Pythagoras theorem to find the equations for the circle's radius.
-
-\begin{flalign}
-\eq{r}{\sqrt{x^2+y^2}} \unit{\cdot}
-\end{flalign}
-
-By using the radius it is possible to create an expression for the angular velocity. It is assumed that the velocity is constant and the servo does not move after is has moved to a specific angle. by assuming these two things, the path which the vehicle will follow is the tangent of the circle. It is now possible to extract a equation for the vehicle's angular velocity.
-
-\begin{flalign}
-\eq{\omega}{\frac{v}{r}} \unit{rad \cdot s^{-1}}
-\end{flalign}
-\hspace{6mm} Where:\\
-\begin{tabular}{p{1cm}lll}
-& $\omega$ & is vehicle's angular velocity &\unitWh{rad \cdot s^{-1}}\\
-& $v$   & is velocity of the vehicle &\unitWh{m \cdot s^{-1}}\\
-\end{tabular}
-
-The hall sensor is not used for finding points around the circle's arc, because it has been found faster to measure the points by hand. 
-
-\todo{should the part with the hall sensor be in this subsection?}
+The purpose of the test is to find the needed order of the steering model, and the gain related to the speed during the turning of the vehicle, with a PWM signal as an input and the vehicle's heading angle as an output.
 
 \subsection{Setup}
 \begin{figure}[H]
   \centering
-	\includegraphics[scale=0.5]{figures/FrictionTest.pdf}
+	\includegraphics[scale=1.5]{figures/inertiaTestSetupDiagram2.pdf}
 	\caption{A diagram of the test setup}
 \end{figure}
 
 \subsection{List of Equipment}
 
 \begin{table}[H]
-\begin{tabular}{|l|l|p{4cm}|}
+\begin{tabular}{|p{10cm}|p{4cm}|}
 \hline%------------------------------------------------------------------------------------
-  \textbf{Instrument}                       &  \textbf{AAU-no.}  &  \textbf{Type}         \\
+  \textbf{Instrument}                     &  \textbf{Type}       \\
 \hline%------------------------------------------------------------------------------------
-  Multimeter                                &  60764             &  Fluke 189 true RMS    \\
-\hline%------------------------------------------------------------------------------------
-  Power Supply ($0 - 32$ V) ($0 - 10$ A)    &  77075             &  Ea - ps 7032 - 100    \\
-\hline%------------------------------------------------------------------------------------
-  Treadmill                                 &  75483             &  Rodby                 \\
-\hline%------------------------------------------------------------------------------------
+  Computer                                &  Acer C720p    \\
+\hline %-----------------------------------------------------------------------------------
 \end{tabular}
 \end{table}
 
 \subsection{Procedure}
 
 \begin{enumerate}
-  \item C
-  \item P
-  \item S
-  \item A
-  \item C
-  \item R
-  \item R
+  \item Disconnect the battery.
+  \item Connect the Arduino to the computer.
+  \item Upload the test code to the Arduino board using the Arduino IDE  \cite{ArduinoIDE}.
+  \item Plug in the battery
+  \item Open a serial terminal via PuTTY \cite{PuTTY} immediately after plugging the battery.
+  \item Wait two seconds, then follow the vehicle with the connected computer.
+  \item Wait until the vehicle stops before ending the measurements by unplugging the connected computer from the Arduino.
+  \item Plot the angle of the vehicle using Matlab.
 \end{enumerate}
 
 \subsection{Results}
 
+The transfer function of the steering can be expressed as:
+\begin{flalign}
+\eq{\frac{\theta(s)}{\theta_{ref}(s)}}{\frac{\frac{1}{K_p \cdot K_v}}{1 + \frac{1}{K_p \cdot K_v}}}&
+\end{flalign}
 
+And the time constant can be expressed as:
+\begin{flalign}
+\eq{\tau}{\frac{1}{K_p \cdot K_v}} \unit{s}
+\end{flalign}
+
+
+The different steering time constants can be calculated thanks to the plot of multiple step reponses, resulting of the test as seen on \figref{plotStepResponseSteering}. The value of \si{\tau} corresponds to the time when the angle reaches 63,2\% of the final value.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{figures/plotStepResponseSteering.pdf}
+	\caption{Plot of a step response for finding the time constant \si{\tau}.}
+	\label{plotStepResponseSteering}
+\end{figure}
+
+As the test were made with a choosen gain K = 1.5, the gain related to the speed during the turning can be calculated:
+
+\begin{flalign}
+\eq{K_v}{\frac{1}{K_p \cdot \tau}}
+\end{flalign}
+
+A plot of the gain against the speed can be seen on \figref{steeringPlotSpeedVsGain}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{figures/steeringPlotSpeedVsGain.pdf}
+	\caption{Plot of the gain \si{K_v} against the real speed.}
+	\label{steeringPlotSpeedVsGain}
+\end{figure}
+
+From this plot the linear gain can be established:
+\begin{flalign}
+\eq{K_v}{0.4880 \cdot v - 0.21730}
+\end{flalign}

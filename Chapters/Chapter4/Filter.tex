@@ -1,8 +1,36 @@
 \chapter{Filter}
-The vehicle 
 
-\section{Requirements}
-Before selecting which filter to design and implement, it is necessary to examine the requirements needed for performing the necessary filtering
+When utilizing a sensor unwanted noise can arise and influence the measurements acquired. By implementing a filter it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{HardwareChoice}, is active while the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a inexpedient effect on the controller which is implemented on the prototype. With ideal circumstances the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise could be a potential solution to get more accuracy.
+
+There is many cons and pros when considering between implementing a analogue or digital filter. For example a analogue filter only utilizes hardware and therefore does not occupy the computation time on the microprocessor. On the other hand since the data received from the magnetometer is already digitalized a digital filter will not use any hardware. Furthermore, making the filter a higher order is simpler with a digital filter because off the lack of components and by using components the analogue filter can drift from the original design due to component tolerance. 
+
+It has been chosen to implement a digital filter, since the signal received from the magnetometer already is digitalized and it is easier to vary the digital filter characteristics when designing the filter.
+
+\begin{itemize}
+\item Frequency analysis of measured data
+\item Specific requirements
+\item Filter type
+\item Design
+\item Implementation
+\item Results
+\end{itemize}
+
+\section{Frequency Analysis of Measured Data}
+
+\begin{figure}[H]
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.1\textwidth]{figures/StationaryMeasurementsMagnato.pdf}
+  }
+  \caption{A plot illustrating a simulated step-response of the approximated velocity model (the blue line) and a measured step-response of the vehicle (the red line).}
+  \label{fig:StationaryMeasurementsMagnato}
+\end{figure}
+
+
+\section{Specific Requirements}
+Before selecting which filter to design and implement, it is necessary to examine requirements needed for performing the necessary filtering.
 
 \textbf{Passband specification:}
 \begin{flalign}
@@ -16,7 +44,7 @@ Before selecting which filter to design and implement, it is necessary to examin
 0.3 &\leq \omega \leq \pi \unit{rad}
 \end{flalign}
 
-\subsection{Filter Type}
+\section{Filter Type}
 The specification of the filter is set and it is thereby possible to examine which filter would be suitable for fulling the specified requirements, without influencing the desired frequencies needlessly.
 
 \begin{figure}[H]

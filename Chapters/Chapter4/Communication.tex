@@ -1,19 +1,19 @@
 \chapter{Communication}
-To get the data from the computer with the GOT software on, to the Arduino on the vehicle, there is needed a communication system. This will be done through two Xbee radio modules. The communication setup for the Xbee modules will be explain in this chapter.
+To get the data from the computer with the GoT software on, to the Arduino on the vehicle, there is needed a communication system. This will be done through two Xbee radio modules. The communication setup for the Xbee modules will be explain in this chapter.
 
 \subsection{Wireless communication with Xbee}
 
 \subsection{Transport Layer}
 To understand the what each byte means, when they are send from the transmitter to receiver, there have to make a protocol for the transport layer. The use of a protocol for the transport layer will make sure that each end of the communication system understand how each package of bytes is build up.
 
-The main object for the communication link is to send the data from the GOT system. To make sure that the data is received correctly and that none disturbances, like bit shifting, have chance the data, there will also be send error handling parts with it. The error handling will only throw  away damage package and will not try to repair them. This is because the sampling time for the GOT system is so low, that the vehicle can go on, even if one or two package gets thrown away. Also if the system try to repair the package, the package had to send again or be bigger.
+The main object for the communication link is to send the data from the GoT system. To make sure that the data is received correctly and that none disturbances, like bit shifting, have chance the data, there will also be send error handling parts with it. The error handling will only throw  away damage package and will not try to repair them. This is because the sampling time for the GoT system is so low, that the vehicle can go on, even if one or two package gets thrown away. Also if the system try to repair the package, the package had to send again or be bigger.
 
 To make the protocol, each part have to be converted into bit arrays.
 
 \subsubsection{Data}
-The data from the GOT system is considered as the three coordinates (X, Y and Z) that the GOT system have measure for the vehicle. Each of these coordinates can have a value from -9000 to 9000. To contain number of this size, there is needed a 15 bit signed integer. 14 bit is used for the magnitude of the number, which can go up to 16385 ($2^{14}-1$). The last bit is used to indicate if the number is positive or negative, called signed bit. The signed bit will be placed at the end of the 15 bit integer. As both the Arduino and the computer where the GOT software is implemented, use big endians, this will also be apply to the integer. This means that the bit with highest value will be just before the sign bit and the bit with the lowest value at the start. This will give the bit array seen on \tableref{CoorSetup}.
+The data from the GoT system is considered as the three coordinates (X, Y and Z) that the GoT system have measure for the vehicle. Each of these coordinates can have a value from -9000 to 9000. To contain number of this size, there is needed a 15 bit signed integer. 14 bit is used for the magnitude of the number, which can go up to 16385 ($2^{14}-1$). The last bit is used to indicate if the number is positive or negative, called signed bit. The signed bit will be placed at the end of the 15 bit integer. As both the Arduino and the computer where the GoT software is implemented, use big endians, this will also be apply to the integer. This means that the bit with highest value will be just before the sign bit and the bit with the lowest value at the start. This will give the bit array seen on \tableref{CoorSetup}.
 
-\todo{Insert value number into the GOT description}
+\todo{Insert value number into the GoT description}
 
 \begin{table}[H]
 \centering
@@ -27,7 +27,7 @@ $2^0$ & $2^1$ & $2^2$ & $2^3$ & $2^4$ & $2^5$ & $2^6$ & $2^7$ & $2^8$ & $2^9$ & 
 \label{CoorSetup}
 \end{table}
 
-The structure of the bit array is called signed magnitude. Another structure that could be used is ones' complement. Here the number is inverted, if the signed bit is true. But for easier the implementation into the code for the GOT system, the none inverted version (signed magnitude is used. This version is easier, because the code will see if the number is negative. If it is, the signed bit will be set to true else it will be false. Then the numbers magnitude will be put into the bit array. When converting it back, there is only needed to multiply the magnitude by minus one, if the signed bit is true.
+The structure of the bit array is called signed magnitude. Another structure that could be used is ones' complement. Here the number is inverted, if the signed bit is true. But for easier the implementation into the code for the GoT system, the none inverted version (signed magnitude is used. This version is easier, because the code will see if the number is negative. If it is, the signed bit will be set to true else it will be false. Then the numbers magnitude will be put into the bit array. When converting it back, there is only needed to multiply the magnitude by minus one, if the signed bit is true.
 
 \subsubsection{Header}
 The header of the protocol contains the information about who have to receive the package(Destination) and the length of the package (Length). These information about the package is needed, to make communication in bigger networks easier to handle. 
@@ -71,7 +71,7 @@ If the the outcome is not all true, there is a foul in either the data or in the
 A foul that the checksum can not detect is if there is more than one foul and these changing in bit arrays goes out with each other, when the parts is added together. The chance for this is very small, as the changes have to go exactly out with each other. By only having 4 parts of 20 bits, the chances for this to happen is smaller than if the checksum was set, for example to 10 bit and therefore addition have to happen with 7 parts of 10 bit. This will give more bits, there have the same value, so there is a higher chance, for the changing in the part to go out with each other. This is the reason for using a bigger checksum, even if it takes more place.
 
 \subsubsection{Start and end byte}
-As the GOT system send a package each time it makes a measurement of the coordinates, there can come a queue of package at the Arduino, if it does not read fast enough. This can give the problem that the system can not tell the package from each other. This is avoided by adding a start byte at the start of the package and a end byte in the end of the package. When the system wants to find the start of the package, it will search for the start byte. When it have found this byte, it will read the header, data and checksum and then look for the end byte. If the end byte is not there, it means that the package was not received correctly and is thrown away. If the end byte is there, the system will take the whole package and make error handling on it.
+As the GoT system send a package each time it makes a measurement of the coordinates, there can come a queue of package at the Arduino, if it does not read fast enough. This can give the problem that the system can not tell the package from each other. This is avoided by adding a start byte at the start of the package and a end byte in the end of the package. When the system wants to find the start of the package, it will search for the start byte. When it have found this byte, it will read the header, data and checksum and then look for the end byte. If the end byte is not there, it means that the package was not received correctly and is thrown away. If the end byte is there, the system will take the whole package and make error handling on it.
 
 With the data, header, checksum, start and end byte, a package will look like the illustration on \tableref{PackageLook}
 
@@ -100,7 +100,7 @@ With the data, header, checksum, start and end byte, a package will look like th
 \label{PackageLook}
 \end{table}
 
-This give a package length on 96 bit (12 byte). As the GOT system have a sampling frequency on 10 Hertz and each sampling give out 12 byte, the transfer speed for the Xbee have to be greater than 120 byte per second. 
+This give a package length on 96 bit (12 byte). As the GoT system have a sampling frequency on 10 Hertz and each sampling give out 12 byte, the transfer speed for the Xbee have to be greater than 120 byte per second. 
 
 \subsubsection{Error handling}
 

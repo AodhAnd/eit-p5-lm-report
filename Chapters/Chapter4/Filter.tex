@@ -2,9 +2,11 @@
 
 When utilizing a sensor unwanted noise can arise and influence the measurements acquired. By implementing a filter it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{HardwareChoice}, is active while the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a inexpedient effect on the controller which is implemented on the prototype. With ideal circumstances the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise could be a potential solution to get more accuracy.
 
-There is many cons and pros when considering between implementing a analogue or digital filter. For example a analogue filter only utilizes hardware and therefore does not occupy the computation time on the microprocessor. On the other hand since the data received from the magnetometer is already digitalized a digital filter will not use any hardware. Furthermore, making the filter a higher order is simpler with a digital filter because off the lack of components and by using components the analogue filter can drift from the original design due to component tolerance. 
+There is many cons and pros when considering between implementing a analogue or digital filter. For example a analogue filter only utilizes hardware and therefore does not occupy as much of the computation time on the microprocessor as a digital filter. On the other hand since the analogue filter utillized component's it is exposed to component tolerances. Besides the microprocessor a digital filter will need no components, since the data received from the magnetometer is already digitalized.
 
-It has been chosen to implement a digital filter, since the signal received from the magnetometer already is digitalized and it is easier to vary the digital filter characteristics when designing the filter.
+From these few arguments it has been chosen to implement a digital filter, since the signal received from the magnetometer has already been digitalized, and it would therefore be impractical to implement an analogue filter.
+
+In the following point form the separate sections in this chapter are illustrated. The point form has been made to make the overall steps when designing a filter more clear to the reader.
 
 \begin{itemize}
 \item Frequency analysis of measured data
@@ -15,7 +17,12 @@ It has been chosen to implement a digital filter, since the signal received from
 \item Results
 \end{itemize}
 
+When designing and implementing a filter a few considerations needs to be made first. In the first section the measured data will be frequency analysed to give a base for the creating requirements for the filter. After making specific requirements for the filter it is possible to examine and decide which filter would be suitable for fulfilling the requirements, without influencing the desired frequencies. Hereafter, it is possible to design and implement the filter, and thereafter conclude if the filter complies with what is desired.
+
+The following section contains a frequency analysis of the measured data.
+
 \section{Frequency Analysis of Measured Data}
+Before designing a filter it is necessary to analyse data measured with the magnetometer, to ensure the signal is not attenuate and as must noise is removed (attenuated) as possible. The data analysed is when the vehicle and the magneto is stationary, and thereby finding the stationary variations on the sensor, the acquired measurements is illustrated in \figref{fig:StationaryMeasurementsMagnato}.
 
 \begin{figure}[H]
   \centering
@@ -24,9 +31,24 @@ It has been chosen to implement a digital filter, since the signal received from
   {
     \includegraphics[width=1.1\textwidth]{figures/StationaryMeasurementsMagnato.pdf}
   }
-  \caption{A plot illustrating a simulated step-response of the approximated velocity model (the blue line) and a measured step-response of the vehicle (the red line).}
+  \caption{A plot, where the x-axis is time and the y-axis is the angle, of data measured with the magnetometer while the vehicle is stationary.}
   \label{fig:StationaryMeasurementsMagnato}
 \end{figure}
+
+From \figref{fig:StationaryMeasurementsMagnato} it can be seen how the angle measured vary with approximately 2 degrees. In the datasheet for the magnetometer it is explained that the sensor has a 1 to 2 degrees accuracy \cite{MagnoDatasheet}, which is consistent with the measured data. To be able to analyse measured data affected by noise, a FFT is used to convert the signal from time-domain to frequency domain. By using a FFT it is possible to see the frequency component acquiring in the signal, thereby making in possible to find the DC value and the noise affecting the measurements. A FFT of the measured data is performed and illustrated in \figref{fig:StationaryMeasurementsMagnato}.
+
+\begin{figure}[H]
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.1\textwidth]{figures/FFTofStationaryMeasurements.pdf}
+  }
+  \caption{A FFT of the measured data illustrated in \figref{fig:StationaryMeasurementsMagnato}}
+  \label{fig:FFTofStationaryMeasurements}
+\end{figure}
+
+In the plot in \figref{fig:FFTofStationaryMeasurements}
 
 
 \section{Specific Requirements}

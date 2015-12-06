@@ -15,3 +15,7 @@ find . -name \*.tdo -type f -exec rm -f {} +
 find . -name \*.toc -type f -exec rm -f {} + 
 find . -name \*.tps -type f -exec rm -f {} +
 find . -name \*.ini -type f -exec rm -f {} +
+find . -name \*.make -type f -exec rm -f {} +
+find . -name \*.d -type f -exec rm -f {} +
+find . -name \*.thm -type f -exec rm -f {} +
+find . -name \*.fls -type f -exec rm -f {} +

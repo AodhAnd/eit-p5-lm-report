@@ -1,5 +1,5 @@
 \section{Steering Model of the Vehicle}\label{sec:SteeringModel}
-The following section will describe and model the steering of the vehicle. The relation between the PWM sent to the servo and the actual steering of the vehicle will be found. A overview of the braking system can be seen in \figref{steeringMechanical}.
+\todo{rewrite}The following section will describe and model the steering of the vehicle. The relationship between the vehicle's speed, the angle of the servo, the brakes, and the actual steering of the vehicle will be examined. A overview of the braking system can be seen in \figref{steeringMechanical}.
 
  \begin{figure}[H]
  	\centering
@@ -11,7 +11,34 @@ The following section will describe and model the steering of the vehicle. The r
 When the servo turns one way, it push the brake pads on the brake disc, to add a friction. The differential gears will transfer the power from one belt to the other if one brake is triggered.
 
 \subsection{Steering Parameters}
- To obtain a steering model everything in the system between the input and the output is black boxed. Second or first order, if it is second the black box should be expanded, if it is first there is no need because then we have all the parameters from the test.
+As the steering system contains many moving parts, it would be advantageous to start with a simple model, verifying it, and iterate until it is satisfactory. 
+
+The first model considered can be seen on \figref{basicSteering}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/basic_steering_model.jpg}
+	\caption{A basic steering model}
+	\label{basicSteering}
+\end{figure}
+ 
+As described in \secref{Servo}, the angle of the servo is proportional to a pulse width modulated signal on it's control input. The pulse width is therefore chosen as the input in this model. This is multiplied by a constant, $\text{K}_\text{s}$, which translates the pulse width to an angle of the servo.
+If the velocity of the vehicle is assumed constant, the rate of change of the direction must be a function of the servo angle, and a constant, $\text{K}_\text{c}$, representing the speed of the vehicle.
+The rate of change is integrated over time, resulting in a direction. 
+
+As the vehicle has to follow a predetermined route, a direction alone is not enough. As seen on \figref{SteeringDeviation}, any change of direction caused by a disturbance, will cause a deviation from the planned line from A to B.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/steering_deviation.jpg}
+	\caption{Consequence of using directional control alone}
+	\label{SteeringDeviation}
+\end{figure}
+
+How large the deviation will be must depend on the erroneous angle, the speed, and the time it takes to correct the error. Assuming the speed is constant, the error can be described as an integration of the error angle over time.
+
+
+Second or first order, if it is second the black box should be expanded, if it is first there is no need because then we have all the parameters from the test.
  
 \begin{figure}[H]
 	\centering

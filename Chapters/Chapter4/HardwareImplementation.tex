@@ -116,6 +116,12 @@ to[short] node[ground] {} (0,-1);
 \label{VoltDivFigFinal}
 \end{figure}
 
-To filter the high frequency noise out, an RC filter is also implemented thanks to a \si{100\ nF} capacitor in the voltage divider.
+To filter the high frequency noise out, a simple low-pass RC filter is finally implemented with to a \si{100\ nF} capacitor in the voltage divider. The resulting cut-off frequency is then:
+%
+\begin{flalign}
+\eq{\omega_{c}}{\frac{1}{R \cdot C}}\unit{rad \cdot s^{-1}} \nonumber \\
+\eq{\omega_c}{\frac{1}{5 \cdot 10^{3} \cdot 100 \cdot 10^{-9}}}\unit{rad \cdot s^{-1}} \nonumber \\
+\eq{\omega_c}{2 \cdot 10^{3}}\si{\ rad \cdot s^{-1}}&\nonumber
+\end{flalign}
 
 With all the hardware components physically implemented on the vehicle and connected to the microcontroller, which is the system's brain, it is needed to write the software parts to enable interactions between the Arduino and all the hardware components.

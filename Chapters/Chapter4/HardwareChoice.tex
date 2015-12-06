@@ -1,4 +1,4 @@
-\section{Hardware choice} \label{Hardwarechoice}
+\section{Hardware Choice} \label{Hardwarechoice}
 Hardware components are chosen from the Requirements (see \secref{Requirements}) to build a prototype. 
 Some of the hardware components are given with the vehicle (the servo used for steering and the Hall sensors used for velocity measurement) and therefore, aren't described in this section. 
 Besides the requirements, the availability of the components and their implementation in the system have to be considered.\todo{What consideration do we have regarding the implementation ?}
@@ -10,11 +10,11 @@ The microcontroller is the brain of the system. The purpose of the microcontroll
 
 The requirements for the microcontroller are:
 \begin{itemize}
-\item Have a CPU, that has a frequency greater than \si{XX\ MHz}. \todo{Number}
+\item Having a CPU, that has a frequency greater than \si{XX\ MHz}. \todo{Number}
 \item Having I/O connections, both digital and analogue.
 \item Having output connections, that can transmit PWM signals.
 \item Having 5 free timers,\todo{Where do we have this number from (in the report)?} to run and control the different parts of the system in parallel.
-\item Can be powered by an external power source.\todo{?}
+\item Being powered by an external power source.\todo{?}
 \end{itemize}
 
 \subsubsection{Arduino Mega 2560}
@@ -40,13 +40,13 @@ The storage is used for saving the edge map and the route planned for the vehicl
 
 The requirements for the storage are:
 \begin{itemize}
-\item It has to be controlled by the microcontroller.
-\item The data shall be retrievable, after a power cut to the storage.
-\item It has Have a storage of \si{XX\ MB}. \todo{Number}
-\item The transfer speed is greater than \si{XX\ MB/s}. \todo{Number}
+\item Having to be controlled by the microcontroller.
+\item Offering the possiblity to retrieve the stored data after a power cut to the storage.
+\item Having a storage of \si{XX\ MB}. \todo{Number}
+\item Having a transfer speed greater than \si{XX\ B/s}. \todo{ref}
 \end{itemize}
 
-\subsubsection{SD card} \label{SDcard}
+\subsubsection{SD Card} \label{SDcard}
 Secure Digital (SD) card is a type of non-volatile flash memory cards. This means that the data will not be lost during a power cut off.\\
 %
 It comes in various storage sizes, from 1 GB to 2 TB, depending on which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The  difference between the different type, is the file system use on the card and the maximum capacity. With the requirement of a storage size on XX bytes, the SDSC is big enough with a capacity of 2 GB.\\
@@ -94,100 +94,99 @@ To use the SDSC card and connect it to the microcontroller, 7 connection pins ar
       \end{minipage}
       
   \end{minipage}
-  \todo{Talk with niels about table}
-
-
+  \todo{Talk with Niels about table}
 
 The power needed for a SD card is 3.3 volts. There are three possible setups for the SD card: SPI, One-Bit and Four-Bit.
 With the SPI setup, the communication between the SD card and the microcontroller is made on two lines. The SPI mode is the most used one for embedded systems.\todo{source !}
 With the One-Bit setup, the commands between the SD card and microcontroller are sent on one line and the data is sent though another one.
 With the Four-Bit setup, three more data connections are used.\\
 %
-In this project, the SPI setup is used, as it is the most used method and the extra transfer speed from the Four-Bit setup is not needed. There to have the Arduino 4 pins, that can be set up to SPI communication.\todo{??}\\
+In this project, the SPI setup is used, as it is the most used method and the extra transfer speed from the Four-Bit setup is not needed. Furthermore, the Arduino has 4 pins that can be set up to SPI communication.\\
 
 The choice for this project is made towards an SDSC card, with a SPI setup, as the capacity and transfer speed meet the requirements. The data will be saved, if the power is cut off. The last requirement, the connections to the microcontroller, is possible since the Arduino Mega 2560 controller contains digital I/O pins, that can be used for the SPI setup of the SD card.
 
 %https://www.sdcard.org/developers/overview/capacity/index.html
 %https://www.sdcard.org/developers/overview/speed_class/
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%-Motor Driver-%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Motor Driver}
-The motor driver is the connection between the microcontroller, the power supply and the motor. The component is used, to separate the low power components, i.e. the microcontroller, and the high power components, i.e. the motor.
+The motor driver is the connection between the microcontroller, the power supply and the motor. It is used, to isolate the hardware components functioning in low power, i.e. the microcontroller, from the high power parts, i.e. the motor.
 
 The requirements for the motor driver are:
 \begin{itemize}
-\item Have to be controlled by the microcontroller.
-\item Can be powered by an external power source.
-\item Can handle up to 7.2 volts.
-\item Can power the motor in both direction.
+\item Having to be controlled by the microcontroller.
+\item Offering the possibility to power it through an external power source.
+\item Being able to handle up to \si{7.2 V} input. \todo{Why 7.2 (except because the battery delivers 7.2V ^^) ?}
+\item Allowing to power the motor in both direction.
 \end{itemize}
 
 \subsubsection{Pololu Dual VNH5019}
-The Pololu dual VHN5019 motor driver shield (see \figref{MotorDrive}) is special design to Arduino boards. It can be placed directly atop of the the Arduino, where the pin will connect to the right pins on the Arduino. 
+The Pololu dual VHN5019 motor driver shield (see \figref{MotorDrive}) is specially designed for Arduino boards. It can be placed directly on top of the the Arduino board as a shield, with the pins connecting to the right ports on the Arduino. 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.50\textwidth]{figures/Motordriver}
-		\caption{The motor shield atop of a Arduino Uno.} 
+	\includegraphics[width=0.50\textwidth]{figures/Motordriver.png}
+		\caption{The motor shield on top of an Arduino Uno.} 
 	\label{MotorDrive}
 \end{figure}
 
-With the motor shield, it is possible to power the Arduino from a external power source, which also deliver the power to the motor. It is also possible to have the motor shield and the Arduino powered separately. This is determined by a jumper setting on the shield, see \figref{MotorDriveIO}. The motor shield need a power voltage between 7 volts and 12 volts.
+It is possible to power the Arduino from an external power source through the motor shield, which also delivers the power to the motor. It is also possible to have the motor shield and the Arduino powered separately. This is determined by a jumper setting on the shield, see \figref{MotorDriveIO}. The motor shield need a power voltage between 7 volts and 12 volts.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.60\textwidth]{figures/MotordriverIO}
+	\includegraphics[width=0.60\textwidth]{figures/MotordriverIO.png}
 		\caption{Setup for the mort shield.}
 	\label{MotorDriveIO}
 \end{figure}
 
-There is two H-bridges on the board, to control two motors. As the project only have one motor, the two H-bridges will be used as one H-bridges. This will give a smaller current through the transistors in the two H-bridges and protect the system.
+There are two H-bridges \todo{secref{sec:HBridge}}on the board, to control up to two motors. Since only one motor is used in this project, the two H-bridges will be used in parallel to power the motor. This should result in a smaller current through the two H-bridges' transistors and therefore ensure a better protection of the system.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\textwidth]{figures/Hbridges}
+	\includegraphics[width=0.85\textwidth]{figures/Hbridges.png}
 		\caption{Illustration of the H-bridge, that the motor shield have two of.}
 	\label{Hbridges}
-\end{figure}.
+\end{figure}
+%
+Each one of the H-bridges is controlled by a PWM signal from the Arduino. However, as the two H-bridges are combined into one, only one is controlled by a PWM signal. This is done by putting both H-bridges into cruise mode, one to high and the other to ground. Then the PWM signal sent to the H-bridge, that is set to high, will regulate the voltage sent through the motor. If needed to reverse the voltage across the motor, the settings for the two H-bridges shall be swapped around.
 
-Each of the H-bridges is controlled by a PWM signal from the Arduino. But as the H-bridges are used as one, only one will be controlled by a PWM signal. This is done by putting both H-bridges into cruise mode, one to high and the other to ground. Then the PWM signal to the H-bridge, that is set to high, will regulate the voltage sent through the motor. If the voltage have to go reverse through the motor, the settings for the two H-bridges shall swap around.
-
-The Pololu dual VHN5019 motor driver shield will be used in this project, as it is made for the Arduino and therefore easy to implement. There to, it power the Arduino through a external power source and get a high enough power output, in each direction for the motor.
+The Pololu dual VHN5019 motor driver shield is used in this project, as it is made for the Arduino and therefore easy to implement. Moreover, it can power the Arduino through an external power source and get a power output high enough for the motor and in each direction.
 
 %Source: The datasheet
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%-Power Supply-%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Power Supply}
-The external power supply have to both power the motor, which need a high voltage and high power and the other components, which needs low voltage and low power.
+The external power supply has to power both the motor, which needs a high voltage and high peak current, and the other components, which need low voltage and low current.
 
 The requirements for the power supply are:
 \begin{itemize}
-\item Voltage output of 7.2 volts.
-\item Deliverer a stable power output.
-\item Can run the motor at full speed for XX. \todo{Number}
+\item Giving an output voltage of \si{7,2\ V}.\todo{We chose the motor driver for having 7.2V (because of the battery?) and the battery for delivering \si{7,2\ V} ??... Suggestion: Maybe we could say the battery was given instead of making up reasons for chosing it ?}
+\item Delivering a stable power output.
+\item Being portable enough to be put on board the vehicle
+\item Being capable of running the motor at full speed for \si{XX\ min}. \todo{Number}
 \end{itemize}
 
-\subsubsection{Battery pack}
-For the project there will be used a rechargeable battery pack on 7.2 volts. As the prototype is not set to run a long time, less than XX, a normal battery pack used for model vehicles can be used. The battery pack will deliverer a stable power output as long as the power level in the battery pack. In appendix XX \todo{Make test}, it can be seen, that the battery pack can deliverer a stable power output for XX minutes.
+\subsubsection{Battery Pack}
+For the project a rechargeable battery pack of \si{7,2\ V} is chosen. As the prototype is not set to run a long time, less than XX, a normal battery pack used for model vehicles can be used. The battery pack will deliverer a stable power output as long as there is power in the battery pack. In appendix\todo{Make test}, it can be seen, that the battery pack can deliverer a stable power output for XX minutes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Wireless communication}
-The data from the GOT system is send to the microcontroller with this component. The transmitter will be located at the computer for the GOT system and the receiver on the vehicle. As the prototype will be tested in the control lab, the distance that the wireless communication have to send is less than 10 meters.
+\subsection{Wireless communication system}
+The data from the GoT system is sent to the microcontroller with this comunication system. The transmitter will be located on the computer used for the GoT system and the receiver on the vehicle. As the prototype will be tested in the control lab, the distance that the wireless communication have to send is less than 10 meters.
 
 The requirements for the wireless communication components are:
 \begin{itemize}
-\item Have to be controlled by the microcontroller.
-\item Have a reach greater than 10 meter. 
-\item Powered by an external power supply.
-\item The transfer speed is greater than XX bytes per second. \todo{Number}
-\item Can be implemented in the GOT code.
+\item Having to be controlled by the microcontroller.
+\item Having a range greater than 10 meters. 
+\item Offering the possibility to be powered by an external power supply (through the Arduino power lines).
+\item Transfering at a higher rate than \si{120\ B/s}. \todo{ref}
+\item Offering the possibility to control it and couple it with the GoT code.
 \end{itemize}
 
 \subsubsection{Xbee}
-Xbee are small radio modules, that is easy to set up. Overview of the Xbee, seen on \figref{XbeeLook} and it pin layout can be seen on \figref{Xbeepinout}.
+Xbees are small radio modules, that are easy to set up. An overview of the Xbee and its pin layout can be seen on \figref{XbeeLook} and \figref{Xbeepinout}.
 
 
 \begin{minipage}{\linewidth}
@@ -195,8 +194,8 @@ Xbee are small radio modules, that is easy to set up. Overview of the Xbee, seen
 	\begin{minipage}{0.45\linewidth}      
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.95\textwidth]{figures/Xbee}
-			\caption{The Xbee radio modules} 
+			\includegraphics[width=0.95\textwidth]{figures/Xbee.jpg}
+			\caption{Two Xbee radio modules} 
 			\label{XbeeLook}
 		\end{figure}
 	\end{minipage}
@@ -204,8 +203,8 @@ Xbee are small radio modules, that is easy to set up. Overview of the Xbee, seen
 	\begin{minipage}{0.45\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.95\textwidth]{figures/XbeeIO}
-			\caption{Pinout for the Xbee radio modul.} 
+			\includegraphics[width=0.95\textwidth]{figures/XbeeIO.jpg}
+			\caption{Pinout of an Xbee radio module} 
 			\label{Xbeepinout}
 		\end{figure}
 	\end{minipage}
@@ -213,9 +212,9 @@ Xbee are small radio modules, that is easy to set up. Overview of the Xbee, seen
 
 \todo{Snak med vinkel om at få teksten align}
 
-The Xbee modules communicates through a UART connection (the TX and RX pin). As the Arduino have three UART connections, beside the one use to program the Arduino with, the Xbee can be connected. The software for the GOT system is running on C\# (See in appendix \secref{GoTDescription}) and the computer running the software have some serial port, that can be connected to the software and the Xbee. So the Xbee can be used for the connection between the GOT system and the Arduino.
+The Xbee modules communicate through an UART connection (with TX and RX pins). Since the Arduino has three UART connections plus the one used to program the Arduino, the Xbee can be connected. The software code for the GoT system is a C\# implementation (see in \appref{GoTDescription}) and the computer running it has serial ports that can ensure the connection between the software and the Xbee. Therefore, this solution can be used for a wireless connection between the GoT system and the Arduino.
 
-To run the Xbee modules, there is needed a power on 3.3 volts, a ground and a UART on 3.3 volts. The rest of the pins will not be needed in this project. It have a transfer speed up to 115.2 kilobits per second and have a reach up to 100 meters indoor and 300 meters outdoor. It transmit with 1 millivolt (0 dBm) and can receive downto -96 dBm and transmits at a 2.4 GHz frequency. The Xbee is already ready for communication, with the lower level of communication, the physical layer, already design. A transportation layer can be added to the protocol, to add more error handling and to set up how the data shall be send. \todo{Not sure if that is all the layers}
+To run the Xbee modules, a \si{3,3\ V} power line, a ground line, and a \si{3,3\ V} logic UART are needed. The rest of the pins are not needed in this project. The modules have a transfer speed of up to \si{115,2 kbit/s} and can reach up to \si{100 m} indoor and \si{300 m} outdoor. It transmits at a \si{2,4 GHz} frequency with \si{1 mV} (\si{0 dBm}) and can receive downto \si{-96 dBm}. The Xbee is already ready for communication, with the lower levels of communication, the physical and data link layers, being already implemented. With only two devices, a lightweight combination of transport and presentation layer can be added to the protocol directly on top of the data link layer, to add more error handling and to set up how the data shall be sent.
 
 %http://www.digi.com/products/xbee-rf-solutions/modules/xbee-digimesh-2-4#specifications
 
@@ -226,37 +225,37 @@ The angular sensor is used in the feedback for the control system.
 
 The requirements for the angular sensor are:
 \begin{itemize}
-\item Have to be controlled by the microcontroller.
+\item To be controlled by the microcontroller.
 \item Having a sampling frequency greater than XX. \todo{Number}
 \item Having a latency smaller than XX. \todo{Number}
-\item Powered by an external power supply.
+\item Offering the possibility to power it by an external power supply (through the Arduino power lines).
 \end{itemize}
 
 \subsubsection{HMC5883L}
-On Sparksfun's "9 degrees of freedom" board, there is mounted a magnetometer, the HMC5883L. There will be used a magnetometer as the angular sensor, as the magnetometer can be setup as a compass and give out a angle compared to north. As the direction to north always is the same, the system will not need a new calibration of the angular sensor, if used in a new area. This will have to be needed, if the direction was taken from a local direction point, like a point in the GOT system.
+Sparkfun's "9 degrees of freedom" board comprises a magnetometer integrated circuit, the HMC5883L\cite{HMC5883L}. A magnetometer will be used as the angular sensor, since it can be set up as a compass and give out a angle compared to north. As the direction to north is always the same, the system does not need a new calibration of the angular sensor, if used in a new area. However, it has to be calibrated on the vehicle when used for the first time.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.50\textwidth]{figures/NineDegree}
+	\includegraphics[width=0.50\textwidth]{figures/NineDegree.jpg}
 		\caption{Sparksfun's "9 degrees of freedom" sensor stick} 
 	\label{NineDegree}
 \end{figure}
 
-The "9 degrees of freedom" sensor stick, see \figref{NineDegree}, will be used in the project. Beside the magnetometer, there is a accelerometer and a gyroscope on the board, but these will not be used. The "9 degrees of freedom" sensor stick is madded to be used with a micro controller and comes with software to Arduino. It needs a I2C bus to communicated with the Arduino, which the Arduino have one of, which it not in use.
+The "9 degrees of freedom" sensor stick, see \figref{NineDegree}, will be used in the project. Beside the magnetometer, there are also a accelerometer and a gyroscope on the board, but these will not be used. The "9 degrees of freedom" sensor stick is designed to be used with a microcontroller and comes with software example for the Arduino platform. It needs an I2C bus to communicate with the Arduino, which has that kind of interface.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Power monitor}
-The power monitor is used to give a feedback to the system on the level of power in the battery pack.
+The power monitor is used to give a feedback to the system about the level of power in the battery pack.
 
 The requirements for the angular sensor are:
 \begin{itemize}
-\item Have to be controlled by the microcontroller.
-\item Measure the battery pack voltage output downto 5,7 volt.
+\item Being monitored by the microcontroller.
+\item Measuring the battery pack voltage output downto \si{5,7\ V}.\todo{ref}
 \end{itemize}
 
 \subsubsection{Voltage divider}
-A voltage divider is a electronic circuit, that divide the input voltage with a constant, that is depending on the values on the resistor, that is used in the circuit, see \figref{VoltDivFig}.
+A voltage divider is an electronic circuit, that divides the input voltage with a constant depending on the values of the resistors used in the circuit, see \figref{VoltDivFig}.
 
 \begin{figure}[h!]
 \centering
@@ -278,18 +277,23 @@ to[short,l=$V_{out}$] (4,0);
 \label{VoltDivFig}
 \end{figure}
 
-The output of the voltage divider can be find with \eqref{VoltageDividere}. 
+The output of the voltage divider can be find with \eqref{VoltageDivider}. 
 
 \begin{flalign}
-\eq{V_{out}}{\frac{R_2}{R_1 \cdot R_2} \cdot V_{in}}\unit{V} 
-\label{VoltageDividere}
+\eq{V_{out}}{\frac{R_2}{R_1 + R_2} \cdot V_{in}}\unit{V} 
+\label{VoltageDivider}
 \end{flalign}
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}lll}
+& \si{V_{in}} & is the battery pack voltage &\unitWh{V} \\
+& \si{R_1, R_2} & are two calculated resistors &\unitWh{\Omega}\\
+& \si{V_{out}} & is the measured output voltage &\unitWh{V}
+\end{tabular}
 
-The input will be set to the battery pack and the output, to a analogue pin on the Arduino. The analogue pin on the Arduino can measure from 0 volts to 5 volts with a accuracy of 10 bits. This gives 1023 steps from 0 to 5 volts and each step is 4,9 millivolts. The size of each step and the interval for the measuring is multiply by the constant from the voltage divider, so it is possible to measure voltage over 5 volts. 
-A voltage divider will be used, as it can be scaled to the interval that it have to measure inside. The voltage divider will be connected to a analogue pin on the Arduino, that will make the measurement on the output of the voltage divider.
-
-
-From the requirements for the system to the hardware parts, these components have been chosen. After have chosen the different hardware components for the prototype, the different components have to be implemented in the system.
+The input voltage is set to be the battery pack and the output is measured though an analogue pin on the Arduino. The analogue pin on the Arduino can measure from \si{0\ V} to \si{5\ V} with a resolution of \si{10\ bits}. This gives 1023 steps from 0 to 5 volts and each step is \si{4,9\ mV}. The size of each step and the range for the measuring is multiplied with the constant from the voltage divider, so it is possible to measure voltages over \si{5\ V}. \todo{What is this constant ? Is the range of measuing the real values or the measured values Vout?}
+A voltage divider is used in this project, as it can be scaled to the interval that it has to measure. The voltage divider will be connected to an analogue pin on the Arduino, which will make the measurement from the output of the voltage divider.\\
+%
+From the requirements for the system to the hardware parts, these components have been chosen. After having chosen the different hardware components for the prototype, the different components have to be implemented in the system.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 

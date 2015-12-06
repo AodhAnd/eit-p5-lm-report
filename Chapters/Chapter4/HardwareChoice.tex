@@ -43,7 +43,7 @@ The requirements for the storage are:
 \item Having to be controlled by the microcontroller.
 \item Offering the possiblity to retrieve the stored data after a power cut to the storage.
 \item Having a storage of \si{XX\ MB}. \todo{Number}
-\item Having a ransfer speed greater than \si{XX\ MB/s}. \todo{Number}
+\item Having a transfer speed greater than \si{XX\ B/s}. \todo{ref}
 \end{itemize}
 
 \subsubsection{SD Card} \label{SDcard}
@@ -101,7 +101,7 @@ With the SPI setup, the communication between the SD card and the microcontrolle
 With the One-Bit setup, the commands between the SD card and microcontroller are sent on one line and the data is sent though another one.
 With the Four-Bit setup, three more data connections are used.\\
 %
-In this project, the SPI setup is used, as it is the most used method and the extra transfer speed from the Four-Bit setup is not needed. There to have the Arduino 4 pins, that can be set up to SPI communication.\todo{??}\\
+In this project, the SPI setup is used, as it is the most used method and the extra transfer speed from the Four-Bit setup is not needed. Furthermore, the Arduino has 4 pins that can be set up to SPI communication.\\
 
 The choice for this project is made towards an SDSC card, with a SPI setup, as the capacity and transfer speed meet the requirements. The data will be saved, if the power is cut off. The last requirement, the connections to the microcontroller, is possible since the Arduino Mega 2560 controller contains digital I/O pins, that can be used for the SPI setup of the SD card.
 
@@ -181,7 +181,7 @@ The requirements for the wireless communication components are:
 \item Having to be controlled by the microcontroller.
 \item Having a range greater than 10 meters. 
 \item Offering the possibility to be powered by an external power supply (through the Arduino power lines).
-\item Transfering at a higher rate than \si{XX\ bit/s}. \todo{Number}
+\item Transfering at a higher rate than \si{120\ B/s}. \todo{ref}
 \item Offering the possibility to control it and couple it with the GoT code.
 \end{itemize}
 
@@ -232,7 +232,7 @@ The requirements for the angular sensor are:
 \end{itemize}
 
 \subsubsection{HMC5883L}
-Sparkfun's "9 degrees of freedom" board comprises a magnetometer integrated circuit, the HMC5883L\cite{HMC5883L}. A magnetometer will be used as the angular sensor, since it can be set up as a compass and give out a angle compared to north. As the direction to north is always the same, the system does not need a new calibration of the angular sensor, if used in a new area. However, it has to be calibrated on the vehicle when used for the first time. This will have to be needed, if the direction was taken from a local direction point, like a point in the GoT system. \todo{What does that mean?}
+Sparkfun's "9 degrees of freedom" board comprises a magnetometer integrated circuit, the HMC5883L\cite{HMC5883L}. A magnetometer will be used as the angular sensor, since it can be set up as a compass and give out a angle compared to north. As the direction to north is always the same, the system does not need a new calibration of the angular sensor, if used in a new area. However, it has to be calibrated on the vehicle when used for the first time.
 
 \begin{figure}[H]
 	\centering
@@ -251,7 +251,7 @@ The power monitor is used to give a feedback to the system about the level of po
 The requirements for the angular sensor are:
 \begin{itemize}
 \item Being monitored by the microcontroller.
-\item Measuring the battery pack voltage output downto \si{5,7\ V}.\todo{Why ?}
+\item Measuring the battery pack voltage output downto \si{5,7\ V}.\todo{ref}
 \end{itemize}
 
 \subsubsection{Voltage divider}

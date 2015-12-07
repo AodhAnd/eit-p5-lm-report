@@ -79,15 +79,13 @@ The way to control for error with the checksum, is to add the checksum together 
 A flaw with this control with the checksum, is that if a error goes out with another error, this can not be detected. This can happen when the system add the three parts and the checksum together. An example, is if the first bit in part one is true and the first bit in part two is false. If both of these bit is bit shifted, so the bit from part one is equal false and true for the bit in part two, this error will not be detected by the control with the checksum. The chances for this is very small, as the changes have to go exactly out with each other. And by only having 4 parts of 20 bits, the chances for this to happen is smaller than if the checksum was set to, for example to 10 bit and therefore addition have to happen with 7 parts of 10 bit. This will give more bits, there have the same value, so there is a higher chance, for the changing in the part to go out with each other. This is the reason for using a bigger checksum, even if it takes more place.
 
 \subsubsection{Start and end byte}
-<<<<<<< HEAD
+
 As the GOT system send a package each time it makes a measurement of the coordinates, there can come a queue of package at the Arduino, if it does not read fast enough. This can give the problem that the system can not tell the package from each other. This can be avoided by adding a start byte at the start of the package and a end byte at the end. 
 
 When the system wants to find the start of the package, it will search for the start byte. When it have found this byte, it will read the header, data and checksum and then look for the end byte. If the end byte is not there, it means that the package was not received correctly and is thrown away. If the end byte is there, the system will take the whole package and make error handling on it. 
 
 The start byte will be set to 0000 1111. This is chosen, so that the start byte do not have the same value as one of the other bytes, that is in the header, so these not will be misunderstand as the start byte. To have the start and end byte as different as possible, as the end byte will come just before the next start byte, the end byte is the inverted version of the start byte, which is 1111 0000.
-=======
-As the GoT system send a package each time it makes a measurement of the coordinates, there can come a queue of package at the Arduino, if it does not read fast enough. This can give the problem that the system can not tell the package from each other. This is avoided by adding a start byte at the start of the package and a end byte in the end of the package. When the system wants to find the start of the package, it will search for the start byte. When it have found this byte, it will read the header, data and checksum and then look for the end byte. If the end byte is not there, it means that the package was not received correctly and is thrown away. If the end byte is there, the system will take the whole package and make error handling on it. The start byte will be set to 0000 1111. To have the start and end byte as different as possible, as the end byte will come just before the next start byte, the end byte is the inverted version of the start byte, which is 1111 0000.
->>>>>>> 26cb66582829095e898d0c817b6910abf8141dfc
+
 
 With the data, header, checksum, start and end byte, a package will look like the illustration on \tableref{PackageLook}
 
@@ -116,11 +114,7 @@ With the data, header, checksum, start and end byte, a package will look like th
 \label{PackageLook}
 \end{table}
 
-<<<<<<< HEAD
-This give a package length on 96 bits (12 bytes). As the GOT system have a sampling frequency on 10 hertz and each sampling give out 12 byte, the transfer speed for the Xbee have to be greater than 120 byte per second. 
-=======
 This give a package length on 96 bit (12 byte). As the GoT system have a sampling frequency on 10 Hertz and each sampling give out 12 byte, the transfer speed for the Xbee have to be greater than 120 byte per second. 
->>>>>>> 26cb66582829095e898d0c817b6910abf8141dfc
 
 \subsubsection{Error handling}
 As there is a chance that the package is getting damaged under the way from the transmitter to the receiver, there is used some error handling, to check the packages for error and throw the damage packages away. One of these is the checksum, which is explained further up in this section. Besides the checksum, the start and end byte is used to see if the number of byte received is right, according to the length in the header.

@@ -58,9 +58,8 @@ In this mode of operation the PWM signal is imposed on all 4 FETs, as seen on \f
   	\end{minipage}
   \end{minipage}
 
-
 \subsection{Brake Mode}
-This mode of operation imposes the PWM signal on one side of the H-bridge, as seen on \figref{HbridgeClockwiseBrakeON} and \figref{HbridgeClockwiseBrakeOFF}. The PWM signal in collaboration with the NOT-gate shifts between Q1 and Q2, which provides the two current paths as shown. On \figref{HbridgeClockwiseBrakeON} the motor is driven by the supply, connected through Q1 and Q4. On \figref{HbridgeClockwiseBrakeOFF} the motor is short-circuited to ground through Q2 and Q4, which brakes on the motor.
+This mode of operation imposes the PWM signal on one side of the H-bridge, as seen on \figref{HbridgeClockwiseBrakeON} and \figref{HbridgeClockwiseBrakeOFF}. The PWM signal in collaboration with the NOT-gate shifts between Q1 and Q2, which provides the two current paths as shown. On \figref{HbridgeClockwiseBrakeON} the motor is driven by the supply, connected through Q1 and Q4. On \figref{HbridgeClockwiseBrakeOFF} the motor is short-circuited to ground through Q2 and Q4, which brakes on the motor. In this example the configuration brakes to ground, however the principal is the same when braking to to Vcc.
 
   \begin{minipage}{\linewidth}
   	\centering
@@ -84,7 +83,7 @@ This mode of operation imposes the PWM signal on one side of the H-bridge, as se
   \end{minipage}
 
 \subsection{Double H-bridge Brake Mode}
-Implemented on the vehicle is a double H-bridge, which is configured to run in brake mode as illustrated on \figref{DoubleHbridgeBrakeON} and \figref{DoubleHbridgeBrakeOFF}
+Implemented on the vehicle is a double H-bridge, which is configured to run in brake mode as illustrated on \figref{DoubleHbridgeBrakeON} and \figref{DoubleHbridgeBrakeOFF}.
 
 \begin{figure}[H]
 	\centering
@@ -100,3 +99,4 @@ Implemented on the vehicle is a double H-bridge, which is configured to run in b
 	\label{DoubleHbridgeBrakeOFF}
 \end{figure}
 
+Specification for one H-bridge - argumentation for choosing to run with both.

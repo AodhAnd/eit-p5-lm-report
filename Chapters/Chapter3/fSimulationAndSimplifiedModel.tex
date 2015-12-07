@@ -26,13 +26,38 @@ To verify that this is a viable approximation, the following simplified model, i
 %
 Where \si{K} is the gain of the system and \si{\tau} is the time constant. This simplified first order model of the system is simulated alongside the second order model, to verify that the vehicle can indeed be handled as a first order system. The plot of the two simulations are illustrated in \figref{fig:ComparisonOf1stAnd2ndOrderModels}.
 %
+From this figure it is impossible to see any difference between the two models, however, zooming in on the base of the step, see \figref{fig:comparison1stAnd2ndOrderModelsZoom}, the difference becomes clear.
+%
+\begin{minipage}{\linewidth}
+  	\centering
+  	\begin{minipage}{0.45\linewidth}
+  		\begin{figure}[H]
+  			\centering
+  			\includegraphics[scale = .6]{figures/ComparisonOf1stAnd2ndOrderModels.png}
+  			\caption{Comparison of the \si{1^{st}} and \si{2^{nd}} order models}
+  			\label{fig:ComparisonOf1stAnd2ndOrderModels}
+  		\end{figure}
+  	\end{minipage}
+  	\hspace{0.03\linewidth}
+  	\begin{minipage}{0.45\linewidth}
+  	  \begin{figure}[H]
+    	 	\centering
+    	 	\includegraphics[scale = .6]{figures/comparison1stAnd2ndOrderModelsZoom.png}
+    	 	\caption{Comparison of the \si{1^{st}} and \si{2^{nd}} order models}
+    	 	\label{fig:comparison1stAnd2ndOrderModelsZoom}
+    	\end{figure}
+  	\end{minipage}
+  \end{minipage}
+
+However, a quick glance at the axes shows how minimal the impact of this difference must be. An other and possibly clearer way to show the difference of the two models, is through use of Bode plots. A Bode plot of the two models imposed on one another is seen on \figref{bodePlotOf1stAnd2ndOrderModel}.
+%
 \begin{figure}[H]
 	\centering
-	\includegraphics[width = .8\textwidth]{figures/ComparisonOf1stAnd2ndOrderModels.png}
-	\caption{Comparison of the \si{1^{st}} and \si{2^{nd}} order models}
-	\label{fig:ComparisonOf1stAnd2ndOrderModels}
+	\includegraphics[width = \textwidth]{figures/bodePlotOf1stAnd2ndOrderModel.png}
+	\caption{Bode plot showing the differences between the \si{1^{st}} and \si{2^{nd}} order models}
+	\label{fig:bodePlotOf1stAnd2ndOrderModel}
 \end{figure}
 %
-\todo{Change picture}
+For frequencies below 1000 \si{rad\cdot s^{-1}} the two models are very similar because each of their first poles are very close; in 3,8759 \si{rad\cdot s^{-1}} for the \si{1^{st}} order model and 3,9 \si{rad\cdot s^{-1}} for the \si{2^{nd}} order model. The \si{2^{nd}} order model however has an other pole which causes the phase shift and shift in magnitude at higher frequencies. However since this pole is so high, 1489,5 \si{rad\cdot s^{-1}}, it does not affect the lower pole considerably and the differences are way beyond significant frequency range.
 
 In the following section the simplified model is verified directly by comparison with recorded data of the vehicle's step response.

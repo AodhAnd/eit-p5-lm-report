@@ -17,7 +17,7 @@ The first model considered can be seen on \figref{basicSteering}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/basic_steering_model.jpg}
+	\includegraphics[width=0.8\textwidth]{figures/basicSteeringModel.pdf}
 	\caption{A basic steering model}
 	\label{basicSteering}
 \end{figure}
@@ -26,17 +26,20 @@ As described in \secref{Servo}, the angle of the servo is proportional to a puls
 If the velocity of the vehicle is assumed constant, the rate of change of the direction must be a function of the servo angle, and a constant, $\text{K}_\text{c}$, representing the speed of the vehicle.
 The rate of change is integrated over time, resulting in a direction. 
 
-As the vehicle has to follow a predetermined route, a direction alone is not enough. As seen on \figref{SteeringDeviation}, any change of direction caused by a disturbance, will cause a deviation from the planned line from A to B.
+As the vehicle has to follow a predetermined routwe, a direction alone is not enough. As seen on \figref{SteeringDeviation}, any change of direction caused by a disturbance, will cause a deviation from the planned line from A to B.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/steering_deviation.jpg}
+	\includegraphics[width=0.8\textwidth]{figures/steeringDeviation.pdf}
 	\caption{Consequence of using directional control alone}
 	\label{SteeringDeviation}
 \end{figure}
 
 How large the deviation will be must depend on the erroneous angle, the speed, and the time it takes to correct the error. Assuming the speed is constant, the error can be described as an integration of the error angle over time.
 
+
+\subsection{Order Of The System}
+As seen on \figref{plotStepResponseSteering}, the step response for the steering test has a direct rise of the angle after the step, typical of a first order system.
 
 Second or first order, if it is second the black box should be expanded, if it is first there is no need because then we have all the parameters from the test.
  

@@ -55,15 +55,13 @@ As the vehicle has to follow a predetermined routwe, a direction alone is not en
 How large the deviation will be must depend on the erroneous angle, the speed, and the time it takes to correct the error. Assuming the speed is constant, the error can be described as an integration of the error angle over time.
 
 
+%Servoen tilføjer en ekstra pol til systemet og da vi ved at servoen giver et samplingsdelay. kan stille dens system op som det som står slidet.
 
+%Det er fordel at kunne holde polen i servoen langt væk fra polen i directional modelen, for så kan vi se bort den pol som er servoen. (ligesom vi har gjort i velocity model, vi har lavet et andet ordens system om til et første ordens.)
 
-Servoen tilføjer en ekstra pol til systemet og da vi ved at servoen giver et samplingsdelay. kan stille dens system op som det som står slidet.
+%tau i servoen er 0.03 da servoens samples med 30 ms, se servoafsnit.
 
-Det er fordel at kunne holde polen i servoen langt væk fra polen i directional modelen, for så kan vi se bort den pol som er servoen. (ligesom vi har gjort i velocity model, vi har lavet et andet ordens system om til et første ordens.)
-
-tau i servoen er 0.03 da servoens samples med 30 ms, se servoafsnit.
-
-Man burde kunne lave en model uden en controller, men da systemet er meget ulignært er der valgt at implementere en controller order to stabilise the measurements. 
+%Man burde kunne lave en model uden en controller, men da systemet er meget ulignært er der valgt at implementere en controller order to stabilise the measurements. 
 
 %\subsection{Order Of The System}
 %As seen on \figref{plotStepResponseSteering}, the step response for the steering test has a direct rise of the angle after the step, typical of a first order system.

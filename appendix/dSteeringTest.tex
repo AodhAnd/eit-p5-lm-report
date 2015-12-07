@@ -1,10 +1,12 @@
 \pagebreak
-\section{Steering Test} \label{app:steeringOrderTest}
+\section{Steering Test - Steering Gain} \label{app:steeringOrderTest}
 \textbf{Name: Group 510}\\
-\textbf{Date: 11/11 - 2015}
+\textbf{Date: 29/11 - 2015}
 
 \subsection{Purpose}
-The purpose of the test is to find the needed order of the steering model, and the gain related to the speed during the turning of the vehicle, with a PWM signal as an input and the vehicle's heading angle as an output.
+The purpose of the test is to find the relationship between the velocity and steering gain, \si{K_v}, .
+
+% find the needed order of the steering model, and the gain related to the speed during the turning of the vehicle, with a PWM signal as an input and the vehicle's heading angle as an output.
 
 \subsection{Setup}
 \begin{figure}[H]
@@ -54,10 +56,14 @@ And the time constant can be expressed as:
 The different steering time constants can be calculated thanks to the plot of multiple step reponses, resulting of the test as seen on \figref{plotStepResponseSteering}. The value of \si{\tau} corresponds to the time when the angle reaches 63,2\% of the final value.
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{figures/plotStepResponseSteering.pdf}
-	\caption{Plot of a step response for finding the time constant \si{\tau}.}
-	\label{plotStepResponseSteering}
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.4\textwidth]{figures/plotStepResponseSteering.pdf}
+  }
+  \caption{Plot of a step response for finding the time constant \si{\tau}.}
+  \label{plotStepResponseSteering}
 \end{figure}
 
 As the test were made with a choosen gain K = 1.5, the gain related to the speed during the turning can be calculated:

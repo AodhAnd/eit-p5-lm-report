@@ -1,7 +1,7 @@
 \section{Hardware Choice} \label{Hardwarechoice}
 Hardware components are chosen from the Requirements (see \secref{Requirements}) to build a prototype. 
 Some of the hardware components are given with the vehicle (the servo used for steering and the Hall sensors used for velocity measurement) and therefore, aren't described in this section. 
-Besides the requirements, the availability of the components and their implementation in the system have to be considered.\todo{What consideration do we have regarding the implementation ?}
+Besides the requirements, the availability of the components and their compatibility with the system have to be considered.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -68,7 +68,7 @@ To use the SDSC card and connect it to the microcontroller, 7 connection pins ar
 \hline
 2			 &	Card Select	 		&	Card Detection		&	Data 3			   \\
 \hline
-3			 &	Data In		 		&	\begin{tabular}{@{}c@{}} Command \&  \\Response \end{tabular}  &	\begin{tabular}{@{}c@{}} Command \&  \\Response \end{tabular} \\
+3			 &	Data In		 		&	\begin{tabular}{@{}l@{}} Command \&  \\Response \end{tabular}  &	\begin{tabular}{@{}l@{}} Command \&  \\Response \end{tabular} \\
 \hline
 4			 &	Power 				&	Power			    &	Power			   \\
 \hline
@@ -94,7 +94,6 @@ To use the SDSC card and connect it to the microcontroller, 7 connection pins ar
       \end{minipage}
       
   \end{minipage}
-  \todo{Talk with Niels about table}
 
 The power needed for a SD card is 3.3 volts. There are three possible setups for the SD card: SPI, One-Bit and Four-Bit.
 With the SPI setup, the communication between the SD card and the microcontroller is made on two lines. The SPI mode is the most used one for embedded systems.\todo{source !}
@@ -290,9 +289,10 @@ The output of the voltage divider can be find with \eqref{VoltageDivider}.
 & \si{V_{out}} & is the measured output voltage &\unitWh{V}
 \end{tabular}
 
-The input voltage is set to be the battery pack and the output is measured though an analogue pin on the Arduino. The analogue pin on the Arduino can measure from \si{0\ V} to \si{5\ V} with a resolution of \si{10\ bits}. This gives 1023 steps from 0 to 5 volts and each step is \si{4,9\ mV}. The size of each step and the range for the measuring is multiplied with the constant from the voltage divider, so it is possible to measure voltages over \si{5\ V}. \todo{What is this constant ? Is the range of measuing the real values or the measured values Vout?}
+The input voltage is set to be the battery pack and the output is measured though an analogue pin on the Arduino. The analogue pin on the Arduino can measure from \si{0\ V} to \si{5\ V} with a resolution of \si{10\ bits}. This gives 1023 steps from 0 to 5 volts and each step is \si{4,9\ mV}. The size of each step and the range for the measuring is multiplied with the inverse constant, that comes from the two resistor, so it is possible to make the range go over \si{5\ V}. 
+
 A voltage divider is used in this project, as it can be scaled to the interval that it has to measure. The voltage divider will be connected to an analogue pin on the Arduino, which will make the measurement from the output of the voltage divider.\\
-%
+
 From the requirements for the system to the hardware parts, these components have been chosen. After having chosen the different hardware components for the prototype, the different components have to be implemented in the system.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

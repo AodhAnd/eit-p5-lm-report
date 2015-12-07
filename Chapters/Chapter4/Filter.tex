@@ -1,4 +1,4 @@
-\chapter{Filter}
+\chapter{Digital Filter}
 
 When utilizing a sensor unwanted noise can arise and influence the measurements acquired. By implementing a filter it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{HardwareChoice}, is active while the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a inexpedient effect on the controller which is implemented on the prototype. With ideal circumstances the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise could be a potential solution to get more accuracy.
 
@@ -65,19 +65,29 @@ From the FFT performed, seen in \figref{fig:FFTofStationaryMeasurements}, a spik
 
 Some consideration has to be made for the filter requirements, to ensure that the filter is not influencing the system and the desired frequency needlessly.
 
-\section{Specific Requirements}
-Before selecting which filter to design and implement, it is necessary to examine requirements needed for performing the necessary filtering.
+\section{Filter Requirements} \label{sec:FilterRequirements}
+Before selecting which filter to design and implement, it is necessary to examine requirements needed for performing the necessary filtering. These requirements will be found by using the FFT, which is plotted in previous section, and by looking at the sample rate for the internal loop in the steering model, see \secref{sec:}. 
+
+Since it is desired to influence the DC-signal as little as possible a low-pass filter is implemented. The ideal filter will have a passband attenuation of 0 \si{dB}, since this is not a ideal filter a maximum attenuation variation is set from 1 \si{dB} to 0 \si{dB}. To ensure the filter is not delaying the signal to much a cut-off frequency of 10 \si{Hz} has been decided. Further more it has been decided to have 40 \si{dB} attenuation at 17 \si{Hz}.
+ 
+To convert from the specifications in continuous-time to specification for a discrete-time filter, the relationship between continuous- and discrete-time is utilized:
+
+\begin{flalign}
+\eq{\omega}{\Omega \cdot T_s}
+\end{flalign}
+
+The filters discrete-time specification is therefore:
 
 \textbf{Passband specification:}
 \begin{flalign}
-0.89125 &\leq |H(e^{j\omega}| \leq 1 \unit{dB}\\
-0 &\leq \omega \leq 0.3\pi \unit{rad}
+0.89125 &\leq |H(e^{j\omega}| \leq 1 \\
+0 &\leq \omega \leq 0.3\pi
 \end{flalign}
 
 \textbf{Stopband specification:}
 \begin{flalign}
-|H(e^{j\omega})| &\leq 0.01 \unit{dB}\\
-0.3 &\leq \omega \leq \pi \unit{rad}
+|H(e^{j\omega})| &\leq 0.01 \\
+0.3 &\leq \omega \leq \pi
 \end{flalign}
 
 \section{Filter Type}
@@ -105,7 +115,7 @@ The Butterworth filter has a sharper cut-off frequency compared to the Bessel fi
 	\label{fig:groupdelay}
 \end{figure}
 
-Because of the above-mentioned descriptions of the filter a Butterworth filter has been selected for filtering the measured data. The Butterworth does not have any ripples in the passband which could influence the DC-value, seen in \figref{fig:FFTofStationaryMeasurements} and compared to the other described filters, the Butterworth has a small group delay.
+Because of the above-mentioned descriptions of the filter a Butterworth filter has been selected for filtering the measured data. The Butterworth does not have any ripples in the passband which could influence the DC-value, seen in \figref{fig:FFTofStationaryMeasurements}, and it upholds the requirement set for the filter in \secref{sec:FilterRequirements}. Compared to the other described filters, the Butterworth has a small group delay.
 
 The requirements and filter type has been chosen, and it is thereby possible to design the filter which has to be implemented.
 

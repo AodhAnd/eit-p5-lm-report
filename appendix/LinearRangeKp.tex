@@ -12,24 +12,26 @@
 \subsubsection{List of Equipment}
 
 \begin{table}[H]
-\begin{tabular}{|l|l|p{4cm}|}
+\begin{tabular}{|p{10cm}|p{4cm}|}
 \hline%------------------------------------------------------------------------------------
-  \textbf{Instrument}                        &  \textbf{AAU-no.}  &  \textbf{Type}       \\
+  \textbf{Instrument}                     &  \textbf{Type}       \\
 \hline%------------------------------------------------------------------------------------
-  Oscilloscope                               &  64672             &  Agilent DSO6034A    \\
-\hline
+  Computer                                &  Acer C720p    \\
+\hline %-----------------------------------------------------------------------------------
 \end{tabular}
 \end{table}
 
 \subsubsection{Procedure}
 
 \begin{enumerate}
-  \item S
-  \item S
-  \item S
-  \item S
-  \item S
-  \item S
+  \item Disconnect the battery.
+  \item Connect the Arduino to the computer.
+  \item Upload the test code to the Arduino board using the Arduino IDE  \cite{ArduinoIDE}.
+  \item Plug in the battery
+  \item Open a serial terminal via PuTTY \cite{PuTTY} immediately after plugging the battery.
+  \item Wait two seconds, then follow the vehicle with the connected computer.
+  \item Wait until the vehicle stops before ending the measurements by unplugging the connected computer from the Arduino.
+  \item Plot the angle of the vehicle using Matlab.
 \end{enumerate}
 
 \subsubsection{Results}

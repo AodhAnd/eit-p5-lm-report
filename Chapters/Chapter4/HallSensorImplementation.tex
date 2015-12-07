@@ -1,4 +1,4 @@
-\chapter{Hall Sensors}\label{sec:hallFiltering}
+\section{Hall Sensors}\label{sec:hallFiltering}
 
 The velocity calculation is done trough the Hall sensors. There are four magnets on the gear at approximatly a quarter of a turn of distance between each. One way of getting the speed is by calculating the time between two consecutive pulses and relating it to the distance traveled during that time, given by a quarter turn of the drive wheel. A plot of the speed can be seen on \figref{unfilteredHall}.
 
@@ -37,7 +37,7 @@ The difference between the two plots is that at constant speed, the time measure
 \subsubsection{Minimum Speed}
 
 The Hall sensors measurements can only capture speeds down to a certain value because of the size of the buffer wich holds the timer value. The timers can count up to 65 535, and each clock tick lasts 64 µs.\\
-A full rotation of the wheel yields a linear movement of 166mm, so the minimum measurable speed is given by
+A full rotation of the wheel yields a linear movement of \si{166\ mm}, so the minimum measurable speed is given by
 %
 \begin{flalign}
 \eq{\frac{166 \cdot 10^{-3}}{65535 \cdot 64 \cdot 10^{-6}}}	{0,0396}\unit{m \cdot s^{-1}}

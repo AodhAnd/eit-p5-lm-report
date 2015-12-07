@@ -42,8 +42,12 @@
 
 \begin{figure}[H]
   \centering
- 	\includegraphics[width=.8\textwidth]{figures/motorGain.pdf}
-  \caption{A plot of the motor's step response, where the input is motor voltage and the output is the angular velocity. The blue dots indicates the measurements and the red line is the tendency line.}
-	\label{motorGain}
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.4\textwidth]{figures/steeringgainfunction.pdf}
+  }
+  \caption{Plot of the gain \si{K_v} against the real speed.}
+  \label{steeringPlotSpeedVsGain}
 \end{figure}
 %

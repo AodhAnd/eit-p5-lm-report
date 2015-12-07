@@ -66,16 +66,18 @@
 %%% Part 2 %%%
 \part{Design \& Implementation}
 %---------- Chapter 4 ---------------------------------------- Hardware considerations
-%% TODO : Move files in appropriate folders when nobody is working on it
+%% TODO : Move files to appropriate folders when nobody is working on it
 \input{Chapters/Chapter5/aHardware}
 \input{Chapters/Chapter4/HardwareChoice}
 \input{Chapters/Chapter4/HardwareImplementation}
 
 %--------- Chapter 5 ----------------------------------------
+\input{Chapters/Chapter5/sensorImplementation}
 \input{Chapters/Chapter4/HallSensorImplementation}
+\input{Chapters/Chapter5/magnetoImplementation}
 %\input{Chapters/Chapter4/Hbridge}
 
-%---------- Chapter 5 ---------------------------------------- Modelling of the Vehicle
+%---------- Chapter 6 ---------------------------------------- Modelling of the Vehicle
 \input{Chapters/Chapter3/aModellingTheVehicle}
 \input{Chapters/Chapter3/bVelocityVehicle}
 \input{Chapters/Chapter3/cMotorModelling}
@@ -86,12 +88,12 @@
 \input{Chapters/Chapter3/eTotalSystemModelling}
 \input{Chapters/Chapter3/fSteeringModel}
 
-%---------- Chapter 6 ---------------------------------------- Control of the vehicle
+%---------- Chapter 7 ---------------------------------------- Control of the vehicle
 \input{Chapters/Chapter6/aControlOfTheVehicle}
 \input{Chapters/Chapter4/VelocityController}
 \input{Chapters/Chapter4/SteeringController}
 
-%---------- Chapter 7 ----------------------------------------
+%---------- Chapter 8 ----------------------------------------
 \input{Chapters/Chapter4/Communication}
 \input{Chapters/Chapter4/Filter}
 
@@ -160,6 +162,9 @@
 
 %---------- Appendix O ---------------------------------------- Steering Test
 \input{appendix/dSteeringTest.tex}
+
+\input{appendix/LinearRangeKp.tex}
+
 
 %---------- Appendix P ---------------------------------------- Schematics
 \input{appendix/MegaPinout.tex}		% Pinout for the arduino

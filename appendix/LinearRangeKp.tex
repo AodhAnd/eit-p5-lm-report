@@ -1,0 +1,49 @@
+\pagebreak
+\section{Steering test - Linear area for \si{K_p}} \label{app:LinearAreaKp}
+\textbf{Name: Group 510}\\
+\textbf{Date: 30/09 - 2015}
+
+\subsubsection{Purpose}
+
+
+\subsubsection{Setup}
+
+
+\subsubsection{List of Equipment}
+
+\begin{table}[H]
+\begin{tabular}{|p{10cm}|p{4cm}|}
+\hline%------------------------------------------------------------------------------------
+  \textbf{Instrument}                     &  \textbf{Type}       \\
+\hline%------------------------------------------------------------------------------------
+  Computer                                &  Acer C720p    \\
+\hline %-----------------------------------------------------------------------------------
+\end{tabular}
+\end{table}
+
+\subsubsection{Procedure}
+
+\begin{enumerate}
+  \item Disconnect the battery.
+  \item Connect the Arduino to the computer.
+  \item Upload the test code to the Arduino board using the Arduino IDE  \cite{ArduinoIDE}.
+  \item Plug in the battery
+  \item Open a serial terminal via PuTTY \cite{PuTTY} immediately after plugging the battery.
+  \item Wait two seconds, then follow the vehicle with the connected computer.
+  \item Wait until the vehicle stops before ending the measurements by unplugging the connected computer from the Arduino.
+  \item Plot the angle of the vehicle using Matlab.
+\end{enumerate}
+
+\subsubsection{Results}
+
+\begin{flalign}
+  \eq{\tau_{mec}}{0,238} \tx{ s}&&\nonumber
+\end{flalign}
+
+\begin{figure}[H]
+  \centering
+ 	\includegraphics[width=.8\textwidth]{figures/motorGain.pdf}
+  \caption{A plot of the motor's step response, where the input is motor voltage and the output is the angular velocity. The blue dots indicates the measurements and the red line is the tendency line.}
+	\label{motorGain}
+\end{figure}
+%

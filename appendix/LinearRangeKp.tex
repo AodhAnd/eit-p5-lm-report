@@ -1,17 +1,13 @@
 \pagebreak
-\section{Motor Tests - Time Constant and Gain} \label{app:motorTestTimeConstantAndGain}
+\section{Steering test - Linear area for \si{K_p}} \label{app:LinearAreaKp}
 \textbf{Name: Group 510}\\
 \textbf{Date: 30/09 - 2015}
 
 \subsubsection{Purpose}
-The purpose of this test is to find the motors time constant $\tau$ and gain. This is done by measuring the motors step response.
+
 
 \subsubsection{Setup}
-\begin{figure}[H]
-  \centering
-	\includegraphics[scale=0.5]{figures/MotorTest8.png}
-	\caption{Setup diagram}
-\end{figure}
+
 
 \subsubsection{List of Equipment}
 
@@ -21,36 +17,23 @@ The purpose of this test is to find the motors time constant $\tau$ and gain. Th
   \textbf{Instrument}                        &  \textbf{AAU-no.}  &  \textbf{Type}       \\
 \hline%------------------------------------------------------------------------------------
   Oscilloscope                               &  64672             &  Agilent DSO6034A    \\
-\hline%------------------------------------------------------------------------------------
-  Power Supply ($0 - 32$ V) ($0 - 10$ A)     &  77076             &  Ea - ps 7032 - 100  \\
-\hline%------------------------------------------------------------------------------------
-  Optical tachometer                         &  77087             &  Compact             \\
-\hline%------------------------------------------------------------------------------------
+\hline
 \end{tabular}
 \end{table}
 
 \subsubsection{Procedure}
 
 \begin{enumerate}
-  \item Turn on the oscilloscope, and connect one channel to the power supply, and another to the tachometer.
-  \item On the oscilloscope press the "trigger mode"-key choose the "normal"-option, set the trigger to "rising-edge", and the trigger source to the channel connected to the power supply.
-  \item To prevent false triggering on the oscilloscope set the trigger value to \num{4,50}V with the turn-key.
-  \item Press "single"-key on oscilloscope.
-  \item Turn on the power supply at 5 volt.
-  \item Insert a USB-flash drive in the oscilloscope and press the save key to extract the data.
+  \item S
+  \item S
+  \item S
+  \item S
+  \item S
+  \item S
 \end{enumerate}
 
 \subsubsection{Results}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.8\textwidth]{figures/mechanicalTimeConstant.pdf}
-	\caption{A plot of the step response illustrating the angular velocity over time. The blue dots is the measurements and the red line indicates the mechanical time constant.}
-	\label{mechanicalTimeConstant}
-\end{figure}
-
-The graph in \figref{mechanicalTimeConstant} shows the angular velocity of the motor over time. The read line shows the time constant at \si{\num{63.2} \%} of max angular velocity. In the data the mechanical time constant is found to be:
-%
 \begin{flalign}
   \eq{\tau_{mec}}{0,238} \tx{ s}&&\nonumber
 \end{flalign}
@@ -62,8 +45,3 @@ The graph in \figref{mechanicalTimeConstant} shows the angular velocity of the m
 	\label{motorGain}
 \end{figure}
 %
-The graph in \figref{motorGain} shows motor voltage in relation to the angular velocity, which reveals the gain, \si{K} of the system, as the slope of the least square regression line:
-%
-\begin{flalign}
-  \eq{K}{569.19} \si{\ rad \cdot s^{-1} \cdot V^{-1}}&\nonumber
-\end{flalign}

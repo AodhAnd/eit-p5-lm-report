@@ -4,7 +4,7 @@
 \textbf{Date: 29/11 - 2015}
 
 \subsection{Purpose}
-The purpose of the test is to find the relationship between the velocity and steering gain, \si{K_v}, .
+The purpose of the test is to find the relationship between the velocity and steering gain, \si{K_v}.
 
 % find the needed order of the steering model, and the gain related to the speed during the turning of the vehicle, with a PWM signal as an input and the vehicle's heading angle as an output.
 
@@ -75,10 +75,14 @@ As the test were made with a choosen gain K = 1.5, the gain related to the speed
 A plot of the gain against the speed can be seen on \figref{steeringPlotSpeedVsGain}.
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{figures/steeringPlotSpeedVsGain.pdf}
-	\caption{Plot of the gain \si{K_v} against the real speed.}
-	\label{steeringPlotSpeedVsGain}
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.4\textwidth]{figures/steeringgainfunction.pdf}
+  }
+  \caption{Plot of the gain \si{K_v} against the real speed.}
+  \label{steeringPlotSpeedVsGain}
 \end{figure}
 
 From this plot the linear gain can be established:

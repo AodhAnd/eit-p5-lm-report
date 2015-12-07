@@ -22,8 +22,8 @@ The first model considered can be seen on \figref{basicSteering}.
 	\label{basicSteering}
 \end{figure}
  
-As described in \secref{Servo}, the angle of the servo is proportional to a pulse width modulated signal on it's control input. The pulse width is therefore chosen as the input in this model. This is multiplied by a constant, $\text{K}_\text{s}$, which translates the pulse width to an angle of the servo.
-If the velocity of the vehicle is assumed constant, the rate of change of the direction must be a function of the servo angle, and a constant, $\text{K}_\text{c}$, representing the speed of the vehicle.
+As described in \secref{Servo}, the angle of the servo is proportional to a pulse width modulated signal on it's control input. The pulse width is therefore chosen as the input in this model. This is multiplied by a constant, \si{K_s}, which translates the pulse width to an angle of the servo.
+If the velocity of the vehicle is assumed constant, the rate of change of the direction must be a function of the servo angle, and a constant, \si{K_v}, representing the speed of the vehicle.
 The rate of change is integrated over time, resulting in a direction. 
 
 \subsection{Expansion of the Directional Model}

@@ -137,14 +137,7 @@ h[nT] &= h[n] = T \cdot h(t) \big\vert_{t=nT}&
 \label{impulseresponsepropotional}
 \end{flalign}
 %
-This makes it a linear mapping, \si{\omega = \Omega \cdot T_d} for each pole in the analogue filter's transfer function on the s-plane to a pole on the z-plane. The s-domain and the z-domain is illustrated in \figref{fig:SplaneVsZplane}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.3]{figures/SplaneVsZplane.pdf}
-	\caption{s-domain and z-domain \cite{AVOppenheim}.}
-	\label{fig:SplaneVsZplane}
-\end{figure}
+This makes it a linear mapping, \si{\omega = \Omega \cdot T_d} for each pole in the analogue filter's transfer function on the s-plane to a pole on the z-plane. 
 
 The main issue when utilizing the impulse variance method is that the sampling rate needs to be relatively high compared to the filter's bandwidth, to not cause aliasing \cite{LyonsR.G}. In the frequency response, seen in \figref{fig:ImpulseVariantFrequencyResponse}, it can be seen that the response of a 6th-order Butterworth filter transformed by impulse invariance, has a frequency response which is larger than from 0 to \si{pi}, hence causing aliasing.
 
@@ -158,11 +151,20 @@ The main issue when utilizing the impulse variance method is that the sampling r
 The Bilinear transform also utilize a analogue prototype filter to convert from s-domain to z-domain, when designing a digital filter. This transformation type is not a linear transformation from the s-domain to the z-domain as it is with the impulse variance method. Instead it is a non-linear transformation which is mapping poles from \si{-\infty < \Omega < \infty} in the s-domain to \si{-\pi < \omega < \pi} in the z-domain \cite{OlesSlides}. This yields a relationship between the continuous-time frequencies to the discrete-time frequencies called pre-warping.
 %
 \begin{flalign}
-\omega &= 2 \cdot \arctan(\frac{\Omega \cdot T_d}{2})&
-\label{impulseresponsepropotional}
+\omega &= 2 \cdot \arctan(\frac{\Omega \cdot T_d}{2}) \rightarrow \Omega = \frac{2}{T_d} \cdot \tan(\frac{\omega}{2}) &
+\label{eq:bilinearprewarp}
 \end{flalign}
 %
-A frequency response of the same filter, as the frequency response for the impulse invariance, is illustrated in \figref{fig:BilinearFrequencyResponse}. Here it can be seen that the frequency response does not exceed the limit from 0 to \si{pi}, hence not causing a aliasing problem \cite{AVOppenheim}.
+A frequency response of the same filter, as the frequency response for the impulse invariance, is illustrated in \figref{fig:BilinearFrequencyResponse}. The bilinear transform avoids aliasing problems because it maps the s-planes imaginary axis onto the z-planes unit circle \cite{AVOppenheim}, which can be seen in \figref{fig:S-planeVsZ-plane}.
+%
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{figures/S-planeVsZ-plane.pdf}
+	\caption{s-domain and z-domain \cite{AVOppenheim}.}
+	\label{fig:S-planeVsZ-plane}
+\end{figure}
+%
+From \figref{fig:BilinearFrequencyResponse} it can be seen that the frequency response does not exceed the limit from 0 to \si{pi}, hence not causing a aliasing problem \cite{AVOppenheim}.
 
 \begin{figure}[H]
 	\centering
@@ -171,13 +173,14 @@ A frequency response of the same filter, as the frequency response for the impul
 	\label{fig:BilinearFrequencyResponse}
 \end{figure}
 
+It has been chosen to use the bilinear transformation when designing the filter. This is mainly do to the issue with aliasing that occurs when utilizing impulse variance transform which does not happen when utilizing bilinear transform.
 
-\subsection{General transfer function}
-
-Pre-warping: 
-
+\subsection{Design a low-pass Butterworth filter using the bilinear transform}
+When utilizing bilinear transform it is necessary to frequency warp (pre-warp) the continuous-time specification for the cut-off frequency, from \secref{sec:FilterRequirements}. This is done by utilizing the relationship between the continuous-time frequencies in the s-domain to the discrete-time frequencies in the z-domain illustrated in \eqref{eq:bilinearprewarp}.
+%
 \begin{flalign}
-\eq{\Omega}{2 \cdot T_d \cdot \tan{\frac{0.3 \pi}{2}}} \\
+\Omega_p &= 80 \unit{Hz}\\
+\Omega_s &= 333.2 \unit{Hz}
 \end{flalign}
 
 Magnitude squared function:

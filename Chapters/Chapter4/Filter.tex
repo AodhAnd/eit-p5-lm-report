@@ -139,12 +139,12 @@ h[nT] &= h[n] = T \cdot h(t) \big\vert_{t=nT}&
 %
 This makes it a linear mapping, \si{\omega = \Omega \cdot T_d} for each pole in the analogue filter's transfer function on the s-plane to a pole on the z-plane. The s-domain and the z-domain is illustrated in \figref{fig:SplaneVsZplane}.
 
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[scale=0.3]{figures/SplaneVsZplane.pdf}
-%	\caption{s-domain and z-domain \cite{AVOppenheim}.}
-%	\label{fig:SplaneVsZplane}
-%\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{figures/SplaneVsZplane.pdf}
+	\caption{s-domain and z-domain \cite{AVOppenheim}.}
+	\label{fig:SplaneVsZplane}
+\end{figure}
 
 The main issue when utilizing the impulse variance method is that the sampling rate needs to be relatively high compared to the filter's bandwidth, to not cause aliasing \cite{LyonsR.G}. In the frequency response, seen in \figref{fig:ImpulseVariantFrequencyResponse}, it can be seen that the response of a 6th-order Butterworth filter transformed by impulse invariance, has a frequency response which is larger than from 0 to \si{pi}, hence causing aliasing.
 

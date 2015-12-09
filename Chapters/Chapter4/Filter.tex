@@ -1,4 +1,4 @@
-\chapter{Digital Filter}
+\chapter{Digital Filter}\label{chap:digitalFilter}
 
 When utilizing a sensor unwanted noise can arise and influence the measurements acquired. By implementing a filter it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{HardwareChoice}, is active while the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a inexpedient effect on the controller which is implemented on the prototype. With ideal circumstances the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise could be a potential solution to get more accuracy.
 
@@ -74,7 +74,7 @@ Further requirements for the filter will be found by using the FFT, which is ill
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=1]{figures/BodePlotSteeringInnerLoop.jpg}
+%	\includegraphics[scale=1]{figures/BodePlotSteeringInnerLoop.jpg}
 	\caption{Frequency response for various filter types}
 	\label{fig:BodePlotSteeringInnerLoop}
 \end{figure}
@@ -160,7 +160,7 @@ A frequency response of the same filter, as the frequency response for the impul
 %
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.3]{figures/SplaneVsZplane.pdf}
+%	\includegraphics[scale=0.3]{figures/SplaneVsZplane.pdf}
 	\caption{s-domain and z-domain \cite{AVOppenheim}.}
 	\label{fig:S-planeVsZ-plane}
 \end{figure}

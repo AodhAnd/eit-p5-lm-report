@@ -175,43 +175,91 @@ From \figref{fig:BilinearFrequencyResponse} it can be seen that the frequency re
 
 It has been chosen to use the bilinear transformation when designing the filter. This is mainly do to the issue with aliasing that occurs when utilizing impulse variance transform which does not happen when utilizing bilinear transform.
 
-\subsection{Design a low-pass Butterworth filter using the bilinear transform}
-When utilizing bilinear transform it is necessary to frequency warp (pre-warp) the continuous-time specification for the cut-off frequency, from \secref{sec:FilterRequirements}. This is done by utilizing the relationship between the continuous-time frequencies in the s-domain to the discrete-time frequencies in the z-domain illustrated in \eqref{eq:bilinearprewarp}.
+\subsection{Designing a low-pass Butterworth filter using the bilinear transform}
+When utilizing bilinear transform it is necessary to frequency warp the passband frequency and the stopband frequency, from \secref{sec:FilterRequirements}. This is done by utilizing the relationship between the discrete-time frequencies in the z-domain to the continuous-time frequencies in the s-domain illustrated in \eqref{eq:bilinearprewarp}. 
 %
 \begin{flalign}
 \Omega_p &= 80 \unit{Hz}\\
 \Omega_s &= 333.2 \unit{Hz}
 \end{flalign}
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}lll}
+& \si{\Omega_p} & is the passband frequency in continuous time &\unitWh{Hz} \\
+& \si{\Omega_s}	& is the stopband frequency in continuous time &\unitWh{Hz} \\
+\end{tabular}
 
-Magnitude squared function:
-
+By utilizing the magnitude squared function for a Butterworth filter, it is possible to find the cut-off frequency and the order, N, of the filter:
+%
 \begin{flalign}
-\eq{|H(e^{j\omega}|^2}{\frac{1}{1+(\frac{\Omega}{\Omega_c})^{2N}}} \\
+\eq{|H(e^{j\omega}|^2}{\frac{1}{1+(\frac{\Omega}{\Omega_c})^{2N}}}
 \end{flalign}
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}lll}
+& \si{\Omega}       & is the pre-warped frequencies  &\unitWh{Hz} \\
+& \si{\Omega_C}		& is the cut-off frequency &\unitWh{Hz} \\
+& \si{|H(e^{j\omega}|} & is the attenuation requirements set for the different bands from \secref{sec:FilterRequirements} &\unitWh{dB}
+\end{tabular}
 
-Poles:
-
+Since there is two unknown variables, the cut-off frequency and the order N, it is possible to calculate the values of these by utilizing the two equations with two unknowns:
+%
 \begin{flalign}
-\eq{P_k}{\Omega_c \cdot e^{j(\frac{2 \cdot k -1}{2 \cdot N} \cdot \pi + \frac{\pi}{2})}} \\
-\eq{k}{1,2 \dotsc N}
+0.89125^2 &= \frac{1}{1+(\frac{80}{\Omega_C})^{2N}} \quad \wedge \quad 0.01^2 = \frac{1}{1+(\frac{333.2}{\Omega_C})^{2N}}
 \end{flalign}
+%
+The cut-off frequency is calculated to 96.02 \si{Hz} and the order, N, of the filter to 3.7. The order is rounded to the nearest integer, i.e \si{4}. When the order is known it is possible to utilize the following equation for finding the poles for a Butterworth filter.
+%
+\begin{flalign}
+\eq{P_k}{\Omega_c \cdot e^{j(\frac{2 \cdot k -1}{2 \cdot N} \cdot \pi + \frac{\pi}{2})}}
+\end{flalign}
+%
+Where k equal 1,2 \si{\dotsc N}.
 
-General transfer function:
-
+Since it would desirable to have a stable system, the poles should only be located on the left side of the y-axis in the s-plane.
+%
+\begin{flalign}
+\eq{P_1}{\Omega_c \cdot e^{j \cdot \frac{5}{8} \pi}} \\
+\eq{P_2}{\Omega_c \cdot e^{j \cdot \frac{7}{8} \pi}} \\
+\eq{P_3}{\Omega_c \cdot e^{j \cdot \frac{9}{8} \pi}} \\
+\eq{P_4}{\Omega_c \cdot e^{j \cdot \frac{11}{8} \pi}}
+\end{flalign}
+%
+The general transfer function for a Butterworth filter is defined as:
+%
 \begin{flalign}
 \eq{H(s)}{\frac{G_o}{\prod\limits_{k = 1}^N (s-P_k)}}
 \end{flalign}
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}lll}
+& \si{G_o}       & is the gain of the filter  &\unitWh{\cdot} \\
+\end{tabular}
 
-Transfer function:
+\todo{something about gain}
 
 \begin{flalign}
-\eq{H(s)}{\frac{G_o}{(s-e^{j\cdot \frac{2}{3} \cdot \pi})}}
+\eq{H(s)}{\frac{\Omega_c^4}{(s-\Omega_ce^{j\cdot \frac{5}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{7}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{9}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{11}{8} \cdot \pi})}}
 \end{flalign}
+
+It can be seen from the placement of the poles, that there is two complex pole-pair. By utilizing the rule \si{s = s*}, it is possible to change the transfer function.
+%
+\begin{flalign}
+\eq{H(s)}{\frac{\Omega_c^4}{(s-\Omega_ce^{j\cdot \frac{5}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{7}{8} \cdot \pi})(s-\Omega_ce^{-j\cdot \frac{7}{8} \cdot \pi})(s-\Omega_ce^{-j\cdot \frac{5}{8} \cdot \pi})}}
+\end{flalign}
+%
+Transforming the complex poles to standard form:
+%
+\begin{flalign}
+\eq{H(s)}{\frac{\Omega_c^4}{(s^2 + 2 \cdot \cos{(\frac{7}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)(s^2 + 2 \cdot \cos{(\frac{5}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)}}
+\end{flalign}
+
+\todo{Bodeplot}
 
 The next step would be to transfer the continuous-time Butterworth filter to the z-domain.
 
 \subsection{Transforming the filter to Z-domain}
 
+\begin{flalign}
+\eq{s}{\frac{2}{T_d}(\frac{1-z^{-1}}{1+z^{-1}})}
+\end{flalign}
 
 Standard formula:
 
@@ -219,10 +267,27 @@ Standard formula:
 H(z) &= \frac{B(z)}{A(z)} = \frac{b_0 + b_1z^-1 + b_2z^-2 + \dotsc + b_Nz^{-N}}{1 + a_1z^-1 + a_2z^-2 + \dotsc + a_Mz^{-M}}
 \end{flalign}
 
+\begin{flalign}
+H(z) &= \frac{B(z)}{A(z)} = \frac{0.1326 + 0.5305z^{-1} + 0.7957z^{-2} + 0.5305z^{-3} + 0.1326z^{-4}}{1 + 0.4515z^{-1} + 0.5505z^{-2} + 0.09825z^{-3} + 0.02167z^{-4}}
+\end{flalign}
+
 \section{Implementation}
 
-\subsubsection{Direct Form I}
 
-\subsubsection{Direct Form II}
+\lstset{language=Matlab, caption={Code Implementation in Matlab}, label=lst:FilterMatlabImplementation}
+\begin{lstlisting}
+for i = 1:707
+
+  BUF0 = input(i) - (a1*BUF1 + a2*BUF2 + a3*BUF3 + a4*BUF4)
+	
+  output(i) = BUF0*b0 + b1*BUF1 + b2*BUF2 + b3*BUF3 + b4*BUF4
+    	
+  BUF4 = BUF3
+  BUF3 = BUF2
+  BUF2 = BUF1
+  BUF1 = BUF0
+    
+ end
+\end{lstlisting}
 
 \section{Results}

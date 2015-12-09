@@ -3,13 +3,13 @@ The ``9 degrees of freedom'' sensor board includes three sensors, of which one i
 The coordinates are sent through \si{I^2C} each time asked by the software onboard the Arduino. This means that it is possible to set the sampling time according to the needs of the scheduling, see\todo{secref{Scheduling}}. 
 By maintaining the sensor in a horizontal position and using trigonometry it is possible to get an angle equivalent to a compass heading :
 \begin{flalign}
-\eq{\theta_{heading}}{\frac{180}{\pi} \cdot Arctan\left(-\frac{y}{x}\right)} \unit{^{\circ}}
+\eq{\theta_{heading}}{\frac{180}{\pi} \cdot \arctan\left(-\frac{y}{x}\right)} \unit{^{\circ}}
 \label{eq:headingTrigonometry}
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
 & \si{\theta_{heading}} & is the sensor's heading                  		&\unitWh{^{\circ}}\\
-& \si{Arctan} 			& is the reciprocal of the tangente function    &\unitWh{rad}\\
+& \si{\arctan} 			& is the reciprocal of the \si{\tan} function    &\unitWh{rad}\\
 & \si{y} 				& is the y-component of the measured magnitude 	&\unitWh{G}\\
 & \si{x} 			    & is the x-component of the measured magnitude 	&\unitWh{G}\\
 \end{tabular}

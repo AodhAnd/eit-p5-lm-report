@@ -51,14 +51,20 @@ I don't know how it's implemented
 
 
 \subsubsection{Queue}
-not use of queue? becaus ewe wan it to be instantly?\\
-or use to make it predictable?
+The tasks are meant to be done at the time they are told to be done, ensuring the good control of the vehicle. But some functionnalities are not critical, and can wait until the processor have time to do them.\\
+To get a list of things to do until one of them becoe critical, the tasks will be stored in a queue, that will execute them one after the other, until a critical task short cut them. The order of the task will be done regarding the priorities.
 
 
 \subsection{Round Robin Schedule}
-Explanation of the principle\\
+A way of calculating the minimum time needed to execute all the tasks in a period of time, is by putting them one after the other, and see if the sum of the time necessary to exucute all the task is bigger than the time allowed to do one full turn of tasks.
 
-picture of the idea
+A picture illustrating the round robin schedule can be seen in \figref{roundRobinSchedule}
 
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8]{figures/roundRobinSchedule.pdf}
+	\caption{An example of the use of round robien schedule}
+	\label{roundRobinSchedule}
+\end{figure}
 
 

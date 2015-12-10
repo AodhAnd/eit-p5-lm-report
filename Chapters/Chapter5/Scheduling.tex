@@ -1,0 +1,36 @@
+\section{Scheduling}
+For running the code on the arduino PCB, and be able to manage all the sensors at the same time, a schefuling is needed. Indeed, the PCB must be able to recieve and process the data from the GoT system, the hall sensors and the magnetometer and to make a decision related to the planned route to follow. This decision must affect at the same time the speed through the motor, and the steering through the servo.
+A description of the scheduling principle and its function will be described in this section.
+
+
+\subsection{Kernel}
+The chosen kernel allow us to control the tasks and then the behavior of the vehicle through clocks, to have a precise and constant schedule This propriety make it possible to export on another kind of processor and still have the same render, as long as it ahve a frequency high enough to process all the data needed.
+
+
+\subsubsection{Semaphores}
+The use of semaphores make 
+\\
+
+\subsubsection{Tasks}
+The different functions of the vehicle have been separated into multiple tasks, that can switch regarding to their priority. 
+
+\textbf{Hall Sensors:}
+The two hall sensors of the two belts are read at a certain frequency, and knowing the distance the vehicle moves during a full turn of the drive wheel, the real speed can be calculated independently from each other belts.\\
+
+\textbf{Steering Control:}
+The steering task is gets the reading from te magnetometer, transform them in the coordinate system that fit the model. Then those values are converted into a heading angle, that will be used in the steering P-Controller to calculate the new agle to follow from the reference angle. The descision will be sent directly to the servo.\\
+
+\textbf{Speed Control:}
+A wanted speed value is compared to the actual speed, and the resulting error is the input of the Velocity PI-Controller, that will set a new speed according to the reference.\\
+
+\textbf{GoT system:}
+
+
+
+\subsubsection{Queue}
+
+
+\subsection{Round Robin Schedule}
+
+
+

@@ -41,13 +41,15 @@ Because of its offset the P-controller is not sufficient for reaching and so con
  	\label{proportionalControllerWithFeedforward}
 \end{figure}
 
-In this design the set-point is changed by forward feeding the desired value of the output \si{V_{ref}} to the input of the plant, summing up with the error fed through the P-controller. The gain on the feed forward makes sure that the value of \si{V_{ref}} is in the same unit as the signal going into the plant, here in volts, \si{U}. Since the system gain \si{K} converts volts into linear velocity, the gain in the forward feed is set to \si{\frac{1}{K}}, which yields the following closed
+In this design the set-point is changed by forward feeding the desired value of the output \si{V_{ref}} to the input of the plant, summing up with the error fed through the P-controller. The gain on the feed forward makes sure that the value of \si{V_{ref}} is in the same unit as the signal going into the plant, here in volts, \si{U}. Since the system gain \si{K} converts volts into linear velocity, the gain in the forward feed is set to \si{\frac{1}{K}}, which yields the following closed transfer function:
 
 \begin{flalign}
-  \eq{ \frac{V_{out}}{V_{ref}} }{ \frac{\frac{K\cdot \frac{1}{K}+K\cdot K_p}{1+K \cdot K_p}}{\frac{\tau}{1+K\cdot K_p}\cdot s + 1 } }&\nonumber\\
-  \eq{ \frac{V_{out}}{V_{ref}} }{ \frac{\frac{K\cdot \frac{1}{K}+K\cdot \frac{1}{K}}{1+K \cdot \frac{1}{K}}}{\frac{\tau}{1+K\cdot \frac{1}{K}}\cdot s + 1 } }&\nonumber
+  \eq{ \frac{V_{out} }{V_{ref}} }{ \frac{\frac{K\cdot \frac{1}{K}+K\cdot K_p}{1+K \cdot K_p}}{\frac{\tau}{1+K\cdot K_p}\cdot s + 1 } }&\nonumber\\
+  \eq{ \frac{V_{out} }{V_{ref}} }{ \frac{\frac{K\cdot \frac{1}{K}+K\cdot \frac{1}{K}}{1+K \cdot \frac{1}{K}}}{\frac{\tau}{1+K\cdot \frac{1}{K}}\cdot s + 1 } }&\nonumber\\
+  \eq{ \frac{V_{out} }{V_{ref}} }{ \frac{1}{\frac{\tau}{2} \cdot s + 1} }&\nonumber
 \end{flalign}
 
+From this it is evident
 
 \begin{figure}[H]
  	\centering

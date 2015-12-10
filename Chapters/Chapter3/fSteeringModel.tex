@@ -23,8 +23,8 @@ The first model considered can be seen on \figref{basicSteering}.
 \end{figure}
  
 As described in \secref{Servo}, the angle of the servo is proportional to a pulse width modulated signal on its control input (let aside the intrinsic offset of the servomotor). The pulse width is therefore chosen as the input in this model. It is then multiplied by a constant, \si{K_s}, which translates the pulse width to an angle of the servo.
-Since the velocity of the vehicle is assumed constant, the rate of change of the direction, \si{\omega_{vehicle} (s)}, must be a function of the servo angle, and a constant, \si{K_v}, representing the speed of the vehicle and the braking the system.
-The rate of change in the vehicle's angle is finally integrated over time, resulting in a angle heading, \si{\theta_{vehicle} (s)}. 
+Since the velocity of the vehicle is assumed constant, the rate of change of the direction, \si{\omega_{v} (s)}, must be a function of the servo angle, and a constant, \si{K_v}, representing the speed of the vehicle and the braking the system.
+The rate of change in the vehicle's angle is finally integrated over time, resulting in a angle heading, \si{\theta_{v} (s)}. 
 
 \subsection{Extension of the Directional Model}
 

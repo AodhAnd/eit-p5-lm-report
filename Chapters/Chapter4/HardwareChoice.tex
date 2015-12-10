@@ -10,7 +10,7 @@ The microcontroller is the brain of the system. The purpose of the microcontroll
 
 The requirements for the microcontroller are:
 \begin{itemize}
-\item Having a CPU, that has a frequency greater than \si{XX\ MHz}. \todo{Number}
+% \item Having a CPU, that has a frequency greater than \si{XX\ MHz}. \todo{Number}
 \item Having I/O connections, both digital and analogue.
 \item Having output connections, that can transmit PWM signals.
 \item Having 5 free timers,\todo{Where do we have this number from (in the report)?} to run and control the different parts of the system in parallel.
@@ -116,7 +116,7 @@ The requirements for the motor driver are:
 \begin{itemize}
 \item Having to be controlled by the microcontroller.
 \item Offering the possibility to power it through an external power source.
-\item Being able to handle up to \si{7,2 V} input. \todo{Why 7.2 (except because the battery delivers 7.2V ^^) ?}
+\item Being able to handle the battery pack's voltage.
 \item Allowing to power the motor in both direction.
 \end{itemize}
 
@@ -153,22 +153,6 @@ Each one of the H-bridges is controlled by a PWM signal from the Arduino. Howeve
 The Pololu dual VHN5019 motor driver shield is used in this project, as it is made for the Arduino and therefore easy to implement. Moreover, it can power the Arduino through an external power source and get a power output high enough for the motor and in each direction.
 
 %Source: The datasheet
-
-%%%%%%%%%%%%%%%%-Power Supply-%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Power Supply}
-The external power supply has to power both the motor, which needs a high voltage and high peak current, and the other components, which need low voltage and low current.
-
-The requirements for the power supply are:
-\begin{itemize}
-\item Giving an output voltage of \si{7,2\ V}.\todo{We chose the motor driver for having 7.2V (because of the battery?) and the battery for delivering \si{7,2\ V} ??... Suggestion: Maybe we could say the battery was given instead of making up reasons for chosing it ?}
-\item Delivering a stable power output.
-\item Being portable enough to be put on board the vehicle
-\item Being capable of running the motor at full speed for \si{XX\ min}. \todo{Number}
-\end{itemize}
-
-\subsubsection{Battery Pack}
-For the project a rechargeable battery pack of \si{7,2\ V} is chosen. As the prototype is not set to run a long time, less than XX, a normal battery pack used for model vehicles can be used. The battery pack will deliverer a stable power output as long as there is power in the battery pack. In appendix\todo{Make test}, it can be seen, that the battery pack can deliverer a stable power output for XX minutes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 \chapter{Digital Filter}
+=======
+\chapter{Digital Filter}\label{chap:digitalFilter}
+
+>>>>>>> b77bbf6d2113bfa1b1be628ffedd32794df062c5
 When utilizing a sensor unwanted noise can arise and influence the measurements acquired. By implementing a filter it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{HardwareChoice}, is active while the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a inexpedient effect on the controller which is implemented on the prototype. With ideal circumstances the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise could be a potential solution to get more accuracy.
 
 There is many cons and pros when considering between implementing a analogue or digital filter. But since the signal received from the magnetometer is digitalized, it has been chosen to implement a digital filter.
@@ -87,7 +92,43 @@ From the FFT performed, seen in \figref{fig:FFTofStationaryMeasurements}, a spik
 
 Some consideration has to be made for the filter requirements, to ensure that the filter is not influencing the system and the desired frequency needlessly.
 
+<<<<<<< HEAD
 \subsection{Filter Type}
+=======
+\section{Filter Requirements} \label{sec:FilterRequirements}
+It has been chosen to design the filter by using a iterative process. This is done to ensure that the filter does not take to long to execute, i.e. it will take up to much computation time on the Arduino Mega. When a digital filter is implemented it is also necessary to think about group delay, since this will change the phase of the system and cause an output delay, \todo{is there a rule of thumb for this?}. To see if the filter complies with these requirement, it is necessary to first design and implement the filter\todo{something about how much time is to much time}.
+
+By doing so, it is found that a filter with a order of 4 is satisfactory.
+
+Further requirements for the filter will be found by using the FFT, which is illustrated in the previous section, and by finding the pole placement of the  inner loop of the steering model, where the Magnetometer is placed, see \secref{sec:SteeringControl}. This is necessary to ensure that the poles from the filter does not affect the inner loop control. A rule of thumb is that the pole placement of the filter should be placed atleast one decade after the main pole of the system. If the filters pole placement is closer than this, it would be necessary to implement the transfer function for the filter in the steering model, which is undesirable. A bodeplot for the inner loop in the steering model, can be seen in \figref{fig:BodePlotSteeringInnerLoop}.
+
+\begin{figure}[H]
+	\centering
+%	\includegraphics[scale=1]{figures/BodePlotSteeringInnerLoop.jpg}
+	\caption{Frequency response for various filter types}
+	\label{fig:BodePlotSteeringInnerLoop}
+\end{figure}
+
+It can be seen from the bodeplot in \figref{fig:BodePlotSteeringInnerLoop}, that the inner loops cut-off frequency is at 0.22 \si{Hz}. The cut-off frequency of the filter should therefore be at atleast 2.2 \si{Hz}. 
+
+Since it is desired to influence the DC-signal as little as possible, see \figref{fig:FFTofStationaryMeasurements}, a low-pass filter is implemented. The ideal filter would have a passband attenuation of 0 \si{dB}, since this is not a ideal filter a maximum attenuation variation is set from 1 \si{dB} to 0 \si{dB}. The filter has been set to have a order of 4 and it is therefore possible to have a attenuation  40 \si{dB} in the stopband if the transitionband has a length of 5.831 \si{Hz}.
+
+The sampling frequency is 30 ms, which is 33.3 \si{Hz}. The Nyquist frequency is therefore 16.67 \si{Hz}. It has been chosen to have the passband end at 8.33 \si{Hz} and the stopband to start at 14.16 \si{Hz}. This should give a cut-off frequency which is a lot higher than 2.2 \si{Hz}. Furthermore, by the use of an iterative process, it has been found that by placing the end of the passband earlier would yield a high delay in the output signal.
+
+The filters discrete-time specification is therefore:
+
+\textbf{Passband specification:}
+\begin{flalign}
+0.89125 &\leq |H(e^{j\omega}| \leq 1 \\
+\end{flalign}
+
+\textbf{Stopband specification:}
+\begin{flalign}
+|H(e^{j\omega})| &\leq 0.01 \\
+\end{flalign}
+
+\section{Filter Type}
+>>>>>>> b77bbf6d2113bfa1b1be628ffedd32794df062c5
 The specification for the filter is set and it is possible to examine which filter would be suitable for fulfilling the specified requirements, without influencing the DC-value and the system needlessly.
 
 \begin{figure}[H]
@@ -152,7 +193,7 @@ A frequency response of the same filter, as the frequency response for the impul
 %
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.3]{figures/SplaneVsZplane.pdf}
+%	\includegraphics[scale=0.3]{figures/SplaneVsZplane.pdf}
 	\caption{s-domain and z-domain \cite{AVOppenheim}.}
 	\label{fig:S-planeVsZ-plane}
 \end{figure}

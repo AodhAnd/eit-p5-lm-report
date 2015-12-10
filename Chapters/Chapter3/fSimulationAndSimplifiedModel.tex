@@ -60,4 +60,14 @@ However, a quick glance at the axes shows how minimal the impact of this differe
 %
 For frequencies below 1000 \si{rad\cdot s^{-1}} the two models are very similar because each of their first poles are very close; in 3,8759 \si{rad\cdot s^{-1}} for the \si{1^{st}} order model and 3,9 \si{rad\cdot s^{-1}} for the \si{2^{nd}} order model. The \si{2^{nd}} order model however has an other pole which causes the phase shift and shift in magnitude at higher frequencies. However since this pole is so high, 1489,5 \si{rad\cdot s^{-1}}, it does not affect the lower pole considerably and the differences are way beyond significant frequency range.
 
-In the following section the simplified model is verified directly by comparison with recorded data of the vehicle's step response.
+Now the model is approximated with a first order model using a certain gain and time constant, deduced from the second order model. The parameters for this has been determined through a series of smaller tests, however determining the gain and time constant can also be done through testing of the system in its entity. Such tests are carried out and can be found in \appref{app:gainTest} and \appref{app:inertiaTest}, where the gain and time constant is found.
+The two approaches gives slightly different results when simulating, as seen on \figref{fig:ComparingFirstOrderModels}. For both simulations a disturbance, sticktion, is added to the output. For the model parameters determined through the 2nd order model, sticktion is not accounted for. It is however accounted for when measuring the gain and time constant through testing of the entire vehicle. This is the reason of the offset between the two simulations. It also causes the negative offset for both simulations.
+%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{figures/ComparingFirstOrderModels.png}
+	\caption{Plot showing differences between the first order model parameters, derived from the 2nd order model and for the other found through testing of the combined system}
+	\label{fig:ComparingFirstOrderModels}
+\end{figure}
+%
+In the rest of the report the holistically measured gain and time constant is used in simulation of the plant as a first order system. In the following section this simplified model is verified directly by comparison with recorded data of the vehicle's step response.

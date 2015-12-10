@@ -1,18 +1,40 @@
 \section{Scheduling}
-For running the code on the arduino PCB, and be able to manage all the sensors at the same time, a schefuling is needed. Indeed, the PCB must be able to recieve and process the data from the GoT system, the hall sensors and the magnetometer and to make a decision related to the planned route to follow. This decision must affect at the same time the speed through the motor, and the steering through the servo.
+For running the code on the arduino PCB, and be able to manage all the sensors at the same time, a scheduling is needed. Indeed, the PCB must be able to recieve and process the data from the GoT system, the hall sensors and the magnetometer to make a decision related to the planned route to follow. This decision must affect at the same time the speed through the motor, and the steering through the servo.
 A description of the scheduling principle and its function will be described in this section.
 
 
 \subsection{Kernel}
-The chosen kernel allow us to control the tasks and then the behavior of the vehicle through clocks, to have a precise and constant schedule This propriety make it possible to export on another kind of processor and still have the same render, as long as it ahve a frequency high enough to process all the data needed.
+The chosen kernel allows to control the tasks and then the behavior of the vehicle through clocks, to have a precise and constant schedule. This propriety make possible to export it on another kind of processor and still have the same render, as long as it have a frequency high enough to process all the data needed.\\
+The Kernel advantage is also the definition of semaphores, priorities, and critical regions, that the system will use to choose which task to run, and how often it should be.
 
 
 \subsubsection{Semaphores}
 The use of semaphores make 
 \\
+description and picture of the semaphores
 
 \subsubsection{Tasks}
-The different functions of the vehicle have been separated into multiple tasks, that can switch regarding to their priority. 
+The different functions of the vehicle have been separated into multiple tasks, that can switch regarding to their priority. Four tasks are created to control the vehicle:
+
+\begin{lstlisting} %[langage=c++, caption = {blabla}, label = {lst:tasks}]
+
+  task1=k_crt_task(tSpeed,10,stack,300);               // Hall Sensors
+  task2=k_crt_task(SpeedControl,12,stack2,300);        // Velocity Controller
+  task3=k_crt_task(SteeringControl,11,stack3,1000);    // Steering Controller
+
+\end{lstlisting}
+
+Those declarations of the tasks are made thanks to the function k_crt_task needing the name of the function to run, it's priority, the area to use and it's lenght. The implementation of this function can be seen below.
+
+
+\begin{lstlisting} %[langage=c++, caption = {blabla}, label = {lst:tasks}]
+
+ struct k_t *k_crt_task (void (*pTask) (void), char prio, char *pStk, int stkSize);
+ 
+\end{lstlisting}
+
+
+                       
 
 \textbf{Hall Sensors:}
 The two hall sensors of the two belts are read at a certain frequency, and knowing the distance the vehicle moves during a full turn of the drive wheel, the real speed can be calculated independently from each other belts.\\
@@ -24,13 +46,19 @@ The steering task is gets the reading from te magnetometer, transform them in th
 A wanted speed value is compared to the actual speed, and the resulting error is the input of the Velocity PI-Controller, that will set a new speed according to the reference.\\
 
 \textbf{GoT system:}
+I don't know how it's implemented
 
 
 
 \subsubsection{Queue}
+not use of queue? becaus ewe wan it to be instantly?\\
+or use to make it predictable?
 
 
 \subsection{Round Robin Schedule}
+Explanation of the principle\\
+
+picture of the idea
 
 
 

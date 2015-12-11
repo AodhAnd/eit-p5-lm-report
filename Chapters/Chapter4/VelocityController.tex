@@ -13,7 +13,7 @@ As seen on \figref{proportionalController} the P-controller is simply a proporti
 This gives the following closed loop transfer function:
 %
 \begin{flalign}
-  \eq{ \frac{V_{out}}{V_{ref}} }{ \frac{\frac{ K_p \cdot K }{ K_p \cdot K + 1 } }{ \frac{ \tau }{ K_p \cdot K + 1 } \cdot s + 1} }&\nonumber
+  \eq{ \frac{V_{out}}{V_{ref}} }{ \frac{\frac{ K_p \cdot K }{ K_p \cdot K + 1 } }{ \frac{ \tau }{ K_p \cdot K + 1 } \cdot s + 1} }&\label{eq:PclosedLoopTfs}
 \end{flalign}
 %
 From this it is evident that the new system time constant is dependent on the chosen \si{K_p}. The relation is seen directly in the standard form as the coefficient of s:
@@ -25,31 +25,71 @@ From this it is evident that the new system time constant is dependent on the ch
 So if \si{K_p} is chosen such that it cancels out the gain \si{K} of the plant, allowing for the linear velocity as the input, the time constant will be reduced to half, as will the gain:
 \begin{flalign}
   \eq{ \frac{V_{out}}{V_{ref}} }{ \frac{\frac{ \frac{1}{K} \cdot K }{ \frac{1}{K} \cdot K + 1 } }{ \frac{ \tau }{ \frac{1}{K} \cdot K + 1 } \cdot s + 1} }&\nonumber\\
-  \eq{ \frac{V_{out}}{V_{ref}} }{\frac{\frac{1}{2}}{\frac{\tau}{2} \cdot s + 1}}&\nonumber
+  \eq{ \frac{V_{out}}{V_{ref}} }{\frac{\frac{1}{2}}{\frac{\tau}{2} \cdot s + 1}}&\label{eq:PclosedLoop}
 \end{flalign}
 %
 This means that the P-controller will give an output of half the input, but rise to its set-point twice as fast as the system step without control. This is tested on the vehicle and the response is as expected as seen in \appref{app:proportionalControllerTest}.
 %
-
 \subsection{P-Controller with Feed Forward}
-Because of its offset the P-controller is not sufficient for reaching and so controlling the decried output velocity. However the P-controller can be improved by manipulating its set-point through use of feed forward, see \figref{proportinalControllerWithFeedforward}.
-
+Because of its offset the P-controller is not sufficient for reaching and so controlling the decried output velocity. However the P-controller can be improved by manipulating its set-point through use of feed forward, see \figref{proportionalControllerWithFeedforward}.
+%
 \begin{figure}[H]
  	\centering
  	\includegraphics[scale=0.4]{figures/proportionalControllerWithFeedforward.pdf}
  	\caption{Diagram of the proportional controller with feedforward}
  	\label{proportionalControllerWithFeedforward}
 \end{figure}
-
-In this design the set-point is changed by forward feeding the desired value of the output \si{V_{ref}} to the input of the plant, summing up with the error fed through the P-controller. The gain on the feed forward makes sure that the value of \si{V_{ref}} is in the same unit as the signal going into the plant, here in volts, \si{U}. Since the system gain \si{K} converts volts into linear velocity, the gain in the forward feed is set to \si{\frac{1}{K}}, which yields the following closed transfer function:
-
+%
+In this design the set-point is changed by forward feeding the desired value of the output \si{V_{ref}} to the input of the plant, summing up with the error fed through the P-controller. The gain on the feed forward makes sure that the value of \si{V_{ref}} is in the same unit as the signal going into the plant, here in volts, \si{U}. Since the system gain \si{K} converts volts into linear velocity, the gain in the forward feed is set to \si{\frac{1}{K}}, which yields the following closed loop transfer function:
+%
 \begin{flalign}
-  \eq{ \frac{V_{out} }{V_{ref}} }{ \frac{\frac{K\cdot \frac{1}{K}+K\cdot K_p}{1+K \cdot K_p}}{\frac{\tau}{1+K\cdot K_p}\cdot s + 1 } }&\nonumber\\
+  \eq{ \frac{V_{out} }{V_{ref}} }{ \frac{\frac{K\cdot \frac{1}{K}+K\cdot K_p}{1+K \cdot K_p}}{\frac{\tau}{1+K\cdot K_p}\cdot s + 1 } }&\nonumber
+\end{flalign}
+%
+If the \si{K_p} value again is selected to cancel out the system gain, allowing for velocity directly on the controller input, the following emerges from the closed loop transfer function:
+%
+\begin{flalign}
   \eq{ \frac{V_{out} }{V_{ref}} }{ \frac{\frac{K\cdot \frac{1}{K}+K\cdot \frac{1}{K}}{1+K \cdot \frac{1}{K}}}{\frac{\tau}{1+K\cdot \frac{1}{K}}\cdot s + 1 } }&\nonumber\\
   \eq{ \frac{V_{out} }{V_{ref}} }{ \frac{1}{\frac{\tau}{2} \cdot s + 1} }&\nonumber
 \end{flalign}
+%
+If this is compared to the resulting closed loop transfer function for the original P-controller, \eqref{eq:PclosedLoop}, it is immediately obvious that the gain-problem has been solved. Notice that the time constant of the closed loop remains half of that of the plant. So by using the forward feed to place the set-point of the controller, P-control suddenly becomes a viable option for controlling the velocity. This is tested on the vehicle and the response is as expected as seen in \appref{app:proportionalControllerTest}.
 
-From this it is evident
+If however the P-controller with feed forward is tested with an added disturbance, for instance a adding friction when breaking, the forward feed no longer compensates. The set-point compensation origins at the input of the controller, so when a disturbance is imposes on the system, the gain of the plant suddenly changes, and this cannot be accounted for with this feed forward P-controller. The effect is demonstrated in \figref{feedForwardHillOffset}, where the controller was tested on a hill.
+%
+\subsection{PI-Controller}
+To attack the new offset-problem caused by changes in the system gain when disturbances enter the system, a proportional integral controller is the next natural choice. The reason for choosing a PI-controller is because the I-component integrates over the error. This component therefore increases or decreases over time, and so has an adaptive effect on the system. The design is outlined in \figref{proportionalIntegratorController}
+%
+\begin{figure}[H]
+ 	\centering
+ 	\includegraphics[scale=0.4]{figures/proportionalIntegratorController.pdf}
+ 	\caption{Diagram of the proportional integral controller}
+ 	\label{proportionalIntegratorController}
+\end{figure}
+%
+The standard equation for a PI-controller is given and can be rewritten as:
+%
+\begin{flalign}
+  \eq{K_p\cdot(1+ \frac{1}{T_i\cdot s})}{K_p \cdot \frac{T_i \cdot s + 1}{T_i \cdot s}}&\nonumber
+\end{flalign}
+%
+Where \si{T_i} is the time constant of the integrator. Now if the time constant of the integrator is matched to the time constant of the plant, that is \si{T_i = \tau}, the following emerges from the closed loop transfer function:
+%
+\begin{flalign}
+  \eq{\frac{V_{out} }{V_{ref}}}{\frac{K_p \cdot \frac{\tau \cdot s + 1}{\tau \cdot s} \cdot \frac{K}{\tau \cdot s + 1 }}{1 + K_p \cdot \frac{\tau \cdot s + 1}{\tau \cdot s} \cdot \frac{K}{\tau \cdot s + 1 }}}  \ \ \Leftrightarrow  \ \ 
+  \si{\frac{V_{out} }{V_{ref}} = \frac{K_p \cdot \frac{K}{\tau \cdot s}}{1 + K_p \cdot \frac{K}{\tau \cdot s} }}&\nonumber
+\end{flalign}
+%
+This is equivalent to the closed loop transfer function for the P-controller, see \eqref{eq:PclosedLoopTfs}, which means that the gain \si{K_p} again can be scaled directly to cancel out the gain of the plant, so again \si{K_p = \frac{1}{K}}.
+Now to determine \si{K_i}, the original equation for a PI-controller is evaluated:
+%
+\begin{flalign}
+  \si{K_p + K_i\cdot \frac{1}{s}} &= \si{K_p\cdot(1+ \frac{1}{T_i\cdot s}) \ \ \Rightarrow \ \ K_i\cdot \frac{1}{s} = \frac{K_p}{T_i\cdot s} \ \ \Rightarrow \ \ K_i = \frac{K_P}{T_i} \ \ \Rightarrow \ \ K_i = \frac{K_p}{\tau}}&\nonumber
+\end{flalign}
+%
+
+
+
 
 \begin{figure}[H]
  	\centering
@@ -78,15 +118,3 @@ From this it is evident
 
 % Conclusion: 
 % That we need more than a P-controller, because of the overshoot. 
-
-
-
-
-\subsection{PI-Controller}
-
-  \begin{figure}[H]
-  	\centering
-  	\includegraphics[scale=0.4]{figures/proportionalIntegratorController.pdf}
-  	\caption{Diagram of the proportional and Integrator controller without feedforward}
-  	\label{proportionalIntegratorController}
-  \end{figure}

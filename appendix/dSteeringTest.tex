@@ -72,12 +72,12 @@ The vehicle is made to run for \si{4000\ ms} with a reference heading of \si{0 ^
 From \eqref{eq:steeringTestWPcontroller}, the time constant is found as:
 \begin{flalign}
 \eq{\tau}{\frac{1}{K_p \cdot K_{steering}}} \unit{s}
-\label{SteeringTimeconstant}
 \end{flalign}
 
 From this equation and by findig the time constant in each test, it will then be possible to calculate \si{K_{steering}}:
 \begin{flalign}
-\eq{K_{steering}}{\frac{1}{K_p \cdot \tau}}&\nonumber
+\eq{K_{steering}}{\frac{1}{K_p \cdot \tau}} \unit{rad \cdot s^{-2}}
+\label{SteeringTimeconstant}
 \end{flalign}
 %
 The different steering time constants are obtained thanks to the measurement tests. The value of \si{\tau} corresponds to the time when the angle reaches \si{63,2\%} of the final value. A plot of these tests can be seen on \figref{plotStepResponseSteering}. 

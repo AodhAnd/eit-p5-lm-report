@@ -1,5 +1,5 @@
 \chapter{Digital Filter}
-When utilizing a sensor unwanted noise can arise and influence the measurements acquired. By implementing a filter it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{HardwareChoice}, is active while the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a inexpedient effect on the controller which is implemented on the prototype. With ideal circumstances the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise could be a potential solution to get more accuracy.
+When utilizing a sensor unwanted noise can arise and influence the measurements acquired. By implementing a filter it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{HardwareChoice}, is active while the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a inexpedient effect on the steering controller. With ideal circumstances the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise could be a potential solution to get more accuracy.
 
 There is many cons and pros when considering between implementing a analogue or digital filter. But since the signal received from the magnetometer is digitalized, it has been chosen to implement a digital filter.
 
@@ -114,9 +114,34 @@ Considerations for the filter has been made, and it is thereby possible to speci
 \section{Filter Requirements} \label{sec:FilterRequirements}
 Header
 
+Since the requirements needs to be adaptable to the z-plane, the Nyquist-Shannon sampling theorem \cite{AVOppenheim}, is utilized:
 
+\begin{flalign}
+\eq{\Omega_N}{\frac{2\pi \cdot f_s}{2}}
+\end{flalign}
 
+If 66.6 is said to be equal to \si{2\pi}, then the passband 19 \si{Hz} and the stopband 29 \si{Hz} be equal to:
 
+\begin{flalign}
+\frac{19\pi}{33.3} &= 0.5705 \pi \quad \wedge \quad \frac{29\pi}{33.3} = 0.8709\pi
+\end{flalign}
+
+\begin{itemize}
+	\item \textbf{Low-pass filter}
+		\begin{itemize}
+			\item[] A lowpass filter will be implemented influence the DC-signal, as little as possible.
+		\end{itemize}
+	\item \textbf{Passband specifications}
+		\begin{itemize}
+		 \item[] \si{0,8912 \leq |H(e^{j\omega})| \leq 1}
+		 \item[] \si{0 \leq |\omega| \leq \frac{1}{5}\pi}
+		\end{itemize}
+	\item \textbf{Stopband specifications}
+		\begin{itemize}
+		 \item[] \si{|H(e^{j\omega})| \leq 0,01}
+		 \item[] \si{\frac{1}{5}\pi \leq |\omega| \leq \pi}
+		\end{itemize}
+\end{itemize}
 
 \section{Design}
 

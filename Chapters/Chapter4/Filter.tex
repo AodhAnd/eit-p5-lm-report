@@ -3,13 +3,13 @@ When utilizing a sensor unwanted noise can arise and influence the measurements 
 
 There is many cons and pros when considering between implementing a analogue or digital filter. But since the signal received from the magnetometer is digitalized, it has been chosen to implement a digital filter.
 
-tail
+Before establishing requirements for the digital filter, an analysis of the hardware, system and possibilities is necessary.
 
-\section{Filter Considerations}
-Header
+\section{Filter Considerations} \label{sec:FilterConsiderations}
+In this section the needed sample frequency, measurements extract from the Magnetometer and filter type possibilities is analysed.
 
 \subsection{Sampling Frequency}
-Header
+It is necessary examine if it is possible to have a high enough sampling frequency to get a cut-off frequency which does not effect the system. To determine this a examination of the inner loop of the steering model, where the Magnetometer is placed, is needed.
 
 The transfer function for the plant in the inner loop of the steering model, see \secref{sec:SteeringModel}, is given as:
 %
@@ -38,7 +38,7 @@ In the specification for the Magnetometer \cite{??}, the sampling rate is given 
 With this in consideration it has been decided to have a sample rate at 66,66 \si{Hz}, i.e. 15 \si{ms}, even though it will cause a delay. The 66,66 \si{Hz} has been chosen instead of the 75 \si{Hz} to have a margin from the maximum sampling rate the sensor can deliver.
 
 \subsection{Frequency Analysis of Measured Data}
-Before designing a filter it is necessary to analyse data measured with the magnetometer, to ensure the noise is attenuated and not the wanted signal. The data which is analysed is when the vehicle and the magneto is stationary, this will thereby find the stationary variations on the sensor, the acquired measurements is illustrated in \figref{fig:StationaryMeasurementsMagnato}.
+Before establishing requirements for a filter it is necessary to analyse data measured with the magnetometer, to ensure the noise is attenuated and not the wanted signal. The data which is analysed is when the vehicle and the magneto is stationary, this will thereby find the stationary variations on the sensor, the acquired measurements is illustrated in \figref{fig:StationaryMeasurementsMagnato}.
 
 \begin{figure}[H]
   \centering
@@ -112,49 +112,53 @@ Because of the above-mentioned descriptions of the filters, a Butterworth filter
 Considerations for the filter has been made, and it is thereby possible to specify the requirements for the filter.
 
 \section{Filter Requirements} \label{sec:FilterRequirements}
-Header
+From the filter considerations \secref{sec:FilterConsiderations}, it is possible to established the specifications for the filter.
+
+It has been decided to design a filter with a cut-off frequency which is beneath the one decade above the dominant pole. This will affect the system and cause a delay. To ensure the delay does not cause instability the filter first needs to be designed and simulated. Furthermore, since it is desired to influence the DC-signal as little as possible, see \figref{fig:FFTofStationaryMeasurements}, a low-pass filter is implemented.
+
+By the use of and iterative process frequency requirements for the pass - and stopband has been established. A passband frequency of 19 \si{Hz} has been chosen. The ideal filter would have a passband attenuation of 0 \si{dB}. Since this is not a ideal filter a maximum attenuation variation is set from 1 \si{dB} to 0 \si{dB}. The stopband frequency has been chosen to 29 \si{Hz} with an attenuation of 40 \si{dB}.
 
 Since the requirements needs to be adaptable to the z-plane, the Nyquist-Shannon sampling theorem \cite{AVOppenheim}, is utilized:
-
+%
 \begin{flalign}
 \eq{\Omega_N}{\frac{2\pi \cdot f_s}{2}}
 \end{flalign}
-
+%
 If 66.6 is said to be equal to \si{2\pi}, then the passband 19 \si{Hz} and the stopband 29 \si{Hz} be equal to:
-
+%
 \begin{flalign}
 \frac{19\pi}{33.3} &= 0.5705 \pi \quad \wedge \quad \frac{29\pi}{33.3} = 0.8709\pi
 \end{flalign}
-
+%
+\textbf{Summary of Filter Specifications:}
+%
 \begin{itemize}
-	\item \textbf{Low-pass filter}
+	\item \textbf{Filtertype}
 		\begin{itemize}
-			\item[] A lowpass filter will be implemented influence the DC-signal, as little as possible.
+			\item[] A Butterworth lowpass filter is designed.
 		\end{itemize}
 	\item \textbf{Passband specifications}
 		\begin{itemize}
-		 \item[] \si{0,8912 \leq |H(e^{j\omega})| \leq 1}
-		 \item[] \si{0 \leq |\omega| \leq \frac{1}{5}\pi}
+		 \item[] \si{0,08912 \leq |H(e^{j\omega})| \leq 1}
+		 \item[] \si{0 \leq |\omega| \leq 0.5705 \pi}
 		\end{itemize}
 	\item \textbf{Stopband specifications}
 		\begin{itemize}
 		 \item[] \si{|H(e^{j\omega})| \leq 0,01}
-		 \item[] \si{\frac{1}{5}\pi \leq |\omega| \leq \pi}
+		 \item[] \si{0.8709 \pi \leq |\omega| \leq \pi}
 		\end{itemize}
 \end{itemize}
 
+The specifications for the filter is establish, and it is thereby possible to design the filter.
+
 \section{Design}
+Various methods can be utilized when designing a digital filter. In the following subsection two methods for transferring a continuous-time filter to the z-domain is examined. The specific design process of the Butterworth low-pass filter will be done by following steps retrieved from \cite{AVOppenheim} and \cite{OvesSlides}.
 
 \subsection{Bilinear Transform vs. Impulse Invariance transformation}
-There is different methods for transferring a continuous-time filter to a discrete-time filter, the two most common transformation methods is examined. The first method which is examined is the impulse variance transformation.
+There is different methods for transferring a continuous-time filter to a discrete-time filter, the two most common transformation methods is examined. The first method of the two is the impulse variance transformation.
 
-When utilizing the impulse invariance transformation a discrete filter is generated by sampling a impulse response of a continuous analogue prototype filter. The impulse response of the discrete-time filter is proportional to the impulse response of the continuous-time filter with equally spaced samples, i.e.  making the discrete-filter from a sampled continuous-time prototype filter, see \eqref{impulseresponsepropotional}, \cite{AVOppenheim}.
-%
-\begin{flalign}
-h[nT] &= h[n] = T \cdot h(t) \big\vert_{t=nT}&
-\label{impulseresponsepropotional}
-\end{flalign}
-%
+When utilizing the impulse invariance transformation a discrete filter is generated by sampling a impulse response of a continuous analogue prototype filter. The impulse response of the discrete-time filter is proportional to the impulse response of the continuous-time filter with equally spaced samples, i.e.  making the discrete-filter from a sampled continuous-time prototype filter, \cite{AVOppenheim}.
+
 This makes it a linear mapping, \si{\omega = \Omega \cdot T_d} for each pole in the analogue filter's transfer function on the s-plane to a pole on the z-plane. 
 
 The main issue when utilizing the impulse variance method is that the sampling rate needs to be relatively high compared to the filter's bandwidth, to not cause aliasing \cite{LyonsR.G}. In the frequency response, seen in \figref{fig:ImpulseVariantFrequencyResponse}, it can be seen that the response of a 6th-order Butterworth filter transformed by impulse invariance, has a frequency response which is larger than from 0 to \si{pi}, hence causing aliasing.
@@ -173,7 +177,7 @@ The Bilinear transform also utilize a analogue prototype filter to convert from 
 \label{eq:bilinearprewarp}
 \end{flalign}
 %
-A frequency response of the same filter, as the frequency response for the impulse invariance, is illustrated in \figref{fig:BilinearFrequencyResponse}. The bilinear transform avoids aliasing problems because it maps the s-planes imaginary axis onto the z-planes unit circle \cite{AVOppenheim}, which can be seen in \figref{fig:S-planeVsZ-plane}.
+A frequency response, of the same filter as the frequency response for the impulse invariance, is illustrated in \figref{fig:BilinearFrequencyResponse}. The bilinear transform avoids aliasing problems because it maps the entire s-planes imaginary axis onto the z-planes unit circle \cite{AVOppenheim}. The s-plane and z-plane can be seen in \figref{fig:S-planeVsZ-plane}.
 %
 \begin{figure}[H]
 	\centering
@@ -182,7 +186,7 @@ A frequency response of the same filter, as the frequency response for the impul
 	\label{fig:S-planeVsZ-plane}
 \end{figure}
 %
-From \figref{fig:BilinearFrequencyResponse} it can be seen that the frequency response does not exceed the limit from 0 to \si{pi}, hence not causing a aliasing problem \cite{AVOppenheim}.
+From \figref{fig:BilinearFrequencyResponse} it can be seen that the frequency response does not exceed the limit from 0 to \si{\pi}, hence not causing a aliasing problem \cite{AVOppenheim}.
 
 \begin{figure}[H]
 	\centering
@@ -191,13 +195,14 @@ From \figref{fig:BilinearFrequencyResponse} it can be seen that the frequency re
 	\label{fig:BilinearFrequencyResponse}
 \end{figure}
 
-It has been chosen to use the bilinear transformation when designing the filter. This is mainly do to the issue with aliasing that occurs when utilizing impulse variance transform which does not happen when utilizing bilinear transform.
+It has been chosen to use the bilinear transformation when designing the filter. This is mainly do to the issue with aliasing that occurs when utilizing impulse variance transform, which is avoided when utilizing bilinear transform.
 
-\subsection{Designing a low-pass Butterworth filter using the bilinear transform}
+\subsection{Designing the Filter by the use of Bilinear Transform}
 When utilizing bilinear transform it is necessary to frequency warp the passband frequency and the stopband frequency, from \secref{sec:FilterRequirements}. This is done by utilizing the relationship between the discrete-time frequencies in the z-domain to the continuous-time frequencies in the s-domain illustrated in \eqref{eq:bilinearprewarp}. 
 %
 \begin{flalign}
-\Omega_p &= \frac{2}{0.030} \cdot \tan(\frac{0.5 \pi}{2}) = 66.7 \quad \wedge \quad \Omega_s = \frac{2}{0.030} \cdot \tan(\frac{0.85 \pi}{2}) = 277.69 \unit{Hz}
+\Omega_p &= \frac{2}{0.015} \cdot \tan(\frac{0.5705 \pi}{2}) = 166 \quad \wedge \quad \Omega_s = \frac{2}{0.015} \cdot \tan(\frac{0.8709 \pi}{2}) = 644 \unit{Hz}
+\label{eq:preqwardspecifications}
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
@@ -208,20 +213,23 @@ When utilizing bilinear transform it is necessary to frequency warp the passband
 By utilizing the magnitude squared function for a Butterworth filter, it is possible to find the cut-off frequency:
 %
 \begin{flalign}
-\eq{|H(e^{j\omega}|^2}{\frac{1}{1+(\frac{\Omega}{\Omega_c})^{2N}}}
+\eq{|H(e^{j\omega})|^2}{\frac{1}{1+(\frac{\Omega}{\Omega_c})^{2N}}}
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
 & \si{\Omega}       & is the pre-warped frequencies  &\unitWh{Hz} \\
-& \si{\Omega_C}		& is the cut-off frequency &\unitWh{Hz} \\
+& \si{\Omega_c}		& is the cut-off frequency &\unitWh{Hz} \\
 & \si{|H(e^{j\omega}|} & is the attenuation requirements set for the different bands from \secref{sec:FilterRequirements} &\unitWh{dB}
 \end{tabular}
+
+Since there is two unknown variables, the cut-off frequency and the order N, it is possible to calculate the values of these by utilizing the two equations with two unknowns:
 %
-\begin{flalign}
-\eq{0.89125^2}{\frac{1}{1+(\frac{66.7}{\Omega_C})^{2 \cdot 4}} = 78.933} \unit{Hz}
-\end{flalign}
+ \begin{flalign}
+0.89125^2 &= \frac{1}{1+(\frac{166}{\Omega_C})^{2N}} \quad \wedge \quad 0.01^2 = \frac{1}{1+(\frac{644}{\Omega_C})^{2N}}
+\label{eq:OrderandCutoffFrequencyCON}
+ \end{flalign}
 %
-The cut-off frequency is calculated to 78.933 \si{Hz}. When the order is known it is possible to utilize the following equation for finding the poles for a Butterworth filter.
+The cut-off frequency is calculated to \textbf{197.9 \si{Hz}} and the order to 3.9, rounded to the nearest integer, i.e. \textbf{4}. When the order is known it is possible to utilize the following equation for finding the poles for a Butterworth filter.
 %
 \begin{flalign}
 \eq{P_k}{\Omega_c \cdot e^{j(\frac{2 \cdot k -1}{2 \cdot N} \cdot \pi + \frac{\pi}{2})}}
@@ -229,7 +237,7 @@ The cut-off frequency is calculated to 78.933 \si{Hz}. When the order is known i
 %
 Where k equal 1,2 \si{\dotsc N}.
 
-Since it would desirable to have a stable system, the poles should only be located on the left side of the y-axis in the s-plane.
+Since it would desirable to have a stable system, the poles should only be located on the left side of the imaginary-axis.
 %
 \begin{flalign}
 \eq{P_1}{\Omega_c \cdot e^{j \cdot \frac{5}{8} \pi}} \\
@@ -238,6 +246,8 @@ Since it would desirable to have a stable system, the poles should only be locat
 \eq{P_4}{\Omega_c \cdot e^{j \cdot \frac{11}{8} \pi}}
 \end{flalign}
 %
+The poles placement indicated that it is two complex pole-pair, since they are symmetric around the real-axis.
+
 The general transfer function for a Butterworth filter is defined as:
 %
 \begin{flalign}
@@ -248,24 +258,37 @@ The general transfer function for a Butterworth filter is defined as:
 & \si{G_o}       & is the gain of the filter  &\unitWh{\cdot} \\
 \end{tabular}
 
-\todo{something about gain}
+The transfer function is rewritten to contain the located poles.
 
 \begin{flalign}
-\eq{H(s)}{\frac{\Omega_c^4}{(s-\Omega_ce^{j\cdot \frac{5}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{7}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{9}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{11}{8} \cdot \pi})}}
+\eq{H(s)}{\frac{G_o}{(s-\Omega_ce^{j\cdot \frac{5}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{7}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{9}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{11}{8} \cdot \pi})}}
 \end{flalign}
 
-It can be seen from the placement of the poles, that there is two complex pole-pair. By utilizing the rule \si{s = s*}, it is possible to change the transfer function.
+Seen from the placement of the poles, and by the use of the rule \si{s = s*}, it is possible rewrite the transfer function.
 %
 \begin{flalign}
-\eq{H(s)}{\frac{\Omega_c^4}{(s-\Omega_ce^{j\cdot \frac{5}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{7}{8} \cdot \pi})(s-\Omega_ce^{-j\cdot \frac{7}{8} \cdot \pi})(s-\Omega_ce^{-j\cdot \frac{5}{8} \cdot \pi})}}
+\eq{H(s)}{\frac{G_o}{(s-\Omega_ce^{j\cdot \frac{5}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{7}{8} \cdot \pi})(s-\Omega_ce^{-j\cdot \frac{7}{8} \cdot \pi})(s-\Omega_ce^{-j\cdot \frac{5}{8} \cdot \pi})}}
 \end{flalign}
 %
-Transforming the complex poles to standard form:
+The transfer function is rewritten to contain the complex poles in standard form:
+%
+\begin{flalign}
+\eq{H(s)}{\frac{G_o}{(s^2 + 2 \cdot \cos{(\frac{7}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)(s^2 + 2 \cdot \cos{(\frac{5}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)}}
+\end{flalign}
+%
+The DC gain, \si{G_o} is determined by setting s to 0. furthermore, since you have 0 \si{dB} at DC which corresponds to 1 in amplitude, then \si{H(0)} is equal to 1. The DC gain will thereby be:
+%
+\begin{flalign}
+\eq{G_o}{\Omega_c^4}
+\end{flalign}
+%
+All the coefficients has been found for the transfer function, thus making it possible to perform a frequency response illustrated in \figref{fig:Continuoustimebodeplot}. The continuous transfer function will thereby be:
 %
 \begin{flalign}
 \eq{H(s)}{\frac{\Omega_c^4}{(s^2 + 2 \cdot \cos{(\frac{7}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)(s^2 + 2 \cdot \cos{(\frac{5}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)}}
+\label{eq:continuousTransfer}
 \end{flalign}
-
+%
 \begin{figure}[H]
   \centering
  	%Trim margins @:   left        bottom       right       top
@@ -276,14 +299,20 @@ Transforming the complex poles to standard form:
   \caption{A FFT of the measured data illustrated in \figref{fig:StationaryMeasurementsMagnato}}
   \label{fig:Continuoustimebodeplot}
 \end{figure}
+%
+The discrete specifications pre-warped to continuous-time, see \eqref{eq:preqwardspecifications}, is determined for the passband frequency to 166 \si{Hz} and for the stopband to \si{644}. Furthermore from the requirements set in \secref{sec:FilterRequirements}, the attenuation in the passband should be beneath 1 \si{dB} and the stopband should be at a attenuation of 40 \si{dB}. This requirements is in compliance with what is observed on \figref{fig:Continuoustimebodeplot}. Additionally, the cut-off frequency calculated in \eqref{eq:OrderandCutoffFrequencyCON} corresponds with what is illustrated in the frequency response.
 
-The next step would be to transfer the continuous-time Butterworth filter to the z-domain.
+The established continuous-time filter can be transferred to the z-domain.
 
-\subsection{Transforming the filter to Z-domain}
-
+\subsection{Transforming the filter to the discrete-time domain}
+The bilinear transform is utilized to transform the continuous-time filter to the z-domain. Substituting the expression for s, given in \eqref{eq:ssubz}, in the continuous-time transfer function, in \eqref{eq:continuousTransfer}, a discrete-time transfer function for the filter is determined.
+%
 \begin{flalign}
-\eq{s}{\frac{2}{T_d}(\frac{1-z^{-1}}{1+z^{-1}})}
+\eq{s}{\frac{2}{T_d}\left(\frac{1-z^{-1}}{1+z^{-1}}\right)}
+\label{eq:ssubz}
 \end{flalign}
+%
+A frequency response of the discrete-time transfer function is illustrated in \figref{fig:discretetimebodeplot}.
 
 \begin{figure}[H]
   \centering
@@ -296,19 +325,25 @@ The next step would be to transfer the continuous-time Butterworth filter to the
   \label{fig:discretetimebodeplot}
 \end{figure}
 
+The requirements set for the filter in \secref{sec:FilterRequirements} is in compliance with the frequency response plotted in \figref{fig:discretetimebodeplot}. The passband frequency should be at 19 \si{Hz} and the stopband at 29 \si{Hz}. Additionally, the attenuation in the passband within the range from 0 to 1 \si{dB} and the stopband attenuation of 40 \si{dB}.
 
+By utilizing normalize expansion it is possible to rewrite the discrete-time transfer function to a standard form, defined as:
+%
+\begin{flalign}
+H(z) &= \frac{B(z)}{A(z)} = \frac{b_0 + b_1z^{-1} + b_2z^{-2} + \dotsc + b_Nz^{-N}}{1 + a_1z^{-1} + a_2z^{-2} + \dotsc + a_Mz^{-M}}
+\end{flalign}
+%
+The coefficients, \si{a_M} and \si{b_N} can be used directly when implementing the filter. the discrete transfer form is rewritten to:
+%
+\begin{flalign}
+H(z) &= \frac{B(z)}{A(z)} = \frac{0.1882 + 0.7527z^{-1} + 1.129z^{-2} + 0.7527z^{-3} + 0.1882z^{-4}}{1 + 0.9595z^{-1} + 0.7785z^{-2} + 0.2358z^{-3} + 0.03691z^{-4}}
+\end{flalign}
+%
+By the use of this standard form it is possible to implement the filter.
+\section{Implementation}
 
 Standard formula:
 
-\begin{flalign}
-H(z) &= \frac{B(z)}{A(z)} = \frac{b_0 + b_1z^-1 + b_2z^-2 + \dotsc + b_Nz^{-N}}{1 + a_1z^-1 + a_2z^-2 + \dotsc + a_Mz^{-M}}
-\end{flalign}
-
-\begin{flalign}
-H(z) &= \frac{B(z)}{A(z)} = \frac{0.1326 + 0.5305z^{-1} + 0.7957z^{-2} + 0.5305z^{-3} + 0.1326z^{-4}}{1 + 0.4515z^{-1} + 0.5505z^{-2} + 0.09825z^{-3} + 0.02167z^{-4}}
-\end{flalign}
-
-\section{Implementation}
 
 
 \lstset{language=Matlab, caption={Code Implementation in Matlab}, label=lst:FilterMatlabImplementation}

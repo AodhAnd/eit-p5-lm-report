@@ -139,7 +139,7 @@ If 66.6 is said to be equal to \si{2\pi}, then the passband 19 \si{Hz} and the s
 		\end{itemize}
 	\item \textbf{Passband specifications}
 		\begin{itemize}
-		 \item[] \si{0,8912 \leq |H(e^{j\omega})| \leq 1}
+		 \item[] \si{0,08912 \leq |H(e^{j\omega})| \leq 1}
 		 \item[] \si{0 \leq |\omega| \leq 0.5705 \pi}
 		\end{itemize}
 	\item \textbf{Stopband specifications}
@@ -202,6 +202,7 @@ When utilizing bilinear transform it is necessary to frequency warp the passband
 %
 \begin{flalign}
 \Omega_p &= \frac{2}{0.015} \cdot \tan(\frac{0.5705 \pi}{2}) = 166 \quad \wedge \quad \Omega_s = \frac{2}{0.015} \cdot \tan(\frac{0.8709 \pi}{2}) = 644 \unit{Hz}
+\label{eq:preqwardspecifications}
 \end{flalign}
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
@@ -225,9 +226,10 @@ Since there is two unknown variables, the cut-off frequency and the order N, it 
 %
  \begin{flalign}
 0.89125^2 &= \frac{1}{1+(\frac{166}{\Omega_C})^{2N}} \quad \wedge \quad 0.01^2 = \frac{1}{1+(\frac{644}{\Omega_C})^{2N}}
+\label{eq:OrderandCutoffFrequencyCON}
  \end{flalign}
 %
-The cut-off frequency is calculated to 197.9 \si{Hz} and the order to 3.9, rounded to the nearest integer, i.e. 4. When the order is known it is possible to utilize the following equation for finding the poles for a Butterworth filter.
+The cut-off frequency is calculated to \textbf{197.9 \si{Hz}} and the order to 3.9, rounded to the nearest integer, i.e. \textbf{4}. When the order is known it is possible to utilize the following equation for finding the poles for a Butterworth filter.
 %
 \begin{flalign}
 \eq{P_k}{\Omega_c \cdot e^{j(\frac{2 \cdot k -1}{2 \cdot N} \cdot \pi + \frac{\pi}{2})}}
@@ -274,8 +276,19 @@ The transfer function is rewritten to contain the complex poles in standard form
 \eq{H(s)}{\frac{G_o}{(s^2 + 2 \cdot \cos{(\frac{7}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)(s^2 + 2 \cdot \cos{(\frac{5}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)}}
 \end{flalign}
 %
-To find the gain, \si{G_o}, 
-
+The DC gain, \si{G_o} is determined by setting s to 0. furthermore, since you have 0 \si{dB} at DC which corresponds to 1 in amplitude, then \si{H(0)} is equal to 1. The DC gain will thereby be:
+%
+\begin{flalign}
+\eq{G_o}{\Omega_c^4}
+\end{flalign}
+%
+All the coefficients has been found for the transfer function, thus making it possible to perform a frequency response illustrated in \figref{fig:Continuoustimebodeplot}. The continuous transfer function will thereby be:
+%
+\begin{flalign}
+\eq{H(s)}{\frac{\Omega_c^4}{(s^2 + 2 \cdot \cos{(\frac{7}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)(s^2 + 2 \cdot \cos{(\frac{5}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)}}
+\label{eq:continuousTransfer}
+\end{flalign}
+%
 \begin{figure}[H]
   \centering
  	%Trim margins @:   left        bottom       right       top
@@ -286,14 +299,20 @@ To find the gain, \si{G_o},
   \caption{A FFT of the measured data illustrated in \figref{fig:StationaryMeasurementsMagnato}}
   \label{fig:Continuoustimebodeplot}
 \end{figure}
+%
+The discrete specifications pre-warped to continuous-time, see \eqref{eq:preqwardspecifications}, is determined for the passband frequency to 166 \si{Hz} and for the stopband to \si{644}. Furthermore from the requirements set in \secref{sec:FilterRequirements}, the attenuation in the passband should be beneath 1 \si{dB} and the stopband should be at a attenuation of 40 \si{dB}. This requirements is in compliance with what is observed on \figref{fig:Continuoustimebodeplot}. Additionally, the cut-off frequency calculated in \eqref{eq:OrderandCutoffFrequencyCON} corresponds with what is illustrated in the frequency response.
 
-The next step would be to transfer the continuous-time Butterworth filter to the z-domain.
+The established continuous-time filter can be transferred to the z-domain.
 
 \subsection{Transforming the filter to the discrete-time domain}
-
+The bilinear transform is utilized to transform the continuous-time filter to the z-domain. Substituting the expression for s, given in \eqref{eq:ssubz}, in the continuous-time transfer function, in \eqref{eq:continuousTransfer}, a discrete-time transfer function for the filter is determined.
+%
 \begin{flalign}
-\eq{s}{\frac{2}{T_d}(\frac{1-z^{-1}}{1+z^{-1}})}
+\eq{s}{\frac{2}{T_d}\left(\frac{1-z^{-1}}{1+z^{-1}}\right)}
+\label{eq:ssubz}
 \end{flalign}
+%
+A frequency response of the discrete-time transfer function is illustrated in \figref{fig:discretetimebodeplot}.
 
 \begin{figure}[H]
   \centering
@@ -306,19 +325,25 @@ The next step would be to transfer the continuous-time Butterworth filter to the
   \label{fig:discretetimebodeplot}
 \end{figure}
 
+The requirements set for the filter in \secref{sec:FilterRequirements} is in compliance with the frequency response plotted in \figref{fig:discretetimebodeplot}. The passband frequency should be at 19 \si{Hz} and the stopband at 29 \si{Hz}. Additionally, the attenuation in the passband within the range from 0 to 1 \si{dB} and the stopband attenuation of 40 \si{dB}.
 
+By utilizing normalize expansion it is possible to rewrite the discrete-time transfer function to a standard form, defined as:
+%
+\begin{flalign}
+H(z) &= \frac{B(z)}{A(z)} = \frac{b_0 + b_1z^{-1} + b_2z^{-2} + \dotsc + b_Nz^{-N}}{1 + a_1z^{-1} + a_2z^{-2} + \dotsc + a_Mz^{-M}}
+\end{flalign}
+%
+The coefficients, \si{a_M} and \si{b_N} can be used directly when implementing the filter. the discrete transfer form is rewritten to:
+%
+\begin{flalign}
+H(z) &= \frac{B(z)}{A(z)} = \frac{0.1882 + 0.7527z^{-1} + 1.129z^{-2} + 0.7527z^{-3} + 0.1882z^{-4}}{1 + 0.9595z^{-1} + 0.7785z^{-2} + 0.2358z^{-3} + 0.03691z^{-4}}
+\end{flalign}
+%
+By the use of this standard form it is possible to implement the filter.
+\section{Implementation}
 
 Standard formula:
 
-\begin{flalign}
-H(z) &= \frac{B(z)}{A(z)} = \frac{b_0 + b_1z^-1 + b_2z^-2 + \dotsc + b_Nz^{-N}}{1 + a_1z^-1 + a_2z^-2 + \dotsc + a_Mz^{-M}}
-\end{flalign}
-
-\begin{flalign}
-H(z) &= \frac{B(z)}{A(z)} = \frac{0.1326 + 0.5305z^{-1} + 0.7957z^{-2} + 0.5305z^{-3} + 0.1326z^{-4}}{1 + 0.4515z^{-1} + 0.5505z^{-2} + 0.09825z^{-3} + 0.02167z^{-4}}
-\end{flalign}
-
-\section{Implementation}
 
 
 \lstset{language=Matlab, caption={Code Implementation in Matlab}, label=lst:FilterMatlabImplementation}

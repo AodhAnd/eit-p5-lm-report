@@ -48,7 +48,17 @@ With the delay from the servo, \si{\lambda}, being \si{30\ ms}, this approximati
 	\label{basicSteeringWithDelay}
 \end{figure}
 %
-This model describes the action of the steering on the vehicle, by translating PWM signals sent to the servo into headings of the vehicle. It allows to apply a control on the direction of the vehicle, but not for it to follow a predefined set of points.
+This model describes the action of the steering on the vehicle, by translating PWM signals sent to the servo into headings of the vehicle. It allows to apply a control on the direction of the vehicle, but not for it to follow a predefined set of points.\\
+
+
+
+TO DO
+test confirmation of the plant of the steering model of 6.19 model, with PWM input and theta output
+plot of this, and simulation, make it fit
+generate a pwm input with simulink(step or else), and with no feedback
+
+
+
 
 \subsection{Line Following Model}
 Since the vehicle has to follow a predetermined route, a direction control alone is not enough. As seen on \figref{SteeringDeviation}, any change of direction caused by a disturbance, will cause a deviation from the planned line between two points A and B on the wanted route. This is why a model of this deviation is created in this section.

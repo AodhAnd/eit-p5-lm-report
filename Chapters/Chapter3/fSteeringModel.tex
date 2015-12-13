@@ -64,11 +64,17 @@ To be sure that this model can be used for the design of controllers, it is nece
 
 \subsection{Verification of the Steering Model}
 
-\todo{Add verification}
-TO DO
-test confirmation of the plant of the steering model of 6.19 model, with PWM input and theta output
-plot of this, and simulation, make it fit
-generate a pwm input with simulink(step or else), and with no feedback
+To verify the model of the plant, a test and a simulation have been plot on the same graph to see the accuracy of the model. The plot can be seen on \figref{fig:plotVerificationSteeringPlant}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.8]{figures/plotVerificationSteeringPlant.pdf}
+  \caption{Plot of the plant simulation and real life test.}
+  \label{fig:plotVerificationSteeringPlant}
+\end{figure}
+
+A step of 1670ms is sent through the PWM at 5 seconds, that makes the vehicle turn at a constant speed, making the angle variation a line as seen on the \figref{fig:plotVerificationSteeringPlant}.
+
 
 This simple model describes the action of the steering on the vehicle, by translating PWM signals sent to the servo into headings of the vehicle. It allows to apply a control on the direction of the vehicle, but not for it to follow a predefined set of points.
 

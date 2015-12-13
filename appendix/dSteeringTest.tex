@@ -14,7 +14,9 @@ As seen on \secref{sec:SteeringModel}, \figref{basicSteering}, the steering beha
 \eq{K_{steering}}{K_s \cdot K_v}&\nonumber
 \end{flalign}
 %
-Moreover, to get reliable data from which to draw conclusions, a basic proportional controller is implemented to stabilize the angle and realize a step response, as seen on \secref{sec:steeringController}, \figref{fig:basicSteeringWithDelayWithFeedback}. However, this model is simplified by ignoring the servomotor's delay. Since the test is only a one step response, this delay should only appear once between the step command to the servo and the actual reaching of the desired heading. This way, the model used in this test only includes the controller, \si{K_p}, the steering gain, \si{K_{steering}}, and the integrator which allows to get headings out of the vehicle's angular velocity, see \figref{fig:steeringTestWPController}.
+Moreover, to get reliable data from which to draw conclusions, a basic proportional controller is implemented to stabilize the angle and realize a step response, as seen on \secref{sec:steeringController}, \figref{fig:basicSteeringWithControl}. 
+However, this model is simplified by ignoring the servomotor's delay. Since the test is only a one step response, this delay should only appear once between the step command to the servo and the actual reaching of the desired heading.
+Furthermore, since the two summation blocks add a \si{\pm K_{off}}, the offset in the microcontroller cancels the offset from the plant. This way, the model used in this test includes the controller, \si{K_p}, the steering gain, \si{K_{steering}}, and the integrator which allows to get headings out of the vehicle's angular velocity, see \figref{fig:steeringTestWPController}.
 %
 \begin{figure}[H]
   \centering
@@ -29,7 +31,7 @@ The resulting transfer function of this system can be expressed in standard form
 \label{eq:steeringTestWPcontroller}
 \end{flalign}
 
-By applying a known reference heading with a known gain in the controller and using a steady velocity, the measured parameters are the real heading, real velocity and the timestamp of each measurement point.
+By applying a known reference heading with a fixed gain in the controller and using a steady velocity, the measured parameters are the real heading, real velocity and the timestamp of each measurement point.
 
 \subsection{Setup}
 \begin{figure}[H]
@@ -53,7 +55,7 @@ By applying a known reference heading with a known gain in the controller and us
 \subsection{Procedure}
 
 \begin{enumerate}
-  \item Disconnect the battery.
+  \item Make sure the vehicle's power is off.
   \item Connect the Arduino to the computer.
   \item Upload the test code to the Arduino board using the Arduino IDE  \cite{ArduinoIDE}.
   \item Place the vehicle with an orientation of approximately \si{0\ ^{\circ}}, i.e. heading North.
@@ -105,6 +107,7 @@ As the test were made with a choosen control gain \si{K_p = 1,5}, the steering g
   \caption{Plot of the gain \si{K_v} against the real speed.}
   \label{steeringPlotSpeedVsGain}
 \end{figure}
+\todo{Fix the axis legend (units)}
 
 From this plot the linear gain proportional to the speed can be established:
 \begin{flalign}

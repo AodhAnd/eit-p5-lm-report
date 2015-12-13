@@ -1,6 +1,6 @@
 \section{Magnetometer}\label{sec:magnetoSensor}
 The ``9 degrees of freedom'' sensor board includes three sensors, of which one is the magnetometer chip HMC5883L \cite{HMC5883L}. Since the Earth's magnetic field only moves slightly, it is possibe to neglect this movement from the sensor's point of view. The magnetometer uses this property to calculate the three space components (x,y,z) of the Earth's magnetic field magnitude, therefore indicating the North pole's position relative to the sensor's own orientation.\\
-The coordinates are sent through \si{I^2C} each time asked by the software onboard the Arduino. This means that it is possible to set the sampling time according to the needs of the scheduling, see \secref{sec:scheduling}. 
+The coordinates are sent through \si{I^2C} each time asked by the software onboard the Arduino. This means that it is possible to set the sampling time according to the needs of the steering controller part, within the sensor's sampling limits. 
 By maintaining the sensor in a horizontal position and using trigonometry it is possible to get an angle equivalent to a compass heading :
 \begin{flalign}
 \eq{\theta_{heading}}{\frac{180}{\pi} \cdot \arctan\left(-\frac{y}{x}\right)} \unit{^{\circ}}

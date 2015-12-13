@@ -1,4 +1,4 @@
-\chapter{Digital Filter}
+\chapter{Digital Filter}\label{chap:digitalFilter}
 When utilizing a sensor unwanted noise can arise and influence the measurements acquired. By implementing a filter it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{HardwareChoice}, is active while the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a inexpedient effect on the steering controller. With ideal circumstances the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise could be a potential solution to get more accuracy.
 
 There is many cons and pros when considering between implementing a analogue or digital filter. But since the signal received from the magnetometer is digitalized, it has been chosen to implement a digital filter.

@@ -11,7 +11,18 @@ The HMC5883L chip is a magnetometer which uses the Earth's magnetic field as a r
 %
 In this project the disturbances can be caused by all the metallic pieces on the vehicle, from the metal plate to the motor and to the wires. Thus, the calibration has to be performed with the all these components and the sensor placed on the vehicle at a fixed place and orientation. It is chosen to place it, so that its X axis points towards the front of the vehicle and the Z axis is pointed upwards. The chosen configuration shall not be changed after calibration.
 
-As stated in \secref{sec:magnetoSensor}, the magnetometer that is used gives out three space coordinates of the Earth's magnitude field relative to its own coordinate system. One good to test to see if the sensor is operational in its environment is to turn it all around itself while retrieving the data it gives. When properly calibrated and isolated from any new disturbance, the 3D scatter plot of all the measured points should give a sphere that has its center in the origin (coordinates (0,0,0)) of the plot. This means that the measured coordinates vary smoothly accordingly with the rotation of the sensor in space. Otherwise, the sphere could be distorted into an ellipsoid and displaced from the center and the sensor would have to be recalibrated correctly in a magnetic-still environment.\\
+As stated in \secref{sec:magnetoSensor}, the magnetometer that is used gives out three space coordinates of the Earth's magnitude field relative to its own coordinate system. One good to test to see if the sensor is operational in its environment is to turn it all around itself while retrieving the data it gives. When properly calibrated and isolated from any new disturbance, the 3D scatter plot of all the measured points should give a sphere that has its center in the origin (coordinates (0,0,0)) of the plot. This means that the measured coordinates vary smoothly accordingly with the rotation of the sensor in space. Otherwise, the sphere could be distorted into an ellipsoid and displaced from the center and the sensor would have to be recalibrated correctly in a magnetic-still environment, see example on \figref{fig:calibrationTestSpheres}.\\
+A simpler test is used here and consists in making four quarters of turn in the XY-plane (horizontally), around a static point. If each quarter corresponds to a measurement of \si{90^{\circ}} in the sensor's data and the resulting four quarters draw a circle, then the calibration should be fine to use.
+\begin{figure}[H]
+    \centering
+  %Trim margins @:   left        bottom       right       top
+  \adjustbox{ trim = {.1\width} {0.03\height} {0\width} {0.1\height}, clip }
+  {
+    \includegraphics[width=1.2\textwidth]{figures/spheresMagnitude.png}
+  }
+  \caption{Setup diagram}
+  \label{fig:calibrationTestSpheres}
+\end{figure}
 %
 The calibration itself performed in this test does not change the intrinsic sensor configuration but rather applies a transformation to the coordinates sent to the Arduino board. This transformation, seen in \eqref{eq:calibrationTransformation} is actually computed in the runtime by the microcontroller, each time a set of coordinate is received :
 \begin{flalign}
@@ -60,10 +71,11 @@ This software, runs on Microsoft Windows computers with the HMC5883L sensor conn
 \subsection{Setup}
 \begin{figure}[H]
   \centering
-  %\includegraphics[scale=1.6]{figures/inertiaTestSetupDiagram2.pdf}
+  \includegraphics[scale=0.8]{figures/magnetoCalibSetup.pdf}
   \caption{Setup diagram}
   \label{fig:calibrationSetupDiagram}
 \end{figure}
+\todo{Change units to Gauss}
 
 \subsection{List of Equipment}
 
@@ -81,9 +93,21 @@ This software, runs on Microsoft Windows computers with the HMC5883L sensor conn
 \subsection{Procedure}
 
 \begin{enumerate}
-  \item Step 1
+  \item Set up the vehicle and the hardware so that the magnetometer is far from other non-constant magnetic objects (motor, PCB, wires) and with the X arrow pointing towards the front of the vehicle and the Z pointing upwards.
+  \item Attach everything, including the wires and serial USB cable, as it is, so that it cannot move. The configuration should stay the same as long as the magnetometer is used, otherwise, it has to be re-calibrated.
+  \item Put the vehicle in the environment in which the magnetometer has to operate.
+  \item Plug the sensor to the Arduino board and the Arduino to the computer via the USB serial cable.
+  \item Run the MagMaster software.
+  \item Select the right USB serial port.
+  \item Start the measurements by putting the vehicle in the position indicated by the software tutorial \cite{MagMaster}. Click on the associated measurement button.
+  \item While performing the test, make sure that no magnetic part is moving (especially the USB cable).
+  \item When all positions are measured thourgh the software, it is possible to unplug the serial connection with the Arduino.
+  \item Click on `Calculate Transformation Matrix and Bias'.
+  \item Write down the calculated coefficients for later reference and put them in the Arduino sensor code.
+  \item Test the sensor by using the four-quarters of turn method.
 \end{enumerate}
 
 %% Results %%
 \subsection{Results} \label{magnetoCalibrationResults}
+
 

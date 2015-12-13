@@ -1,0 +1,115 @@
+\pagebreak
+\section{Accept Test - Communication link} \label{app:AccTes1}
+\textbf{Name: Group 510}\\
+\textbf{Date: 11/12 - 2015}
+
+\subsubsection{Purpose}
+The purpose of the test, is to prove, that the vehicle gets the data from the GOT system.
+
+\subsubsection{List of Equipment}
+\begin{table}[H]
+\begin{tabular}{|l|l|p{4cm}|}
+\hline%------------------------------------------------------------------------------------
+  \textbf{Instrument}                        &  \textbf{AAU-no.}  &  \textbf{Type}       \\
+\hline%------------------------------------------------------------------------------------
+  GOT system                               &   &  Indoor position system  \\
+\hline%------------------------------------------------------------------------------------
+  Computer                   		         &   &    \\
+\hline%------------------------------------------------------------------------------------
+  2 Xbee &  -             &    \\
+\hline%------------------------------------------------------------------------------------
+  Explore board to Xbee                 &  -             &                      \\
+\hline
+ Arduino & & Mega 2560 \\
+\hline
+%------------------------------------------------------------------------------------
+\end{tabular}
+\end{table}
+
+\subsubsection{Procedure}
+
+\begin{enumerate}
+  \item Setup GOT system, by power up the satellites and the master.
+  \item Place the GOT transmitter onto the vehicle and turn it on.
+  \item Start the GOT code, which contains the protocol.
+  \item Turn on the vehicle.
+  \item Check with a serial port on the arduino, to look for data.
+  \item Save the data from the serial port on the arduino.
+  \item Find the log for the data send from the GOT system, in the GOT folder.
+\end{enumerate}
+
+\subsubsection{Results}
+
+\begin{table}[H]
+\begin{tabular}{|c||c||c|}
+\hline
+Transmitted & Received & Control \\
+\hline
+240,128,224,26,192,5,240,33,216,24,202,15 & 240,128,224,26,192,5,240,33,216,24,202,15 & True \\
+\hline
+240,128,224,26,0,6,16,33,216,230,201,15 & 240,128,224,26,0,6,16,33,216,230,201,15 & True \\
+\hline
+240,128,224,26,0,6,176,33,216,220,201,15 & 240,128,224,26,0,6,176,33,216,220,201,15 & True \\
+\hline
+240,128,224,27,0,6,112,33,216,224,185,15 & 240,128,224,27,0,6,112,33,216,224,185,15 & True \\
+\hline
+240,128,224,27,192,5,176,33,216,28,186,15 & 240,128,224,27,192,5,176,33,216,28,186,15 & True \\
+\hline
+240,128,96,28,192,5,80,34,216,18,178,15 & 240,128,96,28,192,5,80,34,216,18,178,15 & True \\
+\hline
+240,128,224,28,128,5,80,34,216,82,170,15 & 240,128,224,28,128,5,80,34,216,82,170,15 & True \\
+\hline
+240,128,224,29,64,5,80,34,216,146,154,15 & 240,128,224,29,64,5,80,34,216,146,154,15 & True \\
+\hline
+240,128,224,28,128,5,208,33,216,90,170,15 & 240,128,224,28,128,5,208,33,216,90,170,15 & True \\
+\hline
+240,128,224,27,192,5,176,33,216,28,186,15 & 240,128,224,27,192,5,176,33,216,28,186,15 & True \\
+\hline
+240,128,96,29,64,5,208,33,216,154,162,15 & 240,128,96,29,64,5,208,33,216,154,162,15 & True \\
+\hline
+240,128,224,28,128,5,16,34,216,86,170,15 & 240,128,224,28,128,5,16,34,216,86,170,15 & True \\
+\hline
+240,128,96,30,0,5,240,33,216,216,146,15 & 240,128,96,30,0,5,240,33,216,216,146,15 & True \\
+\hline
+240,128,224,28,128,5,16,34,216,86,170,15 & 240,128,224,28,128,5,16,34,216,86,170,15 & True \\
+\hline
+240,128,224,28,64,5,48,34,216,148,170,15 & 240,128,224,28,64,5,48,34,216,148,170,15 & True \\
+\hline
+240,128,224,29,64,5,48,34,216,148,154,15 & 240,128,224,29,64,5,48,34,216,148,154,15 & True \\
+\hline
+240,128,224,27,192,5,208,33,216,26,186,15 & 240,128,224,27,192,5,208,33,216,26,186,15 & True \\
+\hline
+240,128,224,28,128,5,176,33,216,92,170,15 & 240,128,224,28,128,5,176,33,216,92,170,15 & True \\
+\hline
+240,128,96,28,128,5,144,34,216,78,178,15 & 240,128,96,28,128,5,144,34,216,78,178,15 & True \\
+\hline
+240,128,224,28,128,5,176,34,216,76,170,15 & 240,128,224,28,128,5,176,34,216,76,170,15 & True \\
+\hline
+240,128,224,28,128,5,112,34,216,80,170,15 & 240,128,224,28,128,5,112,34,216,80,170,15 & True \\
+\hline
+240,128,224,28,64,5,208,34,216,138,170,15 & 240,128,224,28,64,5,208,34,216,138,170,15 & True \\
+\hline
+240,128,224,29,0,5,112,34,216,208,154,15 & 240,128,224,29,0,5,112,34,216,208,154,15 & True \\
+\hline
+240,128,224,28,64,5,144,34,216,142,170,15 & 240,128,224,28,64,5,144,34,216,142,170,15 & True \\
+\hline
+240,128,224,28,128,5,16,34,216,86,170,15 & 240,128,224,28,128,5,16,34,216,86,170,15 & True \\
+\hline
+\end{tabular}
+\caption{The packages send from GOT to the arduino}
+\label{AccTest1Tab}
+\end{table}
+
+As shown in \tableref{AccTest1Tab}, the transmission to the receiver is working and all 25 packages are send and received the same. With the help of the protocol, explain in \secref{}, these packages can be converted back to the three coordinates, shown in \tableref{AccTest1Tab2}.
+
+\begin{table}[H]
+\begin{tabular}{|c||c||c|}
+\hline
+Transmitted & Received & Control \\
+\hline
+\end{tabular}
+\caption{The data send from GOT to the arduino}
+\label{AccTest1Tab2}
+\end{table}
+
+\subsubsection{Conclusion}

@@ -15,7 +15,7 @@ The transfer function for the plant in the inner loop of the steering model, see
 \eq{H(s)}{\frac{K}{(0.03s+1)s}}
 \end{flalign}
 %
-The poles of the system yields 33.3 and 0 \si{\frac{rad}{s}}. When designing a filter it is necessary to consider the placement of the pole which is at the highest frequency. in this situation the pole which is at the highest frequency is the pole placed at 33.3 \si{rad/s}. A rule of thumb is to place the cut-off frequency of the filter atleast one decade after the highest frequency pole, i.e. 333 \si{\frac{rad}{s}}. If the cut-off frequency of the filter is beneath 333 \si{\frac{rad}{s}} it will influence the systems phase-margin, which results in a delay. 
+The poles of the system yields 33.3 and 0 \si{\frac{rad}{s}}. When designing a filter it is necessary to consider the placement of the pole which is at the highest frequency. In this situation the pole which is at the highest frequency is the pole placed at 33.3 \si{rad/s}. A rule of thumb is to place the cut-off frequency of the filter atleast one decade after the highest frequency pole, i.e. 333 \si{\frac{rad}{s}}. If the cut-off frequency of the filter is beneath 333 \si{\frac{rad}{s}} it will influence the systems phase-margin, which results in a delay. 
 
 By being aware of this requirement, it is possible to find a sampling frequency which can grant a cut-off frequency above 333 \si{\frac{rad}{s}}. The least required cut-off frequency of 333 \si{\frac{rad}{s}} is calculated to a frequency:
 %
@@ -29,9 +29,7 @@ To calculate the least required sampling frequency, the Nyquist-Shannon Sampling
 \Omega_s &\geq 2 \cdot 53 \leq 106 \unit{Hz}
 \end{flalign}
 %
-The Magnetometer has to be sampled at atleast every 106 \si{Hz}. 
-
-In the specification for the Magnetometer \cite{HMC5883L}, the sampling rate is given to 75 \si{Hz}. A sampling rate of 106 \si{Hz} is desired, since this sampling rate would not effect the system by causing a delay. 
+The Magnetometer has to be sampled at atleast every 106 \si{Hz}. In the specification for the Magnetometer \cite{HMC5883L}, the sampling rate is given to 75 \si{Hz}. Hence making it impossible to sample at a high enough frequency, to have a cut-off frequency for the filter which does not affect the system.
 
 It is been decided to have a sample rate at 66,66 \si{Hz}, i.e. 15 \si{ms}, even though it will cause a delay. The 66,66 \si{Hz} has been chosen instead of the 75 \si{Hz} to have a small margin from what the sensor can deliver.
 
@@ -401,4 +399,19 @@ In \figref{fig:FinalImplementedFilter} the red line is the filtered data and the
   \label{fig:FinalimplementationFilterDelay}
 \end{figure}
 
-As seen on the figure a delay of approximately 0.03 ms occurs when utilizing the filter compared to the raw measured data. If the velocity of the vehicle is 1.4 \si{\frac{m}{s}} then the vehicle will have moved approximately 4.2 \si{cm}. 
+As seen on the figure a delay of approximately 0.03 ms occurs when utilizing the filter compared to the raw measured data. If the velocity of the vehicle is 1.4 \si{\frac{m}{s}} then the vehicle will have moved approximately 4.2 \si{cm}. By simulating a step response of the directional control loop with the filter, it is possible to see if the filter will make the directional control unstable. A simulation of the a step response in the directional control loop with and without filter is illustrated in \figref{fig:SimulatedStepResponsewithandwithoutFilter}.
+
+\begin{figure}[H]
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.2\textwidth]{figures/SimulatedStepResponsewithandwithoutFilter.pdf}
+  }
+  \caption{A plot illustrating a simulated step response of the directional control loop with and without the filter.}
+  \label{fig:SimulatedStepResponsewithandwithoutFilter}
+\end{figure}
+
+From \figref{fig:SimulatedStepResponsewithandwithoutFilter} it can be seen that the filter does not make the directional control loop unstable in the simulation. 
+
+\todo{Thomas write an argument stating the reasons for not implementing the filter.}

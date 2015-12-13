@@ -9,9 +9,9 @@ The Kernel advantage is also the definition of semaphores, priorities, and criti
 
 
 \subsubsection{Semaphores}
-In programming, a semaphore is an variable or abstract data that is used to prioritize the different tasks to use. It allows a multiprogramming, with functions that uses different ressources and time, and does not interact with each others direcly. Running them independently ease indent of the code.
-\\
-description and picture of the semaphores
+In programming, a semaphore is an variable or abstract data that is used to prioritize the different tasks to use. It allows a multiprogramming, with functions that use different ressources and time, and does not interact with each others direcly. Running them independently ease the indent of the code.
+
+
 
 \subsubsection{Tasks}
 The different functions of the vehicle have been separated into multiple tasks, that can switch regarding to their priority. Four tasks are created to control the vehicle:
@@ -53,7 +53,7 @@ To get a list of things to do until one of them become critical, the tasks will 
 
 
 \subsection{Round Robin Schedule}
-A way of calculating the minimum time needed to execute all the tasks in a period of time, is by putting them one after the other, and see if the sum of the time necessary to exucute all the task is bigger than the time allowed to do one full turn of tasks.
+A way of calculating the minimum time needed to execute all the tasks in a period of time, is by putting them one after the other, and see if the sum of the time necessary to exucute all the task is bigger than the time allowed to do one full turn of tasks. The actual time to run the code is 2.8ms.
 
 A picture illustrating the round robin schedule can be seen in \figref{roundRobinSchedule}\\
 
@@ -64,7 +64,7 @@ A picture illustrating the round robin schedule can be seen in \figref{roundRobi
 	\label{roundRobinSchedule}
 \end{figure}
 
-If the time allowed by the frequency sampling of the program is not large enough, the data will be prioritized and run in the time allowed. An example of this case can be seen on \figref{roundRobienSchedule2}
+If the time allowed by the frequency sampling of the program is not large enough, the data will be prioritized and run in the time allowed. An example of this case can be seen on \figref{roundRobinSchedule2}
 
  \begin{figure}[H]
 	\centering

@@ -1,5 +1,5 @@
 \section{Steering Model of the Vehicle}\label{sec:SteeringModel}
-After describing a model for the driving part of the vehicle seen on \figref{fig:completeMechanicalDiagram}, the present section draws a model from the steering part, which is isolated in \figref{steeringMechanical}. Thus, the focus is made on the relationship between the PWM command signal to the servo, the angle of the servo, and the resulting orientation of the vehicle. To facilitate the steering modelisation, the vehicle's velocity is considered only around an operating point.
+After describing a model for the driving part of the vehicle seen on \figref{fig:completeMechanicalDiagram}, the present section draws a model from the steering part, which is isolated in \figref{steeringMechanical}. Thus, the focus is made on the relationship between the PWM command signal to the servo, the angle of the servo, and the resulting orientation of the vehicle. To facilitate the steering modelling process, the vehicle's velocity is considered only around an operating point.
 
  \begin{figure}[H]
  	\centering
@@ -25,7 +25,7 @@ The first model considered can be seen on \figref{basicSteering}.
 As described in \secref{Servo}, the angle of the servo, \si{\theta_{s}}, is controlled by a pulse width modulated signal on its reference input. The servo is in a neutral position (\si{0^{\circ}}) for a non-zero pulse-width.
 This means that an offset, \si{K_{off}}, is substracted to the PWM so that the servomotor's gain, \si{K_s}, translates linearly its input to an angle. This specific offset is the actual value that sets the servo to \si{0^{\circ}}. As seen in \todo{appref{app:steeringLinearAreaServo}}, this offset is different than the one used to get the middle position of the servo, so that it compensates for the mechanical inaccuracies and makes the vehicle go straight. Moreover, depending on the operating point of the vehicle, i.e. if it goes to the right or to the left, this offset shall also include a supplementary term. The latter is used to get the servo at the edge of the steering's linear area, be it to the left or to the right.\\
 %
-In the following modelling process, the vehicle's steering is considered as being in either of the two operating points. Since the velocity of the vehicle is also assumed constant, the rate of change of the direction, \si{\omega_{v} (s)}, must be a function of the servo angle, and a constant, \si{K_v}, representing the speed of the vehicle and the braking system.
+In the following modelling process, the vehicle's steering is considered as being in either of the two operating points. Since the velocity of the vehicle is also assumed constant, the rate of change of the direction, \si{\omega_{v} (s)}, must be a function of the servo angle, and a constant, \si{K_v}, representing the action speed of the vehicle and the braking system.
 The rate of change in the vehicle's angle is finally integrated over time, resulting in a angle heading, \si{\theta_{v} (s)}.\\
 %
 As stated in \appref{app:steeringGainTest}, the servomotor's gain, \si{K_s}, and velocity and braking gain, \si{K_v} are combined into a single gain value \si{K_{steering}} to ease the gain calculations, see \figref{fig:basicSteeringModelKCombinated}.
@@ -59,6 +59,17 @@ As stated in \appref{app:steeringGainTest}, the servomotor's gain, \si{K_s}, and
 % 	\label{basicSteeringWithDelay}
 % \end{figure}
 %
+
+To be sure that this model can be used for the design of controllers, it is necessary to verify it and check the fact that it matches the reality, by comparing a simulation of the model with measured data of a step-response.
+
+\subsection{Verification of the Steering Model}
+
+\todo{Add verification}
+TO DO
+test confirmation of the plant of the steering model of 6.19 model, with PWM input and theta output
+plot of this, and simulation, make it fit
+generate a pwm input with simulink(step or else), and with no feedback
+
 This simple model describes the action of the steering on the vehicle, by translating PWM signals sent to the servo into headings of the vehicle. It allows to apply a control on the direction of the vehicle, but not for it to follow a predefined set of points.
 
 \subsection{Line Following Model}
@@ -124,7 +135,7 @@ By definition, \si{\Delta\theta} is the difference between the real heading of t
   &\si{\theta_{ref}(s)}     & is the absolute wanted heading of the vehicle &\unitWh{^{\circ}}\\
 \end{tabular}
 
-From \eqref{eq:angleIntegrationLaplace}, the block diagram of the steering model on \figref{fig:basicSteeringModelKCombinated} can be extended, as seen on \figref{fig:steeringLineFollowingModel}.
+From \eqref{eq:angleIntegrationLaplace}, the block diagram of the steering model on \figref{fig:basicSteeringModelKCombinated} can be extended with the boxed blocks seen on \figref{fig:steeringLineFollowingModel}.
 
 \begin{figure}[H]
   \centering

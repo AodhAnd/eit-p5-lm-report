@@ -1,0 +1,53 @@
+\pagebreak
+\section{Accept Test - Route following} \label{app:AccTes2}
+\textbf{Name: Group 510}\\
+\textbf{Date: 11/12 - 2015}
+
+\subsubsection{Purpose}
+The purpose of the test, is to test if the car will follow a certain implemented route.
+
+As stated in \secref{} \todo{Ref to the section, where the steering control is said to not be working}, the magnetometer cannot run in the GOT system room, and therefore can the steering control not be used and the vehicle cannot turn. This test will show the principle of the route following, by manually taking the transmitter and follow the route this way, to test the route function.
+
+\subsubsection{List of Equipment}
+\begin{table}[H]
+\begin{tabular}{|l|l|p{4cm}|}
+\hline%------------------------------------------------------------------------------------
+  \textbf{Instrument}                        &  \textbf{AAU-no.}  &  \textbf{Type}       \\
+\hline%------------------------------------------------------------------------------------
+  GOT system                               &   &  Indoor position system  \\
+\hline%------------------------------------------------------------------------------------
+  Computer                   		         &   &    \\
+\hline%------------------------------------------------------------------------------------
+  2 Xbee &  -             &    \\
+\hline%------------------------------------------------------------------------------------
+  Explore board to Xbee                 &  -             &                      \\
+\hline
+ Arduino & & Mega 2560 \\
+\hline
+%------------------------------------------------------------------------------------
+\end{tabular}
+\end{table}
+
+\subsubsection{Procedure}
+
+\begin{enumerate}
+  \item Setup the route to go from (0,0) to (2000, 0) to (0, 2000) to (0,0) again.
+  \item Setup GOT system, by power up the satellites and the master.
+  \item Turn on the GOT transmitter
+  \item Start the GOT code, which contains the protocol.
+  \item Turn on the arduino.
+  \item Move around the transmitter along the route.
+  \item Check with a serial port on the arduino, to look for data.
+  \item Save the data from the serial port on the arduino.
+\end{enumerate}
+
+\subsubsection{Results}
+\todo{Insert figur}
+
+At first, the route will tell the vehicle to go to point (2000,0), which is indicated by a XX color on \figref{}. When the vehicle is less than 25 cm from the point, which is indicated with a circle, the system register that it have made it to the point and will go towards the next point, where the path is indicated with a XX color. When it is near (0,2000), the system will turn to the final point in (0,0) and go towards that, indicated with a XX color. When it have reach that point, the system will indicate, that is have completed the route, shown with the XX color. 
+
+As the transmitter is manually moved around the route, the path will not begin to turn immediately, when a new next point have been register. This should be happening, when the steering controller is used on the vehicle, as it will try to steer towards the new point, as soon as it gets it (See \secref{} \todo{ref to steering controller}).
+
+\subsubsection{Conclusion}
+
+

@@ -1,2 +1,93 @@
 \subsection{Distance controller}
+A distance controller will now be designed, to complement the angular controller.
+As concluded in \secref{sec:SteeringModel}, a deviation from the planned line, will cause the vehicle to drive at a parallel line, next to the planned. The deviation will be calculated from the position provided by the GoT system. As the deviation is a function of the error angle integrated over time it is assumed, that a P controller will be sufficient to handle this function, just as in the Angular controller. The controller will therefore be based on a P controller, and iterated until results are satisfactory. 
+
+As real-world test data is not available, caused by the magnetometer not working in the room with the GoT system installed, the controller will be designed and simulated in Simulink. As a starting point, the proportional gain will be set at 1, and the controller will be designed based on bode plots and step responses.
+
+The proposed controlling scheme can be seen in \figref{SteeringSimulink}
+
+\begin{figure}[H]
+\centering
 \includegraphics[width=\textwidth]{figures/SteeringSimulink1.png} 
+\caption{Initial Distance Controller}
+\label{SteeringSimulink}
+\end{figure}
+As seen in the figure, the Angular Controller is placed in the center of the loop, as this will be responsible for changing the vehicle's angle, to what the distance loop calculates to be necessary. A reference angle, \emph{angleRef} is added to the output of the P controller, representing the angle of the line to follow. The following three stages (Deg to radians, Velocity and Deviation integrator) are taken directly from the steering model \figref{fig:steeringLineFollowingModel}.
+
+According to \ref{GoTSystem}, the GoT system provides position updates every 100ms. To model this delay, the same approximation as used for the servo delay in \secref{directionalExtention}, will be implemented:
+$$\frac{1}{\lambda\cdot\text{s}+1}\leadsto\frac{1}{\SI{0,1}\cdot\text{s}+1}
+$$
+The input to the loop is the wanted deviation from the line. This should ideally be zero, but is set to 1m in the simulation. This might seem strange, but it is done to force the system to react to an initial error; the error integrator starts at zero when the simulation is started, so an input of zero would imply that the vehicle is not deviating from the planned route, and nothing will happen.
+The error could of cause be added at the output, but since the system is assumed linear, a step from 1m to 0m error, should be the same as the opposite.
+The resulting step response can be seen in \figref{SimulationSteeringP1}
+
+\begin{figure}[H]
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.4\textwidth]{figures/distanceStep1.pdf}
+  }
+  \caption{A simulated step-response of the system correcting a 1 meter offset}
+  \label{SimulationSteeringP1}
+\end{figure}
+As seen on the figure, the system takes around 240 seconds, or 4 minutes, to correct the error. This leaves a lot of room for improvements.
+
+Using the Linear Analysis function of Simulink, a Bode plot is made from the open loop system. The resulting plot can be seen in \figref{SimulationSteeringB1}
+\begin{figure}[H]
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.4\textwidth]{figures/distanceBode1.pdf}
+  }
+  \caption{An open loop Bode plot of the system.}
+  \label{SimulationSteeringB1}
+\end{figure}
+To improve the system response, the first thing to be done is to find a better proportional gain than 1. One way to do this, is to optimise for a phase margin of 45 degrees. As seen by the marks on the plots, the gain is \SI{-33,78}dB at the 45 degree point (225-45=180). To get 0 dB gain at this point, the proportional gain will therefore be increased by  \SI{33,78}dB:
+$$\text{K}_\text{p}=10^{\frac{\SI{33,78}{}}{20}} = \SI{48,87}{}$$
+This value is entered in the simulation, and a new step response is made, see \figref{SimulationSteeringP2}
+
+\begin{figure}[H]
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.4\textwidth]{figures/distanceStep2.pdf}
+  }
+  \caption{Step response with new $\text{K}_\text{p}$.}
+  \label{SimulationSteeringP2}
+\end{figure}
+As seen in the figure, the response has improved dramatically, and the system reaches the target in approximately 2 seconds. Unfortunately it overshoots and rings, before settling after around 10 seconds. This settling time is a substantial improvement from 4 minutes, but there is still room for further improvements. If the overshoot is removed, the system will reach the target in just 2 seconds.
+As seen in the Modeling and Control course on the 5th semester of Electronic and IT at Aalborg University \cite{KMNielsen}, a way to remove an overshoot is to increase the high frequency gain. This can be done by adding a differentiator to the controller, which will then become a PD controller. According to \cite{Franklin}, a PD controller is rarely used in real life, as it is extremely sensitive to noise, and a lead compensator is recommended instead.
+
+A lead compensator adds a zero to the system, which cancels one of the poles in the system. This lowers the phase shift, improving the phase margin, and increases the gain at higher frequencies. At the same time, a pole is added at an even higher frequency, in order to ensure stability.
+
+The sampling period of the loop is limited to 100ms by the GoT system. According to the Nyquist-Shannon sampling theorem, a signal needs to be sampled by at least twice the signal bandwidth. This limits the upper frequency of which the pole in the lead compensator can be placed. To ensure the theorem is fulfilled, the pole is given a time constant of \SI{0,3}{s}. This in turn limits the frequency of the zero - if the zero is placed too close to the pole, they will cancel each other out. On the other hand, it is desired to place the zero as high as possible, in order to not change the low frequency gain, and at the same time to affect the existing poles in the system as much as possible. A compromise must be made, and the zero is given a time constant of 1 second.
+
+A bode plot is made with the lead compensator added to the system, see  \figref{SimulationSteeringB2}. 
+
+\begin{figure}[H]
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.4\textwidth]{figures/distanceBode2.pdf}
+  }
+  \caption{Bodeplot with Lead compensation}
+  \label{SimulationSteeringB2}
+\end{figure}
+The 0 dB frequency has increased from \SI{0,94}{}rad/s to \SI{1,24}{}rad/s, and the phase margin is now: $$\SI{245,6}{}-180=\SI{65,6}{^\circ}$$
+As predicted, the lead compensator has increased the gain at higher frequencies and improved the phase margin. This leaves room to increase the proportional gain even further, but before doing this, another step response is made on the system, see \figref{SimulationSteeringP3}.
+
+\begin{figure}[H]
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.4\textwidth]{figures/distanceStep3.pdf}
+  }
+  \caption{Step response with lead compensation}
+  \label{SimulationSteeringP3}
+\end{figure}
+As seen on the step response, the system reaches the target in approximately two seconds, and the ringing has been reduced to less than \SI{3}{cm}. This is considered acceptable, as it is desirable to keep the increased phase margin. This because the whole loop is based on an approximated model, with no real data to back it up. The extra phase margin will provide a better chance of a stable system in the real world.

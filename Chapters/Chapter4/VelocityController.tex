@@ -53,9 +53,28 @@ If the \si{K_p} value again is selected to cancel out the system gain, allowing 
   \eq{ \frac{V_{out} }{V_{ref}} }{ \frac{1}{\frac{\tau}{2} \cdot s + 1} }&\nonumber
 \end{flalign}
 %
-If this is compared to the resulting closed loop transfer function for the original P-controller, \eqref{eq:PclosedLoop}, it is immediately obvious that the gain-problem has been solved. Notice that the time constant of the closed loop remains half of that of the plant. So by using the forward feed to place the set-point of the controller, P-control suddenly becomes a viable option for controlling the velocity. This is tested on the vehicle and the response is as expected as seen in \appref{app:proportionalControllerTest}.
+If this is compared to the resulting closed loop transfer function for the original P-controller, \eqref{eq:PclosedLoop}, it is immediately obvious that the gain-problem has been solved. Notice that the time constant of the closed loop remains half of that of the plant. So by using the forward feed to place the set-point of the controller, P-control suddenly becomes a viable option for controlling the velocity. This is tested on the vehicle and the response is as expected as seen in \appref{app:proportionalControllerTest}. Comparing the step response with the simulation of the step, see figure \figref{fig:stepPfeedForward}, there are a few thing to notice.
+%
+\begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=\textwidth]{figures/stepPfeedForward}
+ 	\caption{Proportional control with feed forward. The simulation is first order while the vehicle is second order due to the armature coils in the motor.}
+ 	\label{fig:stepPfeedForward}
+\end{figure}
+%
+First, the rise time of the two are approximately equal, however, the simulation of the first order approximation rises directly, while the measured data has a delayed initial rise. This delay is presumably because of the armature coils in the motor, through which the current cannot change instantaneously. This effect gives rise to a second order term, as discussed in \secref{DriveTrain}, where the first order approximation was made. After the armature coils have been energized the controller output has a much faster effect on the velocity of the vehicle, causing it to rise so fast that it overshoots due to inertia.
+An other interesting thing to notice is the sudden drop in battery voltage. When large currents are drawn from a NiMH battery, the voltage drops\cite{BatteryDS}. However in the implementation the duty cycle is scaled according to the current battery voltage, so that the controller maintains the same effect regardless of battery voltage. The exception being when the controller output exceeds the battery voltage, in which case the control will follow the battery voltage until the battery recovers. If the voltage drop at large current draws turn out to be a problem, an option could be to consider LiPO batteries, which are better at keeping a constant voltage, regardless of the amount of current drawn.
 
-If however the P-controller with feed forward is tested with an added disturbance, for instance a adding friction when breaking, the forward feed no longer compensates. The set-point compensation origins at the input of the controller, so when a disturbance is imposes on the system, the gain of the plant suddenly changes, and this cannot be accounted for with this feed forward P-controller. The effect is demonstrated in \figref{feedForwardHillOffset}\todo{make this test, and insert picture}, where the controller was tested on a hill.
+The P-controller with feed forward seem to be a good choice, however if subjected to disturbances, some problems emerge. For instance adding friction when breaking, exceeds the capabilities of a feed forward P-controller. The set-point compensation origins at the input of the controller, so when a disturbance is imposes on the system, the gain of the plant suddenly changes, and this cannot be accounted for with this feed forward P-controller. The effect is demonstrated in \figref{fig:hillPfeedForward}, where the controller was tested on a hill.
+%
+\begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=\textwidth]{figures/hillPfeedForward}
+ 	\caption{When the P-controller with feed forward is subjected to constant disturbances, the gain of the system changes and the proportional gain and set-point is no longer sufficient, to avoid steady state error.}
+ 	\label{fig:hillPfeedForward}
+\end{figure}
+%
+Since the vehicle steers by breaking on one side, this kind of steady state error will not only occur when encountering slopes, but every time the vehicle turns. To find a better solution a proportional integral controller is considered in the following section.
 %
 \subsection{PI-Controller}
 To attack the new offset-problem caused by changes in the system gain when disturbances enter the system, a proportional integral controller is the next natural choice. The reason for choosing a PI-controller is because the I-component integrates over the error. This component therefore increases or decreases over time, and so has an adaptive effect on the system. The design is outlined in \figref{proportionalIntegratorController}
@@ -93,10 +112,10 @@ Now to determine \si{K_i}, the original equation for a PI-controller is evaluate
   \si{K_p + K_i\cdot \frac{1}{s}} &= \si{K_p\cdot(1+ \frac{1}{T_i\cdot s}) \ \ \Rightarrow \ \ K_i\cdot \frac{1}{s} = \frac{K_p}{T_i\cdot s} \ \ \Rightarrow \ \ K_i = \frac{K_P}{T_i} \ \ \Rightarrow \ \ K_i = \frac{K_p}{\tau}}&\nonumber
 \end{flalign}
 %
-This concludes the PI-controller design.\todo{insert numbers maybe? Also write more in the "tail"}
+This concludes the initial design of the PI-controller, however, in the following the controller will be analyzed and compared to the other controllers. Implementation and discussion of results follow immediately after.
 
 \subsection{Comparison of the Controllers}
-On \figref{fig:ControllerSteps} the different controller designs are simulated being subjected to a velocity step. For comparison the plant is subjected to a voltage step calculated from a velocity and the gain of the plant.
+On \figref{fig:ControllerSteps} the different controller designs are simulated being subjected to a velocity step. For comparison the plant is subjected to a voltage step calculated from the velocity step and the gain of the plant, which corresponds to a \si{iK_p}, but without feedback control.
 %
 \begin{figure}[H]
  	\centering
@@ -105,7 +124,7 @@ On \figref{fig:ControllerSteps} the different controller designs are simulated b
  	\label{fig:ControllerSteps}
  \end{figure}
 %
-The first thing to notice on \figref{fig:ControllerSteps}, is the inadequacy of the P-controller, given by its steady state error. The feed forward P-controller however, solving this problem, seems like a very good solution if consulting only its step response. As discussed, a problem arises when introducing a disturbance, as seen in \figref{feedForwardHillOffset}. The last discussed option is the PI-controller, which places itself right on top of the step response of the plant when having a gain of 1, which is by design. The difference between the plant with a scaled input to obtain a gain of 1, compared to the PI-controller lies in the feedback along with the adaptive gain emerging from the I-component. This becomes clear when investigating the open loop rather than the closed loop transfer function:
+The first thing to notice on \figref{fig:ControllerSteps}, is the inadequacy of the P-controller, given by its steady state error. The feed forward P-controller however, solving this problem, seems like a very good solution if consulting only its step response. As discussed, a problem arises when introducing a disturbance, as seen in \figref{fig:hillPfeedForward}. The last discussed option is the PI-controller, which places itself right on top of the step response of the plant when having a gain of 1, which is by design. The difference between the plant with a scaled input to obtain a gain of 1, compared to the PI-controller lies in the feedback along with the adaptive gain emerging from the I-component. It becomes clear when investigating the open loop rather than the closed loop transfer function:
 %
 \begin{flalign}
   V_{error}(s) \cdot \frac{(K_p \cdot \frac{K_i}{s}) \cdot K}{\tau \cdot s + 1}
@@ -129,30 +148,57 @@ On \figref{fig:PIcontrollerStepRealVsSim} a step response of an implemented PI-c
 \begin{figure}[H]
  	\centering
  	\includegraphics[width=\textwidth]{figures/PIcontrollerStepRealVsSim}
- 	\caption{Diagram of the proportional controller}
+ 	\caption{Diagram of the proportional integral controller compared to simulation}
  	\label{fig:PIcontrollerStepRealVsSim}
 \end{figure}
 %
-The difference between the two responses at the bottom of the graph might be partially due to the fact that the vehicle is a \si{2^{nd}} order system. The approximation to a \si{1^{st}} order model is however not to be discarded. The design still delivers a response relatively close to the simulation, and as seen from \chapref{cha:AcceptTest}, the PI-controller fulfills the requirements set for the system's velocity controller.
-
+The difference between the two responses at the bottom of the graph might, as mentioned for the feed forward P-controller, be partially due to the fact that the vehicle is a second order system. The approximation to a first order model is however not to be discarded. The design still delivers a response relatively close to the simulation, and as seen from \chapref{cha:AcceptTest}, the PI-controller fulfills the requirements set for the system's velocity controller.
+If this implementation is investigated at different velocity steps, a certain characteristic of the current design becomes more apparent, see \figref{fig:multiStepPI}.
+%
 \begin{figure}[H]
  	\centering
  	\includegraphics[width=\textwidth]{figures/multiStepPI}
  	\caption{Diagram of the proportional controller}
  	\label{fig:multiStepPI}
 \end{figure}
-
+%
+The system overshoots before reaching the reference velocity. To investigate this behavior further a step is made at 2 \si{m\cdot s^{-1}}, and data from the battery and controller output is recorded, see \figref{fig:PInoAntiWindup}.
+%
+\begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=\textwidth]{figures/PInoAntiWindup}
+ 	\caption{Diagram of the proportional controller}
+ 	\label{fig:PInoAntiWindup}
+\end{figure}
+%
+As mentioned earlier, in this implementation the controller output is converted to duty cycle taking into account a varying battery voltage. So the battery voltage has an impact on the control only when the controller output exceeds the battery voltage. As a side note, the battery voltage is limited to a maximum of \si{100 \ \%} duty cycle.
+The overshoot happens after the battery voltage saturation, and so the answer must be found elsewhere.
+When the velocity of the vehicle rises, the error naturally falls. The controller output follows this fall of the error. While the integral gain keeps building the \si{V_{error}\cdot K_p} keeps getting smaller due to the rise of the velocity towards the reference. This means that the controller output will keep falling until the integral gain takes over, becoming the most dominant of the two. This is where the controller makes a negative overshoot.
+While the controller output was falling beyond its settle value (5 V), the velocity kept going up due to delay cause by inertia in the system. The controller output now rising from the influence of the integral gain, also has a delayed effect on the system.
+To conclude, the overshoot of the velocity happening before it reaches its reference is caused by the negative overshoot of the controller output, which originates from the scaling of \si{K_p} and \si{K_i}.
+%
+\begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=\textwidth]{figures/PIwidthAntiWindup}
+ 	\caption{Diagram of the proportional controller}
+ 	\label{fig:PIwidthAntiWindup}
+\end{figure}
+%
+5
+%
 \begin{figure}[H]
  	\centering
  	\includegraphics[width=\textwidth]{figures/CalculatedPI}
  	\caption{Diagram of the proportional controller}
  	\label{fig:CalculatedPI}
 \end{figure}
+%
 
+%
 \begin{figure}[H]
  	\centering
  	\includegraphics[width=\textwidth]{figures/TunedPI}
  	\caption{Diagram of the proportional controller}
  	\label{fig:TunedPI}
 \end{figure}
-
+%

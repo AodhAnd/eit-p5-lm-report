@@ -70,9 +70,9 @@ To verify the model of the plant, a test and a simulation have been plot on the 
   \includegraphics[scale=0.8]{figures/plotVerificationSteeringPlant.pdf}
   \caption{Plot of the plant model, showing the simulation and the real life test.}
   \label{fig:plotVerificationSteeringPlant}
-\end{figure}
+\end{figure}\todo{change figure headline to Step response at a PWM pulsewidth of 1670ms}
 
-A step of 1670ms is sent through the PWM to the servo at 5 seconds, that makes the vehicle turn at a constant speed. This makes the angle variate linearly as seen on \figref{fig:plotVerificationSteeringPlant}, and fit the simulation of the model of plant.
+A step of 1670ms is sent through the PWM to the servo at 5 seconds, that makes the vehicle turn at a constant speed. This makes the heading of the vehicle change at a constant rate, as seen on \figref{fig:plotVerificationSteeringPlant}, and fit the simulation of the model of plant.
 
 
 This simple model describes the action of the steering on the vehicle, by translating PWM signals sent to the servo into headings of the vehicle. It allows to apply a control on the direction of the vehicle, but not for it to follow a predefined set of points.
@@ -150,4 +150,4 @@ From \eqref{eq:angleIntegrationLaplace}, the block diagram of the steering model
 \end{figure}
 
 This model describes how the steering reacts and therefore, how the vehicle can be moved sideways. It allows for the controlling of both the heading of the vehicle and its position relative to the line it has to follow, see \secref{sec:steeringController}.\\
-However, it also uses assumptions that need to be verified. Firstly, the distance calculation model only works if the vehicle is deviating and not if it is following a line parallel to the wanted one. Indeed, were that the case, then the angle difference would approach zero and the calculated distance too, even though it wouldn't actually be. This problem is considered in \todo{secref{sec:lineFollowingControl}}. Moreover, this model is only used to simulate the system's behavior since the distance calculations are made with the use of the Games on Track positioning system. Finally, the velocity can only be considered constant if properly controlled, as done in \secref{sec:velocityController}.
+However, it also uses assumptions that need to be verified\todo{If it needs to be verified, why don't we do it?}. Firstly, the distance calculation model only works if the vehicle is deviating and not if it is following a line parallel to the wanted one. \todo{we need to discuss this, I don't agree (Thomas)} Indeed, were that the case, then the angle difference would approach zero and the calculated distance too, even though it wouldn't actually be. This problem is considered in \todo{secref{sec:lineFollowingControl}}. Moreover, this model is only used to simulate the system's behavior since the distance calculations are made with the use of the Games on Track positioning system. Finally, the velocity can only be considered constant if properly controlled, as done in \secref{sec:velocityController}.

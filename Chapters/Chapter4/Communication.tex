@@ -1,7 +1,51 @@
 \chapter{Communication}
-A communication system is needed so transfer the data used for the GoT system from the computer to the Arduino, on the vehicle. This will be done through two Xbee radio modules. The communication setup for the Xbee modules will be explained in this chapter.
+A communication system is desired for transporting the GoT data, calculated to coordinates on the computer, to the microcontroller, located on the vehicle. Furthermore a protocol handling packet transitions is necessary to implement on top of the communication system to be able to fulfil requirements set in \secref{sec:Requirements}.
 
-\subsection{Wireless communication with Xbee}
+% The har two Xbee radio modules. The communication setup for the Xbee modules will be explained in this chapter.
+
+\subsection{OSI model}
+The Open Systems Interconnection, OSI, model is a standard used to describe how information moves in a network. Each layer describing standardization of what should occur in the specific layer. The seven layers of the OSI model can be seen in \tableref{tab:OSIModel}.
+
+\begin{table}[H]\centering
+\begin{tabular}{|p{1.5cm}|p{3cm}|}
+\hline%-----------------------------------------------------------------------------------------------------------------
+  \textbf{Layer} & \textbf{OSI} \\
+\hline%-----------------------------------------------------------------------------------------------------------------
+    7 &    Application      \\
+\hline%-----------------------------------------------------------------------------------------------------------------
+    6 &    Presentation      \\
+\hline%-----------------------------------------------------------------------------------------------------------------
+    5 &    Session       \\
+\hline%-----------------------------------------------------------------------------------------------------------------
+    4 &    Transport    \\
+\hline%-----------------------------------------------------------------------------------------------------------------
+    3 &   Network     \\
+\hline%-----------------------------------------------------------------------------------------------------------------
+    2 &   Data link     \\
+\hline%-----------------------------------------------------------------------------------------------------------------
+    1 &    Physical     \\
+\hline%-----------------------------------------------------------------------------------------------------------------
+\end{tabular}
+\caption{OSI model}
+\label{tab:OSIModel}
+\end{table}
+
+An overall description of the main functionalities in the different layers is examined and a description of what layers are utilized for in the prototypes communication protocol, is given:
+
+The Physical layer is the electrical/mechanical hardware layer. The layer handles bits and determines what is a binary 0 and 1. The prototype utilizes two Xbee's, one in the computer and one on the vehicle, for the lowest layer of communication.
+
+The Data link layer functionality ensures physical addressing, error control when transferring data between node over the physical layer and access control \cite{JensMyerSlides}. The Data link layer is something the Xbee module handles to ensure a byte is send correctly \todo{Check up on that}.
+
+The Network layers main functionality is routing across a network. This is not utilized in the protocol. Since to communication is only between two modules. 
+
+The Transport layers handles packets and can assemble or disassemble packets if necessary. An important part of the functionality of this layer is to ensure reliable transmission of data packets.
+
+  
+
+ 
+
+
+
 
 %Notes:
 %We use UDP, no connections
@@ -15,11 +59,34 @@ A communication system is needed so transfer the data used for the GoT system fr
 
 
 \subsection{Transport Layer}
-A protocol for the transport layer is made to understand what contains each byte sent from the transmitter to the receiver. The use of a protocol for the transport layer will make sure that each end of the communication system understand how each package of bytes is build up.
 
-The main object for the communication system is to send the data from the GoT system to the Arduino. To make sure that the data is received correctly and that none disturbances, like bit shifting, have changed the data Error handling parts will also be sent with the data. The error handling will not repair damaged packages, but throw them away instead. This is because the sampling time for the GoT system is so fast (10 hertz), that the vehicle can go on even if one or two package gets thrown away. If the system would try to repair the package, the package has to be resended or have a repair part included, which will make the packages bigger.
 
-To make the protocol, each part of the package have to be converted into bit arrays.
+%is made to understand what contains each byte sent from the transmitter to the receiver. The use of a protocol for the transport layer will make sure that each end of the communication system understand how each package of bytes is build up.
+
+The main object for the communication system is to send the coordinates from the computer to the microcontroller. A transport layer protocol is created to ensure packets can be transmitted, receive, i.e. extract the needed information from the packet, and to identify erroneous packets.
+
+A connectionless system is chosen to be implemented, since it is one-way communication, from the computer to the microcontroller. Furthermore is retransmission not desired, since the vehicle is moving and a retransmission of a coordinate will cause a delay. Additionally, the sampling rate of the GoT system i 10 \si{Hz}, so sending the recently received coordinates would be insufficient. Therefore is erroneous packet is thrown away and acknowledgements is not needed.
+
+måske noget med at den ligner udp?
+
+\subsubsection{Protocol Package Structure}
+A package structure is desired for containing necessary information for addressing, decrypting and error handling. The protocol has an header which contains a start byte, a destination and the length of the package. The body of the package is the data and the tail is the checksum and the end byte. The order of the package structure is illustrated in \tableref{CoorSetup}.
+
+\begin{table}[H]\centering
+\begin{tabular}{|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|} \\
+\hline
+Start Byte & Destination ID & length & Data & Checksum & End byte \\
+\hline
+\end{tabular}
+\caption{The structure of a package}
+\label{CoorSetup}
+\end{table}
+
+The destination ID is to ensure the packets which is transmitted is handled by the desired receiver. This way the transmitter can transmit to numerous receivers if multiple vehicles is utilized. The destination ID ensures the receivers can filter out packages not intended for them. The microcontroller has the destination ID 0000 0001. The length of the destination byte is set to one byte, so the destination can be read immediately when received.
+
+It is not necessary to have a source in the header, since only one the computer is transmitting, and therefore it is not necessary for the vehicle to know where the packet is transmitted from. Even if there were more computers, as long as the packet is marked with the destination ID, the receivers is able to read it. If retransmission was utilized, in case of erroneous packages, a source is necessary to have the ability to ask for a retransmission from the sender. Since retransmission is not utilized a source is not included in the packet structure.
+
+The length is utilized by the receiver. This will make it possible for the receiver to know the bit length of the package, and thereby know when the package should end. Each package created has the same length. The length is set to contain 7 bit, this can count up to $2^{7}-1 = 127$, which is sufficient.
 
 \subsubsection{Data}
 \todo{Insert value number into the GoT description}
@@ -38,17 +105,6 @@ $2^0$ & $2^1$ & $2^2$ & $2^3$ & $2^4$ & $2^5$ & $2^6$ & $2^7$ & $2^8$ & $2^9$ & 
 \end{table}
 
 The representation of the integer is called signed magnitude. Another representation that could be used is ones' complement. Here the number is inverted if the signed bit is true. But for an easier implementation into the GoT system, the signed magnitude is used. This is easier because the code will first check if the number is positive or negative. If negative, the sign bit is set and the number is multiplied by minus one, to get the magnitude. Then the magnitude will be converted into the bit array. When converting it back, it is only necessary to multiply the magnitude by minus one, if the signed bit is true.
-
-\subsubsection{Header}
-The header of the protocol \todo{ref to start and end byte picture?} contains the information about who have to receive the package (Destination) and the length of the package (Length). These headers are used to make communication in bigger networks easier to handle.
-
-In the Destination, the transmitter can say which receiver have to read the package. This way the transmitter can send to multiple receivers, in the case where there are multiple vehicles. This is used on the receiver, to filter out all the packages, that was not send to it, but it still catches it. In this project, the vehicle will get the destination ID 0000 0001. The length of the destination byte is set to one byte, so the destination can be read by itself, when it is received.
-
-A source could also be applied to the header, but as there is only the computer that is sending, the vehicle do not need to know where the coordinates come from. Even if there were more computers, as long as the data is marked with the destination for it self, the vehicle will be able to read it. If a resend method was used, in case of damaged packages, the source would have been needed to know who to ask for a resend. But as there is not, the source will not be implemented in this protocol.
-
-The information about the length is used by the receiver, to see how many bit there are in the package and in this way, know how much it still needs to receive, before the end of the package. As each package contains the same parts in this system and these parts does not get shorter or longer, they only have different values, the length will be the same for each package. The size of the bit array, that contains the length, is set to 7 bit, as this can contain up to $2^{7}-1 = 127$ bits of data. This number is considered high enough, as the package is set to be as small as possible.
-
-With the header the transmitter can send to specific receivers and the receiver can receive packages specified for it and know the length of the whole package.
 
 \subsubsection{Checksum}
 To make sure that the package data is received correctly, some error handling are added to the protocol. One of these is a checksum. The way the checksum is calculated, is by splitting the header and data up in parts of equal size and then adding these parts together. Then the summed bit array is inverted and this bit array is the checksum. 
@@ -121,12 +177,12 @@ As there is a chance that the package is getting damaged under the way from the 
 
 But as with the checksum, where there is a flaw if there are multiples errors and these cancel each other out in the control, there is a flaw in the error handling for receiving packages. The receiving process can be seen on \figref{FlowReceiver}.
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.7]{figures/FlowReceiver.pdf}
-\caption{Flow chart over the error handling in the receiver part.}
-\label{FlowReceiver}
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\includegraphics[scale=0.7]{figures/FlowReceiver.pdf}
+%\caption{Flow chart over the error handling in the receiver part.}
+%\label{FlowReceiver}
+%\end{figure}
 
 If the package is transmitted correctly, the 1st byte will be the start byte, the 2nd byte will be the destination ID of the receiver. The 3rd byte will contain 7 bit for the length and 1 bit for the first coordinate. If the length is correct, it will be 96, which is 12 byte. The last byte, the 12th one, is the end byte. Then if these condition are all correct, the receiver will make a control with the checksum. If that one is also correct, the system will convert the data and return the coordinates to the rest of the system.
 
@@ -177,3 +233,4 @@ These scenarios about beginning to read a package in the middle of a package is 
 
 
 The protocol of the Xbee modules are now explained and implemented, with the handling errors
+

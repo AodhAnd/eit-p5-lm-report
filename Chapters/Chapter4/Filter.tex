@@ -1,15 +1,13 @@
-\chapter{Digital Filter}
-When utilizing a sensor unwanted noise can arise and influence the measurements acquired. By implementing a filter it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{HardwareChoice}, is active while the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a inexpedient effect on the steering controller. With ideal circumstances the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise could be a potential solution to get more accuracy.
+\chapter{Digital Filter}\label{chap:digitalFilter}
+When utilizing a sensor unwanted noise can arise and influence the measurements acquired. By implementing a filter it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{Hardwarechoice}, is active while the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a inexpedient effect on the steering controller. With ideal circumstances the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise could be a potential solution to get more accuracy.
 
-There is many cons and pros when considering between implementing a analogue or digital filter. But since the signal received from the magnetometer is digitalized, it has been chosen to implement a digital filter.
-
-Before establishing requirements for the digital filter, an analysis of the hardware, system and possibilities is necessary.
+There is both cons and pros when considering between implementing a analogue or digital filter. Since the signal received from the magnetometer is digitalized, it has been chosen to implement a digital filter.
 
 \section{Filter Considerations} \label{sec:FilterConsiderations}
-In this section the needed sample frequency, measurements extract from the Magnetometer and filter type possibilities is analysed.
+In the following section the needed sample frequency, measurements extracted from the Magnetometer and filter type possibilities is analysed.
 
 \subsection{Sampling Frequency}
-It is necessary examine if it is possible to have a high enough sampling frequency to get a cut-off frequency which does not effect the system. To determine this a examination of the inner loop of the steering model, where the Magnetometer is placed, is needed.
+It is necessary to examine if it is possible to have a high enough sampling frequency which can yield a cut-off frequency which does not effect the system. To determine this the inner loop of the steering model, where the Magnetometer is placed, is examined.
 
 The transfer function for the plant in the inner loop of the steering model, see \secref{sec:SteeringModel}, is given as:
 %
@@ -17,7 +15,7 @@ The transfer function for the plant in the inner loop of the steering model, see
 \eq{H(s)}{\frac{K}{(0.03s+1)s}}
 \end{flalign}
 %
-The poles of the system yields 33.3 and 0 \si{\frac{rad}{s}}. When designing a filter it is necessary to consider the placement of the system's dominant pole. in this situation the dominant pole is the pole placed at 33.3 \si{rad/s}. A rule of thumb is to place the cut-off frequency of the filter atleast one decade after the dominant pole, i.e. 333 \si{\frac{rad}{s}}. If the cut-off frequency of the filter is beneath 333 \si{\frac{rad}{s}} it will influence the systems phase-margin, which results in a delay. 
+The poles of the system yields 33.3 and 0 \si{\frac{rad}{s}}. When designing a filter it is necessary to consider the placement of the pole which is at the highest frequency. In this situation the pole which is at the highest frequency is the pole placed at 33.3 \si{rad/s}. A rule of thumb is to place the cut-off frequency of the filter atleast one decade after the highest frequency pole, i.e. 333 \si{\frac{rad}{s}}. If the cut-off frequency of the filter is beneath 333 \si{\frac{rad}{s}} it will influence the systems phase-margin, which results in a delay. 
 
 By being aware of this requirement, it is possible to find a sampling frequency which can grant a cut-off frequency above 333 \si{\frac{rad}{s}}. The least required cut-off frequency of 333 \si{\frac{rad}{s}} is calculated to a frequency:
 %
@@ -31,11 +29,9 @@ To calculate the least required sampling frequency, the Nyquist-Shannon Sampling
 \Omega_s &\geq 2 \cdot 53 \leq 106 \unit{Hz}
 \end{flalign}
 %
-The Magnetometer has to be sampled at atleast every 106 \si{Hz}. 
+The Magnetometer has to be sampled at atleast every 106 \si{Hz}. In the specification for the Magnetometer \cite{HMC5883L}, the sampling rate is given to 75 \si{Hz}. Hence making it impossible to sample at a high enough frequency, to have a cut-off frequency for the filter which does not affect the system.
 
-In the specification for the Magnetometer \cite{??}, the sampling rate is given to 75 \si{Hz}. A sampling rate of 106 \si{Hz} was desired, since at this rate it would not effect the system by causing a delay. 
-
-With this in consideration it has been decided to have a sample rate at 66,66 \si{Hz}, i.e. 15 \si{ms}, even though it will cause a delay. The 66,66 \si{Hz} has been chosen instead of the 75 \si{Hz} to have a margin from the maximum sampling rate the sensor can deliver.
+It is been decided to have a sample rate at 66,66 \si{Hz}, i.e. 15 \si{ms}, even though it will cause a delay. The 66,66 \si{Hz} has been chosen instead of the 75 \si{Hz} to have a small margin from what the sensor can deliver.
 
 \subsection{Frequency Analysis of Measured Data}
 Before establishing requirements for a filter it is necessary to analyse data measured with the magnetometer, to ensure the noise is attenuated and not the wanted signal. The data which is analysed is when the vehicle and the magneto is stationary, this will thereby find the stationary variations on the sensor, the acquired measurements is illustrated in \figref{fig:StationaryMeasurementsMagnato}.
@@ -51,7 +47,7 @@ Before establishing requirements for a filter it is necessary to analyse data me
   \label{fig:StationaryMeasurementsMagnato}
 \end{figure}
 
-From \figref{fig:StationaryMeasurementsMagnato} it can be seen how the angle measured vary with approximately 2 degrees. In the datasheet for the magnetometer it is explained that the sensor has a 1 to 2 degrees accuracy \cite{??}, which is consistent with the measured data. To be able to analyse measured data affected by noise, a FFT is utilized. The FFT makes it possible to see the frequency component contained in the signal, thereby making it possible to find the signal and the noise affecting the signal. A FFT of the measured data is performed and illustrated in \figref{fig:StationaryMeasurementsMagnato}.
+From \figref{fig:StationaryMeasurementsMagnato} it can be seen how the angle measured vary with approximately 2 degrees. In the datasheet for the magnetometer it is explained that the sensor has a 1 to 2 degrees accuracy \cite{HMC5883L}, which is consistent with the measured data. To be able to analyse measured data affected by noise, a FFT is utilized. The FFT makes it possible to see the frequency component contained in the signal, thereby making it possible to find the signal and the noise affecting the signal. A FFT of the measured data is performed and illustrated in \figref{fig:StationaryMeasurementsMagnato}.
 
 \begin{figure}[H]
   \centering
@@ -403,4 +399,19 @@ In \figref{fig:FinalImplementedFilter} the red line is the filtered data and the
   \label{fig:FinalimplementationFilterDelay}
 \end{figure}
 
-As seen on the figure a delay of approximately 0.03 ms occurs when utilizing the filter compared to the raw measured data. If the velocity of the vehicle is 1.4 \si{\frac{m}{s}} then the vehicle will have moved approximately 4.2 \si{cm}. 
+As seen on the figure a delay of approximately 0.03 ms occurs when utilizing the filter compared to the raw measured data. If the velocity of the vehicle is 1.4 \si{\frac{m}{s}} then the vehicle will have moved approximately 4.2 \si{cm}. By simulating a step response of the directional control loop with the filter, it is possible to see if the filter will make the directional control unstable. A simulation of the a step response in the directional control loop with and without filter is illustrated in \figref{fig:SimulatedStepResponsewithandwithoutFilter}.
+
+\begin{figure}[H]
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+  {
+    \includegraphics[width=1.2\textwidth]{figures/SimulatedStepResponsewithandwithoutFilter.pdf}
+  }
+  \caption{A plot illustrating a simulated step response of the directional control loop with and without the filter.}
+  \label{fig:SimulatedStepResponsewithandwithoutFilter}
+\end{figure}
+
+From \figref{fig:SimulatedStepResponsewithandwithoutFilter} it can be seen that the filter does not make the directional control loop unstable in the simulation. 
+
+\todo{Thomas write an argument stating the reasons for not implementing the filter.}

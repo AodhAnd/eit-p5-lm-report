@@ -57,6 +57,7 @@
 \input{Chapters/Chapter2/Brakes}                %---- Steering
 \input{Chapters/Chapter2/Servo}
 \input{Chapters/Chapter2/Hallsensor}            %---- Hall Sensor
+\input{Chapters/Chapter2/BatterySpecs} 		%---- Battery Specifications
 \input{Chapters/Chapter2/dPrototypeConstraints} %---- Prototype Constraints
 \input{Chapters/Chapter2/ePrototype}            %---- Prototype
 
@@ -70,19 +71,15 @@
 \input{Chapters/Chapter5/aHardware}
 \input{Chapters/Chapter4/HardwareChoice}
 \input{Chapters/Chapter4/HardwareImplementation}
-\input{Chapters/Chapter4/Hbridge}
 \input{Chapters/Chapter5/Scheduling}
 
 %--------- Chapter 5 ----------------------------------------
 \input{Chapters/Chapter5/sensorImplementation}
 \input{Chapters/Chapter4/HallSensorImplementation}
 \input{Chapters/Chapter5/magnetoImplementation}
+%\input{Chapters/Chapter4/Hbridge}
 
-%---------- Chapter 6 ----------------------------------------
-\input{Chapters/Chapter4/Communication}
-\input{Chapters/Chapter4/Filter}
-
-%---------- Chapter 7 ---------------------------------------- Modelling of the Vehicle
+%---------- Chapter 6 ---------------------------------------- Modelling of the Vehicle
 \input{Chapters/Chapter3/aModellingTheVehicle}
 \input{Chapters/Chapter3/bVelocityVehicle}
 \input{Chapters/Chapter3/cMotorModelling}
@@ -93,15 +90,24 @@
 \input{Chapters/Chapter3/eTotalSystemModelling}
 \input{Chapters/Chapter3/fSteeringModel}
 
-%---------- Chapter 8 ---------------------------------------- Control of the vehicle
+%---------- Chapter 7 ---------------------------------------- Control of the vehicle
 \input{Chapters/Chapter6/aControlOfTheVehicle}
 \input{Chapters/Chapter4/VelocityController}
 \input{Chapters/Chapter4/SteeringController}
+
+%---------- Chapter 8 ----------------------------------------
+\input{Chapters/Chapter4/Communication}
+\input{Chapters/Chapter4/Filter}
+
 
 %%% Part 3 %%%
 \part{Test \& Conclusion}
 
 \input{Chapters/AcceptanceTest/AcceptanceTest}
+\input{Chapters/AcceptanceTest/aTestProcedure}
+\input{Chapters/AcceptanceTest/bTestResults}
+
+
 %%% Setup for Appendix and Bibliography %%%
 \bookmarksetup{startatroot} %this is it
 \addtocontents{toc}{\bigskip} %perhaps as well
@@ -115,6 +121,7 @@
 
 %%% Appendix %%%
 \chapter*{Appendix}
+
 \addcontentsline{toc}{chapter}{Appendix}
 
 %---------- Appendix A ---------------------------------------- GoT Description

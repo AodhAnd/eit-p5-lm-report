@@ -40,7 +40,7 @@ As stated in \appref{app:steeringGainTest}, the servomotor's gain, \si{K_s}, and
 \end{figure}
 
 %%- Directional Model : Extended -%%
-\subsection{Extension of the Directional Model}
+\subsection{Extension of the Directional Model}\label{directionalExtention}
 
 The first model describes in a simple manner how the mechanical part of the steering system functions. However, it can be extended to include the time delay caused by the servo. According to \secref{Servo}, the servo is controlled by a PWM signal with a period of 30 ms. This means, that it will not be possible to update the servo angle continuously, but only in discrete time steps of 30 ms. These steps will be implemented in the model as a sampling delay.\\
 As seen in the Modeling and Control course on the 5th semester of Electronic and IT at Aalborg University \cite{KMNielsen}, the delay of a signal, \si{u(t)}, is usually described in frequency domain by an exponential factor:

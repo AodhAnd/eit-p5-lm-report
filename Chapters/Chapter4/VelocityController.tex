@@ -1,41 +1,42 @@
 \section{Velocity Controller}\label{sec:velocityController}
-The purpose of the velocity controller is to keep the vehicle at a steady velocity. The PID-controller is the most commonly used - proportional integral differential controller. Often all 3 components are not needed to control the system. Different approaches are explored in the following, starting with the proportional controller.
+The purpose of the velocity controller is to preserve the vehicle at a steady velocity, when going uphill, downhill and when turning, this is in conjunction with the velocity requirement from \secref{sec:Requirements}. The three most widely utilized controllers are the proportional, integral and differential controllers \todo{Source}. Usually all three controllers combined are not required when controlling a system. Different controller approaches are explored in the following segment, starting with the controller which is the most frequently utilized controller, alone or in combination with others, the proportional controller.
 
 \subsection{P-Controller}
-As seen on \figref{proportionalController} the P-controller is simply a proportional gain which is multiplied in the direct term.
+As illustrated on \figref{proportionalController} the P-controller, \si{K_p}, is a proportional gain which is multiplied with the direct term.
 %
 \begin{figure}[H]
  	\centering
- 	\includegraphics[scale=0.4]{figures/proportionalController.pdf}
+ 	\includegraphics[scale=0.6]{figures/proportionalController.pdf}
  	\caption{Diagram of the proportional controller}
   \label{proportionalController}
 \end{figure}
-This gives the following closed loop transfer function:
+
+The illustrated diagram yields the following closed loop transfer function:
 %
 \begin{flalign}
   \eq{ \frac{V_{out}}{V_{ref}} }{ \frac{\frac{ K_p \cdot K }{ K_p \cdot K + 1 } }{ \frac{ \tau }{ K_p \cdot K + 1 } \cdot s + 1} }&\label{eq:PclosedLoopTfs}
 \end{flalign}
 %
-From this it is evident that the new system time constant is dependent on the chosen \si{K_p}. The relation is seen directly in the standard form as the coefficient of s:
+From \eqref{eq:PclosedLoopTfs} it is evident that the time constant for the system is dependent on the chosen \si{K_p}. The time constant of the closed loop transfer function is the coefficient of s in standard form:
 %
 \begin{flalign}
   \eq{ \tau_{closed} }{ \frac{ \tau }{ K_p \cdot K + 1 } }&\nonumber
 \end{flalign}
 %
-So if \si{K_p} is chosen such that it cancels out the gain \si{K} of the plant, allowing for the linear velocity as the input, the time constant will be reduced to half, as will the gain:
+If \si{K_p} is chosen such that it cancels out the gain, \si{K}, of the plant, allowing for the linear velocity as input, the time constant will be reduced to half, along with the gain:
 \begin{flalign}
   \eq{ \frac{V_{out}}{V_{ref}} }{ \frac{\frac{ \frac{1}{K} \cdot K }{ \frac{1}{K} \cdot K + 1 } }{ \frac{ \tau }{ \frac{1}{K} \cdot K + 1 } \cdot s + 1} }&\nonumber\\
   \eq{ \frac{V_{out}}{V_{ref}} }{\frac{\frac{1}{2}}{\frac{\tau}{2} \cdot s + 1}}&\label{eq:PclosedLoop}
 \end{flalign}
 %
-This means that the P-controller will give an output of half the input, but rise to its set-point twice as fast as the system step without control. This is tested on the vehicle and the response is as expected as seen in \appref{app:proportionalControllerTest}.
+This suggest that the P-controller will give an output of half the input, but rise to its set-point twice as fast as the system step without control. This is tested utilizing the vehicle and the response is as expected. The test can be seen in \appref{app:proportionalControllerTest}.
 %
 \subsection{P-Controller with Feed Forward}
 Because of its offset the P-controller is not sufficient for reaching and so controlling the decried output velocity. However the P-controller can be improved by manipulating its set-point through use of feed forward, see \figref{proportionalControllerWithFeedforward}.
 %
 \begin{figure}[H]
  	\centering
- 	\includegraphics[scale=0.4]{figures/proportionalControllerWithFeedforward.pdf}
+ 	\includegraphics[scale=0.5]{figures/proportionalControllerWithFeedforward.pdf}
  	\caption{Diagram of the proportional controller with feedforward}
  	\label{proportionalControllerWithFeedforward}
 \end{figure}
@@ -81,7 +82,7 @@ To attack the new offset-problem caused by changes in the system gain when distu
 %
 \begin{figure}[H]
  	\centering
- 	\includegraphics[scale=0.4]{figures/proportionalIntegratorController.pdf}
+ 	\includegraphics[scale=0.6]{figures/proportionalIntegratorController.pdf}
  	\caption{Diagram of the proportional integral controller}
  	\label{proportionalIntegratorController}
 \end{figure}
@@ -89,7 +90,7 @@ To attack the new offset-problem caused by changes in the system gain when distu
 The standard equation for a PI-controller is given and can be rewritten as:
 %
 \begin{flalign}
-  \eq{K_p\cdot(1+ \frac{1}{T_i\cdot s})}{K_p \cdot \frac{T_i \cdot s + 1}{T_i \cdot s}}&\nonumber
+  \eq{K_p\cdot\left(1+ \frac{1}{T_i\cdot s}\right)}{K_p \cdot \frac{T_i \cdot s + 1}{T_i \cdot s}}&\nonumber
 \end{flalign}
 %
 Where \si{T_i} is the time constant of the integrator. Now if the time constant of the integrator is matched to the time constant of the plant, that is \si{T_i = \tau}, the following emerges from the closed loop transfer function:
@@ -109,7 +110,7 @@ This is equivalent to the plant but with a gain of 1 instead of K, which is desi
 Now to determine \si{K_i}, the original equation for a PI-controller is evaluated:
 %
 \begin{flalign}
-  \si{K_p + K_i\cdot \frac{1}{s}} &= \si{K_p\cdot(1+ \frac{1}{T_i\cdot s}) \ \ \Rightarrow \ \ K_i\cdot \frac{1}{s} = \frac{K_p}{T_i\cdot s} \ \ \Rightarrow \ \ K_i = \frac{K_P}{T_i} \ \ \Rightarrow \ \ K_i = \frac{K_p}{\tau}}&\nonumber
+  \si{K_p + K_i\cdot \frac{1}{s}} &= \si{K_p\cdot\left(1+ \frac{1}{T_i\cdot s}\right) \ \ \Rightarrow \ \ K_i\cdot \frac{1}{s} = \frac{K_p}{T_i\cdot s} \ \ \Rightarrow \ \ K_i = \frac{K_P}{T_i} \ \ \Rightarrow \ \ K_i = \frac{K_p}{\tau}}&\nonumber
 \end{flalign}
 %
 This concludes the initial design of the PI-controller, however, in the following the controller will be analyzed and compared to the other controllers. Implementation and discussion of results follow immediately after.
@@ -173,9 +174,8 @@ The system overshoots before reaching the reference velocity. To investigate thi
 %
 As mentioned earlier, in this implementation the controller output is converted to duty cycle taking into account a varying battery voltage. So the battery voltage has an impact on the control only when the controller output exceeds the battery voltage. As a side note, the battery voltage is limited to a maximum of \si{100 \ \%} duty cycle.
 The overshoot happens after the battery voltage saturation, and so the answer must be found elsewhere.
-When the velocity of the vehicle rises, the error naturally falls. The controller output follows this fall of the error. While the integral gain keeps building the \si{V_{error}\cdot K_p} keeps getting smaller due to the rise of the velocity towards the reference. This means that the controller output will keep falling until the integral gain takes over, becoming the most dominant of the two. This is where the controller makes a negative overshoot.
-While the controller output was falling beyond its settle value (5 V), the velocity kept going up due to delay cause by inertia in the system. The controller output now rising from the influence of the integral gain, also has a delayed effect on the system.
-To conclude, the overshoot of the velocity happening before it reaches its reference is caused by the negative overshoot of the controller output, which originates from the scaling of \si{K_p} and \si{K_i}.
+When the velocity of the vehicle rises, the error naturally falls, and the proportional error follows the error. The controller output follows this fall of the error, while the integral gain keeps building. This means that the controller output will keep falling until the integral gain takes over, which happens too late, compared to the settle value (5 V) of the controller output, causing it to overshoot. A smaller \si{K_p} would decrease the controller output overshoot by giving less gain in the rise, also increasing the time constant.
+The delay from the overshoot of the controller to the velocity is caused by inertia in the system.
 In the following section this overshoot will be further investigated.
 %
 \subsection{Implementation of the PI controller}

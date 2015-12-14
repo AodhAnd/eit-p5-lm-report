@@ -103,7 +103,7 @@ The tasks ask a request of running every period of time regarding their respecti
 
 
 When two task are requesting at the same time to run, the order is chosen regarding to the priorities, that is set at the initialisation. The task are ran when they ask it, but interrupted when a higher priority task is asking to run, and will finish when all the higher priorities will be done. An example of this case can be seen in \figref{schedulePriorities}.\\
-The priorities of the task have been made to give the system the best stability. In this case, The angular sensor has the highest priority because it has a large period and running time, but is critical  the gsteerin the vehicle
+The priorities of the task have been made to give the system the best stability. In this case, The angular sensor has the highest priority because it has a large period and running time, but is critical to the steering of the vehicle which is the main objective of this project. Then comes the hall sensors that are very fast to execute, and 
 
  \begin{figure}[H]
 	\centering

@@ -7,12 +7,12 @@
 The purpose of this test is to ensure the fact that the magnetometer is calibrated so that it can tell a correct position relative to the Earth's magnetic field when placed on the vehicle.
 
 \subsection{Theory}
-The HMC5883L chip is a magnetometer which uses the Earth's magnetic field as a reference. When using it for the first time it is necessary to calibrate it so that disturbances in the close field of the sensor are accounted for in later measurements.\\
+The HMC5883L chip \cite{HMC5883L} is a magnetometer which uses the Earth's magnetic field as a reference. When using it for the first time it is necessary to calibrate it so that disturbances in the close field of the sensor are accounted for in later measurements.\\
 %
 In this project the disturbances can be caused by all the metallic pieces on the vehicle, from the metal plate to the motor and to the wires. Thus, the calibration has to be performed with the all these components and the sensor placed on the vehicle at a fixed place and orientation. It is chosen to place it, so that its X axis points towards the front of the vehicle and the Z axis is pointed upwards. The chosen configuration shall not be changed after calibration.
 
-As stated in \secref{sec:magnetoSensor}, the magnetometer that is used gives out three space coordinates of the Earth's magnitude field relative to its own coordinate system. One good to test to see if the sensor is operational in its environment is to turn it all around itself while retrieving the data it gives. When properly calibrated and isolated from any new disturbance, the 3D scatter plot of all the measured points should give a sphere that has its center in the origin (coordinates (0,0,0)) of the plot. This means that the measured coordinates vary smoothly accordingly with the rotation of the sensor in space. Otherwise, the sphere could be distorted into an ellipsoid and displaced from the center and the sensor would have to be recalibrated correctly in a magnetic-still environment, see example on \figref{fig:calibrationTestSpheres}.\\
-A simpler test is used here and consists in making four quarters of turn in the XY-plane (horizontally), around a static point. If each quarter corresponds to a measurement of \si{90^{\circ}} in the sensor's data and the resulting four quarters draw a circle, then the calibration should be fine to use.
+As stated in \secref{sec:magnetoSensor}, the magnetometer that is used gives out three space coordinates of the Earth's magnitude field relative to its own coordinate system. One good test to see if the sensor is operational in its environment is to turn it all around itself while retrieving the data it gives. When properly calibrated and isolated from any new disturbance, the 3D scatter plot of all the measured points should give a sphere that has its center in the origin (coordinates (0,0,0)) of the plot. This means that the measured coordinates vary smoothly accordingly with the rotation of the sensor in space. Otherwise, the sphere could be distorted into an ellipsoid and displaced from the center and the sensor would have to be recalibrated correctly in a magnetic-still environment, see example with the magnetometer alone on \figref{fig:calibrationTestSpheres}.\\
+A simpler test is used here to check for the good calibration with the vehicle. It consists in making four quarters of turn in the XY-plane (horizontally), around a static point. If each quarter corresponds to a measurement of \si{90^{\circ}} in the sensor's data and the resulting four quarters draw a circle, then the calibration is fine to use.
 \begin{figure}[H]
     \centering
   %Trim margins @:   left        bottom       right       top
@@ -20,9 +20,10 @@ A simpler test is used here and consists in making four quarters of turn in the 
   {
     \includegraphics[width=1.2\textwidth]{figures/spheresMagnitude.png}
   }
-  \caption{Setup diagram}
+  \caption{Magnetic sphere of calibrated and non-calibrated sensor alone}
   \label{fig:calibrationTestSpheres}
 \end{figure}
+\todo{Change units to Gauss}
 %
 The calibration itself performed in this test does not change the intrinsic sensor configuration but rather applies a transformation to the coordinates sent to the Arduino board. This transformation, seen in \eqref{eq:calibrationTransformation} is actually computed in the runtime by the microcontroller, each time a set of coordinate is received :
 \begin{flalign}
@@ -37,7 +38,7 @@ The calibration itself performed in this test does not change the intrinsic sens
 & \si{B}            & is a $3\times 1$ bias vector                          &\unitWh{G}
 \end{tabular}
 
-The transformation matrix, M, allows for the transformation of an ellipsoid into a proper sphere, while the bias vector shifts the resulting sphere to the center of the coordinates system. The expanded matrix form is the following :
+The transformation matrix, M, allows for the transformation of an ellipsoid into a proper sphere, while the bias vector shifts the resulting sphere to the center of the sensor's coordinate system. The expanded matrix form is the following :
 \begin{flalign}
   \begin{pmatrix}
     \si{x_{cal}} \\
@@ -109,5 +110,36 @@ This software, runs on Microsoft Windows computers with the HMC5883L sensor conn
 
 %% Results %%
 \subsection{Results} \label{magnetoCalibrationResults}
+After having done the measurements and computed the transformation matrix and bias vector with the software, with the magnetometer on the vehicle, the coefficients used further on in the code are :
+ \begin{flalign}
+  M &= 
+  \begin{pmatrix} 
+    \si{1,206} & \si{-0,002} & \si{0,039} \\
+    \si{0,013} & \si{1,193} & \si{-0,004} \\
+    \si{-0,004} & \si{-0,025} & \si{1,414} 
+  \end{pmatrix}\unit{G}
+\end{flalign}
+\begin{flalign}
+  B =
+  \begin{pmatrix} 
+    \si{-52.455,}\\
+    \si{-164.666}\\
+    \si{-143.707}
+  \end{pmatrix}\unit{G}
+  \label{eq:calibrationTransformationExpanded}
+\end{flalign}
 
+The four-quarters of turn test made with these settings is illustrated in \figref{fig:calibrationTestQuarterResults}.
+\begin{figure}[H]
+    \centering
+  %Trim margins @:   left        bottom       right       top
+  \adjustbox{ trim = {.1\width} {0.15\height} {0\width} {0.1\height}, clip }
+  {
+    \includegraphics[width=0.9\textwidth]{figures/fullturn2.pdf}
+  }
+  \caption{Test of the calibrated sensor onboard the vehicle with four quarters of turn}
+  \label{fig:calibrationTestQuarterResults}
+\end{figure}
+\todo{Correct axis and title + add a cross}
 
+The cross on \figref{fig:calibrationTestQuarterResults} has right angles and passes through the center of the circle which is in (0,0). This shows that each quarter of turn in reality is measured by \si{90^{\circ}} by the sensor and that the latter is correctly calibrated for use on the vehicle.

@@ -41,3 +41,20 @@ According to \appref{app:LinearAreaKp}, the system with a proportional controlle
 \end{flalign}
 
 From this transfer function, it can be seen that the gain is equal to one and the system is a second order system. The reason that the proportional controller here give a gain equal to 1 and the proportional controller for the velocity does not, is that there is a integrator in this system, that removes this steady state error. This way, a proportional controller will be good enough to handle the controlling of the angular movement of the vehicle. 
+
+The proportional controller is then implemented. For the feedback, the magnetometer is used (see \secref{sec:magnetoSensor}). For the sampling time, it have been chosen to be the same as the length of the duty cycle for servo, on 30 ms. As the magnetometer only needs to update one time, each time the controller sends a new duty cycle to the servo, there is not needed for a higher sampling frequency. The sampling frequency will then be on:
+
+\begin{flalign}
+  \eq{ f_{sampling} }{ \frac{1}{30 ms} \Rightarrow 33,33}\unit{Hz} \label{eq:PconAng5}
+\end{flalign} \todo{Needs units}
+
+The angular controller is then tested, where the start heading is \si{5^{\circ}} and the reference heading is \si{45^{\circ}}. The test is shown on \figref{fig:AngularTestSim}.
+
+\begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=\textwidth]{figures/SteeringAngularTest}
+ 	\caption{Test of the proportional controller, with a start heading on \si{5^{\circ}} and a reference on \si{45^{\circ}}.}
+ 	\label{fig:AngularTestSim}
+\end{figure}
+
+As shown on \figref{fig:AngularTestSim}, the system react nearly the same way as the simulation and end up at the same rise time as the simulation. 

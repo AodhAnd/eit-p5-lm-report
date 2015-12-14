@@ -1,6 +1,6 @@
 \subsection{Distance controller}
 A distance controller will now be designed, to complement the angular controller.
-As concluded in \todo{secref}, a deviation from the planned line, will cause the vehicle to drive at a parallel line, next to the planned. The deviation will be calculated from the position provided by the GoT system. As the deviation is a function of the error angle integrated over time it is assumed, that a P controller will be sufficient to handle this function, just as in the Angular controller. The controller will therefore be based on a P controller, and iterated until results are satisfactory. 
+As concluded in \secref{sec:SteeringModel}, a deviation from the planned line, will cause the vehicle to drive at a parallel line, next to the planned. The deviation will be calculated from the position provided by the GoT system. As the deviation is a function of the error angle integrated over time it is assumed, that a P controller will be sufficient to handle this function, just as in the Angular controller. The controller will therefore be based on a P controller, and iterated until results are satisfactory. 
 
 As real-world test data is not available, caused by the magnetometer not working in the room with the GoT system installed, the controller will be designed and simulated in Simulink. As a starting point, the proportional gain will be set at 1, and the controller will be designed based on bode plots and step responses.
 
@@ -59,7 +59,7 @@ This value is entered in the simulation, and a new step response is made, see \f
   \label{SimulationSteeringP2}
 \end{figure}
 As seen in the figure, the response has improved dramatically, and the system reaches the target in approximately 2 seconds. Unfortunately it overshoots and rings, before settling after around 10 seconds. This settling time is a substantial improvement from 4 minutes, but there is still room for further improvements. If the overshoot is removed, the system will reach the target in just 2 seconds.
-As seen in the Modeling and Control course on the 5th semester of Electronic and IT at Aalborg University \cite{KMNielsen}, a way to remove an overshoot is to increase the high frequency gain. This can be done by adding a differentiator to the controller, which will then become a PD controller. According to \todo{book ref}, a PD controller is rarely used in real life, as it is extremely sensitive to noise, and a lead compensator is recommended instead.
+As seen in the Modeling and Control course on the 5th semester of Electronic and IT at Aalborg University \cite{KMNielsen}, a way to remove an overshoot is to increase the high frequency gain. This can be done by adding a differentiator to the controller, which will then become a PD controller. According to \cite{Franklin}, a PD controller is rarely used in real life, as it is extremely sensitive to noise, and a lead compensator is recommended instead.
 
 A lead compensator adds a zero to the system, which cancels one of the poles in the system. This lowers the phase shift, improving the phase margin, and increases the gain at higher frequencies. At the same time, a pole is added at an even higher frequency, in order to ensure stability.
 

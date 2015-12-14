@@ -25,16 +25,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="362.696"
-     inkscape:cy="160.3042"
+     inkscape:zoom="22.4"
+     inkscape:cx="373.93222"
+     inkscape:cy="183.14597"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1016"
      inkscape:window-x="0"
-     inkscape:window-y="507"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -118,7 +118,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -567,73 +567,69 @@
        x="298.31146"
        y="-598.90814"
        transform="matrix(0,1,-1,0,0,0)" />
+    <rect
+       style="fill:#ffffff;stroke:#000000;stroke-width:1.62816584;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       id="rect10926-8"
+       width="11.805188"
+       height="29.952045"
+       x="379.50229"
+       y="-443.1412"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <ellipse
+       ry="0.65963918"
+       rx="0.65544128"
+       cy="-424.03391"
+       cx="383.50021"
+       id="path12854"
+       style="fill:#000000;stroke:#000000;stroke-width:0.32236353;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.39999998;stroke-opacity:1"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <ellipse
+       ry="1.413499"
+       rx="1.4045037"
+       style="fill:none;stroke:#000000;stroke-width:0.28782183;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.39999998;stroke-opacity:1"
+       id="circle12856"
+       cx="383.50021"
+       cy="-424.03391"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path12858"
+       d="m 423.97677,383.5002 5.75965,0"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.66442859;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.66442859;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 423.96005,383.18286 0,5.75965"
+       id="path17664"
+       inkscape:connector-curvature="0" />
     <g
-       id="g18736"
-       transform="matrix(1.6281658,0,0,1.6281658,-317.65389,-237.87897)">
-      <rect
-         transform="matrix(0,1,-1,0,0,0)"
-         y="-467.27127"
-         x="379.1882"
-         height="18.396189"
-         width="7.2506056"
-         id="rect10926-8"
-         style="fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
-      <ellipse
-         transform="matrix(0,1,-1,0,0,0)"
-         style="fill:#000000;stroke:#000000;stroke-width:0.19799183;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.39999998;stroke-opacity:1"
-         id="path12854"
-         cx="381.64368"
-         cy="-455.5358"
-         rx="0.40256423"
-         ry="0.40514252" />
-      <ellipse
-         transform="matrix(0,1,-1,0,0,0)"
-         cy="-455.5358"
-         cx="381.64368"
-         id="circle12856"
-         style="fill:none;stroke:#000000;stroke-width:0.17677674;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:1.39999998;stroke-opacity:1"
-         rx="0.86262941"
-         ry="0.86815423" />
-      <path
-         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.40808409;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 455.5007,381.64367 3.53751,0"
-         id="path12858"
-         inkscape:connector-curvature="0" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path17664"
-         d="m 455.49043,381.44876 0,3.53751"
-         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.40808409;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       id="textext-8cdf3b74-2"
+       transform="matrix(0,0.79358769,-0.79358769,0,534.93846,203.77641)">
       <g
-         transform="matrix(0,0.33274327,-0.33274327,0,503.20769,307.45328)"
-         id="textext-8cdf3b74-2">
-        <g
-           id="g17807"
-           style="fill:#000000;fill-opacity:1">
-          <use
-             transform="matrix(0,-0.59111553,0.59111553,0,148.47855,264.62624)"
-             height="100%"
-             width="100%"
-             id="use17809"
-             y="134.765"
-             x="223.43201"
-             xlink:href="#textext-8cdf3b74-1" />
-        </g>
+         style="fill:#000000;fill-opacity:1"
+         id="g17807">
+        <use
+           xlink:href="#textext-8cdf3b74-1"
+           x="223.43201"
+           y="134.765"
+           id="use17809"
+           width="100%"
+           height="100%"
+           transform="matrix(0,-0.59111553,0.59111553,0,148.47855,264.62624)" />
       </g>
+    </g>
+    <g
+       id="textext-a835f4bb-2"
+       transform="matrix(0.46910203,0,0,0.46910203,314.09833,325.87477)">
       <g
-         transform="matrix(0.19668972,0,0,0.19668972,409.32384,358.35214)"
-         id="textext-a835f4bb-2">
-        <g
-           style="fill:#000000;fill-opacity:1"
-           id="g18098">
-          <use
-             height="100%"
-             width="100%"
-             xlink:href="#textext-a835f4bb-1"
-             x="223.43201"
-             y="134.765"
-             id="use18100" />
-        </g>
+         id="g18098"
+         style="fill:#000000;fill-opacity:1">
+        <use
+           id="use18100"
+           y="134.765"
+           x="223.43201"
+           xlink:href="#textext-a835f4bb-1"
+           width="100%"
+           height="100%" />
       </g>
     </g>
     <g

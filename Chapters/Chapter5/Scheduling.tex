@@ -5,12 +5,16 @@ The hardware choice and implementation includes a software that can handle them.
 The chosen kernel allows to control the tasks and then the behavior of the vehicle through clocks, to have a precise and constant schedule. This propriety make possible to export it on another kind of processor and still have the same render, as long as it have a frequency high enough to process all the data needed.\\
 The Kernel advantage is also the definition of semaphores, priorities, and critical regions, that the system will use to choose which task to run, and how often it should be. This Kernel allows also to program in Arduino language which is C++, and can run C code, with the use of different files.
 
+
+
 \subsection{Scheduling}\label{sec:scheduling}
 For running the code on the arduino PCB, and be able to manage all the sensors at the same time, a scheduling is needed. Indeed, the PCB must be able to recieve and process the data from the GoT system, the hall sensors, the magnetometer and the X-bee to make a decision related to the planned route to follow. This decision must affect at the same time the speed through the motor, and the steering through the servo.
 A description of the scheduling principle and its function will be described.
 
+
 \subsubsection{Semaphores}
-In programming, a semaphore is an variable or abstract data that is used to prioritize the different tasks to use. It allows a multiprogramming, with functions that use different ressources and time, and does not interact with each others direcly. Running them independently ease the indent of the code.
+In programming, a semaphore is a variable or abstract data that is used to prioritize the different tasks to use. It allows a multiprogramming, with functions that use different ressources and time, and does not interact with each others direcly. Running them independently ease the indent of the code.
+
 
 \subsubsection{Tasks}
 The different functions of the vehicle have been separated into multiple tasks, that can switch regarding to their priority. Five tasks are created to control the vehicle:
@@ -33,67 +37,81 @@ Those declarations of the tasks are made thanks to the function k\_crt\_task nee
  
 \end{lstlisting}
 
+
 \textbf{Hall Sensors:}
 The two hall sensors of the two belts are read at a certain frequency, and knowing the distance the vehicle moves during a full turn of the drive wheel, the real speed can be calculated independently from each other belts.\\
-When the belts are not running the maximum time to run the task is 5.63µs, and when the belts are running it's 8.39µs\\
-The maximum speed of vehicle is 3 $m \cdot s^{-1}$, and a turn of the gear wheel is 166mm. To get a pulse every full turn of the gear wheel at the highest speed, the sampling period has to be $\frac{0.166}{3}={55.3ms}$, and for a quarter of turn it should be 4 time less so every 14ms. The sampling time of reading the magnetometerhas to be 2 times less the highest frequency sampling of the system, but to be secure, the sampling time is chosen at 3.5 times less, giving a minimum period so 4ms period
+When the belts are not running the maximum time to run the task is 5.63µs, and when the belts are running it's 8.39µs.
+The maximum speed of vehicle is 3 $m \cdot s^{-1}$, and a turn of the gear wheel is 166mm. To get a pulse every full turn of the gear wheel at the highest speed, the sampling period has to be $\frac{0.166}{3}={55.3ms}$, and for a quarter of turn it should be 4 time less so every 14ms. The sampling time of reading the magnetometerhas to be 2 times less the highest frequency sampling of the system, but to be secure, the sampling time is chosen at 3.5 times less, giving a minimum period so 4ms period.
 
 \textbf{Speed Control:}
-A wanted speed value is compared to the actual speed, and the resulting error is the input of the Velocity PI-Controller, that will set a new speed according to the reference.
-
-with PID: 357.5µs - 386µs
-
-The speed has to run 2 times faster than the hall sensors, to get a new data every time, so every 2ms
+A wanted speed value is compared to the actual speed, and the resulting error is the input of the Velocity PI-Controller, that will set a new speed according to the reference.\\
+The running time of this task is 386µs. As the speed control task has to run 2 times faster than the hall sensors task to get a new data every time, the minimum period will be 2ms.
 
 
 \textbf{GoT System and Communication Protocol:}
-This task is the communication protocol handling, that receive on the vehicle the position that the GoT system sended. It will receive data from the computer, and convert it into a position so that the distance control can calculate the new heading to follow.
-
-hiden in the noise: 395µs	
+This task is the communication protocol handling, that receive on the vehicle the position that the GoT system sended. It will receive data from the computer, and convert it into a position so that the distance control can calculate the new heading to follow.\\
+The running time of the GoT System and Communication Protocol task is 395µs, and the sampling time of the GoT system giving a new position is 100ms.
 
 \textbf{Distance control:}
-If the angular control is in charge of the direction wanted, it can not control the position from the line wanted to be on. The task Distance Control calculate the distance of the vehicle from the line it should follow, and calculate a new heading for the angular control to follow to get back on the line. This is the outer loop from the Steering Model, seen in \secref{sec:SteeringModel}.
-
-
-153.6µs
+If the angular control is in charge of the direction wanted, it can not control the position from the line wanted to be on. The task Distance Control calculate the distance of the vehicle from the line it should follow, and calculate a new heading for the angular control to follow to get back on the line. This is the outer loop from the Steering Model, seen in \secref{sec:SteeringModel}.\\
+The running time of the Distance Control is 153.6µs, and it runs just after the GoT System and Communication Protocol, so has a sampling time also of 100ms.
 
 \textbf{Angular Control:}
-The steering task gets the reading from the magnetometer, and transform them in the coordinate system that fit the model. Then those values are converted into a heading angle, that will be used in the steering P-Controller to calculate the new angle to follow from the angle wanted. The decision will be sent directly to the servo. This is the inner loop from the Steering Model, seen in \secref{sec:SteeringModel}
-
-1.7ms\\ 
-
-The minimum time to send a new angle to the servo is 30ms, so the period of this task have to be 30ms.
+The steering task gets the reading from the magnetometer, and transform them in the coordinate system that fit the model. Then those values are converted into a heading angle, that will be used in the steering P-Controller to calculate the new angle to follow from the angle wanted. The decision will be sent directly to the servo. This is the inner loop from the Steering Model, seen in \secref{sec:SteeringModel}.\\
+The running time of the Angluar Control is the largest one with 1.7ms needed to send a new angle. However, the minimum time to send a new angle to the servo is 30ms because of the sampling time of the servo. The period of this task has then to be 30ms.\\\\
 
 
+A recapitulation of the parameters can be seen on \tableref{scheduleParameters}.
 
+\begin{table} [H]
+	\begin{tabular}{|l|l|l|l|l|l|}
+								
+\hline
+\textbf{n°}  & \textbf{Task}   	 & \textbf{Priority}	& \textbf{Max. Time to Run} 	& \textbf{Min. Period} & \textbf{CPU Used}\\
+\hline
+1			 &	Hall Sensors	 & 2				&	\si{8,39 \mu s}			    &	\si{4 ms}			  & 0,2\%	  \\
+\hline
+2			 &	Speed Control	 & 3				&	\si{386\ \mu s}				&	\si{2 ms}			  &	19,3 \%   \\
+\hline
+3			 &	GoT and Protocol & 4				&	\si{395 \mu s}			    &	\si{100 ms}			  &	0,395 \%  \\
+\hline
+4			 &	Distance Control & 4				&	\si{153,6 \mu s} 			&	\si{100 ms} 	  	  &	0,154 \%  \\
+\hline
+5			 &	Angular Control	 & 1				&	\si{1,7  ms}			    &	\si{30 ms}			  &	5,7 \%    \\
+\hline		
+	\end{tabular}
+	\caption{Calculations of the steering parameters.}	
+	\label{scheduleParameters}						
+\end{table}	
+
+In the \tableref{scheduleParameters}, the Maximum Time to Run is the time the task needs to complete a full turn of the loop. The Minimum Period is the sampling time for the task, to run every time period. The CPU used is the percentage used by the task of the CPU, which is the ratio between the Maximum Time to Run and the Minimum Period.
 
 \subsubsection{Queue}
 The tasks are meant to be done at the time they are told to be done, ensuring the good control of the vehicle. But some functionnalities are not critical, and can wait until the processor have time to do them.\\
 To get a list of things to do until one of them become critical, the tasks will be stored in a queue, that will execute them one after the other, until a critical task shortcut them. The order of the task will be done regarding their priorities.
 
 
-\subsubsection{Round Robin Schedule}
-A way of calculating the minimum time needed to execute all the tasks in a period of time, is by putting them one after the other, and see if the sum of the time necessary to execute all the task is bigger than the time allowed to do one full turn of the tasks.
+\subsubsection{Request and Priorities}
+The tasks ask a request of running every each period of time regarding their setup, the global view of these request can be seen in \figref{scheduleRequest}
+ \begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{figures/scheduleRequest.pdf}
+	\caption{An overview of the tasks request during 100ms, the larger period task possible.}
+	\label{scheduleRequestdRobinSchedule}
+\end{figure}
 
-A picture illustrating the round robin schedule can be seen in \figref{roundRobinSchedule}\\
+
+When two task are requesting at the same time to run, the order is set regarding to the priorities, that is set at the initialisation. The task are ran when they ask it, but interrupted when a higher priority task is asking to run, and will finish when all the higher priorities will be done. An example of this case can be seen in \figref{schedulePriorities}
 
  \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{figures/roundRobinSchedule.pdf}
-	\caption{An example of the use of round robien schedule}
-	\label{roundRobinSchedule}
+	\includegraphics[scale=0.5]{figures/schedulePriorities.pdf}
+	\caption{Schedule of the tasks at the starting time, regarding the priorities.}
+	\label{schedulePriorities}
 \end{figure}
 
-If the time allowed by the frequency sampling of the program is not large enough, or if some tasks need to be ran at a cerain time because of a sampling time, the data will be prioritized and run in the time allowed. An example of this case can be seen on \figref{roundRobinSchedule2}.
-
- \begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{figures/roundRobinSchedule2.pdf}
-	\caption{Schedule with a shorter period than the time needed to process all the tasks}
-	\label{roundRobinSchedule2}
-\end{figure}
-
-As the actual time to run the code is 2.8ms, and the sample time is 15ms, every tasks will be ran at each sample. But as each task have a different sample time, a prioritizaion is needed to run the task a their frequency independently.\\\\
+As seen on the  \figref{schedulePriorities}, the angular control has the highest priority so it will run first, and the others will be registrered in a queue in order of priority. Then the hall sensors are second, and speed control after that. When the the speed control will be running, it can can a second request to run because of it's sampling time. It will then run a second time just after that because it's priority is higher than the last task. The GoT and comunication will run after them, and in the end the Distance Control.\\
+After a certain time, the task are stabilized, until the task with a large period are asked again.\\\\
 
 
 

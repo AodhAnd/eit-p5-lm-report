@@ -3,7 +3,7 @@ A communication system is desired for transporting the GoT data, calculated to c
 
 % The har two Xbee radio modules. The communication setup for the Xbee modules will be explained in this chapter.
 
-\subsection{OSI model}
+\section{OSI model}
 The Open Systems Interconnection, OSI, model is a standard used to describe how information moves in a network. Each layer describing standardization of what should occur in the specific layer. The seven layers of the OSI model can be seen in \tableref{tab:OSIModel}.
 
 \begin{table}[H]\centering
@@ -58,22 +58,20 @@ The Transport layers handles packets and can assemble or disassemble packets if 
 %The rest of the layers is not used.
 
 
-\subsection{Transport Layer}
-
+\section{Transport Layer}
 
 %is made to understand what contains each byte sent from the transmitter to the receiver. The use of a protocol for the transport layer will make sure that each end of the communication system understand how each package of bytes is build up.
 
 The main object for the communication system is to send the coordinates from the computer to the microcontroller. A transport layer protocol is created to ensure packets can be transmitted, receive, i.e. extract the needed information from the packet, and to identify erroneous packets.
 
-A connectionless system is chosen to be implemented, since it is one-way communication, from the computer to the microcontroller. Furthermore is retransmission not desired, since the vehicle is moving and a retransmission of a coordinate will cause a delay. Additionally, the sampling rate of the GoT system i 10 \si{Hz}, so sending the recently received coordinates would be insufficient. Therefore is erroneous packet is thrown away and acknowledgements is not needed.
+A connectionless system is implemented, since it is one-way communication, from the computer to the microcontroller and retransmission not desired, since the vehicle is moving and a retransmission of a coordinate will cause a delay. Additionally, the sampling rate of the GoT system i 10 \si{Hz}, so transmitting the recently received coordinates would be sufficient. Therefore is erroneous packages thrown away and acknowledgements is not utilized.
 
-måske noget med at den ligner udp?
-
-\subsubsection{Protocol Package Structure}
+\subsection{Protocol Package Structure}
 A package structure is desired for containing necessary information for addressing, decrypting and error handling. The protocol has an header which contains a start byte, a destination and the length of the package. The body of the package is the data and the tail is the checksum and the end byte. The order of the package structure is illustrated in \tableref{CoorSetup}.
 
 \begin{table}[H]\centering
-\begin{tabular}{|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|} \\
+\begin{tabular}{|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|}
+\multicolumn{6}{c}{12 Byte} \\
 \hline
 Start Byte & Destination ID & length & Data & Checksum & End byte \\
 \hline
@@ -82,15 +80,14 @@ Start Byte & Destination ID & length & Data & Checksum & End byte \\
 \label{CoorSetup}
 \end{table}
 
-The destination ID is to ensure the packets which is transmitted is handled by the desired receiver. This way the transmitter can transmit to numerous receivers if multiple vehicles is utilized. The destination ID ensures the receivers can filter out packages not intended for them. The microcontroller has the destination ID 0000 0001. The length of the destination byte is set to one byte, so the destination can be read immediately when received.
+\textbf{Destination ID} is to ensure packages, which is transmitted, is handled by the correct receiver. This way the transmitter can transmit to numerous receivers if multiple vehicles is utilized. The destination ID ensures the receivers can filter out packages not intended for them. The microcontroller has the destination ID 0000 0001. The length of the destination byte is set to one byte, so the destination can be read immediately when received.
 
-It is not necessary to have a source in the header, since only one the computer is transmitting, and therefore it is not necessary for the vehicle to know where the packet is transmitted from. Even if there were more computers, as long as the packet is marked with the destination ID, the receivers is able to read it. If retransmission was utilized, in case of erroneous packages, a source is necessary to have the ability to ask for a retransmission from the sender. Since retransmission is not utilized a source is not included in the packet structure.
+UDP, a connectionless protocol, utilizes a source, but in this case it is not necessary, since only one computer is transmitting, the receiver does not need to know where the package has been transmitted from. Even if there more computers was utilized it would not be necessary as long as the package is marked with the destination ID, the receivers is able to read it. If retransmission was utilized, in case of erroneous packages, a source is necessary to have the ability to ask for a retransmission from the sender. Since retransmission is not utilized a source is not included in the package structure.
 
-The length is utilized by the receiver. This will make it possible for the receiver to know the bit length of the package, and thereby know when the package should end. Each package created has the same length. The length is set to contain 7 bit, this can count up to $2^{7}-1 = 127$, which is sufficient.
+\textbf{Length} is utilized by the receiver. This will make it possible for the receiver to know the bit length of the package, and thereby know when the package should end. Each package created has the same length. The length is set to contain 7 bit, this can count up to $2^{7}-1 = 127$, which is sufficient.
 
 \subsubsection{Data}
-\todo{Insert value number into the GoT description}
-The data from the GoT system are considered in the three coordinates system (X,Y,Z), measured from the position of the vehicle. Each of these coordinates can have a value from -9000 to 9000 (See \appref{GoTDescription}). To contain a number of this size, a 15 bit signed integer is needed. In these, 14 bit are used for the magnitude of the number which can go up to 16385 ($2^{14}-1$). The last bit is used to indicate if the number is positive or negative, called sign bit. The sign bit will be placed at the end of the 15 bit integer. As both the Arduino and the computer use big endians, this will also be apply to the protocol of the GoT system,. This means that the bit with the highest value will be next to the sign bit and the bit with the lowest value at the start of the bit array. This will give the bit array seen on \tableref{CoorSetup}.
+The data received from the GoT system consist of three coordinates (X,Y,Z), locating the position of the vehicle. Each of these coordinates can have a value from -9000 to 9000 (See \appref{GoTDescription}). To contain a number of this size, a 15 bit signed integer is utilized. Of the 15 bit 14 bit is utilized for the magnitude of the coordinate, which can have a value of 16385 ($2^{14}-1$). The last bit of the 15 bit is utilized to indicate if a coordinate is positive or negative, i.e. sign bit. The protocol is designed so the sign bit will be placed at the end of the 15 bit integer. As both the microcontroller and the computer utilizes little endians, there will not be a problem with the transmission of numbers. With little endians, the bit with the highest value will be located next to the sign bit and the bit with the lowest value is located at the beginning of the bit array. This will yield the bit array illustrated on \tableref{CoorSetup}.
 
 \begin{table}[H]
 \centering
@@ -104,12 +101,12 @@ $2^0$ & $2^1$ & $2^2$ & $2^3$ & $2^4$ & $2^5$ & $2^6$ & $2^7$ & $2^8$ & $2^9$ & 
 \label{CoorSetup}
 \end{table}
 
-The representation of the integer is called signed magnitude. Another representation that could be used is ones' complement. Here the number is inverted if the signed bit is true. But for an easier implementation into the GoT system, the signed magnitude is used. This is easier because the code will first check if the number is positive or negative. If negative, the sign bit is set and the number is multiplied by minus one, to get the magnitude. Then the magnitude will be converted into the bit array. When converting it back, it is only necessary to multiply the magnitude by minus one, if the signed bit is true.
+The representation of the integer is called signed magnitude. Another representation that could be used is ones' complement. Here the number is inverted if the signed bit is true. But for an easier implementation on the computer, the signed magnitude is utilized. The code firsts checks if the number is positive or negative. If negative, the sign bit is set and the number is multiplied by minus one, this will yield the magnitude. The magnitude is then converted into a bit array. When converting back, it is only necessary to multiply the magnitude by minus one, if the sign bit is true.
 
 \subsubsection{Checksum}
-To make sure that the package data is received correctly, some error handling are added to the protocol. One of these is a checksum. The way the checksum is calculated, is by splitting the header and data up in parts of equal size and then adding these parts together. Then the summed bit array is inverted and this bit array is the checksum. 
+To ensure package data is received correctly, error handling is added to the protocol. A error handling which is utilized is a checksum. The way the checksum is calculated, is by splitting the header and the data up into pieces of equal size and then summing the pieces together. The summed bit array is then inverted and the remaining bit array is the checksum. 
 
-As there are 60 bits in the header and the data combined (15 per coordinate, 8 for the destination and 7 for the length), these will be split up into three part of 20 bit and will give a checksum on 20 bit. Combined, the header, data and checksum will be 80 bit, which is equal to 10 byte, which means there will not be needed any filler bit.
+there is 60 bit in the header and the data combined, i.e. 15 per coordinate, 8 for the destination and 7 for the length. these will be split up into three pieces of 20 bit. The related checksum consist of 20 bit. Combined, the header, data and checksum is 80 bit, which is equal to 10 bytes. In \tableref{ChecksumExp} an example of calculating a checksum is given.
 
 \begin{table}[H]
 \centering
@@ -124,15 +121,15 @@ e) & Add carry  & $=$ & 155469  & $=$ & 1011 & 0010 & 1111 & 1010 & 0100 & \\
 f) & Checksum   & $=$ & 893106  & $=$ & 0100 & 1101 & 0000 & 0101 & 1011 & \\
 g) & Check      & $=$ & 1048575 & $=$ & 1111 & 1111 & 1111 & 1111 & 1111 & \\
 \end{tabular}
-\caption{Example on how to calculated the checksum. The parts contains the header, where the length is set to 96 and the coordinates 4259, 7511 and -6418. The binary number is writing up in big endians.}
+\caption{The pieces consisting of the destination ??, length with the value of 96, and the data which is 4259, 7511 and -6418.}
 \label{ChecksumExp}
 \end{table}
 
-In \tableref{ChecksumExp} there is an example of the calculation of the checksum. The three parts containing the header and data are added together (seen on line d). This gives a carry because there are only 20 bits allowed, that is added in the start of the number (seen on line e). The new number is then inverted giving the checksum (seen on line f).
+The three pieces is added together, the destination, length and the data (see on line d). This produces a carry, since the checksum has the size of 20 bit. The carry is added to the beginning of the sum (see on line e). The generated sum is then inverted to yield a checksum (sees on line f).
 
-The way to control the errors with the checksum, is to add the checksum together with the three 20 bit parts and add the carry on, if there are any. If the outcome of this addition is a 20 bit part, where all bits are true, the package is correctly received. If not, the control will not consider this package. The reason for the error can be a bit shift in one of the parts, either because there are bytes that have switch place or because some data have not been received. 
+When the receiver utilizes the checksum needs to check if the destination, length and data corresponds with the related checksum. The checksum is first added together with the three 20 bit pieces and, if there is any, the carry. If the outcome of the bit summation results in 20 bits which are true, then the package is received correctly. If not, the receiver will throw away the package. An error in the received package could be a bit inversion or some data not received by the receiver. 
 
-A flaw with this control with the checksum, is that an error cancelled out with another error can not be detected. This can happen when the system add the three parts and the checksum together. An example, is if the first bit in part one is true and the first bit in part two is false. If both of these bits are shifted independently, so the bit from part one become false and the bit in part two true, the control with the checksum will not detect this error. The chances for this case are very small as the changes have to go exactly out with each other. And by only having 4 parts of 20 bits, the chances for this to happen is smaller than if the checksum was set to 10 bit, for example, and therefore the addition would have to happen with 7 parts of 10 bit. This would give more bits that have the same rank, so there would be a higher chance for a bit changing to go out with another. This is the reason why using a bigger checksum, even if it takes more place.
+A flaw when utilizing the created checksum, is that an error can cancelled out another error, and thereby make the errors undetectable. This can happen when the system adds the three pieces and the checksum together. An example, is if the first bit in piece number one is true and the first bit in piece number two is false. If both of these bits are shifted independently, so the bit from part one become false and the bit in part two true, the checksum can not detect the error. The likelihood for this to happen is very slim, as the errors first have to occur and then they have to be located a place where they cancel each other out. Having only 4 pieces of 20 bits, the likelihood of this happening is lesser than if the checksum was set to 10 bit. Since the addition occurs with 7 pieces of 10 bit. This would yield more bits with the same rank, so there would be a higher possibility for a bit cancelling each other out. This is a good argument for utilizing a larger checksum, even if it uses more space.
 
 \subsubsection{Start and end byte}
 

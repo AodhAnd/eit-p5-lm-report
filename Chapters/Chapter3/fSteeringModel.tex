@@ -10,6 +10,8 @@ After describing a model for the driving part of the vehicle seen on \figref{fig
 
 As described in \secref{sec:Vehicledescription}, when the servo turns one way, it pushes one of the arms, which in turn moves  a brake pad towards the brake disc to add friction and hold the corresponding belt. The differential gears will then transfer the power from one belt to the other, making the vehicle turn.
 
+
+%%- Directional Model -%%
 \subsection{Directional model}
 As the steering system contains many moving parts, it is convenient to start with a simple model, to verify it, and iterate until it is satisfactory.\\
 %
@@ -23,7 +25,7 @@ The first model considered can be seen on \figref{basicSteering}.
 \end{figure}
  
 As described in \secref{Servo}, the angle of the servo, \si{\theta_{s}}, is controlled by a pulse width modulated signal on its reference input. The servo is in a middle position (\si{0^{\circ}}) for a non-zero pulse-width.
-This means that an offset, \si{K_{off}}, is substracted to the PWM so that the servomotor's gain, \si{K_s}, translates linearly its input to an angle. As seen in \appref{app:LinearAreaServo}, this offset is different than the one used to get the middle position of the servo, so that it compensates for the mechanical inaccuracies and makes the vehicle go straight. Moreover, depending on the operating point of the vehicle, i.e. if it goes to the right or to the left, this offset shall also include a supplementary term. The latter is used to get the servo at the edge of the steering's linear area, be it to the left or to the right.\\
+This means that an offset, \si{K_{off}}, is substracted to the PWM so that the servomotor's gain, \si{K_s}, translates linearly its input to an angle. As seen in \secref{sec:SteeringBehavior}, this offset is different than the one used to get the middle position of the servo, so that it compensates for the mechanical inaccuracies and makes the vehicle go straight. Moreover, depending on the operating point of the vehicle, i.e. if it goes to the right or to the left, this offset shall also include a supplementary term. The latter is used to get the servo at the edge of the steering's linear area, be it to the left or to the right.\\
 %
 In the following modelling process, the vehicle's steering is considered as being in either of the two operating points. Since the velocity of the vehicle is also assumed constant, the rate of change of the direction, \si{\omega_{v} (s)}, must be a function of the servo angle, and a constant, \si{K_v}, representing the action speed of the vehicle and the braking system.
 The rate of change in the vehicle's angle is finally integrated over time, resulting in a angle heading, \si{\theta_{v} (s)}.\\
@@ -37,6 +39,7 @@ As stated in \appref{app:steeringGainTest}, the servomotor's gain, \si{K_s}, and
   \label{fig:basicSteeringModelKCombinated}
 \end{figure}
 
+%%- Directional Model : Extended -%%
 \subsection{Extension of the Directional Model}
 
 The first model describes in a simple manner how the mechanical part of the steering system functions. However, it can be extended to include the time delay caused by the servo. According to \secref{Servo}, the servo is controlled by a PWM signal with a period of 30 ms. This means, that it will not be possible to update the servo angle continuously, but only in discrete time steps of 30 ms. These steps will be implemented in the model as a sampling delay.\\
@@ -58,25 +61,40 @@ With the delay from the servo, \si{\lambda}, being \si{30\ ms}, this approximati
 	\caption{A basic steering model}
 	\label{basicSteeringWithDelay}
 \end{figure}
+%
+\hspace{6mm} Where:\\
+\begin{tabular}{p{1cm}lll}
+  & \si{K_{steering}} & is the steering gain found in \appref{app:steeringGainTest}   &\\
+  & \si{\lambda}      & is the delay from the servomotor found in \secref{Servo}      &\\
+\end{tabular}
 
 To be sure that this model can be used for the design of controllers, it is necessary to verify it and check the fact that it matches the reality, by comparing a simulation of the model with measured data of a step-response.
 
-\subsection{Verification of the Steering Model}
-
-To verify the model of the plant, a test and a simulation have been plot on the same graph to see the accuracy of the model. The plot can be seen on \figref{fig:plotVerificationSteeringPlant}
+%%- Model Verification -%%
+\subsection{Verification of the Directional Model}
+A simple model of the steering mechanisms has been built in the previous section.
+To verify the accuracy of this model compared to reality, a test and a simulation of the plant are plotted on the same graph, see \figref{fig:plotVerificationSteeringPlant}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.8]{figures/plotVerificationSteeringPlant.pdf}
-  \caption{Plot of the plant model, showing the simulation and the real life test.}
+    %Trim margins @:   left        bottom       right       top
+  \adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
+   { \includegraphics[scale=0.8]{figures/plotVerificationSteeringPlant.pdf} }
+ \caption{Plot of the plant model, showing the simulation and the real life test.}
   \label{fig:plotVerificationSteeringPlant}
 \end{figure}
+\todo{Plot instead of scatter and use only one dataset (the green one, without the disturbed data point) + legend southeast + Change title to `Steering step response with 1670 ms PWM signal' + shift test dataset to start at 0 as in the simulation + fix y axis unit}
 
-A step of 1670ms is sent through the PWM to the servo at 5 seconds, that makes the vehicle turn at a constant speed. This makes the angle variate linearly as seen on \figref{fig:plotVerificationSteeringPlant}, and fit the simulation of the model of plant.
+The vehicle is started with the servo receiving a \si{1450\ ms} PWM signal, so that the vehicle goes straight during \si{5\ s} and reaches a steady speed of \si{1,4\ ms}. 
+After this time, a step of \si{1670\ ms} PWM is sent to the servo,that makes the vehicle turn at a constant rate. This makes the angle vary linearly as seen on \figref{fig:plotVerificationSteeringPlant}.
 
+The simulated plant appears to react in a very similar way as the real one, except for two small differences.\\
+At the beginning, the vehicle's angle seems to increase slightly while the simulated vehicle's heading stays at \si{0^{\circ}}. This is probably due to the approximation made when tweaking the pulse width for the vehicle to go straight.\\
+Similarly, after the step is applied to the system, the angle of the vehicle varies barely faster in the test than in the simulation. The reasons for this slight difference might be because of the test environment and conditions (ground humidity and texture) and thus, because of variation in the offset needed to steer linearly, as stated in \secref{sec:SteeringBehavior}.
 
-This simple model describes the action of the steering on the vehicle, by translating PWM signals sent to the servo into headings of the vehicle. It allows to apply a control on the direction of the vehicle, but not for it to follow a predefined set of points.
+Despite these neglectable discrepancies, the previously established model fits the reality quite closely and is therefore used hereafter in the project. This simple model describes the action of the steering on the vehicle, by translating PWM signals sent to the servo into headings of the vehicle. It allows to apply a control on the direction of the vehicle, but not for it to follow a predefined set of points.
 
+%%- Line Following Model -%%
 \subsection{Line Following Model}
 Since the vehicle has to follow a predetermined route, a direction control alone is not enough. As seen on \figref{SteeringDeviation}, any change of direction caused by a disturbance, will cause a deviation from the planned line between two points A and B on the wanted route. This is why a model of this deviation is created in this section.
 
@@ -150,4 +168,6 @@ From \eqref{eq:angleIntegrationLaplace}, the block diagram of the steering model
 \end{figure}
 
 This model describes how the steering reacts and therefore, how the vehicle can be moved sideways. It allows for the controlling of both the heading of the vehicle and its position relative to the line it has to follow, see \secref{sec:steeringController}.\\
-However, it also uses assumptions that need to be verified. Firstly, the distance calculation model only works if the vehicle is deviating and not if it is following a line parallel to the wanted one. Indeed, were that the case, then the angle difference would approach zero and the calculated distance too, even though it wouldn't actually be. This problem is considered in \todo{secref{sec:lineFollowingControl}}. Moreover, this model is only used to simulate the system's behavior since the distance calculations are made with the use of the Games on Track positioning system. Finally, the velocity can only be considered constant if properly controlled, as done in \secref{sec:velocityController}.
+However, it also uses assumptions that need to be true when running the lawn mower. Firstly, the distance calculation model only works if the vehicle is deviating and not if it starts on a line parallel to the wanted one. Indeed, were that the case, then the angle difference would approach zero and the calculated distance too, even though it wouldn't actually be. To avoid the problem, the vehicle shall start on the right line path. The issue of returning to the right path in case of disturbance (lawn mower slipping or hurting an object) is considered in \todo{secref{sec:lineFollowingControl}}.\\
+Secondly, this model is only used to simulate the system's behavior since the distance calculations are made with the use of the Games on Track positioning system.\\
+Finally, the velocity can only be considered constant if properly controlled, as done in \secref{sec:velocityController}.

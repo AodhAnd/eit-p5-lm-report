@@ -1,0 +1,49 @@
+\pagebreak
+\section{Accept Test - GOT system filter} \label{app:AccTes2}
+\textbf{Name: Group 510}\\
+\textbf{Date: 11/12 - 2015}
+
+\subsubsection{Purpose}
+The purpose of the test, is to test the speed filter, that have been implemented in the GOT system.
+
+\subsubsection{List of Equipment}
+\begin{table}[H]
+\begin{tabular}{|l|l|p{4cm}|}
+\hline%------------------------------------------------------------------------------------
+  \textbf{Instrument}                        &  \textbf{AAU-no.}  &  \textbf{Type}       \\
+\hline%------------------------------------------------------------------------------------
+  GOT system                               &   &  Indoor position system  \\
+\hline%------------------------------------------------------------------------------------
+  Computer                   		         &   &    \\
+\hline%------------------------------------------------------------------------------------
+  2 Xbee &  -             &    \\
+\hline%------------------------------------------------------------------------------------
+  Explore board to Xbee                 &  -             &                      \\
+\hline
+ Arduino & & Mega 2560 \\
+\hline
+%------------------------------------------------------------------------------------
+\end{tabular}
+\end{table}
+
+\subsubsection{Procedure}
+
+\begin{enumerate}
+  \item Setup GOT system, by power up the satellites and the master.
+  \item Turn on the GOT transmitter
+  \item Start the GOT code, which contains the protocol.
+  \item Turn on the arduino.
+  \item Move around the transmitter a different speeds.
+  \item Check with a serial port on the arduino, to look for data.
+  \item Save the data from the serial port on the arduino.
+  \item Find the log for the data send from the GOT system, in the GOT folder.
+\end{enumerate}
+
+\subsubsection{Results}
+\todo{insert figur}
+
+The filter is filtering all data points away, that have been moving with more than 3 $m \cdot s^{-1}$, since last correctly data point (See \secref{}) \todo{Ref to GOT filter}. As shown on \figref{}, all the data point that have a speed higher than 3 $m \cdot s^{-1}$ is marked red and are not send, while the the point marked green is under the limit and have been send. Spikes, like data point 10, will then not be send, as the speed is way higher than the limit.
+
+\subsubsection{Conclusion}
+The filter will not send any data, that is moving faster than the limit, and therefore deleting spikes, that can occur in the GOT system.
+

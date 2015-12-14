@@ -1,0 +1,71 @@
+\pagebreak
+\section{Accept Test - Error handling in the protocol} \label{app:AccTes2}
+\textbf{Name: Group 510}\\
+\textbf{Date: 11/12 - 2015}
+
+\subsubsection{Purpose}
+The purpose of the test, is to test the error handling part of the protocol.
+
+\subsubsection{List of Equipment}
+\begin{table}[H]
+\begin{tabular}{|l|l|p{4cm}|}
+\hline%------------------------------------------------------------------------------------
+  \textbf{Instrument}                        &  \textbf{AAU-no.}  &  \textbf{Type}       \\
+\hline%------------------------------------------------------------------------------------
+  GOT system                               &   &  Indoor position system  \\
+\hline%------------------------------------------------------------------------------------
+  Computer                   		         &   &    \\
+\hline%------------------------------------------------------------------------------------
+  2 Xbee &  -             &    \\
+\hline%------------------------------------------------------------------------------------
+  Explore board to Xbee                 &  -             &                      \\
+\hline
+ Arduino & & Mega 2560 \\
+\hline
+%------------------------------------------------------------------------------------
+\end{tabular}
+\end{table}
+
+\subsubsection{Procedure}
+
+\begin{enumerate}
+  \item Setup GOT system, by power up the satellites and the master.
+  \item Turn on the GOT transmitter.
+  \item Insert randomiser into the GOT code.
+  \item Start the GOT code, which contains the protocol.
+  \item Turn on the arduino.
+  \item Check with a serial port on the arduino, to look for data.
+  \item Save the data from the serial port on the arduino.
+  \item Find the log for the data send from the GOT system, in the GOT folder.
+\end{enumerate}
+
+The randomisation in the code, will at random point transmit a wrong package. It can be a wrong byte or that there is a byte to much or to little, which the protocol in the receiving end have to take care of.
+
+\subsubsection{Results}
+
+There was in this test session of 48 packages, there is send 10 error packages. 
+\begin{enumerate}
+\item Package 28, there is a byte to much in the package.
+\item Package 10, there is a byte to little in the package.
+\item Package 21, the start byte is changed.
+\item Package 44, the destination is changed.
+\item Package 34, the length is changed.
+\item Packages 4, 16, 36, 39, 46, there is changed a byte in the data or checksum part.
+\end{enumerate}
+
+The way the protocol handle error packages, is by throwing them away, and then search for a new start byte (see \secref{}). \todo{Ref to communication section}
+
+\todo{Insert figur}
+
+In the case, where there is a byte to much, the error will be find, if the 12th byte is not equal to the end byte (value of 15). This will return a error 5, seen at read try 49 on \figref{}. As the 13th byte is not read and thrown away with the first 12, it will be the first byte to be look at for a start byte. In this case it is not equal to a start byte and return the error 1 (read try 50).
+
+In the case, where there is a byte to little, the error will first be find, when a new package have arrived. As there is only 11 bytes and there is needed 12 bytes, the receiver will wait for a extra byte, before continuing. As the next byte, from the next package is the start byte, the 12th byte will not be equal to the end byte and a error 5 will happen (Read try 10). The first package on 11 bytes and the extra read byte will then be thrown away, meaning that the next package also will be damaged, as it will be missing it start byte. This give 11 error 1 in a row, if none of the other bytes have the value of the start byte (Read try 11 to 21).
+
+If the start byte is changed, it will find a error 1 from the start and if none other of the byte in the package is equal to the start byte, there will occur 12 error 1 in a row, as seen with read try 31 to 42.
+
+If it is the destination or the length, that is changed, the errors 2 or 3 will be return respectively(See read try 77 and 56). The rest of the packages will return error 1, if they are not equal to the start byte.
+
+If the changed of a byte happens in the data and/or checksum part, the checksum control will find the error and return error 4, shown at read try 4, 26, 67, 70 and 87.
+
+\subsubsection{Conclusion}
+It have been shown that the protocol can find damaged packages, with the use of the error handling in the system and throw them away. It will then search for a new start byte and the go back to normal again.

@@ -1,5 +1,5 @@
 \subsection{Angular controller}
-The purpose of the angular controller is to have the vehicle turn according to a reference, that the controller gets from the route planning. As the steering only have a little linear area (See \appref{app:LinearAreaKp}), the types of controller that can be used is very limited. A controller type that can be used is a proportional controller.
+The purpose of the angular controller is to have the vehicle turn according to a reference, that the controller gets from the route planning. The design will start out with a proportional controller for the system.
 
 \subsubsection{Proportional controller}
 
@@ -19,7 +19,7 @@ On \figref{fig:PconAngpic}, there is implemented a proportional controller into 
 According to \appref{app:steeringGainTest}, the product of $K_v$ and $K_s$, called $K_{steering}$, is equal to:
 
 \begin{flalign}
-\eq{K_{steering}}{0,5149 \cdot v - 0,1925}
+\eq{K_{steering}}{0,3 \cdot v - 0,034}
 \end{flalign}
 
 As $v$ is the wanted velocity, which is 1,4 $m \cdot s^{-1}$, $K_{steering}$ is equal to 0,386. And with lambda equal to the servo duty cycle time constant on 30 ms, the transfer function will be:
@@ -34,7 +34,7 @@ This is converted to the standard form:
   \eq{ \frac{\theta_{actual}}{\theta_{wanted}} }{ \frac{1}{\frac{ 0,03 \cdot s^2 + s }{ K_p \cdot 0,386 } + 1} }&\label{eq:PconAng3}
 \end{flalign}
 
-According to \appref{app:LinearAreaKp}, the system with a proportional controller is only linear within the range of a $K_p$ on 1,5 to 3. To get smallest possible time constant, the $K_p$ need to be as big as possible. Therefore the $K_p$ is set to 3, which give:
+From the test done in \appref{app:LinearAreaKp}, it is know, that the steering gain is not constant for different $K_p$ values. The test shows that there is a linear area between a $K_p$ value of 1,5 and 3. From \eqref{eq:PconAng3}, it can be seen that the time constant will get smaller, if the $K_p$ is higher. To get the fastest system with this limitation, $K_p$ is set to be 3. This give a transfer function equal to:
 
 \begin{flalign}
   \eq{ \frac{\theta_{actual}}{\theta_{wanted}} }{ \frac{1}{\frac{ 0,03 \cdot s^2 + s }{ 3 \cdot 0,386 } + 1} \Rightarrow \frac{1}{ 0,026 \cdot s^2 + 0,86 \cdot s + 1} }&\label{eq:PconAng4}
@@ -46,15 +46,17 @@ The proportional controller is then implemented. For the feedback, the magnetome
 
 \begin{flalign}
   \eq{ f_{sampling} }{ \frac{1}{30 ms} \Rightarrow 33,33}\unit{Hz} \label{eq:PconAng5}
-\end{flalign} \todo{Needs units}
+\end{flalign}
 
 The angular controller is then tested, where the start heading is \si{5^{\circ}} and the reference heading is \si{45^{\circ}}. The test is shown on \figref{fig:AngularTestSim}.
 
 \begin{figure}[H]
  	\centering
- 	\includegraphics[width=\textwidth]{figures/SteeringAngularTest}
+ 	\includegraphics[scale=0.25]{figures/SteeringAngularTest.png}
  	\caption{Test of the proportional controller, with a start heading on \si{5^{\circ}} and a reference on \si{45^{\circ}}.}
  	\label{fig:AngularTestSim}
 \end{figure}
 
-As shown on \figref{fig:AngularTestSim}, the system react nearly the same way as the simulation and end up at the same rise time as the simulation. 
+As shown on \figref{fig:AngularTestSim}, the system react nearly the same way as the simulation and end up at the same rise time as the simulation. The proportional controller will then be used in the system, as it works inside the area, where the system works linear. 
+
+With the angular controller done, the distance controller, which is build around the angular controller will be designed.

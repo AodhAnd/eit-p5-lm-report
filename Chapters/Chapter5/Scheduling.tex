@@ -1,9 +1,9 @@
 \section{Software Choice}
-The hardware choice and implementation includes a software that can handle them. The software choice will be explained in this section, describing the use if the Kernel, and the principle of scheduling.
+The hardware choice and implementation includes a software that can handle them. The software choice will be explained in this section, describing the use of the Kernel, and the principle of scheduling.
 
 \subsection{Kernel}
 The chosen kernel allows to control the tasks and then the behavior of the vehicle through clocks, to have a precise and constant schedule. This propriety make possible to export it on another kind of processor and still have the same render, as long as it have a frequency high enough to process all the data needed.\\
-The Kernel advantage is also the definition of semaphores, priorities, and critical regions, that the system will use to choose which task to run, and how often it should be. This Kernel allows also to program in Arduino language which is C++, and can run C code.
+The Kernel advantage is also the definition of semaphores, priorities, and critical regions, that the system will use to choose which task to run, and how often it should be. This Kernel allows also to program in Arduino language which is C++, and can run C code, with the use of different files.
 
 \subsection{Scheduling}\label{sec:scheduling}
 For running the code on the arduino PCB, and be able to manage all the sensors at the same time, a scheduling is needed. Indeed, the PCB must be able to recieve and process the data from the GoT system, the hall sensors, the magnetometer and the X-bee to make a decision related to the planned route to follow. This decision must affect at the same time the speed through the motor, and the steering through the servo.
@@ -17,11 +17,11 @@ The different functions of the vehicle have been separated into multiple tasks, 
 
 \begin{lstlisting} [caption = {Implementation of the tasks}, label = {lst:tasks}]
 
-  task1 = k_crt_task(tSpeed, 10, stack, 300);         		// Hall Sensors
-  task2 = k_crt_task(SpeedControl, 12, stack2, 300); 		// Velocity controller
-  task3 = k_crt_task(SteeringControl, 11, stack3, 1000); 	// Angular controller(Inner loop of the steering model)
-  task4 = k_crt_task(LeadCompensator, 13, stack4, 300); 	// Distance Control(Outer loop of the steering model)
-  task5 = k_crt_task(GoT,14,stack5,1000);        		    // GoT and protocol handling
+  task1 = k_crt_task(tSpeed, 10, stack, 300);         	   // Hall Sensors
+  task2 = k_crt_task(SpeedControl, 12, stack2, 300); 	   // Speed control
+  task3 = k_crt_task(GoT,14,stack5,1000);        		   // GoT and protocol handling
+  task4 = k_crt_task(LeadCompensator, 13, stack4, 300);    // Distance Control
+  task5 = k_crt_task(SteeringControl, 11, stack3, 1000);   // Angular control
 
 \end{lstlisting}
 
@@ -29,25 +29,42 @@ Those declarations of the tasks are made thanks to the function k\_crt\_task nee
 
 
 \begin{lstlisting} [caption = {Declaration of the tasks}, label = {lst:tasks}]
-
  struct k_t *k_crt_task (void (*pTask) (void), char prio, char *pStk, int stkSize);
  
 \end{lstlisting}
 
 \textbf{Hall Sensors:}
-The two hall sensors of the two belts are read at a certain frequency, and knowing the distance the vehicle moves during a full turn of the drive wheel, the real speed can be calculated independently from each other belts.
-
-\textbf{Angular Control:}
-The steering task is gets the reading from the magnetometer, transform them in the coordinate system that fit the model. Then those values are converted into a heading angle, that will be used in the steering P-Controller to calculate the new angle to follow from the angle wanted. The decision will be sent directly to the servo. This is the inner loop from the Steering Model, seen in \secref{steeringModel}
+The two hall sensors of the two belts are read at a certain frequency, and knowing the distance the vehicle moves during a full turn of the drive wheel, the real speed can be calculated independently from each other belts.\\
+When the belts are not running the maximum time to run the task is 5.63µs, and when the belts are running it's 8.39µs\\
+The maximum speed of vehicle is 3 $m \cdot s^{-1}$, and a turn of the gear wheel is 166mm. To get a pulse every full turn of the gear wheel at the highest speed, the sampling period has to be $\frac{0.166}{3}={55.3ms}$, and for a quarter of turn it should be 4 time less so every 14ms. The sampling time of reading the magnetometerhas to be 2 times less the highest frequency sampling of the system, but to be secure, the sampling time is chosen at 3.5 times less, giving a minimum period so 4ms period
 
 \textbf{Speed Control:}
 A wanted speed value is compared to the actual speed, and the resulting error is the input of the Velocity PI-Controller, that will set a new speed according to the reference.
 
-\textbf{Distance control:}
-If the angular control is in charge of the direction wanted, it can not control the position from the line wanted to be on. The task Distance Control calculate the distance of the vehicle from the line it should follow, and calculate a new heading for the angular control to follow to get back on the line. This is the outer loop from the Steering Model, seen in \secref{steeringModel}.
+with PID: 357.5µs - 386µs
+
+The speed has to run 2 times faster than the hall sensors, to get a new data every time, so every 2ms
+
 
 \textbf{GoT System and Communication Protocol:}
-This task is the communication protocol handling, that receive on the vehicle the position that the GoT system sended. It will receive data from the computer, and convert it into a position so that the distance control can calulate the new heading to follow.
+This task is the communication protocol handling, that receive on the vehicle the position that the GoT system sended. It will receive data from the computer, and convert it into a position so that the distance control can calculate the new heading to follow.
+
+hiden in the noise: 395µs	
+
+\textbf{Distance control:}
+If the angular control is in charge of the direction wanted, it can not control the position from the line wanted to be on. The task Distance Control calculate the distance of the vehicle from the line it should follow, and calculate a new heading for the angular control to follow to get back on the line. This is the outer loop from the Steering Model, seen in \secref{sec:SteeringModel}.
+
+
+153.6µs
+
+\textbf{Angular Control:}
+The steering task gets the reading from the magnetometer, and transform them in the coordinate system that fit the model. Then those values are converted into a heading angle, that will be used in the steering P-Controller to calculate the new angle to follow from the angle wanted. The decision will be sent directly to the servo. This is the inner loop from the Steering Model, seen in \secref{sec:SteeringModel}
+
+1.7ms\\ 
+
+The minimum time to send a new angle to the servo is 30ms, so the period of this task have to be 30ms.
+
+
 
 
 \subsubsection{Queue}
@@ -67,7 +84,7 @@ A picture illustrating the round robin schedule can be seen in \figref{roundRobi
 	\label{roundRobinSchedule}
 \end{figure}
 
-If the time allowed by the frequency sampling of the program is not large enough, the data will be prioritized and run in the time allowed. An example of this case can be seen on \figref{roundRobinSchedule2}.
+If the time allowed by the frequency sampling of the program is not large enough, or if some tasks need to be ran at a cerain time because of a sampling time, the data will be prioritized and run in the time allowed. An example of this case can be seen on \figref{roundRobinSchedule2}.
 
  \begin{figure}[H]
 	\centering
@@ -76,7 +93,7 @@ If the time allowed by the frequency sampling of the program is not large enough
 	\label{roundRobinSchedule2}
 \end{figure}
 
-As the actual time to run the code is 2.8ms, and the sample time is 15ms, the prioritization of the tasks is not needed, because all the tasks will be ran at each sample.\\\\
+As the actual time to run the code is 2.8ms, and the sample time is 15ms, every tasks will be ran at each sample. But as each task have a different sample time, a prioritizaion is needed to run the task a their frequency independently.\\\\
 
 
 

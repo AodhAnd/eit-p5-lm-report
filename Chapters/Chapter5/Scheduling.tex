@@ -92,18 +92,18 @@ When a task is running and another one with a higher priority do a request to ru
 
 
 \subsubsection{Request and Priorities}
-The tasks ask a request of running every period of time regarding their respective setup, the global view of these request can be seen in \figref{scheduleRequest}
+The tasks ask a request of running every period of time regarding their respective setup, the global view of these request can be seen in \figref{scheduleRequest}.
 
  \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{figures/scheduleRequest.pdf}
 	\caption{An overview of the tasks request during 100ms, the larger period task possible.}
-	\label{scheduleRequestdRobinSchedule}
+	\label{scheduleRequestd}
 \end{figure}
 
 
 When two task are requesting at the same time to run, the order is chosen regarding to the priorities, that is set at the initialisation. The task are ran when they ask it, but interrupted when a higher priority task is asking to run, and will finish when all the higher priorities will be done. An example of this case can be seen in \figref{schedulePriorities}.\\
-The priorities of the task have been made to give the system the best stability. In this case, The angular sensor has the highest priority because it has a large period and running time, but is critical to the steering of the vehicle which is the main objective of this project. Then comes the hall sensors that are very fast to execute, and 
+The priorities of the task have been made to give the system the best stability. In this case, The angular sensor has the highest priority because it has a large period and running time, but is critical to the steering of the vehicle which is the main objective of this project. Then comes the hall sensors that is very fast to execute, and then the speed control which is so fast that is not critical to have it at a high priority. The last one is the GoT system and communication protocol along with the distance control, because of two things: first because it may enter in an infinite loop and block the system, and second and most of all because the main point of this project is to be able to run without the GoT system if something happend and block the communication.
 
  \begin{figure}[H]
 	\centering
@@ -113,8 +113,8 @@ The priorities of the task have been made to give the system the best stability.
 \end{figure}
 
 As seen on the  \figref{schedulePriorities}, the angular control has the highest priority so it will run first, and the others will be registrered in a queue in order of priority. Then the hall sensors are second, and speed control after that. When the speed control will be running, it can do a second request to run because of it's sampling time. It will then run a second time just after that because it's priority is higher than the lasts tasks. The GoT and comunication will run after them, and in the end the Distance Control.\\
-After a certain time, the task are stabilized, until the task with a large period are asked again.\\\\
+After a certain time, the task are stabilized, until the tasks with a large period are asked again.\\\\
 
 
 
-The harware and Software choice have been explained, the sensors can now be implemented, independently from each other.
+Now that the harware and software choice have been described and explained, the sensors can be implemented, independently from each other.

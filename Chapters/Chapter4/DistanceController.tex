@@ -1,4 +1,4 @@
-\subsection{Distance controller}
+\subsection{Distance controller}\label{ssec:distanceController}
 A distance controller will now be designed, to complement the angular controller.
 As concluded in \secref{sec:SteeringModel}, a deviation from the planned line, will cause the vehicle to drive at a parallel line, next to the planned. The deviation will be calculated from the position provided by the GoT system. As the deviation is a function of the error angle integrated over time it is assumed, that a P controller will be sufficient to handle this function, just as in the Angular controller. The controller will therefore be based on a P controller, and iterated until results are satisfactory. 
 

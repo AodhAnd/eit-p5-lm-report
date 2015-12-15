@@ -44,21 +44,20 @@ Before connecting hardware modules to the Arduino pins, signal voltage levels al
 
 \begin{itemize}
 \item The Arduino Mega 2560 itself uses 5V logic levels.\cite{MegaInfo}
-\item The "9 Degrees of Freedom" board needs 5V supply voltage and $\SI{3,3}{V}$ logic levels. \todo{source}
-\item The servo needs $\SI{4,8}{V}$ to \si{6\ V} supply voltage and 5V signal levels.
-\todo{source}
+\item The "9 Degrees of Freedom" board needs \SI{3,3}{V}-\SI{16}{V} supply and $\SI{3,3}{V}$ logic levels. \cite{9dog}
+\item The servo needs $\SI{4,8}{V}$ to \si{6\ V} supply voltage and signal levels.\cite{futaba}
 \item The SD card needs $\SI{3,3}{V}$ supply voltage and signal levels, see \subsecref{SDcard}.
-\item The Hall sensors need $\SI{3,5}{V}$ to \si{24\ V} supply, and a pull up resistor to define the logic level.
-\todo{source}
+\item The Hall sensors needs $\SI{3,5}{V}$ to \si{24\ V} supply, and a pull up resistor to define the logic level.
+\cite{HallDS}
 \item The XBee module needs $\SI{3,3}{V}$ supply voltage and signal levels.
-\todo{source}
+\subsecref{Xbee}
 \end{itemize} 
 
 The Arduino has regulated 5V and $\SI{3,3}{V}$ supply rails available, which will be used to power the respectable hardware modules. As the servo can potentially draw a lot of current, and overload the Arduino, it will be connected to a dedicated 5V voltage regulator, powered directly from the battery.
 
-A low-dropout type is chosen, L4941, to make sure it works, even at low battery voltages. This regulator has a maximum dropout of 700mV at 1A current, meaning that it will work with battery voltages as low as $\SI{5,7}{V}$. \todo{datasheet} 
+A low-dropout type is chosen, L4941, to make sure it works, even at low battery voltages. This regulator has a maximum dropout of 700mV at 1A current, meaning that it will work with battery voltages as low as $\SI{5,7}{V}$. \cite{L4941} 
 
-All one-directional connections from the Arduino to  $\SI{3,3}{V}$ logic level inputs will be connected to a HEF4050 CMOS buffer. This device can accept input voltages up to 15V, while supplied by as little as 3V supply voltage. This makes it ideal for uni-directional voltage level translation. \todo{datasheet}
+All one-directional connections from the Arduino to  $\SI{3,3}{V}$ logic level inputs will be connected to a HEF4050 CMOS buffer. This device can accept input voltages up to 15V, while supplied by as little as 3V supply voltage \cite{4050B}. This makes it ideal for uni-directional voltage level translation. 
 
 One-directional connections from  $\SI{3,3}{V}$ logic level output to Arduino inputs will be connected directly, as $\SI{3,3}{V}$ is above the minimum high level threshold \cite{Atmega}.
 %
@@ -76,7 +75,17 @@ As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs t
 	\caption{$\text{I}^2\text{C}$ Voltage level translator. [source: Philips]}
 	\label{i2clevel}
 \end{figure}
-\todo{Add a few sentences of explanations}
+In $\text{I}^2\text{C}$ systems, the nodes can only pull the line LOW. To make it possible to signal a HIGH, pull-up resistors are used. If a low voltage system is directly connected to a higher voltage system, the voltage at the input pins of the low-voltage section risk being pulled up to 5V.
+
+To solve this, the translator uses a MOSFET per signal line, with the gate connected to the lower supply voltage, to separate the two systems. Here is a quick explanation, examining just one line (as both lines are implemented identically):\\
+%
+The gate of the MOSFET is connected to \SI{3,3}{V}.
+Four states are possible, both sides HIGH, both sides LOW, or one of each.
+If both ends are in the HIGH state, the voltage on the source pin will be \SI{3,3}{V}, and the gate-source voltage will therefore be $\SI{3,3}{V}-\SI{3,3}{V}=\SI{0}{V}$. The MOSFET is therefore off, and not conducting. This prevents the 5V supply from reaching the input of the \SI{3,3}{V} side.\\
+If the \SI{3,3}{V} section is in the LOW state, the voltage on the source pin will be 0V, and the gate-source voltage will therefore be $\SI{3,3}{V}-\SI{0}{V}=\SI{3,3}{V}$, turning the MOSFET on. This in turn pulls the 5V section to 0V, signalling a LOW.\\
+If the 5V voltage section is in the LOW state, the intrinsic diode in the MOSFET will conduct, pulling the source pin down to \si{0\ V} plus a diode drop ($\approx\SI{0,6}{V}$). This results in a gate-source voltage of $\SI{3,3}{V}-\SI{0,6}{V}=\SI{2,7}{V}$, turning the MOSFET on. This will eliminate the diode drop, and the result will be 0V on the source pin, signalling a LOW to the \SI{3,3}{V} side.
+
+For this to work, a MOSFET that will turn on at \SI{2,7}{V} is needed. FDV303N is available and choosen, as it has a $\text{V}_\text{ds}$ threshold voltage\footnote{The  $\text{V}_\text{ds}$ threshold is the voltage, where the MOSFET starts to conduct} of maximum \SI{1,5}{V}. At \SI{2,7}{V}, the drain-source resistance is specified to \SI{0,6}{\Omega}, meaning that the MOSFET will be on at this voltage\cite{MOSFET}.
 
 \subsection{Voltage divider}
 
@@ -116,12 +125,12 @@ to[short] node[ground] {} (0,-1);
 \label{VoltDivFigFinal}
 \end{figure}
 
-To filter the high frequency noise out, a simple low-pass RC filter is finally implemented with to a \si{100\ nF} capacitor in the voltage divider. The resulting cut-off frequency is then:
+To filter the high frequency noise out, a simple low-pass RC filter is finally implemented with a 1 $\mu$F capacitor in the voltage divider. The resulting cut-off frequency is then:
 %
 \begin{flalign}
 \eq{\omega_{c}}{\frac{1}{R \cdot C}}\unit{rad \cdot s^{-1}} \nonumber \\
-\eq{\omega_c}{\frac{1}{5 \cdot 10^{3} \cdot 100 \cdot 10^{-9}}}\unit{rad \cdot s^{-1}} \nonumber \\
-\eq{\omega_c}{2 \cdot 10^{3}}\si{\ rad \cdot s^{-1}}&\nonumber
+\eq{\omega_c}{\frac{1}{2,5 \cdot 10^{3} \cdot 1 \cdot 10^{-6}}}\unit{rad \cdot s^{-1}} \nonumber \\
+\eq{\omega_c}{400}\si{\ rad \cdot s^{-1}}&\nonumber
 \end{flalign}
 
 With all the hardware components physically implemented on the vehicle and connected to the microcontroller, which is the system's brain, it is needed to write the software parts to enable interactions between the Arduino and all the hardware components.

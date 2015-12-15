@@ -1,12 +1,60 @@
-@misc{J.M.Network,
-author = {Jens Myer},
-title = {Introduction to communication networks},
-year = {2015},
-howpublished = {Presentation},
-note = {Slides located on CD},
+
+
+@book{YDing,
+author = {Yongwang Ding and Ramesh Harjani},
+title = {High-Linearity CMOS RF Front-End Circuits},
+date = {2006},
+OPTeditor = {editor},                  %-------------------NOTES-------------------%  
+OPTeditora = {editora},                %  The tag (here YDing) should be the       %
+OPTeditorb = {editorb},                %  [1st letter of the authors 1st name] +   %
+OPTeditorc = {editorc},                %  [his last name in camel case].           %
+OPTtranslator = {translator},          %  With multiple authors (like here) only   %
+OPTannotator = {annotator},            %  use the first one.                       %
+OPTcommentator = {commentator},        %  (This is done in order to prevent the    %
+OPTintroduction = {introduction},      %  same source appearing twice - should it  %
+OPTforeword = {foreword},              %  happen, an error will be generated)      %
+OPTafterword = {afterword},            %-------------------------------------------%
+OPTsubtitle = {subtitle},              %  Using the auto generated entries         %
+OPTtitleaddon = {titleaddon},          %  and filling in as much as possible       %
+OPTmaintitle = {maintitle},            %  will make it easier to manage while      %   
+OPTmainsubtitle = {mainsubtitle},      %  also avoiding a whole lot of errors.     %
+OPTmaintitleaddon = {maintitleaddon},  %-------------------------------------------%
+OPTlanguage = {language},              %  To compile the bibliography you need the %
+OPToriglanguage = {origlanguage},      %  biber.exe file to be in your editors     %
+OPTvolume = {volume},                  %  directory. In Windows 8/10 it might not  %
+OPTpart = {part},                      %  let you do this, so you need to open     %
+OPTedition = {edition},                %  command prompt with administrative       %---------------%
+OPTvolumes = {volumes},                %  privileges and write something like:                     %
+OPTseries = {series},                  %  C:\>move biber.exe "C:/Program Files (x86)/TeXstudio"    %
+OPTnumber = {number},                  %  For mac setup should be relatively                       %
+OPTnote = {note},                      %  straightforward, for more information    %---------------%
+OPTpublisher = {publisher},            %  google: mac and biber.                   %
+OPTlocation = {location},              %------------------------------------------ %
+OPTisbn = {9780387238029},
+OPTchapter = {chapter},
+OPTpages = {pages},
+OPTpagetotal = {pagetotal},
+OPTaddendum = {addendum},
+OPTpubstate = {pubstate},
+OPTdoi = {doi},
+OPTeprint = {eprint},
+OPTeprintclass = {eprintclass},
+OPTeprinttype = {eprinttype},
+OPTurl = {url},
+OPTurldate = {urldate},
 }
 
+%% Bibliography for Lawn mower report %%
 
+% Articles %
+@article{Miller,
+	author 	= {Keith M. Miller},
+	title 	= {A Review of GLONASS},
+	journaltitle = {Hydrographic Journal},
+	year 	= {2000},
+}
+
+% Online %
 @online{Microsoft,
 author = {Microsoft support},
 title = {The OSI Model's Seven Layers Defined and Functions Explained},
@@ -14,6 +62,196 @@ year = {2014},
 url = {https://support.microsoft.com/en-us/kb/103884},
 }
 
+@online{LyonsR.G,
+author = {Lyons R.G.},
+title = {IMPULSE INVARIANCE IIR FILTER DESIGN METHOD},
+year = {2013},
+url = {http://flylib.com/books/en/2.729.1.69/1/},
+}
+
+@online{HallDS,
+author = {Siemens},
+title = {TLE4905 datasheet},
+year = {1992},
+url = {http://www.komponenten.es.aau.dk/fileadmin/komponenten/Data_Sheet/Linear/TLE4905.pdf},
+}
+
+@online{4050B,
+author = {NXP},
+title = {HEF4050B datasheet},
+year = {2011},
+url = {http://www.nxp.com/documents/data_sheet/HEF4050B.pdf},
+}
+
+
+@online{L4941,
+author = {ST},
+title = {L4941 datasheet},
+year = {2004},
+url = {http://www.komponenten.es.aau.dk/fileadmin/komponenten/Data_Sheet/Spaendingsreg/L4941.pdf},
+}
+
+@online{MOSFET,
+author = {Fairchild Semiconductor},
+title = {FDV303N datasheet},
+year = {1997},
+url = {http://www.farnell.com/datasheets/276083.pdf},
+}
+
+@online{GoTWebsitePos,
+  editor  = {GamesOnTrack A.S},
+  title   = {Games on Track GT-Position},
+  year    = {2012-2015},
+  url     = {http://www.gamesontrack.co.uk/pages/webside.asp?articleGuid=64556},
+}
+
+@online{GPSUSWebsiteAccuracy,
+  editor  = {USA National Coordination Office for Space-Based Positioning, Navigation, and Timing},
+  title   = {GPS Accuracy},
+  year    = {2014},
+  url     = {http://www.gps.gov/systems/gps/performance/accuracy/},
+}
+
+@online{PuTTY,
+  editor  = {PuTTY.org},
+  title   = {PuTTY software},
+  year    = {October 2015},
+  url     = {http://www.putty.org/},
+}
+
+@online{ArduinoIDE,
+  editor  = {Arduino},
+  title   = {Arduino IDE},
+  year    = {October 2015},
+  url     = {https://www.arduino.cc/en/Main/Software},
+}
+
+@online{Atmega,
+  editor  = {Atmel},
+  title   = {Atmega 2560 datasheet},
+  year    = {February 2014},
+  url     = {http://www.atmel.com/images/atmel-2549-8-bit-avr-microcontroller-atmega640-1280-1281-2560-2561_datasheet.pdf},
+}
+
+@online{Avrdude,
+  author = {gvz},
+  title = {avrdude Github Repository},
+  year = {2000},
+  urldate = {2015-12-04},
+  url = {https://github.com/gvz/avrdude},
+  OPTlanguage = {English},
+  OPTversion = {version},
+  OPTnote = {note},
+  OPTorganization = {organization},
+}
+
+@online{MechanicalEngineering,
+  ALTauthor = {author},
+  ALTeditor = {editor},
+  title   = {Construction working of differential assembly},
+  year    = {2011},
+  month   = {July},
+  url = {http://mechanicalmania.blogspot.dk/2011/07/construction-working-of-differential.html},
+}
+
+
+@online{ArduinoPWM,
+  author  = {Ken Shirriff},
+  editor  = {Arduino},
+  title   = {Secrets of Arduino PWM},
+  url     = {https://www.arduino.cc/en/Tutorial/SecretsOfArduinoPWM},
+}
+
+@online{MegaInfo,
+  editor  = {Arduino},
+  title   = {Arduino Mega Specifications},
+  url     = {https://www.arduino.cc/en/Main/ArduinoBoardMega2560},
+}
+
+@online{Bosch,
+  editor  = {Bosch},
+  title   = {Bosch Indego},
+  url     = {https://www.bosch-garden.com/gb/en/garden-tools/indego-logicut.jsp},
+  urldate = {2015-12-15}
+}
+
+@online{Sparkfun9D0F,
+  editor  = {Sparkfun},
+  title   = {SparkFun 9 Degrees of Freedom - Sensor Stick},
+  url     = {https://www.sparkfun.com/products/10724},
+  urldate = {2015-12-15}
+}
+
+@online{9dog,
+author = {Sparkfun},
+title = {Accelerometer, Gyro and IMU Buying Guide},
+year = {2014},
+url = {https://www.sparkfun.com/pages/accel_gyro_guide},
+}
+
+@online{MWAW81P,
+ALTauthor = {author},
+ALTeditor = {editor},
+title = {MWA-W8-1-P},
+date = {2015-10-09},
+url =  {http://www.icom-memo.de/PDF%20Kataloge/MWAs/Dyn.%20MWAs/Dyn.%20MWAs%20zyl.We/MWA-W8-P.pdf},
+OPTsubtitle = {subtitle},
+OPTtitleaddon = {titleaddon},
+OPTlanguage = {language},
+OPTversion = {version},
+OPTnote = {note},
+OPTorganization = {organization},
+OPTdate = {date},
+OPTmonth = {month},
+OPTyear = {year},
+OPTaddendum = {addendum},
+OPTpubstate = {pubstate},
+OPTurldate = {urldate},
+}
+
+@online{BatteryDS,
+ALTauthor = {ANSMANN Racing},
+ALTeditor = {editor},
+title = {NiMH RC - Battery Pack 7.2V 470011mAh},
+date = {2012-05-14},
+url =  {http://www.farnell.com/datasheets/1722828.pdf},
+OPTsubtitle = {subtitle},
+OPTtitleaddon = {titleaddon},
+OPTlanguage = {English},
+OPTversion = {version},
+OPTnote = {note},
+OPTorganization = {organization},
+OPTdate = {date},
+OPTmonth = {month},
+OPTyear = {year},
+OPTaddendum = {addendum},
+OPTpubstate = {pubstate},
+OPTurldate = {2015-12-10},
+}
+
+@online{HMC5883L,
+ALTauthor = {Honeywell},
+title = {3-Axis Digital Compass IC HMC5883L},
+year  = {2013},
+month = {February},
+url   = {http://www51.honeywell.com/aero/common/documents/myaerospacecatalog-documents/Defense_Brochures-documents/HMC5883L_3-Axis_Digital_Compass_IC.pdf},
+language   = {English},
+version    = {900405 Rev E},
+urldate  = {2015-12-05},
+}
+
+@online{MagMaster,
+author  = {Yury Matselenak},
+title   = {3-Axis Digital Compass IC HMC5883L},
+date    =  {2014-06-01},
+url     = {http://diydrones.com/profiles/blogs/advanced-hard-and-soft-iron-magnetometer-calibration-for-dummies
+},
+language = {English},
+urldate  = {2015-12-08},
+}
+
+
+% Books %
 @book{Franklin,
 author = {Franklin, Powell, Emami-Naeini},
 title = {Feedback Control of Dynamic Systems},
@@ -101,199 +339,6 @@ OPTeprinttype = {•},
 OPTurl = {•},
 OPTurldate = {•},
 }
-@book{YDing,
-author = {Yongwang Ding and Ramesh Harjani},
-title = {High-Linearity CMOS RF Front-End Circuits},
-date = {2006},
-OPTeditor = {editor},                  %-------------------NOTES-------------------%	
-OPTeditora = {editora},                %  The tag (here YDing) should be the       %
-OPTeditorb = {editorb},                %  [1st letter of the authors 1st name] +   %
-OPTeditorc = {editorc},                %  [his last name in camel case].           %
-OPTtranslator = {translator},          %  With multiple authors (like here) only   %
-OPTannotator = {annotator},            %  use the first one.                       %
-OPTcommentator = {commentator},        %  (This is done in order to prevent the    %
-OPTintroduction = {introduction},      %  same source appearing twice - should it  %
-OPTforeword = {foreword},              %  happen, an error will be generated)      %
-OPTafterword = {afterword},            %-------------------------------------------%
-OPTsubtitle = {subtitle},              %  Using the auto generated entries         %
-OPTtitleaddon = {titleaddon},          %  and filling in as much as possible       %
-OPTmaintitle = {maintitle},            %  will make it easier to manage while      %   
-OPTmainsubtitle = {mainsubtitle},      %  also avoiding a whole lot of errors.     %
-OPTmaintitleaddon = {maintitleaddon},  %-------------------------------------------%
-OPTlanguage = {language},              %  To compile the bibliography you need the %
-OPToriglanguage = {origlanguage},      %  biber.exe file to be in your editors     %
-OPTvolume = {volume},                  %  directory. In Windows 8/10 it might not  %
-OPTpart = {part},                      %  let you do this, so you need to open     %
-OPTedition = {edition},                %  command prompt with administrative       %---------------%
-OPTvolumes = {volumes},                %  privileges and write something like:                     %
-OPTseries = {series},                  %  C:\>move biber.exe "C:/Program Files (x86)/TeXstudio"    %
-OPTnumber = {number},                  %  For mac setup should be relatively                       %
-OPTnote = {note},                      %  straightforward, for more information    %---------------%
-OPTpublisher = {publisher},            %  google: mac and biber.                   %
-OPTlocation = {location},              %------------------------------------------ %
-OPTisbn = {9780387238029},
-OPTchapter = {chapter},
-OPTpages = {pages},
-OPTpagetotal = {pagetotal},
-OPTaddendum = {addendum},
-OPTpubstate = {pubstate},
-OPTdoi = {doi},
-OPTeprint = {eprint},
-OPTeprintclass = {eprintclass},
-OPTeprinttype = {eprinttype},
-OPTurl = {url},
-OPTurldate = {urldate},
-}
-
-%% Bibliography for Lawn mower report %%
-
-% Articles %
-@article{Miller,
-	author 	= {Keith M. Miller},
-	title 	= {A Review of GLONASS},
-	journaltitle = {Hydrographic Journal},
-	year 	= {2000},
-}
-
-% Online %
-@online{LyonsR.G,
-author = {Lyons R.G.},
-title = {IMPULSE INVARIANCE IIR FILTER DESIGN METHOD},
-year = {2013},
-url = {http://flylib.com/books/en/2.729.1.69/1/},
-}
-
-
-@online{GoTWebsitePos,
-  editor  = {GamesOnTrack A.S},
-  title   = {Games on Track GT-Position},
-  year    = {2012-2015},
-  url     = {http://www.gamesontrack.co.uk/pages/webside.asp?articleGuid=64556},
-}
-
-@online{GPSUSWebsiteAccuracy,
-  editor  = {USA National Coordination Office for Space-Based Positioning, Navigation, and Timing},
-  title   = {GPS Accuracy},
-  year    = {2014},
-  url     = {http://www.gps.gov/systems/gps/performance/accuracy/},
-}
-
-@online{PuTTY,
-  editor  = {PuTTY.org},
-  title   = {PuTTY software},
-  year    = {October 2015},
-  url     = {http://www.putty.org/},
-}
-
-@online{ArduinoIDE,
-  editor  = {Arduino},
-  title   = {Arduino IDE},
-  year    = {October 2015},
-  url     = {https://www.arduino.cc/en/Main/Software},
-}
-
-@online{Atmega,
-  editor  = {Atmel},
-  title   = {Atmega 2560 datasheet},
-  year    = {February 2014},
-  url     = {http://www.atmel.com/images/atmel-2549-8-bit-avr-microcontroller-atmega640-1280-1281-2560-2561_datasheet.pdf},
-}
-
-@online{Avrdude,
-  author = {gvz},
-  title = {avrdude Github Repository},
-  year = {2000},
-  urldate = {2015-12-04},
-  url = {https://github.com/gvz/avrdude},
-  OPTlanguage = {English},
-  OPTversion = {version},
-  OPTnote = {note},
-  OPTorganization = {organization},
-}
-
-@online{MechanicalEngineering,
-  ALTauthor = {author},
-  ALTeditor = {editor},
-  title   = {Construction working of differential assembly},
-  year    = {2011},
-  month   = {July},
-  url = {http://mechanicalmania.blogspot.dk/2011/07/construction-working-of-differential.html},
-}
-
-
-@online{ArduinoPWM,
-  author  = {Ken Shirriff},
-  editor  = {Arduino},
-  title   = {Secrets of Arduino PWM},
-  url     = {https://www.arduino.cc/en/Tutorial/SecretsOfArduinoPWM},
-}
-
-@online{MegaInfo,
-  editor  = {Arduino},
-  title   = {Arduino Mega Specifications},
-  url     = {https://www.arduino.cc/en/Main/ArduinoBoardMega2560},
-}
-
-@online{MWAW81P,
-ALTauthor = {author},
-ALTeditor = {editor},
-title = {MWA-W8-1-P},
-date = {2015-10-09},
-url =  {http://www.icom-memo.de/PDF%20Kataloge/MWAs/Dyn.%20MWAs/Dyn.%20MWAs%20zyl.We/MWA-W8-P.pdf},
-OPTsubtitle = {subtitle},
-OPTtitleaddon = {titleaddon},
-OPTlanguage = {language},
-OPTversion = {version},
-OPTnote = {note},
-OPTorganization = {organization},
-OPTdate = {date},
-OPTmonth = {month},
-OPTyear = {year},
-OPTaddendum = {addendum},
-OPTpubstate = {pubstate},
-OPTurldate = {urldate},
-}
-
-@online{BatteryDS,
-ALTauthor = {ANSMANN Racing},
-ALTeditor = {editor},
-title = {NiMH RC - Battery Pack 7.2V 4700mAh},
-date = {2012-05-14},
-url =  {http://www.farnell.com/datasheets/1722828.pdf},
-OPTsubtitle = {subtitle},
-OPTtitleaddon = {titleaddon},
-OPTlanguage = {English},
-OPTversion = {version},
-OPTnote = {note},
-OPTorganization = {organization},
-OPTdate = {date},
-OPTmonth = {month},
-OPTyear = {year},
-OPTaddendum = {addendum},
-OPTpubstate = {pubstate},
-OPTurldate = {2015-12-10},
-}
-
-@online{HMC5883L,
-ALTauthor = {Honeywell},
-title = {3-Axis Digital Compass IC HMC5883L},
-year  = {2013},
-month = {February},
-url   = {http://www51.honeywell.com/aero/common/documents/myaerospacecatalog-documents/Defense_Brochures-documents/HMC5883L_3-Axis_Digital_Compass_IC.pdf},
-language   = {English},
-version    = {900405 Rev E},
-urldate  = {2015-12-05},
-}
-
-@online{MagMaster,
-author  = {Yury Matselenak},
-title   = {3-Axis Digital Compass IC HMC5883L},
-date    =  {2014-06-01},
-url     = {http://diydrones.com/profiles/blogs/advanced-hard-and-soft-iron-magnetometer-calibration-for-dummies
-},
-language = {English},
-urldate  = {2015-12-08},
-}
 
 % Reports %
 
@@ -324,6 +369,8 @@ OPTeprinttype = {eprinttype},
 OPTurl = {url},
 OPTurldate = {urldate},
 }
+
+% Misc. %
 
 @misc{futaba,
 ALTauthor = {author},
@@ -362,4 +409,21 @@ OPTtype = {slides},
 OPTorganization = {Aalborg University},
 url = {http://www.moodle.aau.dk/},
 urldate = {2015-08-12},
+}
+
+@BOOK{JJankowzki,
+  author = {Jerzy Jankowski and Christian Sucksdorff},
+  title = {IAGA Guide for Magnetic Measurements and Observatory Practice},
+  publisher = {International Association of Geomagnetism and Aeronomy},
+  year = {1996},
+  ISBN = {0-9650686-2-5}
+}
+
+
+@misc{J.M.Network,
+author = {Jens Myer},
+title = {Introduction to communication networks},
+year = {2015},
+howpublished = {Presentation},
+note = {Slides located on CD},
 }

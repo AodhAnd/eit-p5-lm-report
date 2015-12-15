@@ -1,7 +1,6 @@
 \subsubsection{Servo} \label{Servo}
 The vehicle includes a S3003 servomotor from Futaba\cite{futaba}, which is used for the vehicle's steering. The way it makes the vehicle turn is by braking the gears on either side of the vehicle, and transferring the velocity over to the other side, by use of the differential gearbox, see \figref{Brakes}.\\
 %
-\todo{Please add voltage requirements, needs to be referenced to later}
 The servo is controlled by a PWM signal with a period of 30000 \si{\mu s} \cite{futaba}, sent from a controller. By applying a specific PWM signal the servo turns to a certain angle, see \tableref{tab:timeVSangle}. When the arm rotates one way, it triggers the brake on that side, but does not affect the other side.
 %
 \begin{table}[H]

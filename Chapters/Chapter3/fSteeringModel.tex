@@ -78,13 +78,12 @@ To verify the accuracy of this model compared to reality, a test and a simulatio
 \begin{figure}[H]
   \centering
     %Trim margins @:   left        bottom       right       top
-  \adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
-   { \includegraphics[scale=0.8]{figures/plotVerificationSteeringPlant.pdf} }
+  \adjustbox{ trim = {.15\width} {.35\height} {.15\width} {.33\height}, clip }
+   { \includegraphics[scale=1]{figures/plotVerificationSteeringPlant.pdf} }
  \caption{Plot of the plant model, showing the simulation and the real life test.}
   \label{fig:plotVerificationSteeringPlant}
 \end{figure}
-\todo{Plot instead of scatter and use only one dataset (the green one, without the disturbed data point) + legend southeast + Change title to `Steering step response with 1670 ms PWM signal' + shift test dataset to start at 0 as in the simulation + fix y axis unit}
-
+%
 The vehicle is started with the servo receiving a \si{1450\ ms} PWM signal, so that the vehicle goes straight during \si{5\ s} and reaches a steady speed of \si{1,4\ ms}. 
 After this time, a step of \si{1670\ ms} PWM is sent to the servo,that makes the vehicle turn at a constant rate. This makes the angle vary linearly as seen on \figref{fig:plotVerificationSteeringPlant}.
 
@@ -168,6 +167,6 @@ From \eqref{eq:angleIntegrationLaplace}, the block diagram of the steering model
 \end{figure}
 
 This model describes how the steering reacts and therefore, how the vehicle can be moved sideways. It allows for the controlling of both the heading of the vehicle and its position relative to the line it has to follow, see \secref{sec:steeringController}.\\
-However, it also uses assumptions that need to be true when running the lawn mower. Firstly, the distance calculation model only works if the vehicle is deviating and not if it starts on a line parallel to the wanted one. Indeed, were that the case, then the angle difference would approach zero and the calculated distance too, even though it wouldn't actually be. To avoid the problem, the vehicle shall start on the right line path. The issue of returning to the right path in case of disturbance (lawn mower slipping or hurting an object) is considered in \todo{secref{sec:lineFollowingControl}}.\\
+However, it also uses assumptions that need to be true when running the lawn mower. Firstly, the distance calculation model only works if the vehicle is deviating and not if it starts on a line parallel to the wanted one. Indeed, were that the case, then the angle difference would approach zero and the calculated distance too, even though it wouldn't actually be. To avoid the problem, the vehicle shall start on the right line path. The issue of returning to the right path in case of disturbance (lawn mower slipping or hurting an object) is considered in \secref{ssec:distanceController}.\\
 Secondly, this model is only used to simulate the system's behavior since the distance calculations are made with the use of the Games on Track positioning system.\\
 Finally, the velocity can only be considered constant if properly controlled, as done in \secref{sec:velocityController}.

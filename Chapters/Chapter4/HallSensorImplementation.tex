@@ -42,18 +42,5 @@ A full rotation of the wheel yields a linear movement of \si{166\ mm}, so the mi
 \begin{flalign}
 \eq{\frac{166 \cdot 10^{-3}}{65535 \cdot 64 \cdot 10^{-6}}}	{0,0396}\unit{m \cdot s^{-1}}
 \end{flalign}
-	
 
-
-%
-%\subsubsection{FIR Filter}
-%
-%Using the four magnets of the wheel and recording the time values through the timers involve using a  FIR Filter(Finite Impulse Response Filter). An overview of the filter can be seen on \figref{FIRFilter}.
-%
-%
-%\begin{figure}[H]
-%	\centering
-%	%\includegraphics[scale=0.9]{figures/FIRFilter.pdf}
-%	\caption{Overview of an FIR Filter}
-%	\label{FIRFilter}
-%\end{figure}
+The Hall Sensors have a sampling frequency very high, and give a speed with an acceptable error. A filter is then not needed for this sensor. The sensors related to the speed are explained, now the sensor related to the angle can be desribed.

@@ -1,15 +1,19 @@
 \section{Steering Controller}\label{sec:steeringController}
-The steering controller are gonna be split up in two controllers. One to control the angular movement of the vehicle, with the servo, so the car can follow the right direction and another controller to keep the vehicle on the route. Both controller will be design out from the model from \secref{sec:SteeringModel}. As the angular controller works on the first part of the plant, it will be design first.
+The steering controller is being split up in two controllers. One to control the angular movement of the vehicle, with the servo, so the car can follow the right direction and another controller to keep the vehicle on the route. Both controller will be design out from the steering model from \secref{sec:SteeringModel}. As the angular controller works on the first part of the plant, it will be design first.
 
 \input{Chapters/Chapter4/AngularController.tex}
 
 \input{Chapters/Chapter4/DistanceController.tex}
 
 \subsection{Route control}
-The steering controllers uses information from the route, that it have to follow. The route is made up by a number of points in the coordinate system from the GOT system, which there is drawn lines between (See \figref{}).
+The steering controllers uses information from the route, that it have to follow. The route is made up by a number of points in the coordinate system from the GOT system, which there is drawn lines between (See \figref{RCfig1}).
 
-\todo{Pic over a exp. route}
-%Insert figur
+\begin{figure}[H]
+ 	\centering
+ 	\includegraphics[scale=0.7]{figures/stepsGoT}
+ 	\caption{An example of a route, where the contains 7 points, which the vehicle have to follow.}
+ 	\label{fig:RCfig1}
+\end{figure}
 
 \subsubsection{Angle}
 The angular controller needs the angle of the route line, that is added with the output from the distance controller, to be the reference angle. The only information there is know about the line is the start and end point, as it is drawn up between those to point. To calculate the angle of the line, compared to the coordinate system of the GOT system, \eqref{eq:RCeq1} is used.
@@ -28,30 +32,39 @@ The distance controller needs the distance from the vehicle to the route line, a
 \begin{flalign}
   \eq{Distance}{\frac{(a \cdot X_{now}) + (b \cdot Y_{now}) + c)  }{\sqrt{a^2 + b^2}}}\unit{m}\label{eq:RCeq2}
 \end{flalign}
+\\
+\begin{figure}[H]
+ 	\centering
+ 	\includegraphics[scale=0.8]{figures/DistanceOutLoop}
+ 	\caption{Illustration of the distance, that is calculated. The line, that comes from the shortest distance, is orthogonal on the route line.}
+ 	\label{fig:RCfig2}
+\end{figure}
 
-%insert pic
-
-\eqref{eq:RCeq2} a standard vector equation to calculate the shortest distance from a point to a line (See \figref{}). The a, b and c values can be calculated with \eqref{eq:RCeq3}, \eqref{eq:RCeq4} and \eqref{eq:RCeq5}.
-
-\begin{flalign}
-  \eq{a}{Y_{end} - Y_{start}}\unit{m}\label{eq:RCeq3}
-\end{flalign}
-
-\begin{flalign}
-  \eq{b}{X_{start} - X_{end}}\unit{m}\label{eq:RCeq4}
-\end{flalign}
+\eqref{eq:RCeq2} a standard vector equation to calculate the shortest distance from a point to a line (See \figref{RCfig2}). The a, b and c values can be calculated with \eqref{eq:RCeq3}, \eqref{eq:RCeq4} and \eqref{eq:RCeq5}.
 
 \begin{flalign}
+  \eq{a}{Y_{end} - Y_{start}}\unit{m}\label{eq:RCeq3} \\
+  \eq{b}{X_{start} - X_{end}}\unit{m}\label{eq:RCeq4} \\
   \eq{c}{X_{end} \cdot Y_{start} - Y_{end} \cdot X_{start}}\unit{m}\label{eq:RCeq5}
 \end{flalign}
 
-By using the start and end point for the line, the distance can be calculated. If the distance is negative, the vehicle is on the left side of the line and on the right side, when the distance i positive. 
-
-With this equation and the measured coordinate for the vehicle, done by the GOT system, the distance the vehicle is away from the car is know and can be used as a error in the distance controller.
+By using the start and end point for the line, the distance can be calculated. If the distance is negative, the vehicle is on the left side of the line and on the right side, when the distance i positive. With this equation and the measured coordinate for the vehicle, done by the GOT system, the distance the vehicle is away from the car is known and can be used as a error in the distance controller.
 
 \subsubsection{New line}
-When the vehicle reach the end point of a line on the route.
+When the vehicle reach the end point of a line on the route, a new line have to be used for the reference for the angle and distance. The new lines start point will be the last lines end point, so the lines together makes a two step route. Then the next end point is set and the angle can be calculated and the distance measured.
 
+As the GOT system have a precision down to 1 mm, the coordinates to have a precision of 1 mm \todo{Ref to GOT}. The vehicle will not hit the end point with this precision, as the GOT system only give a measurement each 100 ms , and if the vehicle travels with 1,4 $m \cdot s^{-1}$ \todo{ref to velocity controller}, it will travel 140 mm for each measurement, which make the chance for hitting the end point exactly, small. Therefore is the area, which indicates the end of this line of the route, is made bigger. 
+
+\begin{figure}[H]
+ 	\centering
+ 	\includegraphics[scale=0.25]{figures/SteeringAngularTest.png}
+ 	\caption{ }
+ 	\label{fig:RCfig3}
+\end{figure}
+
+To smooth out the turns, when there is used a new route line, the area have to have a bigger size. If the area is to small and the new line is orthogonal on the first line, the vehicle will have to drive over the new line, before regulate into the line, as the vehicle cannot turn that fast (See \figref{RCfig3}). If the area is bigger, the vehicle will turn inside to get to the new line. This area is set to a circle around the end point, with a radius of 25 cm. 
+
+With this route planner, the steering controllers will get the angle and the distance to the route. The route is made by a set of points, where there is drawn lines between, that the vehicle will try to drive onto.
 
 \subsection{Complete steering controller}
 

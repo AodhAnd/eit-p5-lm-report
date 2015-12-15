@@ -51,9 +51,9 @@ To get as close as possible to the vehicle's exact gain, a test where the vehicl
   {
     \includegraphics[width=1.4\textwidth]{figures/SpeedStep.pdf}
   }
-  \caption{A plot of a measured armature resistance, with a red line indicating the an average value.}
+  \caption{A plot of the measured speed as the speed steps are performed.}
   \label{SpeedStepGainTest}
-\end{figure}\todo{fig text}
+\end{figure}
 
 from \figref{SpeedStepGainTest} it is seen that for each two seconds the vehicle's velocity is increased by 20 percent. By taking the the average value of the vehicles steady state speed at each velocity, it is possible to get a gain of the vehicle, this is illustrated in \figref{GainOfEachSpeedStep}.
 
@@ -64,9 +64,9 @@ from \figref{SpeedStepGainTest} it is seen that for each two seconds the vehicle
   {
     \includegraphics[width=1.4\textwidth]{figures/GainOfEachSpeedStep.pdf}
   }
-  \caption{A plot of a measured armature resistance, with a red line indicating the an average value.}
+  \caption{A plot of the calculated gain of each speed step, with a red line indicating a linear regression}
   \label{GainOfEachSpeedStep}
-\end{figure}\todo{fig text}
+\end{figure}
 
 By making a least square line going through the average gain value at each velocity, it is possible to get the gain and the offset created by the stiction from the least square line. The equation for the least square line is seen on \figref{GainOfEachSpeedStep}. The Gain and the offset created by the stiction is therefore:
 

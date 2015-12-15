@@ -1,35 +1,41 @@
-\section{GoT Description}
+\subsection{GoT Description}
 \label{GoTDescription}
 The Games on Track GT-Position system, shortened GoT, is a positioning system which uses radio-waves for communication and ultrasound to locate a tracked object in space. The system has a sampling rate of 10 hertz, but it can vary a little because of ultrasound waves propagation. The system is built up from three types of hardware components: the transmitter, the satellites and the master, see \figref{GoTSystem}. The transmitter and the satellites send the information in all directions, with 360 degrees range signals.\\
 The GoT System does not work if the transmitter is not close enough from the satellites or if there are some interference by another ultrasound signal or by an object between them and therefore can not communicate with the satellites.
-
+%
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{figures/GoT_description.pdf}
+	\includegraphics[scale=0.7]{figures/GoT_description.pdf}
 	\caption{Overview of the GoT system}
 	\label{GoTSystem}
 \end{figure}
-
+%
 \subsubsection{Transmitter}
 The transmitter component is placed on the object which needs to be located. The transmitter sends an ultrasound burst out containing an identification number, that the satellites are intended to receive. The time at which each ultrasound bursts are sent from the transmitter to the satellites is transmitted by radio waves to the master. An ultrasound burst is sent each tenth of a second, giving a sampling frequency of 10 Hz.\\ 
 The transmitter component runs on 2 AA-batteries and therefore does not need an external power-source.
-
+%
 \subsubsection{Satellites}
-The satellites components are placed around the area where the object, with the transmitter on it, has to be located. The satellites' assignment is to search for the ultrasound waves, which the transmitter emits, and send a radio wave signal to the master as soon as they receive the burst.\\
+The satellites components are placed around the area where the object, with the transmitter on it, has to be located. The satellites' assignment is to search for the ultrasound waves, which the transmitter emits, and send a radio wave signal to the master as soon as they receive the burst.
+
 To be able to calculate the exact position of the transmitter and then the object, a minimum of three satellites is necessary. However, more can be added to the system for more reliability, accuracy or to cover a larger area. To work with high efficiency, they should be placed each 1 to 2 meters apart from each other and not on a single line. But to cover a bigger area, they can be placed up to a distance of 5 meters between them, although this would affect the measurement and thereby make it less reliable. Each satellite has a maximum range of 8 meters and the three satellites should be placed in each other's reach. The satellites need between 14 to 20 volts DC, thus making the satellites able to be powered through a computer charger or by a panel solar for example is necessary.
-
+%
 \subsubsection{Master}
-The master is a receiver which is connected to a computer. The master's assignment is to receive the data transmitted from the individual satellites and the transmitter, and to relay it directly to the connected computer. The master is powered through a USB cable, between the master and the computer.\\
-
+The master is a receiver which is connected to a computer. The master's assignment is to receive the data transmitted from the individual satellites and the transmitter, and to relay it directly to the connected computer. The master is powered through a USB cable, between the master and the computer.
+%
 \subsubsection{Computer}
 The program on the computer, which is running in C\# and handles the information received from the master, uses the data to calculate the position of the transmitter. This is done with a method call trilateration. Trilateration is a way of calculating a position in a three-dimensional space, from three distances of known locations, with the help of spheres, circles and triangles as seen on \figref{GoTTriVSLine}.
-
+%
 \begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{figures/GoT_SingleVsTriangle.pdf}
-	\caption{To the left, satellites are aligned and will give two possible positions. To the right, satellites are placed in a triangle and will give one possible position}
-	\label{GoTTriVSLine}
+  \centering
+ 	%Trim margins @:   left        bottom       right       top
+ 	\adjustbox{ trim = {.01\width} {.15\height} {.01\width} {.01\height}, clip }
+  {
+    \includegraphics[width=0.9\textwidth]{figures/GoT_SingleVsTriangle.pdf}
+  }
+  \caption{To the left, satellites are aligned and will give two possible positions. To the right, satellites are placed in a triangle and will give one possible position}
+  \label{GoTTriVSLine}
 \end{figure}
+%
 If the satellites have been moved, it is necessary to recalibrate the system. This is done with a calibration triangle. The calibration triangle is made of three points on a flat surface and have a distance of 40 to 200 centimeters between them. One of the points on the calibration triangle is made the origin (0,0,0) of the new coordinate system. Another point on the triangle will then be called (X,0,0), in which the line between the first point and the second point will become the X-axis. The last point will be call (X,Y,0) and will determine in which way the positive Y-axis will go. The surface which the calibration triangle is placed on, will be the XY-plan, where Z will go vertically, defining the (X,Y,Z) coordinates. Thereafter, the transmitter is placed in the three point, with (0,0,0) first and (X,Y,0) last. When the transmitter is placed in a point, the satellites measure the distance between them and the transmitter. From this information, the program can calculate the position of each satellites, with the help of trilateration.
 
-By placing a satellite on the lawn mower, it is then possible to track it in space on the lawn. To build this lawn mower a pre-assembled vehicle is provided.
+The GoT system and the provided vehicle and battery has been examined and describe. It is now possible to consider which functionalities should be included in the prototype.

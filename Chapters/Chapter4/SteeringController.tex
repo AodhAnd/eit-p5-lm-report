@@ -5,5 +5,11 @@ The steering controller are gonna be split up in two controllers. One to control
 
 \input{Chapters/Chapter4/DistanceController.tex}
 
+\subsection{Route control}
+The distance controller used a line, that it have to follow. From this line, the error distance and the reference angle is find and put into the system. These lines come from the route, the vehicle have to follow. As it is only one line from the route that is used at a time and a line only need two points to be drawn, the route can be saved as a list of points, where there is then drawn lines between.
+
+To keep all the data about the current line, a struct is made. It contains the start and end point and the angle for the line. The angle is calculated out from the two points, but will be calculated from the start, when a new line is set, as the angle is not changing for the line. The controllers can then access the angle directly from the struct, without have to make the same calculation each time.
+
+
 \subsection{Complete steering controller}
 

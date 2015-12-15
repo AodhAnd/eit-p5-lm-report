@@ -1,10 +1,13 @@
 %-- Section : Satellite vs GoT --%
 \section{Satellite Based Positioning Systems vs GoT}
-The reasons why satellite positioning system probably sould not be used for autonomous systems like a lawn mower are mainly related to accuracy-over-price ratios and to energy consumption.
+The reasons why satellites positioning system probably should not be used for autonomous systems like a lawn mower are mainly related to accuracy-over-price ratios and to energy consumption.
 
-Indeed, these kinds of system like GPS or GLONASS would require a dedicated chip to put on the final system. The problem then would be the lack of precision. Although, there are some cheap standard GPS chips (around USD 10), these only reach around 1 meter of precision in the most ideal situations \cite{GPSUSWebsiteAccuracy,Miller}. \\
-On the other hand, the best GPS chips can achieve precisions up to a few millimeters \cite{GPSUSWebsiteAccuracy} when combined with different augmentation systems (algortihms for instance), but they end up being highly expensive (usually thousands of dollars). They are not generally intended for wide public use.
+Although, there are some cheap standard GPS chips, around 10 USD, these only reach around 1 meter of precision in the most ideal situations \cite{GPSUSWebsiteAccuracy,Miller}.
 
-Moreover, when summed up with the slow bit rates satellites can achieve, the low signal amplifiers on the receiver, plus all the position calculations and potential augmentation systems, the total energy consumption quickly rises, thus reducing the lawn mower autonomy, which is not desirable.
+On the other hand, the best GPS chips can achieve precisions up to a few millimeters \cite{GPSUSWebsiteAccuracy}, when combined with different augmentation systems, algorithms for instance, but they end up being highly expensive.
 
-Indeed, the design of a product has no real value if no cusomer is interested in using it. This is why choices made during this project have to be made in accordance with the final user's expectations.
+Moreover, when summed up with the bit rates satellites can achieve, the low signal amplifiers on the receiver, plus all the position calculations and potential augmentation systems, the total energy consumption quickly rises.
+
+The autonomy of the vehicle (both in energy and for the navigation), and the overall cost should be considered. The GoT system itself has a cost (around \$ $600$ per unit for the most basic package) beyond anything a normal customer would probably pay for a lawn mower. But despite that, it appears at first, to be a good solution for a basic autonomous lawn mower. This is in terms of accuracy and energy consumption, compared to systems like GPS which are even more expensive for the same level of accuracy.
+
+These preliminary considerations will influence the design process of an autonomous lawn mower.

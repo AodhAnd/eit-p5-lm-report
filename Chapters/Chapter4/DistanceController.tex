@@ -8,13 +8,13 @@ The proposed controlling scheme can be seen in \figref{SteeringSimulink}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figures/SteeringSimulink1.png} 
+\includegraphics[width=\textwidth]{figures/steeringFullModel.pdf} 
 \caption{Initial Distance Controller}
 \label{SteeringSimulink}
 \end{figure}
-As seen in the figure, the Angular Controller is placed in the center of the loop, as this will be responsible for changing the vehicle's angle, to what the distance loop calculates to be necessary. A reference angle, \emph{angleRef} is added to the output of the P controller, representing the angle of the line to follow. The following three stages (Deg to radians, Velocity and Deviation integrator) are taken directly from the steering model \figref{fig:steeringLineFollowingModel}.
+As seen in the figure, the Angular Controller is placed in the center of the loop, as this will be responsible for changing the vehicle's angle, to what the distance loop calculates to be necessary. A reference angle, \emph{angleRef} is added to the output of the P controller, representing the angle of the line to follow. To prevent the P controller from over-regulating, and command the system to turn eg. 360 degrees, it is limited by a floor and ceiling of $\pm 90^\circ$. The following three stages (Deg to radians, Velocity and Deviation integrator) are taken directly from the steering model \figref{fig:steeringLineFollowingModel}.
 
-According to \ref{GoTSystem}, the GoT system provides position updates every 100ms. To model this delay, the same approximation as used for the servo delay in \secref{directionalExtention}, will be implemented:
+According to \secref{GoTSystem}, the GoT system provides position updates every 100ms. To model this delay, the same approximation as used for the servo delay in \secref{directionalExtention}, will be implemented:
 $$\frac{1}{\lambda\cdot\text{s}+1}\leadsto\frac{1}{\SI{0,1}\cdot\text{s}+1}
 $$
 The input to the loop is the wanted deviation from the line. This should ideally be zero, but is set to 1m in the simulation. This might seem strange, but it is done to force the system to react to an initial error; the error integrator starts at zero when the simulation is started, so an input of zero would imply that the vehicle is not deviating from the planned route, and nothing will happen.

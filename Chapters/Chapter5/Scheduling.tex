@@ -1,15 +1,14 @@
 \section{Software Choice}
-The hardware choice and implementation includes a software that can handle them. The software choice will be explained in this section, describing the use of the Kernel, and the principle of scheduling.
+For the hardware components to interact, software parts are needed to handle them. The software choice is explained in this section, which describes the use of the chosen kernel, and the principle of scheduling.
 
 \subsection{Kernel}
-The chosen kernel allows to control the tasks and then the behavior of the vehicle through clocks, to have a precise and constant schedule. This propriety make possible to export it on another kind of processor and still have the same render, as long as it have a frequency high enough to process all the data needed.\\
-The Kernel advantage is also the definition of semaphores, priorities, and critical regions, that the system will use to choose which task to run, and how often it should be. This Kernel allows also to program in Arduino language which is C++, and can run C code, with the use of different files.
-
-
+The chosen kernel is a stable open source project named KRNL, written by the Associate Professor Jens Dalsgaard Nielsen from Aalborg University.\\
+Specially written for the Arduino platform, it allows to control the tasks, and therefore the behavior of the vehicle, through clocks, to keep a precise and constant time schedule. This property makes it possible to export it to another kind of processor and still have the same render, as long as it have a frequency high enough to process all the data needed.\\
+One of KRNL's advantage is also the definition of semaphores, priorities, and critical regions, that the system will use to choose which task to run, and how often to run it. Futhermore, this kernel allows to program in Arduino language, which is a C\texttt{++} extension, and can also run C code, using different files.
 
 \subsection{Scheduling}\label{sec:scheduling}
-For running the code on the arduino PCB, and be able to manage all the sensors at the same time, a scheduling is needed. Indeed, the PCB must be able to recieve and process the data from the GoT system, the hall sensors, the magnetometer and the X-bee to make a decision related to the planned route to follow. This decision must affect at the same time the speed through the motor, and the steering through the servo.
-A description of the scheduling principle and its function will be described.
+To run the code on the Arduino microcontroller, and be able to manage all the sensors in parallel and at the time needed, a scheduling scheme is needed. Indeed, the microcontroller must be able to receive and process the data from the GoT computer received through the XBee module, the Hall sensors and the magnetometer. From all this data, it also has to make a decision regarding the planned route to follow. This decision must affect at the same time the speed through the motor, and the steering through the servo.
+A description of the scheduling principle and its function is described thereafter.
 
 
 \subsubsection{Semaphores}

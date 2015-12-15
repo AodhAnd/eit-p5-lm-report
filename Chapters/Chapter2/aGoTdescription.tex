@@ -1,6 +1,6 @@
 \section{The Games on Track GT-position system}
 \label{GoTDescription}
-The Games on Track GT-Position system, shortened GoT, is a position system which uses radio-waves and ultrasound to locate the object. The system have a sampling rate of 10 hertz, but vary a little, because of the waves have to move. The system is build up by three types of hardware components: the transmitter, the satellites and the master, see \figref{GoTSystem}. The transmitter and the satellites send the information in all directions, with a 360 degree signal.\\
+The Games on Track GT-Position system, shortened GoT, is a position system which uses radio-waves for communication and ultrasound to locate a tracked object in space. The system has a sampling rate of 10 hertz, but vary a little, because of the waves have to move. The system is build up by three types of hardware components: the transmitter, the satellites and the master, see \figref{GoTSystem}. The transmitter and the satellites send the information in all directions, with a 360 degrees range signal.\\
 The GoT System does not work if the transmitter is not close enough from the satellites or if there is some interference by another signal or by an object between them and therefore can not communicate with the satellites.
 
 \begin{figure}[H]
@@ -12,7 +12,7 @@ The GoT System does not work if the transmitter is not close enough from the sat
 
 \subsubsection{Transmitter}
 The transmitter component is placed on the object which needs to be located. The transmitter sends an ultrasound burst out containing a id, that the satellites are intended to receive. The time at which each ultrasound bursts are sent from the transmitter to the satellites is transmitted by radio waves to the master. There is send an ultra sound burst each tenth of a second, giving a sampling frequency of 10 Hz.\\ 
-The transmitter component runs on 2 AA-batteries and therefore does not need an external power-source.\\
+The transmitter component runs on 2 AA-batteries and therefore does not need an external power-source.
 
 \subsubsection{Satellites}
 The satellites components are placed around the area where the object, with the transmitter on it, has to be located. The satellites assignment is to search for the ultrasound waves, which the transmitter is emitting, and send a radio wave signal to the master as soon as they receive the burst.
@@ -30,5 +30,6 @@ The program on the computer, which is running in C\#, which handles the informat
 	\caption{To the left, the satellites is align and will give two possible position. To the right, the satellites is placed in a triangle and will give one possible position}
 	\label{GoTTriVSLine}
 \end{figure}
+If the satellites have been moved, it is necessary to recalibrate the system. This is done with a calibration triangle. The calibration triangle is made of three points on a flat surface and have a distance of 40 to 200 centimeters between them. One of the points on the calibration triangle is made the origin (0,0,0) of the new coordinate system. Another point on the triangle will then be called (X,0,0), in which the line between the first point and the second point will become the X-axis. The last point will be call (X,Y,0) and will determine in which way the positive Y-axis will go. The surface which the calibration triangle is placed on, will be the XY-plan, where Z will go vertically, defining the (X,Y,Z) coordinates. Thereafter, the transmitter is placed in the three point, with (0,0,0) first and (X,Y,0) last. When the transmitter is placed in a point, the satellites measure the distance between them and the transmitter. From these information, the program can calculate the position of each satellites, with the help of triangulation.
 
-If the satellites have been moved, it is necessary to recalibrate the system. This is done with a calibration triangle. The calibration triangle is made of three points on a flat surface and have a distance of 40 to 200 centimeters between them. One of the points on the calibration triangle is made the origin (0,0,0) of the new coordinate system. Another point on the triangle will then be called (X,0,0), in which the line between the first point and the second point will become the X-axis. The last point will be call (X,Y,0) and will determine in which way the positive Y-axis will go. The surface which the calibration triangle is placed on, will be the XY-plan, where Z will go vertically, defining the (X,Y,Z) coordinates. Thereafter, the transmitter is placed in the three point, with (0,0,0) first and (X,Y,0) last. When the transmitter is placed in a point, the satellites measure the distance between them and the transmitter. From those information, the program can calculate the position of each satellites, with the help of trilateration. \\\\
+By placing a satellite on the lawn mower, it is then possible to track it in space on the lawn. To build this lawn mower a pre-assembled vehicle is provided.

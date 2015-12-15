@@ -5,19 +5,19 @@
 \hline%-----------------------------------------------------------------------------------------------------------------
 \textbf{Req. no.}  &  \textbf{Requirements} &  \textbf{Test procedure}  &  \textbf{Expected output}        \\
 \hline%-----------------------------------------------------------------------------------------------------------------
-           1    &   It shall be possible for the vehicle to receive its own location wirelessly from the GoT system, through a computer.   &   0.180831826   &   10                \\
+           1    &   It shall be possible for the vehicle to receive its own location wirelessly from the GoT system, through a computer.   &   The Arduino is programmed to print the current position of the vehicle to the serial port. A computer is connected and a serial terminal opened to receive the coordinates. The GoT system is activated, and instructed to send coordinates to the vehicle. The vehicle is moved around, to make the coordinates change   &   The coordinates of the vehicle are printed in the serial terminal.                \\
 \hline%-----------------------------------------------------------------------------------------------------------------
-           2    &   It shall be possible for the prototype to disregard incorrect packets transmitted from the computer   &   0.180342651   &  11               \\
+           2    &   It shall be possible for the prototype to disregard incorrect packets transmitted from the computer   &   The GoT system is programmed to generate wrong checksums on one out of ten of the packets on purpose. The Arduino is programmed to send the vehicle location via the serial interface, or an error message when an incorrect packet is received. A serial terminal on a connected computer is monitored  &  The serial terminal shows coordinates mixed with error messages.              \\
 \hline%-----------------------------------------------------------------------------------------------------------------
            3    &   The prototype must be able to disregard erroneous coordinates sent from the GoT system   &    0.17088175   &  12           \\
 \hline%-----------------------------------------------------------------------------------------------------------------
            4    &   The prototype must be able to access the route, which it has to follow, from a storage space located on the vehicle &   0.266666667   &   13                  \\
 \hline%-----------------------------------------------------------------------------------------------------------------
-           5    &   The prototype must be able to shut down, if the battery voltage is below its cut-off specification &   0.259403372   &   14               \\
+           5    &   The prototype must be able to shut down, if the battery voltage is below its cut-off specification &   A power supply set to \SI{7,2}{V} is connected to the vehicle instead of the battery. The vehicle is turned on, and the voltage of the power supply adjusted down until the vehicle stops.   &   The vehicle stops when the voltage drops to 6V               \\
 \hline%-----------------------------------------------------------------------------------------------------------------
            6    &   It shall be possible for the prototype to follow a predetermined route &   0.254452926   &    15                \\
 \hline%-----------------------------------------------------------------------------------------------------------------
-           7    &   It shall be possible for the prototype to return to the predetermined route if disturbed   &  0.265957447    &   16            \\ 
+           7    &   It shall be possible for the prototype to return to the predetermined route if disturbed   &  The vehicle is programmed to drive in a straight line, and powered on. While driving, the vehicle is pushed sideways, to make it deviate from the route    &   The vehicle returns to the programmed line.            \\ 
 \hline%-----------------------------------------------------------------------------------------------------------------
            8    &   The prototype shall be able to keep a predetermined velocity when going up - or downhill and when turning   &   0.284090909   &    17             \\
 \hline%-----------------------------------------------------------------------------------------------------------------

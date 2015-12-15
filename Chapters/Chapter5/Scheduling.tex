@@ -44,7 +44,7 @@ The maximum speed of vehicle is 3 $m \cdot s^{-1}$, and a turn of the gear wheel
 
 \textbf{Speed Control:}
 A wanted speed value is compared to the actual speed, and the resulting error is the input of the Velocity PI-Controller, that will set a new speed according to the reference.\\
-The running time of this task is 386µs. For a precise control of the speed a half of the period of the hall sensor is chosen, the minimum period will be 2ms.
+The running time of this task is 386µs. To get a new value from the hall sensors every control of the speed, the period of running of the speed control task has to be bigger than the one of the hall sensors. To be sure of having a stable system, the minimum period was set to 10ms.
 
 
 \textbf{GoT System and Communication Protocol:}
@@ -70,7 +70,7 @@ A recapitulation of the parameters can be seen on \tableref{scheduleParameters}.
 \hline
 1			 &	Hall Sensors	 & 2				&	\si{8,39 \mu s}			    &	\si{4 ms}			  & 0,2\%	  \\
 \hline
-2			 &	Speed Control	 & 3				&	\si{386\ \mu s}				&	\si{2 ms}			  &	19,3 \%   \\
+2			 &	Speed Control	 & 3				&	\si{386\ \mu s}				&	\si{10 ms}			  &	19,3 \%   \\
 \hline
 3			 &	GoT and Protocol & 4				&	\si{395 \mu s}			    &	\si{100 ms}			  &	0,395 \%  \\
 \hline
@@ -111,7 +111,7 @@ The priorities of the task have been made to give the system the best stability.
 	\label{schedulePriorities}
 \end{figure}
 
-As seen on the  \figref{schedulePriorities}, the angular control has the highest priority so it will run first, and the others will be registrered in a queue in order of priority. Then the hall sensors are second, and speed control after that. When the speed control will be running, it can do a second request to run because of it's sampling time. It will then run a second time just after that because it's priority is higher than the lasts tasks. The GoT and comunication will run after them, and in the end the Distance Control.\\
+As seen on the  \figref{schedulePriorities}, the angular control has the highest priority so it will run first, and the others will be registrered in a queue in order of priority. Then the hall sensors are second, and speed control after that. The GoT and comunication will run after them, and in the end the Distance Control.\\
 After a certain time, the task are stabilized, until the tasks with a large period are asked again.\\\\
 
 

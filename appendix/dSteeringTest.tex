@@ -18,7 +18,7 @@ As seen on \secref{sec:SteeringModel}, \figref{basicSteering}, the steering beha
 \eq{K_{steering}}{K_s \cdot K_v}&\nonumber
 \end{flalign}
 %
-Moreover, to get reliable data from which to draw conclusions, a basic proportional controller is implemented to stabilize the angle and realize a step response, as seen on \secref{sec:steeringController}, \figref{fig:basicSteeringWithControl}. 
+Moreover, to get reliable data from which to draw conclusions, a basic proportional controller is implemented to stabilize the angle and realize a step response, as seen on \secref{sec:steeringController}, \figref{fig:PconAngpic}. 
 However, this model is simplified by ignoring the servomotor's delay. Since the test is only a one step response, this delay should only appear once between the step command to the servo and the actual reaching of the desired heading.
 Furthermore, since the two summation blocks add a \si{\pm K_{off}}, the offset in the microcontroller cancels the offset from the plant. This way, the model used in this test includes the controller, \si{K_p}, the steering gain, \si{K_{steering}}, and the integrator which allows to get headings out of the vehicle's angular velocity, see \figref{fig:steeringTestWPController}.
 %

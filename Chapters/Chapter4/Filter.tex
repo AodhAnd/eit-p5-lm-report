@@ -1,10 +1,12 @@
-\chapter{Digital Filter}\label{chap:digitalFilter}
-When utilizing a sensor unwanted noise can arise and influence the measurements acquired. By implementing a filter it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{Hardwarechoice}, is active while the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a inexpedient effect on the steering controller. With ideal circumstances the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise could be a potential solution to get more accuracy.
+\chapter{Digital Filter}
+When utilizing a sensor, unwanted noise can arise and influence the measurements acquired. By implementing a filter, it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{HardwareChoice}, is active and the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a undesired effect on the steering controller. Under ideal circumstances, the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise is a potential solution to get more precision.
 
-There is both cons and pros when considering between implementing a analogue or digital filter. Since the signal received from the magnetometer is digitalized, it has been chosen to implement a digital filter.
+There is many pros and cons when deciding between implementing an analogue or digital filter. But since the signal received from the magnetometer is digitalized, it has been chosen to implement a digital filter.
+
+Before establishing requirements for the digital filter, an analysis of the hardware and system is necessary to determine the possibilities.
 
 \section{Filter Considerations} \label{sec:FilterConsiderations}
-In the following section the needed sample frequency, measurements extracted from the Magnetometer and filter type possibilities is analysed.
+In this section, the needed sampling frequency is determined, and the measurements extracted from the magnetometer and the different possibilities regarding filter type are analysed.
 
 \subsection{Sampling Frequency}
 It is necessary to examine if it is possible to have a high enough sampling frequency which can yield a cut-off frequency which does not effect the system. To determine this the inner loop of the steering model, where the Magnetometer is placed, is examined.
@@ -29,12 +31,14 @@ To calculate the least required sampling frequency, the Nyquist-Shannon Sampling
 \Omega_s &\geq 2 \cdot 53 \leq 106 \unit{Hz}
 \end{flalign}
 %
-The Magnetometer has to be sampled at atleast every 106 \si{Hz}. In the specification for the Magnetometer \cite{HMC5883L}, the sampling rate is given to 75 \si{Hz}. Hence making it impossible to sample at a high enough frequency, to have a cut-off frequency for the filter which does not affect the system.
+The Magnetometer thus has to be sampled at atleast every 106 \si{Hz}. 
 
-It is been decided to have a sample rate at 66,66 \si{Hz}, i.e. 15 \si{ms}, even though it will cause a delay. The 66,66 \si{Hz} has been chosen instead of the 75 \si{Hz} to have a small margin from what the sensor can deliver.
+In the specification for the Magnetometer \cite{??}, the sampling rate is given to 75 \si{Hz}. A sampling rate of 106 \si{Hz} was desired, since at this rate it would not effect the system by causing a delay. 
+
+With this in consideration, it has been decided to have a sampling rate of 66,66 \si{Hz}, i.e. a sample every 15 \si{ms}, even though it will cause a delay. The 66,66 \si{Hz} has been chosen instead of the 75 \si{Hz} to have a margin from the maximum sampling rate the sensor can deliver.
 
 \subsection{Frequency Analysis of Measured Data}
-Before establishing requirements for a filter it is necessary to analyse data measured with the magnetometer, to ensure the noise is attenuated and not the wanted signal. The data which is analysed is when the vehicle and the magneto is stationary, this will thereby find the stationary variations on the sensor, the acquired measurements is illustrated in \figref{fig:StationaryMeasurementsMagnato}.
+Before establishing requirements for the filter, it is necessary to analyse the data measured by the magnetometer, to ensure that it is the noise that is attenuated and not the signal. The data which is analysed is when the vehicle and the magnetometer is stationary. It will thereby be the stationary variations on the sensor that are found. The acquired measurements are illustrated in \figref{fig:StationaryMeasurementsMagnato}.
 
 \begin{figure}[H]
   \centering
@@ -43,11 +47,11 @@ Before establishing requirements for a filter it is necessary to analyse data me
   {
     \includegraphics[width=1.1\textwidth]{figures/StationaryMeasurements.pdf}
   }
-  \caption{A plot, where the x-axis is time and the y-axis is the angle, of data measured with the magnetometer while the vehicle is stationary.}
+  \caption{A plot of data measured with the magnetometer while the vehicle is stationary. The x-axis indicates time and the y-axis is the angle, }
   \label{fig:StationaryMeasurementsMagnato}
 \end{figure}
 
-From \figref{fig:StationaryMeasurementsMagnato} it can be seen how the angle measured vary with approximately 2 degrees. In the datasheet for the magnetometer it is explained that the sensor has a 1 to 2 degrees accuracy \cite{HMC5883L}, which is consistent with the measured data. To be able to analyse measured data affected by noise, a FFT is utilized. The FFT makes it possible to see the frequency component contained in the signal, thereby making it possible to find the signal and the noise affecting the signal. A FFT of the measured data is performed and illustrated in \figref{fig:StationaryMeasurementsMagnato}.
+From \figref{fig:StationaryMeasurementsMagnato}, it can be seen how the angle measured vary with approximately 2 degrees. In the datasheet for the magnetometer it is explained that the sensor has a 1 to 2 degrees accuracy \cite{??}, which is consistent with the measured data. To be able to analyse measured data affected by noise, an FFT is utilized. The FFT makes it possible to see the frequency components contained in the signal, thereby making it possible to find the signal and the noise affecting the signal. An FFT of the measured data is performed and illustrated in \figref{fig:StationaryMeasurementsMagnato}.
 
 \begin{figure}[H]
   \centering
@@ -60,7 +64,7 @@ From \figref{fig:StationaryMeasurementsMagnato} it can be seen how the angle mea
   \label{fig:FFTofStationaryMeasurements}
 \end{figure}
 
-The data measured in \figref{fig:StationaryMeasurementsMagnato} is acquired with a sampling frequency of 66.6 \si{Hz}. The Nyquist-Shannon Sampling Theorem says that to find the frequency components contained in a signal you need to have atleast twice the sampling frequency \cite{AVOppenheim}:
+The data measured in \figref{fig:StationaryMeasurementsMagnato} is acquired with a sampling frequency of 66.6 \si{Hz}. The Nyquist-Shannon Sampling Theorem says that to find the frequency components contained in a signal, it is necessary to have at least twice the sampling frequency \cite{AVOppenheim}:
 %
 \begin{flalign}
 \Omega_s &\geq 2 \cdot \Omega_N \unit{Hz}
@@ -72,11 +76,11 @@ The data measured in \figref{fig:StationaryMeasurementsMagnato} is acquired with
 & \si{\Omega_N}				& is the Nyquist frequency			&\unitWh{Hz} \\
 \end{tabular}
 
-This is illustrated in \figref{fig:FFTofStationaryMeasurements}, where the frequency components only goes from 0 to 33.3 Hz on the x-axis, which is half the sampling frequency. The y-axis is the magnitude of the frequency component occurring in the signal.
+This is illustrated in \figref{fig:FFTofStationaryMeasurements}, where the frequency components only goes from 0 to 33.3 Hz on the x-axis, which is half the sampling frequency. The y-axis is the magnitude of the frequency components of the signal.
 
-From the FFT performed, seen in \figref{fig:FFTofStationaryMeasurements}, a spike is present at 0 \si{Hz}, this is the DC value, i.e. the offset seen in \figref{fig:StationaryMeasurementsMagnato}. This frequency component is the signal which the filter should not attenuate. The frequency components present after 0 Hz, is the noise from the sensor. 
+From the FFT performed, as seen in \figref{fig:FFTofStationaryMeasurements}, a spike is present at 0 \si{Hz}. This is the DC value, i.e. the offset seen in \figref{fig:StationaryMeasurementsMagnato}. This frequency component is the signal which the filter should not attenuate. The frequency components present after 0 Hz, is the noise from the sensor. 
 
-Some consideration has to be made for the filter requirements, to ensure that the filter is not influencing the system and the desired frequency needlessly.
+Some considerations have to be made for the filter requirements, to ensure that the filter is not influencing the system and the desired frequency needlessly.
 
 \subsection{Filter Type}
 Data from the filter has been examined, it is thereby possible to examine which filter would be suitable for fulfilling the predetermined requirements. It should do this without influencing the DC-value and the system needlessly.

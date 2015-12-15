@@ -390,7 +390,7 @@ The filter is implemented and it is thereby possible to filter the measurements 
   \label{fig:FinalImplementedFilter}
 \end{figure}
 
-In \figref{fig:FinalImplementedFilter} the red line is the filtered data and the blue line is the raw data measured from the Magnetometer. It can be seen from the figure that the filter reduces the variations of the raw measured data. As explain in \secref{sec:FilterConsiderations} the cut-off filter is not one decade after the cut-off frequency of the system, and there will thereby occur a delay when the filter is implemented, this is illustrated in \figref{fig:FinalimplementationFilterDelay}.
+In \figref{fig:FinalImplementedFilter} the red line is the filtered data and the blue line is the raw data measured from the Magnetometer. It can be seen from the figure that the signal is still noisy, but the filter reduces the peak variations of the raw measured data, making the overall noise amplitude lower. A delay is observed, caused by the group delay in the filter.
 
 \begin{figure}[H]
   \centering
@@ -403,37 +403,41 @@ In \figref{fig:FinalImplementedFilter} the red line is the filtered data and the
   \label{fig:FinalimplementationFilterDelay}
 \end{figure}
 
-As seen on the figure a delay of approximately 0.03 ms occurs when utilizing the filter compared to the raw measured data. If the velocity of the vehicle is 1.4 \si{\frac{m}{s}} then the vehicle will have moved approximately 4.2 \si{cm}. By simulating a step response of the directional control loop with the filter, it is possible to see if the filter will make the directional control unstable. A simulation of the a step response in the directional control loop with and without filter is illustrated in \figref{fig:SimulatedStepResponsewithandwithoutFilter}.
-
+As seen on the figure a delay of approximately 0.03 s occurs when utilizing the filter compared to the raw measured data. If the velocity of the vehicle is 1.4 \si{\frac{m}{s}} then the vehicle will have moved approximately 4.2 \si{cm} in this time. By simulating a step response of the directional control loop with the filter, it is possible to see if the filter will make the directional control unstable. A simulation of the a step response in the directional control loop with and without filter is illustrated in \figref{fig:SimulatedStepResponsewithandwithoutFilter}.
+\vspace{-10mm}{
 \begin{figure}[H]
   \centering
  	%Trim margins @:   left        bottom       right       top
- 	\adjustbox{ trim = {.15\width} {.32\height} {.15\width} {.30\height}, clip }
+ 	\adjustbox{ trim = {.15\width} {.315\height} {.15\width} {.30\height}, clip }
   {
-    \includegraphics[width=1.4\textwidth]{figures/SimulatedStepResponsewithandwithoutFilter.pdf}
+    \includegraphics[width=1.2\textwidth]{figures/SimulatedStepResponsewithandwithoutFilter.pdf}
   }
   \caption{A plot illustrating a simulated step response of the directional control loop with and without the filter.}
   \label{fig:SimulatedStepResponsewithandwithoutFilter}
-\end{figure}
-
+\end{figure}}
+\vspace{-12mm}{
 \begin{figure}[H]
   \centering
  	%Trim margins @:   left        bottom       right       top
- 	\adjustbox{ trim = {.15\width} {.34\height} {.15\width} {.30\height}, clip }
+ 	\adjustbox{ trim = {.15\width} {.315\height} {.15\width} {.30\height}, clip }
   {
     \includegraphics[width=1.2\textwidth]{figures/Withandwithoutfilterzoomed.pdf}
   }
-  \caption{A plot illustrating a simulated step response of the directional control loop with and without the filter.}
+  \caption{A zoomed in view.}
   \label{fig:Withandwithoutfilterzoomed}
 \end{figure}
+}
+From \figref{fig:SimulatedStepResponsewithandwithoutFilter} it can be seen that the filter does not change the step response significantly. Only when zoomed in (\figref{fig:Withandwithoutfilterzoomed}), a small delay can be seen in the response.
 
-From \figref{fig:SimulatedStepResponsewithandwithoutFilter} it can be seen that the filter does not make the directional control loop unstable in the simulation. 
+A bode plot is now made, with and without the filter, see \figref{{fig:IIRfilter}}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1]{figures/2xBode.png}
-	\caption{fourth order low-pass Butterworth IIR filter implemented with the structure Direct form II}
+	\caption{Open loop Bode plot of the angular controller, with(red) and without(blue) the IIR filter}
 	\label{fig:IIRfilter}
 \end{figure}
 
-\todo{Thomas write an argument stating the reasons for not implementing the filter.}
+As seen on the bode plot, the filter does not affect the magnitude response of the system until around 100 rad/s. The phase remains close until around 10 rad/s, and then starts to deviate. This frequency is well above the dominant pole, which explains why the step response remains nearly unchanged. As the filter introduces 4 extra poles, the total phase shift is expected to be $4\cdot 90^\circ = 360^\circ$ larger, which is confirmed. As the loop has no gain, stability is ensured.
+
+While the filter has been verified to be functional, without affecting the stability of the system, the results are not convincing. While the bode plots looks nice, and the largest peaks of the noise have been removed, the noise looks close to unchanged (\figref{fig:FinalImplementedFilter}). As the microcontroller has no floating point calculation hardware, the filter will be expensive in processing time, with very little improvements in return. Considering this, the filter will not be implemented.

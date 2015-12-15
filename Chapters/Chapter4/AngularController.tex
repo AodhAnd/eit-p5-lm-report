@@ -1,12 +1,12 @@
 \subsection{Angular controller}
-The purpose of the angular controller is to have the vehicle turn according to a reference, that the controller gets from the route planning. The design will start out with a proportional controller for the system.
+The purpose of the angular controller is to have the vehicle turn according to a reference, that the controller gets from the route control. The design will start out with a proportional controller for the angular controller, which is the most simple controller type.
 
 \subsubsection{Proportional controller}
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.3]{figures/angularController.pdf}
-  \caption{Illustration of a proportional controller for the steering.}
+  \caption{Illustration of a proportional controller for the angular steering.}
   \label{fig:PconAngpic}
 \end{figure}
 
@@ -16,39 +16,33 @@ On \figref{fig:PconAngpic}, there is implemented a proportional controller into 
   \eq{ \frac{\theta_{actual}}{\theta_{wanted}} }{ \frac{\frac{ K_p \cdot K_v \cdot K_s }{ (\lambda \cdot s + 1) \cdot s } }{ \frac{ K_p \cdot K_v \cdot K_s }{ (\lambda \cdot s + 1) \cdot s } + 1} }&\label{eq:PconAng}
 \end{flalign}
 
-According to \appref{app:steeringGainTest}, the product of $K_v$ and $K_s$, called $K_{steering}$, is equal to:
+According to \appref{app:steeringGainTest},the values of $K_s$ and $K_v$ are not needed independently, they are combinde to the steering gain, \si{K_{steering}}. From \appref{app:steeringGainTest}, the steering gain can be calculated, with \eqref{eq:PconAng10}.
 
 \begin{flalign}
-\eq{K_{steering}}{0,3 \cdot v - 0,034}
+\eq{K_{steering}}{0,3 \cdot v - 0,034}\label{eq:PconAng10}
 \end{flalign}
 
-As $v$ is the wanted velocity, which is 1,4 $m \cdot s^{-1}$, $K_{steering}$ is equal to 0,386. And with lambda equal to the servo duty cycle time constant on 30 ms, the transfer function will be:
+As $v$ is the wanted velocity, which is 1,4 $m \cdot s^{-1}$ \todo{Ref to speed}, $K_{steering}$ is equal to 0,386. And with lambda equal to the servo duty cycle time constant on 30 ms \secref{Servo}, the transfer function will be:
 
 \begin{flalign}
-  \eq{ \frac{\theta_{actual}}{\theta_{wanted}} }{ \frac{\frac{ K_p \cdot 0,386 }{ (0,03 \cdot s + 1) \cdot s } }{ \frac{ K_p \cdot 0,386 }{ (0,03 \cdot s + 1) \cdot s } + 1} }&\label{eq:PconAng2}
+  \eq{ \frac{\theta_{actual}}{\theta_{wanted}} }{ \frac{\frac{ K_p \cdot 0,386 }{ (0,03 \cdot s + 1) \cdot s } }{ \frac{ K_p \cdot 0,386 }{ (0,03 \cdot s + 1) \cdot s } + 1} \Rightarrow \frac{1}{\frac{ 0,03 \cdot s^2 + s }{ K_p \cdot 0,386 } + 1}  }&\label{eq:PconAng2}
 \end{flalign}
 
-This is converted to the standard form:
-
-\begin{flalign}
-  \eq{ \frac{\theta_{actual}}{\theta_{wanted}} }{ \frac{1}{\frac{ 0,03 \cdot s^2 + s }{ K_p \cdot 0,386 } + 1} }&\label{eq:PconAng3}
-\end{flalign}
-
-From the test done in \appref{app:LinearAreaKp}, it is know, that the steering gain is not constant for different $K_p$ values. The test shows that there is a linear area between a $K_p$ value of 1,5 and 3. From \eqref{eq:PconAng3}, it can be seen that the time constant will get smaller, if the $K_p$ is higher. To get the fastest system with this limitation, $K_p$ is set to be 3. This give a transfer function equal to:
+From the test done in \appref{app:LinearAreaKp}, it is know, that the steering gain is not constant for different $K_p$ values. The test shows that there is a linear area between a $K_p$ value of 1,5 and 3, where the steering gain is constant, if the velocity is kept the same. From \eqref{eq:PconAng2}, it can be seen that the time constant will get smaller, if the $K_p$ is higher. To get the fastest system with this limitation, $K_p$ is set to be 3. This give a transfer function equal to:
 
 \begin{flalign}
   \eq{ \frac{\theta_{actual}}{\theta_{wanted}} }{ \frac{1}{\frac{ 0,03 \cdot s^2 + s }{ 3 \cdot 0,386 } + 1} \Rightarrow \frac{1}{ 0,026 \cdot s^2 + 0,86 \cdot s + 1} }&\label{eq:PconAng4}
 \end{flalign}
 
-From this transfer function, it can be seen that the gain is equal to one and the system is a second order system. The reason that the proportional controller here give a gain equal to 1 and the proportional controller for the velocity does not, is that there is a integrator in this system, that removes this steady state error. This way, a proportional controller will be good enough to handle the controlling of the angular movement of the vehicle. 
+From this transfer function, it can be seen that the gain is equal to one and the system is a second order system. The reason that the proportional controller here give a gain equal to 1, unlike the proportional controller for the velocity, is that there is a integrator in this system, that removes the steady state error. This way, a proportional controller will be good enough to handle the controlling of the angular movement of the vehicle. 
 
-The proportional controller is then implemented. For the feedback, the magnetometer is used (see \secref{sec:magnetoSensor}). For the sampling time, it have been chosen to be the same as the length of the duty cycle for servo, on 30 ms. As the magnetometer only needs to update one time, each time the controller sends a new duty cycle to the servo, there is not needed for a higher sampling frequency. The sampling frequency will then be on:
+The proportional controller is then implemented and tested. For the feedback, the magnetometer from \secref{sec:magnetoSensor} is used. The sampling time for the magnetometer, have been chosen to be the same as the length of the duty cycle for servo, on 30 ms. As the magnetometer only needs to update one time, each time the controller sends a new duty cycle to the servo, there is not needed for a higher sampling frequency. The sampling frequency will then be on:
 
 \begin{flalign}
   \eq{ f_{sampling} }{ \frac{1}{30 ms} \Rightarrow 33,33}\unit{Hz} \label{eq:PconAng5}
 \end{flalign}
 
-The angular controller is then tested, where the start heading is \si{5^{\circ}} and the reference heading is \si{45^{\circ}}. The test is shown on \figref{fig:AngularTestSim}.
+The angular controller is then tested, where the start heading is \si{5^{\circ}} and the reference heading is set to \si{45^{\circ}}. The data from the test is shown on \figref{fig:AngularTestSim}.
 
 \begin{figure}[H]
  	\centering
@@ -57,6 +51,6 @@ The angular controller is then tested, where the start heading is \si{5^{\circ}}
  	\label{fig:AngularTestSim}
 \end{figure}
 
-As shown on \figref{fig:AngularTestSim}, the system react nearly the same way as the simulation and end up at the same rise time as the simulation. The proportional controller will then be used in the system, as it works inside the area, where the system works linear. 
+As shown on \figref{fig:AngularTestSim}, the system reacts similar as the simulation and end up with the same rise and settling time as the simulation. The proportional controller will then be used in the system, as it works inside the area, where the system works linear and give out a stable system.
 
 With the angular controller done, the distance controller, which is build around the angular controller will be designed.

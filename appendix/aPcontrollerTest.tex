@@ -10,13 +10,12 @@ The purpose of this test is to find out how the system reacts to closed loop con
 According to \todo{source}, a P-controller makes it possible to change the time constant of a system. To test this, a P-controller with a gain of 1 is implemented, and compared to a normal step response.
 A side effect of the Proportional control is a steady state offset. This can be easily shown by an example:
 
-A non moving system, with a desired final speed of 2 m/s, and a P-gain of 1 is examined.
+A non moving system, with a desired final speed of 2 \si{m \cdot s^{-1}}, and a P-gain of 1 is examined.
 
-In the beginning, the error will be calculated as $$\SI{2}{m/s} - \SI{0}{m/s} = \SI{2}{m/s}$$
-The system is therefore instructed to accelerate to 2 m/s.
+In the beginning, the error will be calculated as 2 - 0 = 2 \si{m \cdot s^{-1}}. The system is therefore instructed to accelerate to 2 \si{m \cdot s^{-1}}.
 
-After a period of time, the system will cross 1 m/s. Calculating the error now, results in $$\SI{2}{m/s}-\SI{1}{m/s}=\SI{1}{m/s}$$
-The system is therefore instructed to stay at 1 m/s, and stop accelerating. This effectively causes a steady state error of 50\%.
+After a period of time, the system will cross 1 \si{m \cdot s^{-1}}. Calculating the error now, results in 2 - 1 = 1 \si{m \cdot s^{-1}}
+The system is therefore instructed to stay at 1 \si{m \cdot s^{-1}}, and stop accelerating. This effectively causes a steady state error of 50\%.
 
 A way to reduce this offset is to use Feed Forward. \todo{source}. This will be tested as well, with a Feed Forward gain of 1.
 

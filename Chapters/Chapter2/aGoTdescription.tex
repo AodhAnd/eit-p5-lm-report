@@ -1,12 +1,12 @@
 \subsection{GoT Description}
 \label{GoTDescription}
-The Games on Track GT-Position system, shortened GoT, is a positioning system which uses radio-waves for communication and ultrasound to locate a tracked object in space. The system has a sampling rate of 10 hertz, but it can vary a little because of ultrasound waves propagation. The system is built up from three types of hardware components: the transmitter, the satellites and the master, see \figref{GoTSystem}. The transmitter and the satellites send the information in all directions, with 360 degrees range signals.\\
-The GoT System does not work if the transmitter is not close enough from the satellites or if there are some interference by another ultrasound signal or by an object between them and therefore can not communicate with the satellites.
+The Games on Track GT-Position system, shortened GoT, is a positioning system which uses radio-waves for communication and ultrasound to locate a tracked object in space. The system has a sampling rate of 10 \si{Hz}, but it can vary a little because of ultrasound waves propagation. The system is built up from three types of hardware components: the transmitter, the satellites and the master, see \figref{GoTSystem}. The transmitter and the satellites send the information in all directions, with 360 degrees range signals.\\
+The GoT System does not work if the transmitter is not close enough to the satellites. Furthermore, it can be disturbed if there are some interference by another ultrasound signal or by an object between the satellites.
 %
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{figures/GoT_description.pdf}
-	\caption{Overview of the GoT system}
+	\caption{Overview of the GoT system, and the placement of hardware components.}
 	\label{GoTSystem}
 \end{figure}
 %
@@ -38,4 +38,4 @@ The program on the computer, which is running in C\# and handles the information
 %
 If the satellites have been moved, it is necessary to recalibrate the system. This is done with a calibration triangle. The calibration triangle is made of three points on a flat surface and have a distance of 40 to 200 centimeters between them. One of the points on the calibration triangle is made the origin (0,0,0) of the new coordinate system. Another point on the triangle will then be called (X,0,0), in which the line between the first point and the second point will become the X-axis. The last point will be call (X,Y,0) and will determine in which way the positive Y-axis will go. The surface which the calibration triangle is placed on, will be the XY-plan, where Z will go vertically, defining the (X,Y,Z) coordinates. Thereafter, the transmitter is placed in the three point, with (0,0,0) first and (X,Y,0) last. When the transmitter is placed in a point, the satellites measure the distance between them and the transmitter. From this information, the program can calculate the position of each satellites, with the help of trilateration.
 
-The GoT system and the provided vehicle and battery has been examined and describe. It is now possible to consider which functionalities should be included in the prototype.
+These are the basic elements from which the prototype is built. However, the functionalities suggested in \secref{sec:UseCase} need to be refined for the prototype implementation.

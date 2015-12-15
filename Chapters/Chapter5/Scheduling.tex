@@ -1,15 +1,14 @@
 \section{Software Choice}
-The hardware choice and implementation includes a software that can handle them. The software choice will be explained in this section, describing the use of the Kernel, and the principle of scheduling.
+For the hardware components to interact, software parts are needed to handle them. The software choice is explained in this section, which describes the use of the chosen kernel, and the principle of scheduling.
 
 \subsection{Kernel}
-The chosen kernel allows to control the tasks and then the behavior of the vehicle through clocks, to have a precise and constant schedule. This propriety make possible to export it on another kind of processor and still have the same render, as long as it have a frequency high enough to process all the data needed.\\
-The Kernel advantage is also the definition of semaphores, priorities, and critical regions, that the system will use to choose which task to run, and how often it should be. This Kernel allows also to program in Arduino language which is C++, and can run C code, with the use of different files.
-
-
+The chosen kernel is a stable open source project named KRNL, written by the Associate Professor Jens Dalsgaard Nielsen from Aalborg University.\\
+Specially written for the Arduino platform, it allows to control the tasks, and therefore the behavior of the vehicle, through clocks, to keep a precise and constant time schedule. This property makes it possible to export it to another kind of processor and still have the same render, as long as it have a frequency high enough to process all the data needed.\\
+One of KRNL's advantage is also the definition of semaphores, priorities, and critical regions, that the system will use to choose which task to run, and how often to run it. Futhermore, this kernel allows to program in Arduino language, which is a C\texttt{++} extension, and can also run C code, using different files.
 
 \subsection{Scheduling}\label{sec:scheduling}
-For running the code on the arduino PCB, and be able to manage all the sensors at the same time, a scheduling is needed. Indeed, the PCB must be able to recieve and process the data from the GoT system, the hall sensors, the magnetometer and the X-bee to make a decision related to the planned route to follow. This decision must affect at the same time the speed through the motor, and the steering through the servo.
-A description of the scheduling principle and its function will be described.
+To run the code on the Arduino microcontroller, and be able to manage all the sensors in parallel and at the time needed, a scheduling scheme is needed. Indeed, the microcontroller must be able to receive and process the data from the GoT computer received through the XBee module, the Hall sensors and the magnetometer. From all this data, it also has to make a decision regarding the planned route to follow. This decision must affect at the same time the speed through the motor, and the steering through the servo.
+A description of the scheduling principle and its function is described thereafter.
 
 
 \subsubsection{Semaphores}
@@ -45,7 +44,7 @@ The maximum speed of vehicle is 3 $m \cdot s^{-1}$, and a turn of the gear wheel
 
 \textbf{Speed Control:}
 A wanted speed value is compared to the actual speed, and the resulting error is the input of the Velocity PI-Controller, that will set a new speed according to the reference.\\
-The running time of this task is 386µs. For a precise control of the speed a half of the period of the hall sensor is chosen, the minimum period will be 2ms.
+The running time of this task is 386µs. To get a new value from the hall sensors every control of the speed, the period of running of the speed control task has to be bigger than the one of the hall sensors. To be sure of having a stable system, the minimum period was set to 10ms.
 
 
 \textbf{GoT System and Communication Protocol:}
@@ -71,7 +70,7 @@ A recapitulation of the parameters can be seen on \tableref{scheduleParameters}.
 \hline
 1			 &	Hall Sensors	 & 2				&	\si{8,39 \mu s}			    &	\si{4 ms}			  & 0,2\%	  \\
 \hline
-2			 &	Speed Control	 & 3				&	\si{386\ \mu s}				&	\si{2 ms}			  &	19,3 \%   \\
+2			 &	Speed Control	 & 3				&	\si{386\ \mu s}				&	\si{10 ms}			  &	19,3 \%   \\
 \hline
 3			 &	GoT and Protocol & 4				&	\si{395 \mu s}			    &	\si{100 ms}			  &	0,395 \%  \\
 \hline
@@ -112,7 +111,7 @@ The priorities of the task have been made to give the system the best stability.
 	\label{schedulePriorities}
 \end{figure}
 
-As seen on the  \figref{schedulePriorities}, the angular control has the highest priority so it will run first, and the others will be registrered in a queue in order of priority. Then the hall sensors are second, and speed control after that. When the speed control will be running, it can do a second request to run because of it's sampling time. It will then run a second time just after that because it's priority is higher than the lasts tasks. The GoT and comunication will run after them, and in the end the Distance Control.\\
+As seen on the  \figref{schedulePriorities}, the angular control has the highest priority so it will run first, and the others will be registrered in a queue in order of priority. Then the hall sensors are second, and speed control after that. The GoT and comunication will run after them, and in the end the Distance Control.\\
 After a certain time, the task are stabilized, until the tasks with a large period are asked again.\\\\
 
 

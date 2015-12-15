@@ -68,12 +68,12 @@ By applying a known reference heading with a fixed gain in the controller and us
   \item Wait two seconds, then follow the vehicle with the connected computer.
   \item Wait until the vehicle stops before ending the measurements by unplugging the connected computer from the Arduino.
   \item Shut the vehicle's power off.
-  \item Redo the test multiples while increasing the wanted speed.
+  \item Redo the test multiples time while increasing the wanted speed.
   \item Plot the angle of the vehicle using Matlab.
 \end{enumerate}
 
 \subsection{Results}
-The vehicle is made to run for \si{4000\ ms} with a reference heading of \si{0 ^{\circ}}. The vehicle shall try to head towards the exact magnetic North within these few seconds. After that, the reference angle is put to \si{-45 ^{\circ}} (East) which means the vehicle turns to the right to reach this heading. It goes on running until \si{15\ s} have passed.
+The vehicle is made to run for \si{4000\ ms} with a reference heading of \si{0 ^{\circ}}. The vehicle shall try to head towards the exact magnetic North within these few seconds. After that, the reference angle is put to \si{-45 ^{\circ}} (East) which means the vehicle turns to the right to reach this heading. It goes on running until 15s have passed.
 
 From \eqref{eq:steeringTestWPcontroller}, the time constant is found as:
 \begin{flalign}
@@ -113,8 +113,8 @@ As the test were made with a choosen control gain \si{K_p = 1,5}, the steering g
 \end{figure}
 \todo{Fix the axis legend (units)}
 
-From this plot the a linear region of the gain proportional to the speed can be established:
+From this plot a linear region of the gain proportional to the speed can be established:
 \begin{flalign}
 \eq{K_{steering}}{0,3 \cdot v - 0,034}
 \end{flalign}
-Observing the data, speeds between \si{1,0} and \si{1,6}m/s can be interpreted as linear.
+Observing the data, speeds between 1,0 and 1,6 \si{m \cdot s^{-1}} can be interpreted as linear.

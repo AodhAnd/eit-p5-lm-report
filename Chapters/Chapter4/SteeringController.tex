@@ -6,9 +6,33 @@ The steering controller are gonna be split up in two controllers. One to control
 \input{Chapters/Chapter4/DistanceController.tex}
 
 \subsection{Route control}
-The distance controller used a line, that it have to follow. From this line, the error distance and the reference angle is find and put into the system. These lines come from the route, the vehicle have to follow. As it is only one line from the route that is used at a time and a line only need two points to be drawn, the route can be saved as a list of points, where there is then drawn lines between.
+The steering controllers uses information from the route, that it have to follow. The route is made up by a number of points in the coordinate system from the GOT system, which there is drawn lines between (See ).
 
-To keep all the data about the current line, a struct is made. It contains the start and end point and the angle for the line. The angle is calculated out from the two points, but will be calculated from the start, when a new line is set, as the angle is not changing for the line. The controllers can then access the angle directly from the struct, without have to make the same calculation each time.
+\todo{Pic over a exp. route}
+%Insert figur
+
+\subsubsection{Angle}
+The angular controller needs the angle of the route line, that is added with the output from the distance controller, to be the reference angle. The only information there is know about the line is the start and end point, as it is drawn up between those to point. To calculate the angle of the line, compared to the coordinate system of the GOT system, \eqref{eq:RCeq1} is used.
+
+\begin{flalign}
+  \eq{\theta_{line}}{tan^{-1}(\frac{Y_{end}-Y_{start}}{X_{end}-X_{start}}) \cdot \frac{180}{\pi}}\unit{\si{^\circ}}\label{eq:RCeq1}
+\end{flalign}
+
+As the output from the inverse tangent is in $rad \cdot s^{-1}$, it is multiple by $\frac{180}{\pi}$ to convert it to degrees. With this equation, zero degrees will be in the direction of the positiv x axis and it will go counter clockwise for positive angles and clockwise for negative angles. This give a range from \si{-180^\circ} to \si{180^\circ}, which also is the output from the magnetometer. If it is compared, the angle from the coordinate system for the GOT system, is not equal to the angle, that comes from the magnetometer. The reason for this is that the positive x axis is not going in the same direction as north. Therefore there is needed a offset angle, that rotates the coordinate system, so zero degrees for the coordinate system and the magnetometer is the same direction.
+
+As the magnetometer do not work in the GOT room, this offset angle cannot be measured and therefore can the right angle of the line not be calculated.
+
+\subsubsection{Distance}
+The distance controller needs the distance from the vehicle to the route line, as it use this value in its feedback. The distance can be calculated with \eqref{eq:RCeq2}.
+
+\begin{flalign}
+  \eq{\theta_{line}}{tan^{-1}(\frac{Y_{end}-Y_{start}}{X_{end}-X_{start}}) \cdot \frac{180}{\pi}}\unit{\si{^\circ}}\label{eq:RCeq1}
+\end{flalign}
+
+
+%The distance controller uses a line, that it have to follow. From this line, the error distance and the reference angle is find and put into the system. These lines come from the route, the vehicle have to follow. As it is only one line from the route that is used at a time and a line only need two points to be drawn, the route can be saved as a list of points, where there is then drawn lines between.
+
+%To keep all the data about the current line, a struct is made. It contains the start and end point and the angle for the line. The angle is calculated out from the two points, but will be calculated from the start, when a new line is set, as the angle is not changing for the line. The controllers can then access the angle directly from the struct, without have to make the same calculation each time.
 
 
 \subsection{Complete steering controller}

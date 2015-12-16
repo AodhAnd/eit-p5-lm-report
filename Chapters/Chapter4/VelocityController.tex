@@ -131,8 +131,8 @@ On \figref{fig:ControllerSteps} the different controller designs are simulated b
 %
 \begin{figure}[H]
  	\centering
- 	\includegraphics[width=.8\textwidth]{figures/ControllerSteps}
- 	\caption{Diagram of the proportional controller}
+ 	\includegraphics[width=.9\textwidth]{figures/ControllerSteps}
+ 	\caption{Simulations of the different controller designs along with the first order system model, plant, which in this simulation has an added scale-factor to obtain a gain of 1.}
  	\label{fig:ControllerSteps}
  \end{figure}
 %
@@ -154,13 +154,22 @@ A thing to notice on \figref{fig:ControllerSteps}, is the inadequacy of the P-co
 \end{tabular}
 
 This illustrates how the integral component, of the controller, integrates over the error from the reference to the output over time.
+\todo{need explanation of the bode-plot}
+%
+\begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=.9\textwidth]{figures/bodePlotOfPlantAndControllers}
+ 	\caption{Diagram of the proportional controller}
+ 	\label{fig:bodePlotOfPlantAndControllers}
+\end{figure}
+%
 
 On \figref{fig:PIcontrollerStepRealVsSim} a step response of an implemented PI-controller and, to compare, a simulated step response the PI-controller, is illustrated.
 %
 \begin{figure}[H]
  	\centering
  	\includegraphics[width=.9\textwidth]{figures/PIcontrollerStepRealVsSim}
- 	\caption{Diagram of the proportional integral controller compared to simulation}
+ 	\caption{Step response of the proportional integral controller compared to simulation}
  	\label{fig:PIcontrollerStepRealVsSim}
 \end{figure}
 %
@@ -169,17 +178,8 @@ If this implementation is investigated at different velocity steps, a certain ch
 %
 \begin{figure}[H]
  	\centering
- 	\includegraphics[width=.8\textwidth]{figures/PInew}
- 	\caption{Diagram of the proportional integral controller compared to simulation}
- 	\label{fig:PInew}
-\end{figure}
-%
-
-%
-\begin{figure}[H]
- 	\centering
- 	\includegraphics[width=.8\textwidth]{figures/multiStepPI}
- 	\caption{Diagram of the proportional controller}
+ 	\includegraphics[width=.9\textwidth]{figures/multiStepPInew}
+ 	\caption{Diagram of the proportional integral controller subjected to different velocity steps, both in simulation and test}
  	\label{fig:multiStepPI}
 \end{figure}
 %
@@ -187,8 +187,8 @@ The system overshoots before reaching the reference velocity. To investigate thi
 %
 \begin{figure}[H]
  	\centering
- 	\includegraphics[width=.8\textwidth]{figures/PInoAntiWindup}
- 	\caption{Diagram of the proportional controller}
+ 	\includegraphics[width=.9\textwidth]{figures/PInoAntiWindup}
+ 	\caption{Step response of the proportional integral controller, also showing controller output going into battery saturation}
  	\label{fig:PInoAntiWindup}
 \end{figure}
 %
@@ -197,12 +197,10 @@ The overshoot happens after the battery voltage saturation, and so the answer mu
 
 When the velocity of the vehicle rises, the error naturally falls, and the proportional error follows the error. The controller output follows this fall of the error, while the integral gain keeps building. This means that the controller output will keep falling until the integral gain takes over, which happens too late, compared to the settle value (5 V) of the controller output, causing it to overshoot. A smaller \si{K_p} would decrease the controller output overshoot by giving less gain in the rise, also increasing the time constant.
 The delay from the overshoot of the controller to the velocity is caused by inertia in the system.
-In the following section this overshoot will be further investigated.
 %
 \subsection{Implementation of the PI controller}
 The functional part of the implementation is seen in \autoref{lst:PIimplementation}. The \emph{Actualspeed} is set from the average of recorded speeds of the two belts, from the Hall sensors. Then the error is calculated by comparison between the feedback, \emph{Actualspeed}, and the reference, \emph{Wantedspeed}.
 A quick glance at \figref{fig:PInoAntiWindup}, reveals a problem, where the controller output exceeds the battery voltage. This is called empty integral windup, and can be prevented by implementing anti windup, which locks the integral error so that it does not make the controller output voltage exceed the saturation of the battery\todo{source here}. The first if-statement in \autoref{lst:PIimplementation}, is a very simple implementation of an anti-windup functionality, and the effect is clearly demonstrated by repeating the test from \figref{fig:PInoAntiWindup} with anti windup, as seen on figure \figref{fig:PIwithAntiWindup}.
-
 %
 \lstset{language=C++, caption={Implementation of the PI-controller}, label=lst:PIimplementation}
 \begin{lstlisting}
@@ -227,28 +225,50 @@ if(Duty < 0) Duty = 0;      //minimum duty cycle =   0 %
 %
 \begin{figure}[H]
  	\centering
- 	\includegraphics[width=.8\textwidth]{figures/PIwidthAntiWindup}
- 	\caption{Diagram of the proportional controller}
+ 	\includegraphics[width=.9\textwidth]{figures/PIwidthAntiWindup}
+ 	\caption{Step response of the proportional integral controller controller, showing the effect of the simple anti-windup implementation.}
  	\label{fig:PIwithAntiWindup}
 \end{figure}
 %
-After making sure that the battery is not in saturation the integral error is increased or decreased depending on weather the error is positive or negative, see line 7 in \autoref{lst:PIimplementaion}. Finally in line 10 the \emph{ControllerOutput} is calculated, including the proportional gain, \si{K_p}, and the integral gain, \si{K_i}, along with the \emph{Stiction}, which is a voltage offset to counter the effect of stiction.
-The duty cycle is then calculated in line 12 and 14, where it is scaled according to the current battery voltage, so that each controller output applies the calculated voltage, regardless of the battery voltage. This implementation with the calculated proportional and integral constants, see \secref{sec:PIcalc}, is tested at \si{1.4 m\cdot s^{-1}}, see \figref{fig:CalculatedPI}.
+After making sure that the battery is not in saturation the integral error is increased or decreased depending on weather the error is positive or negative, see line 7 in \autoref{lst:PIimplementation}. Finally in line 10 the \emph{ControllerOutput} is calculated, including the proportional gain, \si{K_p}, and the integral gain, \si{K_i}, along with the \emph{Stiction}, which is a voltage offset to counter the effect of stiction.
+The duty cycle is then calculated in line 12 and 14, where it is scaled according to the current battery voltage, so that each controller output applies the calculated voltage, regardless of the battery voltage.
+
+This final implementation with the calculated proportional and integral constants, see \secref{sec:PIcalc}, is tested at the decided operating speed, \si{1,4 m\cdot s^{-1}}, see \figref{fig:PInew}.
 %
 \begin{figure}[H]
  	\centering
- 	\includegraphics[width=.8\textwidth]{figures/CalculatedPI}
- 	\caption{Diagram of the proportional controller}
- 	\label{fig:CalculatedPI}
+ 	\includegraphics[width=.9\textwidth]{figures/PInew}
+ 	\caption{Step response of the proportional integral controller compared to simulation}
+ 	\label{fig:PInew}
 \end{figure}
 %
-The reality diverges from the simulation as previously mentioned, because it is a first order approximation. The previously addressed controller overshoot, can be minimized by tuning the proportional and integral gain, so that the transition between dominance of the two gains, becomes more smooth at the wanted operation speed, \si{1.4 m\cdot s^{-1}}. The tuning has been done with multiple iterations applying a trial and error approach. The result is shown on \figref{fig:TunedPI}, where the dip in the battery voltage is minimal, due to the longer rise-time, which also minimizes overshoot. 
+The rise time is approximately 1 second and the effect of controller overshoot is minimal at decided operating velocity, \si{1,4 m\cdot s^{-1}}. Finally a test of the PI-controller subjected to constant disturbances is carried out. The result is seen in \figref{fig:PIhill}.
 %
 \begin{figure}[H]
  	\centering
- 	\includegraphics[width=.8\textwidth]{figures/TunedPI}
- 	\caption{Diagram of the proportional controller}
- 	\label{fig:TunedPI}
+ 	\includegraphics[width=.9\textwidth]{figures/PIhill}
+ 	\caption{Proportional integral controller tested on a ramp}
+ 	\label{fig:PIhill}
 \end{figure}
 %
 The test is carried out on a ramp, which goes up and then flattens out. The same ramp was used for testing the P-controller with feed forward, see \figref{fig:hillPfeedForward}, where a steady state error occurred, while on the hill. Whereas the PI-controller's integral gain closes this steady state error, and so keeps the speed when on the hill.
+As seen from \figref{fig:hillPfeedForward}, the adaptive capabilities of the integral gain takes care of closing in on the reference when the vehicle is subjected to disturbances.
+%
+%%
+%\begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width=.9\textwidth]{figures/CalculatedPI}
+% 	\caption{Diagram of the proportional controller}
+% 	\label{fig:CalculatedPI}
+%\end{figure}
+%%
+%The reality diverges from the simulation as previously mentioned, because it is a first order approximation. The previously addressed controller overshoot, can be minimized by tuning the proportional and integral gain, so that the transition between dominance of the two gains, becomes more smooth at the wanted operation speed, \si{1.4 m\cdot s^{-1}}. The tuning has been done with multiple iterations applying a trial and error approach. The result is shown on \figref{fig:TunedPI}, where the dip in the battery voltage is minimal, due to the longer rise-time, which also minimizes overshoot.
+
+%
+%\begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width=.9\textwidth]{figures/TunedPI}
+% 	\caption{Diagram of the proportional controller}
+% 	\label{fig:TunedPI}
+%\end{figure}
+%

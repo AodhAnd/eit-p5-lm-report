@@ -5,7 +5,7 @@
 %\cite{KJAAstrom}
 
 \section{Velocity Controller}\label{sec:velocityController}
-The purpose of the velocity controller is to preserve the vehicle at a steady velocity, when going uphill, downhill and when turning, this is in conjunction with the velocity requirement from \secref{Requirements}. The three most widely utilized controllers are the proportional, integral and differential controllers\cite{WSLevine}. Usually all three controllers combined are not required when controlling a system. Different controller approaches are explored in the following segment, starting with the controller which is the most frequently utilized controller, alone or in combination with others, the proportional controller.
+The purpose of the velocity controller is to preserve the vehicle at a steady velocity, when going uphill, downhill and when turning, this is in conjunction with the velocity requirement from \secref{Requirements}. The three most widely utilized controllers are the proportional, integral and differential controllers \cite{WSLevine}. Usually all three controllers combined are not required when controlling a system. Different controller approaches are explored in the following segment, starting with the controller which is the most frequently utilized controller, alone or in combination with others, the proportional controller.
 
 \subsection{P-Controller}
 As illustrated on \figref{proportionalController} the P-controller, \si{K_p}, is a proportional gain which is multiplied with the direct term.
@@ -43,7 +43,7 @@ This results in the P-controller giving an output of half the input, but rise to
 If a system where an input velocity is equal to an output velocity is desired, a P-controller is insufficient. The reason lies in the numerator in \eqref{eq:PclosedLoopTfs}. No matter the value of \si{K_p} the numerator will always be less than 1. This results in an offset. A larger \si{K_p} resulting in a smaller offset, will make the coefficient of s in \eqref{eq:PclosedLoopTfs} (time constant) smaller, which can result in larger overshoot.
 
 \subsection{P-Controller with Feed Forward}
-The P-controllers difference between the reference and set-point, steady state offset, can be diminished without compromising the time constant, through use of feed forward, see \figref{proportionalControllerWithFeedforward}.\cite{KJAAstrom}
+The P-controllers difference between the reference and set-point, steady state error, can be diminished without compromising the time constant, through use of feed forward, see \figref{proportionalControllerWithFeedforward}.\cite{KJAAstrom}
 %
 \begin{figure}[H]
  	\centering
@@ -52,7 +52,7 @@ The P-controllers difference between the reference and set-point, steady state o
  	\label{proportionalControllerWithFeedforward}
 \end{figure}
 %
-In this design the set-point is changed by feed forwarding the desired value of the output, \si{V_{out}}, to the input of the plant. Thereby summing up the desired value with the error, \si{V_e}, fed through the P-controller. The gain located on the feed forward ensures the input, \si{V_{ref}}, has the same unit as the signal going into the plant, in the case volts, \si{U}. Since the system gain, \si{K}, converts volts into linear velocity, the gain in the forward feed is set to \si{\frac{1}{K}}. The control loop in \figref{proportionalControllerWithFeedforward} yields the following closed loop transfer function:
+In this design the set-point is changed by feed forwarding the desired value of the output, \si{V_{out}}, to the input of the plant. Thereby summing up the desired value with the error, \si{V_e}, fed through the P-controller. The gain located on the feed forward ensures the input, \si{V_{ref}}, has the same unit as the signal going into the plant, in the case volts, \si{U_c}. Since the system gain, \si{K}, converts volts into linear velocity, the gain in the feed forward is set to \si{\frac{1}{K}}. The control loop in \figref{proportionalControllerWithFeedforward} yields the following closed loop transfer function:
 %
 \begin{flalign}
   \eq{ \frac{V_{out} }{V_{ref}} }{ \frac{\frac{K\cdot \frac{1}{K}+K\cdot K_p}{1+K \cdot K_p}}{\frac{\tau}{1+K\cdot K_p}\cdot s + 1 } }&\nonumber
@@ -65,7 +65,7 @@ If the \si{K_p} value is selected to cancel out the system gain, as with the P-c
   \eq{ \frac{V_{out} }{V_{ref}} }{ \frac{1}{\frac{\tau}{2} \cdot s + 1} }&\nonumber
 \end{flalign}
 %
-If this is compared to the resulting closed loop transfer function for the original P-controller, \eqref{eq:PclosedLoop}, it can be seen that the steady state offset is removed. Notice that the time constant of the closed loop remains half of that of the plant. 
+If this is compared to the resulting closed loop transfer function for the original P-controller, \eqref{eq:PclosedLoop}, it can be seen that the steady state error is removed. Notice that the time constant of the closed loop remains half of that of the plant. 
 
 By utilizing the feed forward to place the set-point of the controller, P-control becomes a viable option for controlling a velocity. This is tested utilizing the vehicle and the response is as expected. The test can be seen in \appref{app:proportionalControllerTest}. A Comparing of a step response utilizing the vehicle and a simulation of a step response is illustrated in figure \figref{fig:stepPfeedForward}.
 %
@@ -91,10 +91,10 @@ The effect is demonstrated in \figref{fig:hillPfeedForward}, where the feed forw
  	\label{fig:hillPfeedForward}
 \end{figure}
 %
-Since the vehicle steers by breaking on one side, this kind of steady state error will not only occur when encountering slopes, but every time the vehicle turns.
+Since the vehicle steers by breaking on one side, this kind of steady state error will not only occur when the vehicle is encountering slopes, but also every time the vehicle turns.
 %
 \subsection{PI-Controller} \label{sec:PIcalc}
-To attack the new offset-problem caused by changes in the system gain when disturbances affects the system, a proportional integral controller is the next natural choice. The reason for choosing a PI-controller is because the I-component integrates over the error. This component therefore increases or decreases over time, and therefore has an adaptive effect on the system. The design is illustrated in \figref{proportionalIntegratorController}
+To attack the new offset-problem caused by changes in the system gain when disturbances affects the system, a proportional integral controller is the next natural choice. The reason for choosing a PI-controller is because the I-component integrates over the error. This component therefore increases or decreases over time, and therefore has an adaptive effect on the system. The design is illustrated in \figref{proportionalIntegratorController}.
 %
 \begin{figure}[H]
  	\centering
@@ -164,7 +164,7 @@ This illustrates how the integral component, of the controller, integrates over 
 %
 \begin{figure}[H]
  	\centering
- 	\includegraphics[width=.9\textwidth]{figures/bodePlotOfPlantAndControllers}
+ 	\includegraphics[width=1\textwidth]{figures/bodePlotOfPlantAndControllers}
  	\caption{Diagram of the proportional controller}
  	\label{fig:bodePlotOfPlantAndControllers}
 \end{figure}
@@ -189,7 +189,7 @@ If this implementation is investigated at different velocity steps, a certain ch
  	\label{fig:multiStepPI}
 \end{figure}
 %
-The system overshoots before reaching the reference velocity. To investigate this behavior further a step is made at 2 \si{m\cdot s^{-1}}, and data from the battery and controller output is recorded, see \figref{fig:PInoAntiWindup}.
+The system undershoots before reaching the reference velocity. To investigate this behavior further a step is made at 2 \si{m\cdot s^{-1}}, and data from the battery and controller output is recorded, see \figref{fig:PInoAntiWindup}.
 %
 \begin{figure}[H]
  	\centering

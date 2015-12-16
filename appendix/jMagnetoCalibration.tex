@@ -23,7 +23,6 @@ A simpler test is used here to check for the good calibration with the vehicle. 
   \caption{Magnetic sphere of calibrated and non-calibrated sensor alone}
   \label{fig:calibrationTestSpheres}
 \end{figure}
-\todo{Change units to Gauss}
 %
 The calibration itself performed in this test does not change the intrinsic sensor configuration but rather applies a transformation to the coordinates sent to the Arduino board. This transformation, seen in \eqref{eq:calibrationTransformation} is actually computed in the runtime by the microcontroller, each time a set of coordinate is received :
 \begin{flalign}
@@ -126,14 +125,14 @@ After having done the measurements and computed the transformation matrix and bi
     \si{-164.666}\\
     \si{-143.707}
   \end{pmatrix}\unit{G}
-  \label{eq:calibrationTransformationExpanded}
+  \label{eq:Bvector}
 \end{flalign}
 
 The four-quarters of turn test made with these settings is illustrated in \figref{fig:calibrationTestQuarterResults}.
 \begin{figure}[H]
     \centering
   %Trim margins @:   left        bottom       right       top
-  \adjustbox{ trim = {.1\width} {0.15\height} {0\width} {0.1\height}, clip }
+ % \adjustbox{ trim = {.0\width} {0.15\height} {0\width} {0.1\height}, clip }
   {
     \includegraphics[width=0.9\textwidth]{figures/fullturn2.pdf}
   }
@@ -142,4 +141,4 @@ The four-quarters of turn test made with these settings is illustrated in \figre
 \end{figure}
 \todo{Correct axis and title + add a cross}
 
-The cross on \figref{fig:calibrationTestQuarterResults} has right angles and passes through the center of the circle which is in (0,0). This shows that each quarter of turn in reality is measured by \si{90^{\circ}} by the sensor, that is correctly calibrated to be used on the vehicle configuration.
+The cross on \figref{fig:calibrationTestQuarterResults} has right angles and passes through the center of the circle which is in (0,0). This shows that each quarter of turn in reality is measured by \si{90^{\circ}} by the sensor, and that it is correctly calibrated to be used on the vehicle.

@@ -35,39 +35,40 @@ The purpose of the test is to measure the armature resistance $R_a$ of the motor
 \begin{enumerate}
   \item Turn on the two multimeters and choose Voltage and Ampere settings respectively.
   \item Fix the motor shaft so it can not turn.
-  \item Choose the first current value ($0,5$ A) on the current limiting of the power supply.
+  \item Choose the first current value (\SI{0,}{A}) on the current limiting of the power supply.
   \item Turn on the power supply and adjust the current limiting in accordance with the ampere meter.
   \item Read the voltage supplied to the motor from the volt meter.
-  \item Repeat the three previous steps for each measurement in $0,5$ A increments up to $5$ A.
+  \item Repeat the three previous steps for each measurement in \SI{0,5}{A} increments up to 5 A.
   \item Switch the poles of the power supply and repeat the measurements in the negative direction.
 \end{enumerate}
 
 \subsubsection{Results}
 
 \begin{table}[H]
+\centering
 \begin{tabular}{|l|l|l| l|l|}
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
   \textbf{Input (A)}   & \textbf{Output (V)} &\phantom{hey}& \textbf{Input (A)}   & \textbf{Output (V)}\\
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
-  $-5,0$               &            $-0,71$  &             & $0,5$                & $0,16$             \\
+  \SI{-5,0}{}               &            \SI{-0,71}{}  &             & \SI{0,5}{}                & \SI{0,16}{}             \\
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
-  $-4,5$               &            $-0,65$  &             & $1,0$                & $0,34$             \\
+  \SI{-4,5}{}               &            \SI{-0,65}{}  &             & \SI{1,0}{}                & \SI{0,34}{}             \\
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
-  $-4,0$               &            $-0,59$  &             & $1,5$                & $0,53$             \\
+  \SI{-4,0}{}               &            \SI{-0,59}{}  &             & \SI{1,5}{} & \SI{0,53}{}             \\
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
-  $-3,5$               &            $-0,54$  &             & $2,0$                & $0,62$             \\
+  \SI{-3,5}{}               &            \SI{-0,54}{}  &             & \SI{2,0}{} & \SI{0,62}{}             \\
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
-  $-3,0$               &            $-0,43$  &             & $2,5$                & $0,64$             \\
+  \SI{-3,0}{}               &            \SI{-0,43}{}  &             & \SI{2,5}{} & \SI{0,64}{}             \\
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
-  $-2,5$               &            $-0,36$  &             & $3,0$                & $0,75$             \\
+  \SI{-2,5}{}               &            \SI{-0,36}{}  &             & \SI{3,0}{} & \SI{0,75}{}            \\
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
-  $-2,0$               &            $-0,27$  &             & $3,5$                & $0,78$             \\
+  \SI{-2,0}{}               &            \SI{-0,27}{}  &             & \SI{3,5}{}                & \SI{0,78}{}             \\
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
-  $-1,5$               &            $-0,20$  &             & $4,0$                & $0,80$             \\
+  \SI{-1,5}{}               &            \SI{-0,20}{}  &             & \SI{4,0}{} & \SI{0,80}{}             \\
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
-  $-1,0$               &            $-0,14$  &             & $4,5$                & $0,83$             \\
+  \SI{-1,0}{}               &            \SI{-0,14}{}  &             & \SI{4,5}{} & \SI{0,83}{}             \\
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
-  $-0,5$               &            $-0,07$  &             & $5,0$                & $0,88$             \\
+  \SI{-0,5}{}               &            \SI{-0,07}{}  &             & \SI{5,0}{}                & \SI{0,88}{}             \\
 \cline{1-2}\cline{4-5}%-----------------------             ----------------------------------------------
 \end{tabular}
 \end{table}
@@ -97,5 +98,5 @@ During these measurements the motor is in steady state. This is necessary for th
 
 As seen on the data plot in \figref{armatureResistance} the result is a relatively linear function. The armature resistance is approximated directly as the slope of the least square line:
 \begin{flalign}
-  \eq{R_a}{0,178}\ \si{\Omega}&\nonumber
+  \eq{R_a}{\SI{0,178}{\Omega}}&\nonumber
 \end{flalign}

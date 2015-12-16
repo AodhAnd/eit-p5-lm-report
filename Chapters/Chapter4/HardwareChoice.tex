@@ -121,7 +121,7 @@ The requirements for the motor driver are:
 \end{itemize}
 
 \subsubsection{Pololu Dual VNH5019}
-The Pololu dual VHN5019 motor driver shield (see \figref{MotorDrive}) is specially designed for Arduino boards. It can be placed directly on top of the the Arduino board as a shield, with the pins connecting to the right ports on the Arduino. 
+The Pololu dual VHN5019 motor driver shield (see \figref{MotorDrive}) is specially designed for Arduino boards. It can be placed directly on top of the the Arduino board as a shield, with the pins connecting to the right ports on the Arduino.\cite{PCorporation}
 
 \begin{figure}[H]
 	\centering
@@ -130,7 +130,7 @@ The Pololu dual VHN5019 motor driver shield (see \figref{MotorDrive}) is special
 	\label{MotorDrive}
 \end{figure}
 
-It is possible to power the Arduino from an external power source through the motor shield, which also delivers the power to the motor. It is also possible to have the motor shield and the Arduino powered separately. This is determined by a jumper setting on the shield, see \figref{MotorDriveIO}. The motor shield need a power voltage between 7 volts and 12 volts.
+It is possible to power the Arduino from an external power source through the motor shield, which also delivers the power to the motor. It is also possible to have the motor shield and the Arduino powered separately. This is determined by a jumper setting on the shield, see \figref{MotorDriveIO}. The motor shield need a power voltage between 7 volts and 12 volts.\cite{PCorporation}
 
 \begin{figure}[H]
 	\centering
@@ -139,7 +139,7 @@ It is possible to power the Arduino from an external power source through the mo
 	\label{MotorDriveIO}
 \end{figure}
 
-There are two H-bridges on the board, to control up to two motors. Since only one motor is used in this project, both of the two H-bridges will be used to power the motor. This results in a smaller current through the two H-bridges' transistors and therefore ensures a better protection of the system.
+There are two H-bridges on the board, to control up to two motors. Since only one motor is used in this project, both of the two H-bridges will be used to power the motor, see further details on the configuration in \secref{sec:HBridge}. This results in a smaller current through the two H-bridges' transistors and therefore ensures a better protection of the system.\cite{PCorporation}
 
 %\begin{figure}[H]
 %	\centering
@@ -148,8 +148,7 @@ There are two H-bridges on the board, to control up to two motors. Since only on
 %	\label{Hbridges}
 %\end{figure}
 %
-The Pololu dual VHN5019 motor driver shield is used in this project, as it is made for the Arduino and therefore easy to implement. Moreover, it can power the Arduino through an external power source and get a power output high enough for the motor and in each direction.
-\todo{insert source - datasheet on Pololu dual VHN5019 motor driver}
+The Pololu dual VHN5019 motor driver shield is used in this project, as it is made for the Arduino and therefore easy to implement. Moreover, it can power the Arduino through an external power source and get a power output high enough for the motor and in each direction.\cite{STMicroelectronics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Wireless communication system}

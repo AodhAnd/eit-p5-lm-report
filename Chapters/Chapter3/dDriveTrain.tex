@@ -161,31 +161,29 @@ By using the relationship of ratios, the two rotational velocities are related. 
 
 $\omega_d(t)$ is converted to a linear velocity and transformed to the Laplace domain:
 \begin{flalign}
-\eq{v(t)}{\omega_d(t) \cdot 2 \cdot \pi \cdot r_t}\nonumber \unit{m\cdot s^{-1}} \phantom{(3.23   3)}\\
-\eq{\omega_d(t)}{\frac{v(t)}{2\cdot \pi \cdot r_t}} \ \xRightarrow{\mathcal{L}} \ \omega_d(s) = \frac{V(s)}{2\cdot \pi \cdot r_t}&
+\eq{v(t)}{\omega_d(t) \cdot r_t}\nonumber \unit{m\cdot s^{-1}} \phantom{(3.23   3)}\\
+\eq{\omega_d(t)}{\frac{v(t)}{r_t}} \ \xRightarrow{\mathcal{L}} \ \omega_d(s) = \frac{V(s)}{r_t}&
 \label{eq:omegaDtoLinearLaplace}
 \end{flalign}
 
 $\omega_m(t)$ is converted to a linear velocity using \eqref{eq:ratioes} and \eqref{eq:omegaDtoLinearLaplace} and transformed to the Laplace domain
 \begin{flalign}
-\eq{\frac{r_m}{r_d}\cdot \omega_m(t)}{\frac{v(t)}{2\cdot \pi \cdot r_t}}\nonumber \unit{rad\cdot s^{-1}} \phantom{(3.23   3)}\\
-\eq{\omega_m(t)}{\frac{v(t)\cdot r_d}{2\cdot \pi \cdot r_t\cdot r_m}}  \ \xRightarrow{\mathcal{L}} \ \omega_m(s) = \frac{V(s)\cdot r_d}{2\cdot \pi \cdot r_t\cdot r_m}
+\eq{\frac{r_m}{r_d}\cdot \omega_m(t)}{\frac{v(t)}{r_t}}\nonumber \unit{rad\cdot s^{-1}} \phantom{(3.23   3)}\\
+\eq{\omega_m(t)}{\frac{v(t)\cdot r_d}{r_t\cdot r_m}}  \ \xRightarrow{\mathcal{L}} \ \omega_m(s) = \frac{V(s)\cdot r_d}{r_t\cdot r_m}
 \label{eq:omegaMtoLinearLaplace}
 \end{flalign}
 
-\todo{Remove 2 pi NIELS}
- 
 Using the previously derived equations, \eqref{eq:BlackBoxGearNewtonSecLawLaplace&MotorGearNewtonSecLawLaplace&&BeltContactForceLaplace}, \eqref{eq:omegaDtoLinearLaplace} and \eqref{eq:omegaMtoLinearLaplace}, the final transfer function, describing the drivetrain, including the mechanical aspect from the motor, is constructed:
 %
 \begin{flalign}
-\eq{V(s) \cdot (M \cdot s - B_{sys})}{\frac{\tau_m(s) \cdot r_d}{r_m\cdot r_t} - \frac{\frac{V(s)\cdot r_d}{2\cdot \pi \cdot r_t\cdot r_m}\cdot r_d}{r_m\cdot r_t}\cdot (B_m + J_m \cdot s) - \frac{\frac{V(s)}{2\cdot \pi \cdot r_t}}{r_t}\cdot J_d\cdot s}&\nonumber
+\eq{V(s) \cdot (M \cdot s - B_{sys})}{\frac{\tau_m(s) \cdot r_d}{r_m\cdot r_t} - \frac{\frac{V(s)\cdot r_d}{r_t\cdot r_m}\cdot r_d}{r_m\cdot r_t}\cdot (B_m + J_m \cdot s) - \frac{\frac{V(s)}{r_t}}{r_t}\cdot J_d\cdot s}&\nonumber
 \end{flalign}
 
 After rearranging to achieve standard form:
 
 \large{\si{\frac{V(s)}{\tau_m(s)} =}}
 \Large{
-\si{\frac{\frac{1}{ \frac{r_m\cdot r_t}{r_d} \cdot B_{sys} + \frac{r_d}{2\cdot \pi \cdot r_m \cdot r_t} \cdot B_m }}{\frac{ \frac{r_m\cdot r_t}{r_d} \cdot M + \frac{r_d}{2\cdot \pi \cdot r_m \cdot r_t} \cdot J_m + \frac{r_m}{2\cdot \pi \cdot r_t \cdot r_d} \cdot J_d }{\frac{r_m\cdot r_t}{r_d} \cdot B_{sys} + \frac{r_d}{2\cdot \pi \cdot r_m \cdot r_t} \cdot B_m} \cdot s + 1}}}\normalsize\vspace{-1.9cm}\begin{flalign}\label{eq:mechanicalTransFerfunction}\end{flalign}
+\si{\frac{\frac{1}{ \frac{r_m\cdot r_t}{r_d} \cdot B_{sys} + \frac{r_d}{r_m \cdot r_t} \cdot B_m }}{\frac{ \frac{r_m\cdot r_t}{r_d} \cdot M + \frac{r_d}{r_m \cdot r_t} \cdot J_m + \frac{r_m}{r_t \cdot r_d} \cdot J_d }{\frac{r_m\cdot r_t}{r_d} \cdot B_{sys} + \frac{r_d}{r_m \cdot r_t} \cdot B_m} \cdot s + 1}}}\normalsize\vspace{-1.9cm}\begin{flalign}\label{eq:mechanicalTransFerfunction}\end{flalign}
 \\
 
 The mechanical part of the system is described by the above transfer function, \eqref{eq:mechanicalTransFerfunction}, which in the following section is used in collaboration with the electrical model of the motor to describe the full velocity model of the vehicle.

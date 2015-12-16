@@ -67,7 +67,14 @@ As seen on \figref{SimulationSteeringP2}, the response has improved and the syst
 %
 A lead compensator, see \eqref{eq:DCeq1}, adds a zero to the system, which cancels out one of the poles in the system. This lowers the phase shift, improving the phase margin, and increases the gain at higher frequencies. At the same time, a pole is added at an even higher frequency, in order to ensure stability in the system.
 
-The sampling period of the loop is limited to 100ms by the GoT system. According to the Nyquist-Shannon sampling theorem, a signal needs to be sampled by at least twice the signal bandwidth. This limits the upper frequency of which the pole in the lead compensator can be placed. To ensure the theorem is fulfilled, the pole is given a time constant of \SI{0,3}{s}. This in turn limits the frequency of the zero - if the zero is placed too close to the pole, they will cancel each other out. On the other hand, it is desired to place the zero as high as possible, in order to not change the low frequency gain, and at the same time to affect the existing poles in the system as much as possible. A compromise must be made, and the zero is given a time constant of 1 second. This yields a new controller layout, which can be seen on \figref{}.
+The sampling period of the loop is limited to 100ms by the GoT system. According to the Nyquist-Shannon sampling theorem, a signal needs to be sampled by at least twice the signal bandwidth. This limits the upper frequency of which the pole in the lead compensator can be placed. To ensure the theorem is fulfilled, the pole is given a time constant of \SI{0,3}{s}. This in turn limits the frequency of the zero - if the zero is placed too close to the pole, they will cancel each other out. On the other hand, it is desired to place the zero as high as possible, in order to not change the low frequency gain, and at the same time to affect the existing poles in the system as much as possible. A compromise must be made, and the zero is given a time constant of 1 second. This yields a new controller layout, which can be seen on \figref{FinalDist}.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=\textwidth]{figures/finalDistanceController.pdf}
+  \caption{Distance controller with lead compensator}
+  \label{FinalDist}
+\end{figure}
 
 A bode plot is made with the lead compensator added to the system, shown on \figref{SimulationSteeringB2}. 
 

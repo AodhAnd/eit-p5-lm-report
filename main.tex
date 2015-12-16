@@ -50,7 +50,7 @@
 
 %---------- Chapter 2 ---------------------------------------- Design Considerations
 \input{Chapters/Chapter2/DesignConsiderationsV2}
-
+%
 \input{Chapters/Chapter2/VehicleDescription}
 \input{Chapters/Chapter2/DriveTrain}            %----Drivetrain
 \input{Chapters/Chapter2/DifferentialGears}
@@ -72,13 +72,13 @@
 \input{Chapters/Chapter5/aHardware}
 \input{Chapters/Chapter4/HardwareChoice}
 \input{Chapters/Chapter4/HardwareImplementation}
+\input{Chapters/Chapter4/Hbridge}
 \input{Chapters/Chapter5/Scheduling}
 
 %--------- Chapter 5 ----------------------------------------
 \input{Chapters/Chapter5/sensorImplementation}
 \input{Chapters/Chapter4/HallSensorImplementation}
 \input{Chapters/Chapter5/magnetoImplementation}
-\input{Chapters/Chapter4/Hbridge}
 \input{Chapters/Chapter4/Communication}
 \input{Chapters/Chapter4/gotFiltering} 	
 
@@ -105,9 +105,9 @@
 %%% Part 3 %%%
 \part{Test \& Conclusion}
 
-%\input{Chapters/AcceptanceTest/AcceptanceTest}
-%\input{Chapters/AcceptanceTest/aTestProcedure}
-%\input{Chapters/AcceptanceTest/bTestResults}
+\input{Chapters/AcceptanceTest/AcceptanceTest}
+\input{Chapters/AcceptanceTest/aTestProcedure}
+\input{Chapters/AcceptanceTest/bTestResults}
 
 
 %%% Setup for Appendix and Bibliography %%%
@@ -131,45 +131,47 @@
 
 %---------- Appendix B ---------------------------------------- Motor Tests - Armature Inductance
 \input{appendix/bMotorTest2.tex}
-%\input{appendix/bMotorTest3.tex} %---------------------------- Motor Tests - Tachometer Constant Verification
 
-%---------- Appendix C ---------------------------------------- Motor Tests - Generator Constant
+ %----------Appendix C ---------------------------------------- Motor Tests - Tachometer Constant Verification
+\input{appendix/bMotorTest3.tex}
+
+%---------- Appendix D ---------------------------------------- Motor Tests - Generator Constant
 \input{appendix/bMotorTest4.tex}
 
-%---------- Appendix D ---------------------------------------- Motor Tests - Motor Constant
+%---------- Appendix E ---------------------------------------- Motor Tests - Motor Constant
 \input{appendix/bMotorTest5.tex}
 
-%---------- Appendix E ---------------------------------------- Motor Tests - Friction
+%---------- Appendix F ---------------------------------------- Motor Tests - Friction
 \input{appendix/bMotorTest6.tex}
 
-%---------- Appendix F ---------------------------------------- Motor Tests - Moment of Inertia
+%---------- Appendix G ---------------------------------------- Motor Tests - Moment of Inertia
 \input{appendix/bMotorTest7.tex}
 
-%---------- Appendix G ---------------------------------------- Motor Tests - Time Constant and Gain
+%---------- Appendix H ---------------------------------------- Motor Tests - Time Constant and Gain
 \input{appendix/bMotorTest8.tex}
 
-%---------- Appendix H ---------------------------------------- Magnetometer Calibration
+%---------- Appendix I ---------------------------------------- Magnetometer Calibration
 \input{appendix/jMagnetoCalibration.tex}
 
-%---------- Appendix I ---------------------------------------- Vehicle's Friction Test
+%---------- Appendix J ---------------------------------------- Vehicle's Friction Test
 \input{appendix/cFrictionTest.tex}
 
-%---------- Appendix J ---------------------------------------- Vehicle's Inertia Test
+%---------- Appendix K ---------------------------------------- Vehicle's Inertia Test
 \input{appendix/dInertiaTest.tex}
 
-%---------- Appendix K ---------------------------------------- Vehicle's Velocity Gain Test
+%---------- Appendix L ---------------------------------------- Vehicle's Velocity Gain Test
 \input{appendix/GainTest.tex}
 
-%---------- Appendix L ---------------------------------------- Velocity With P Controller Test
+%---------- Appendix M ---------------------------------------- Velocity With P Controller Test
 \input{appendix/aPcontrollerTest.tex}
 
-%---------- Appendix M ---------------------------------------- Steering Test - K_steering
+%---------- Appendix N ---------------------------------------- Steering Test - K_steering
 \input{appendix/dSteeringTest.tex}
 
-%---------- Appendix N ---------------------------------------- Steering Test - Kp Linear Area
+%---------- Appendix O ---------------------------------------- Steering Test - Kp Linear Area
 \input{appendix/LinearRangeKp.tex}
 
-%---------- Appendix O ---------------------------------------- Schematics
+%---------- Appendix P ---------------------------------------- Schematics
 \input{appendix/MegaPinout.tex}		% Pinout for the arduino
 \input{appendix/schematic.tex}
 

@@ -1,5 +1,5 @@
 \subsection{Drivetrain}\label{DriveTrain}
-The drivetrain translates the torque $\tau_m$, given by the motor, into the actual movement of the vehicle. A mechanical depiction of the parts considered in this modeling section can be seen on \figref{fig:DrivetrainMechanicalModel}. Here the input torque to the system, given by the motor shaft, translates through the system ending up as a linear velocity of the vehicles mass on the belts, i.e. the velocity of the vehicle. The velocity model of the drivetrain is created by only considering when the vehicle's trajectory follows a straight line.\\\\
+The drivetrain translates the torque $\tau_m(t)$, given by the motor, into the actual movement of the vehicle. A mechanical depiction of the parts considered in this modeling section can be seen on \figref{fig:DrivetrainMechanicalModel}. Here the input torque to the system, given by the motor shaft, translates through the system ending up as a linear velocity of the vehicles mass on the belts, i.e. the velocity of the vehicle. The velocity model of the drivetrain is created by only considering when the vehicle's trajectory follows a straight line.\\\\
 
 \begin{figure}[H]
 	\centering
@@ -31,12 +31,12 @@ The radius of the motor gear times the contact force, $r_m \cdot f_c$, is the to
 \hspace{6mm} Where:\\
 \begin{tabular}{ p{1cm} l l l}
 & $J_m$ 						& is the motor's inertia                                         &\unitWh{kg \cdot m^2} \\
-& $\omega_m$        & is the angular velocity of the motor                           &\unitWh{rad \cdot s^{-1}} \\
-& $\dot{\omega}_m$ 	& is the angular acceleration of the motor                       &\unitWh{rad \cdot s^{-2}} \\
-& $\tau_m$ 			    & is the torque delivered by the motor                           &\unitWh{N \cdot m} \\
+& $\omega_m(t)$        & is the angular velocity of the motor                           &\unitWh{rad \cdot s^{-1}} \\
+& $\dot{\omega}_m(t)$ 	& is the angular acceleration of the motor                       &\unitWh{rad \cdot s^{-2}} \\
+& $\tau_m(t)$ 			    & is the torque delivered by the motor                           &\unitWh{N \cdot m} \\
 & $B_m$             & is the motor's friction coefficient                            &\unitWh{N \cdot m \cdot s \cdot rad^{-1}} \\
 & $r_m$             & is the radius of the gear, $G_m$, connected to the motor shaft &\unitWh{m} \\
-& $f_c$							& is the contact force between the two gears                     &\unitWh{N}
+& $f_c(t)$							& is the contact force between the two gears                     &\unitWh{N}
 \end{tabular}
 
 To find the output of the drivetrain, a free body diagram is is depicted and illustrated in \figref{fig:BlackBoxGearFreeBodyDiagram}. The figure represents the system's effecting torques on the blackbox gear, $G_d$, and the translation of these to the drive wheel.
@@ -56,11 +56,11 @@ An equation is extracted from \figref{fig:BlackBoxGearFreeBodyDiagram}:
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
 & $J_d$ 						& is the `black box' gear inertia                                    &\unitWh{kg \cdot m^2} \\
-& $\dot{\omega}_d$ 	& is the angular acceleration of the `black box' gear, $G_d$         &\unitWh{rad \cdot s^{-2}} \\
+& $\dot{\omega}_d(t)$ 	& is the angular acceleration of the `black box' gear, $G_d$         &\unitWh{rad \cdot s^{-2}} \\
 & $r_d$             & is the radius of the `black box' gear, $G_d$                       &\unitWh{m} \\
 & $r_t$             & is the radius of the drive wheel, $G_t$ (translational)            &\unitWh{m} \\
-& $f_b$             & is the coefficient of the contact force between $G_d$ and the belt &\unitWh{N} \\
-& $f_c$						  & is the contact force between the two gears                         &\unitWh{N}
+& $f_b(t)$             & is the coefficient of the contact force between $G_d$ and the belt &\unitWh{N} \\
+& $f_c(t)$						  & is the contact force between the two gears                         &\unitWh{N}
 \end{tabular}
 
 Two equations for the internal gears have been found, \eqref{eq:MotorGearNewtonSecLaw} and \eqref{eq:BlackBoxGearNewtonSecLaw}. In the following paragraph a model of the translation between the drive-gear and the belt is created.
@@ -68,23 +68,23 @@ Two equations for the internal gears have been found, \eqref{eq:MotorGearNewtonS
 %% SSSECTION : BELT MODEL %%
 \subsubsection{Translational Model}\label{BeltModel}
 It is necessary to find the translation between the drive-gear and the belt to be able to describe the movement of the vehicle. Furthermore, it is needed to be able to make a full model of the system, going from the gear connected to the motor shaft to the vehicle's belts. In \figref{fig:BeltMechanicalDiagram} a mechanical diagram illustrates how the force, given through the drive wheel, is translated by the belts. The translation yields a linear force acting on the mass, which makes the vehicle move with a corresponding velocity.
-
+%
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{figures/mechanicalDrawingBelt.pdf}
 	\caption{A mechanical diagram of the drive-gear rotating the belt. The mass, M, pressing down on the vehicle's wheels.}
 	\label{fig:BeltMechanicalDiagram}
 \end{figure}
-
+%
 By using \figref{fig:BeltMechanicalDiagram} a free body diagram of the mass, $M$, and the forces applied to the mass is derived.
-
+%
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=.8]{figures/freeBodyBelt.pdf}
 	\caption{A free body diagram illustrating the vehicle's mass affected by the surrounding forces}
 	\label{fig:BeltFreeBodyDiagram}
 \end{figure}
-
+%
 From \figref{fig:BeltFreeBodyDiagram}, a mechanical equation of the vehicle's resulting force is found to be:
 %
 \begin{flalign}
@@ -94,8 +94,8 @@ From \figref{fig:BeltFreeBodyDiagram}, a mechanical equation of the vehicle's re
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
 & $M$ 			  & is the vehicle's total weight                                        &\unitWh{kg} \\
-& $v$        	& is the linear velocity of the vehicle                                &\unitWh{m \cdot s^{-1}} \\
-& $\dot{v}$ 	& is the linear acceleration of the vehicle                            &\unitWh{m \cdot s^{-2}} \\
+& $v(t)$        	& is the linear velocity of the vehicle                                &\unitWh{m \cdot s^{-1}} \\
+& $\dot{v}(t)$ 	& is the linear acceleration of the vehicle                            &\unitWh{m \cdot s^{-2}} \\
 & $B_{sys}$   & is the coefficient of the friction throughout the rotational parts   &\unitWh{N \cdot s \cdot m^{-1}} \\
 \end{tabular}
 
@@ -173,7 +173,7 @@ $\omega_m(t)$ is converted to a linear velocity using \eqref{eq:ratioes} and \eq
 \label{eq:omegaMtoLinearLaplace}
 \end{flalign}
 
-\todo{Remove 2 pi}
+\todo{Remove 2 pi NIELS}
  
 Using the previously derived equations, \eqref{eq:BlackBoxGearNewtonSecLawLaplace&MotorGearNewtonSecLawLaplace&&BeltContactForceLaplace}, \eqref{eq:omegaDtoLinearLaplace} and \eqref{eq:omegaMtoLinearLaplace}, the final transfer function, describing the drivetrain, including the mechanical aspect from the motor, is constructed:
 %

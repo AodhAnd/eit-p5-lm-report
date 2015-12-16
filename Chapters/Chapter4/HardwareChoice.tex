@@ -187,7 +187,7 @@ Xbees are small radio modules, that are easy to set up. An overview of the Xbee 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.95\textwidth]{figures/Xbee.jpg}
-			\caption{Two Xbee radio modules } 
+			\caption{Two Xbee radio modules\cite{Digi} } 
 			\label{XbeeLook}
 		\end{figure}
 	\end{minipage}
@@ -196,21 +196,18 @@ Xbees are small radio modules, that are easy to set up. An overview of the Xbee 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.95\textwidth]{figures/XbeeIO.jpg}
-			\caption{Pinout of an Xbee radio module} 
+			\caption{Pinout of an Xbee radio module\cite{jeromeabel}} 
 			\label{Xbeepinout}
 		\end{figure}
 	\end{minipage}
 \end{minipage}
 
- \todo{Reference to the picture Mads}
 
-The Xbee modules communicate through an UART connection (with TX and RX pins). Since the Arduino has three UART connections, plus the one used to program the Arduino, the Xbee can be connected. The software code for the GoT system is implemented in C\# (see in \secref{GoTDescription}) and the computer running has serial ports that can ensure the connection between the software and the Xbee. Therefore, this solution can be used for a wireless connection between the GoT system and the Arduino.
+The Xbee modules communicate through an UART connection (with TX and RX pins)\cite{Xbee}. Since the Arduino has three UART connections, plus the one used to program the Arduino, the Xbee can be connected. The software code for the GoT system is implemented in C\# (see in \secref{GoTDescription}) and the computer running has serial ports that can ensure the connection between the software and the Xbee. Therefore, this solution can be used for a wireless connection between the GoT system and the Arduino.
 
-To run the Xbee modules, a \si{3,3\ V} power line, a ground line, and a \si{3,3\ V} logic UART are needed. The modules have a transfer speed of up to \si{115,2 kbit/s} and can reach up to \si{100 m} indoor and \si{300 m} outdoor. It transmits at a \si{2,4 GHz} frequency with \si{1 mV} (\si{0 dBm}) and can receive downto \si{-96 dBm}. The Xbee is already ready for communication, with the lower levels of communication, the physical and data link layers, being already implemented. With only two devices, a lightweight combination of transport layer can be added to the protocol directly on top of the data link layer, to add more error handling and create the transmitted packet.
+To run the Xbee modules, a \si{3,3\ V} power line, a ground line, and a \si{3,3\ V} logic UART are needed\cite{Xbee}. The modules have a transfer speed of up to \si{115,2 kbit/s} and can reach up to \si{100 m} indoor and \si{300 m} outdoor. It transmits at a \si{2,4 GHz} frequency with \si{1 mV} (\si{0 dBm}) and can receive downto \si{-96 dBm}\cite{Xbee}. The Xbee is already ready for communication, with the lower levels of communication, the physical and data link layers, being already implemented. With only two devices, a lightweight combination of transport layer can be added to the protocol directly on top of the data link layer, to add more error handling and create the transmitted packet.
 
-\todo{There is a reference here which needs to be made, Mads}
 
-%http://www.digi.com/products/xbee-rf-solutions/modules/xbee-digimesh-2-4#specifications
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -230,16 +227,14 @@ The requirements for the angular sensor are:
 \end{itemize}
 
 \subsubsection{HMC5883L}
-Sparkfun's "9 degrees of freedom" board \todo{reference Mads til hele boardet!} comprises a magnetometer integrated circuit, the HMC5883L\cite{HMC5883L}. A magnetometer will be used as the angular sensor, since it can be set up as a compass and give out a angle compared to north. 
+Sparkfun's "9 degrees of freedom" board\cite{Sparkfun9D0F} comprises a magnetometer integrated circuit, the HMC5883L. A magnetometer will be used as the angular sensor, since it can be set up as a compass and give out a angle compared to north. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.50\textwidth]{figures/NineDegree.jpg}
-		\caption{Sparksfun's "9 degrees of freedom" sensor stick } 
+		\caption{Sparksfun's "9 degrees of freedom" sensor stick\cite{Sparkfun9D0F} } 
 	\label{NineDegree}
 \end{figure}
-
-\todo{reference to the picture Mads}
 
 The "9 degrees of freedom" sensor stick, see \figref{NineDegree}, will be used in the project. Beside the magnetometer, there are also a accelerometer and a gyroscope on the board, but these will not be used. The "9 degrees of freedom" sensor stick is designed to be used with a microcontroller and comes with software example for the Arduino platform. It needs an  \si{I^2C} bus to communicate with the Arduino, which has that kind of interface.
 

@@ -1,7 +1,7 @@
 \chapter{Digital Filter}\label{chap:digitalFilter}
 When utilizing a sensor, unwanted noise can arise and influence the measurements acquired. By implementing a filter, it is possible to attenuate and/or enhance specific frequency components contained in the measurements. When the magnetometer, described in \secref{Hardwarechoice}, is active and the vehicle is stationary, the measured angle varies approximately two degrees, see \figref{fig:StationaryMeasurementsMagnato}. The noise affecting the measurements can have a undesired effect on the steering controller. Under ideal circumstances, the magnetometer would measure an angle variation of zero degrees. Since this is not the case, implementing a filter to attenuate some of the noise is a potential solution to get more precision.
 
-There is many pros and cons when deciding between implementing an analogue or digital filter. But since the signal received from the magnetometer is already digital, it is chosen to implement a digital filter.
+There are many pros and cons when deciding between implementing an analogue or digital filter. But since the signal received from the magnetometer is already digital, it is chosen to implement a digital filter.
 
 Before establishing requirements for the digital filter, an analysis of the hardware and system is necessary to determine the possibilities.
 
@@ -9,7 +9,7 @@ Before establishing requirements for the digital filter, an analysis of the hard
 In this section, the needed sampling frequency is determined, and the measurements extracted from the magnetometer and the different possibilities regarding filter type are analysed.
 
 \subsection{Sampling Frequency}
-It is necessary to examine if it is possible to have a high enough sampling frequency which can yield a cut-off frequency which does not effect the stability of the system. To determine this the inner loop of the steering model, where the Magnetometer is placed, is examined.
+It is necessary to examine if it is possible to have a high enough sampling frequency which can yield a cut-off frequency which does not affect the stability of the system. To determine this, the inner loop of the steering model, where the Magnetometer is placed, is examined.
 
 The transfer function for the plant in the inner loop of the steering model, see \secref{sec:SteeringModel}, is given as:
 %
@@ -17,9 +17,9 @@ The transfer function for the plant in the inner loop of the steering model, see
 \eq{H(s)}{\frac{K}{(0.03s+1)s}}
 \end{flalign}
 %
-The poles of the system yields 33.3 and 0 \si{\frac{rad}{s}}. When designing a filter it is necessary to consider the placement of the pole which is at the highest frequency. In this situation the pole which is at the highest frequency is the pole placed at 33.3 \si{rad/s}. A rule of thumb is to place the cut-off frequency of the filter atleast one decade after the highest frequency pole, i.e. 333 \si{\frac{rad}{s}}. If the cut-off frequency of the filter is beneath 333 \si{\frac{rad}{s}} it will influence the systems phase-margin, which can cause instability. 
+The poles of the system yields 33.3 and 0 \si{rad \cdot s^{-1}}. When designing a filter it is necessary to consider the placement of the pole which is at the highest frequency. In this situation the pole which is at the highest frequency is the pole placed at 33.3 \si{rad \cdot s^{-1}}. A rule of thumb is to place the cut-off frequency of the filter atleast one decade after the highest frequency pole, i.e. 333 \si{rad \cdot s^{-1}}. If the cut-off frequency of the filter is beneath 333 \si{rad \cdot s^{-1}} it will influence the system's phase-margin, which can cause instability. 
 
-By being aware of this requirement, it is possible to find a sampling frequency which can grant a cut-off frequency above 333 \si{\frac{rad}{s}}. The least required cut-off frequency of 333 \si{\frac{rad}{s}} is calculated to a frequency:
+By being aware of this requirement, it is possible to find a sampling frequency which can grant a cut-off frequency above 333 \si{rad \cdot s^{-1}}. The least required cut-off frequency of 333 \si{rad \cdot s^{-1}} is calculated to a frequency:
 %
 \begin{flalign}
 \eq{\omega_s}{\frac{333}{2\pi} = 53} \unit{Hz}
@@ -33,7 +33,7 @@ To calculate the least required sampling frequency, the Nyquist-Shannon Sampling
 %
 The Magnetometer thus has to be sampled at atleast 106 \si{Hz}. 
 
-In the specification for the Magnetometer \cite{HMC5883L}, the sampling rate is given to 75 \si{Hz}. A sampling rate of 106 \si{Hz} was desired, since it at this rate would not effect the system. 
+In the specification for the Magnetometer \cite{HMC5883L}, the sampling rate is given to 75 \si{Hz}. A sampling rate of 106 \si{Hz} was desired, since at this rate it would not affect the system. 
 
 With this in consideration, it has been decided to have a sampling rate of 66,66 \si{Hz}, i.e. a sample every 15 \si{ms}, even though it will affect the phase margin. The 66,66 \si{Hz} has been chosen instead of the 75 \si{Hz} to have a margin from the maximum sampling rate supported by the sensor.
 
@@ -92,7 +92,7 @@ Data from the filter has been examined, it is thereby possible to examine which 
 	\label{fig:Filtertype1}
 \end{figure}
 
-The disadvantages of a Elliptic filter is that it has both ripples in the pass- and stopband. additionally, it has a high group delay both before and at the cutoff frequency, this can be seen in \figref{fig:groupdelay}. The advantage of a Elliptic filter is that is has the sharpest cut-off frequency of the filters illustrated in \figref{fig:Filtertype1}.
+The disadvantages of a Elliptic filter are that it has both ripples in the pass- and stopband. additionally, it has a high group delay both before and at the cutoff frequency, this can be seen in \figref{fig:groupdelay}. The advantage of a Elliptic filter is that is has the sharpest cut-off frequency of the filters illustrated in \figref{fig:Filtertype1}.
 
 The Chebyshev filter only has ripples in the passband, and a sharp cut-off frequency, but still has a high group delay before and at the cut-off frequency. The inverse Chebyshev only has ripples in the stopband, but does not have as sharp cut-off frequency as the Chebyshev and the Elliptic filter. Compared to the two former filter it has a lot less group delay before and after the cut-off frequency.
 
@@ -109,7 +109,7 @@ The Butterworth filter has a sharper cut-off frequency compared to the Bessel fi
 
 Because of the above-mentioned descriptions of the filters, a Butterworth filter has been selected for filtering the measured data. The Butterworth does not have any ripples in the passband which could influence the DC-value, seen in \figref{fig:FFTofStationaryMeasurements}, and compared to the other described filters, the Butterworth has a small group delay.
 
-Considerations for the filter has been made, and it is thereby possible to specify the requirements for the filter.
+Considerations for the filter have been made, and it is thereby possible to specify the requirements for the filter.
 
 \section{Filter Requirements} \label{sec:FilterRequirements}
 From the filter considerations \secref{sec:FilterConsiderations}, it is possible to establish the specifications for the filter.
@@ -155,7 +155,7 @@ The specifications for the filter is established, and it is thereby possible to 
 Various methods can be utilized when designing a digital filter. In the following subsection two methods for transferring a continuous-time filter to the z-domain is examined. The specific design process of the Butterworth low-pass filter will be done by following steps retrieved from \cite{AVOppenheim}.
 
 \subsection{Bilinear Transform vs. Impulse Invariance transformation}
-There is different methods for transferring a continuous-time filter to a discrete-time filter, the two most common transformation methods is examined. The first method of the two is the impulse invariance transformation.
+There are different methods for transferring a continuous-time filter to a discrete-time filter, the two most common transformation methods are examined. The first method of the two is the impulse invariance transformation.
 
 When utilizing the impulse invariance transformation a discrete filter is generated by sampling a impulse response of a continuous analogue prototype filter. The impulse response of the discrete-time filter is proportional to the impulse response of the continuous-time filter with equally spaced samples, i.e.  making the discrete-filter from a sampled continuous-time prototype filter, \cite{AVOppenheim}.
 
@@ -186,7 +186,7 @@ A frequency response, of the same filter as the frequency response for the impul
 	\label{fig:S-planeVsZ-plane}
 \end{figure}
 %
-From \figref{fig:BilinearFrequencyResponse} it can be seen that the frequency response does not exceed the limit from 0 to \si{\pi}, hence not causing a aliasing problem \cite{AVOppenheim}.
+From \figref{fig:BilinearFrequencyResponse}, it can be seen that the frequency response does not exceed the limit from 0 to \si{\pi}, hence not causing a aliasing problem \cite{AVOppenheim}.
 
 \begin{figure}[H]
 	\centering
@@ -222,7 +222,7 @@ By utilizing the magnitude squared function for a Butterworth filter, it is poss
 & \si{|H(e^{j\omega}|} & is the attenuation requirements set for the different bands from \secref{sec:FilterRequirements} &\unitWh{dB}
 \end{tabular}
 
-Since there is two unknown variables, the cut-off frequency and the order N, it is possible to calculate the values of these by utilizing the two equations with two unknowns:
+Since there are two unknown variables, the cut-off frequency and the order N, it is possible to calculate the values of these by utilizing the two equations with two unknowns:
 %
  \begin{flalign}
 0.89125^2 &= \frac{1}{1+(\frac{166}{\Omega_C})^{2N}} \quad \wedge \quad 0.01^2 = \frac{1}{1+(\frac{644}{\Omega_C})^{2N}}
@@ -246,7 +246,7 @@ Since it would desirable to have a stable system, the poles should only be locat
 \eq{P_4}{\Omega_c \cdot e^{j \cdot \frac{11}{8} \pi}}
 \end{flalign}
 %
-The poles placement indicated that it is two complex pole-pair, since they are symmetric around the real-axis.
+The poles' placement indicated that it is two complex pole-pair, since they are symmetric around the real-axis.
 
 The general transfer function for a Butterworth filter is defined as:
 %
@@ -282,7 +282,7 @@ The DC gain, \si{G_o} is determined by setting s to 0. furthermore, since you ha
 \eq{G_o}{\Omega_c^4}
 \end{flalign}
 %
-All the coefficients has been found for the transfer function, thus making it possible to perform a frequency response illustrated in \figref{fig:Continuoustimebodeplot}. The continuous transfer function will thereby be:
+All the coefficients have been found for the transfer function, thus making it possible to perform a frequency response illustrated in \figref{fig:Continuoustimebodeplot}. The continuous transfer function will thereby be:
 %
 \begin{flalign}
 \eq{H(s)}{\frac{\Omega_c^4}{(s^2 + 2 \cdot \cos{(\frac{7}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)(s^2 + 2 \cdot \cos{(\frac{5}{8} \cdot \pi)} \cdot \Omega_c \cdot s + \Omega_c^2)}}
@@ -300,7 +300,7 @@ All the coefficients has been found for the transfer function, thus making it po
   \label{fig:Continuoustimebodeplot}
 \end{figure}
 %
-The discrete specifications pre-warped to continuous-time, see \eqref{eq:preqwardspecifications}, is determined for the passband frequency to 166 \si{Hz} and for the stopband to \si{644}. Furthermore from the requirements set in \secref{sec:FilterRequirements}, the attenuation in the passband should be beneath 1 \si{dB} and the stopband should be at a attenuation of 40 \si{dB}. This requirements is in compliance with what is observed on \figref{fig:Continuoustimebodeplot}. Additionally, the cut-off frequency calculated in \eqref{eq:OrderandCutoffFrequencyCON} corresponds with what is illustrated in the frequency response.
+The discrete specifications pre-warped to continuous-time, see \eqref{eq:preqwardspecifications}, are determined for the passband frequency to 166 \si{Hz} and for the stopband to \si{644}. Furthermore from the requirements set in \secref{sec:FilterRequirements}, the attenuation in the passband should be beneath 1 \si{dB} and the stopband should be at a attenuation of 40 \si{dB}. This requirements is in compliance with what is observed on \figref{fig:Continuoustimebodeplot}. Additionally, the cut-off frequency calculated in \eqref{eq:OrderandCutoffFrequencyCON} corresponds with what is illustrated in the frequency response.
 
 The established continuous-time filter can now be transferred to the z-domain.
 
@@ -325,7 +325,7 @@ A frequency response of the discrete-time transfer function is illustrated in \f
   \label{fig:discretetimebodeplot}
 \end{figure}
 
-The requirements set for the filter in \secref{sec:FilterRequirements} is in compliance with the frequency response plotted in \figref{fig:discretetimebodeplot}. The passband frequency should be at 19 \si{Hz} and the stopband at 29 \si{Hz}. Additionally, the attenuation in the passband within the range from 0 to 1 \si{dB} and the stopband attenuation of 40 \si{dB}.
+The requirements set for the filter in \secref{sec:FilterRequirements} are in compliance with the frequency response plotted in \figref{fig:discretetimebodeplot}. The passband frequency should be at 19 \si{Hz} and the stopband at 29 \si{Hz}. Additionally, the attenuation in the passband within the range from 0 to 1 \si{dB} and the stopband attenuation of 40 \si{dB}.
 
 By utilizing normalize expansion it is possible to rewrite the discrete-time transfer function to a standard form, defined as:
 %
@@ -376,7 +376,7 @@ Buffer0 is located just above the first delay, \si{\frac{1}{z}}, in \figref{fig:
 Buffer0 now contains the needed information of the first part of the structure and can be utilized to transfer this value to be part the output. The output of the filter, i.e. the filtered measurement, is composed of the \si{b_M} coefficients and the related buffers. The delay needed is generated by shifting the value of the buffers.
 
 \section{Results}
-The filter is implemented in Matlab, and it is thereby possible to filter the measurements received from the Magnetometer, see \figref{fig:StationaryMeasurementsMagnato}, to see if the filter can decrease the sensors variations of approximately 2 degrees. The original measurements and the related filtered measurements is illustrated in \figref{fig:FinalImplementedFilter}.
+The filter is implemented in Matlab, and it is thereby possible to filter the measurements received from the Magnetometer, see \figref{fig:StationaryMeasurementsMagnato}, to see if the filter can decrease the sensors variations of approximately 2 degrees. The original measurements and the related filtered measurements are illustrated in \figref{fig:FinalImplementedFilter}.
 %
 \begin{figure}[H]
   \centering
@@ -402,7 +402,7 @@ In \figref{fig:FinalImplementedFilter} the red line is the filtered data and the
   \label{fig:FinalimplementationFilterDelay}
 \end{figure}
 
-As seen on the figure a delay of approximately 0.03 s occurs when utilizing the filter compared to the raw measured data. If the velocity of the vehicle is 1.4 \si{\frac{m}{s}} then the vehicle will have moved approximately 4.2 \si{cm} in this time. By simulating a step response of the directional control loop with the filter, it is possible to see if the filter will make the directional control unstable. A simulation of the a step response in the directional control loop with and without filter is illustrated in \figref{fig:SimulatedStepResponsewithandwithoutFilter}.
+As seen on the figure a delay of approximately 0.03 s occurs when utilizing the filter compared to the raw measured data. If the velocity of the vehicle is 1.4 \si{m \cdot s^{-1}} then the vehicle will have moved approximately 4.2 \si{cm} in this time. By simulating a step response of the directional control loop with the filter, it is possible to see if the filter will make the directional control unstable. A simulation of the a step response in the directional control loop with and without filter is illustrated in \figref{fig:SimulatedStepResponsewithandwithoutFilter}.
 \vspace{-10mm}{
 \begin{figure}[H]
   \centering

@@ -89,6 +89,15 @@ Package & Error & Returned error value \\
 \hline
 240,128,96,28, 192,6,176,33, 216,28,177,15 & None & 0 \\
 \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{3cm}|p{8cm}|p{4cm}|}
+\hline
+Package & Error & Returned error value \\
+\hline
 240,128,115,28, 128,6,208,33, 216,90,177,15 & Byte 3 is changed & 3,1,1,1,1,1,1,1,1,1 \\
 \hline
 240,128,96,29, 64,6,112,34, 216,144,161,15 & None & 0 \\
@@ -137,6 +146,9 @@ Package & Error & Returned error value \\
 \begin{figure}[H]
   \centering
 	\includegraphics[scale=0.8]{figures/AccTest8D.png}
-	\caption{Plot of all the velocity between the measured positions, where the red marks indicates discarded measurements and green indicates the measurements send to the Arduino.}
+	\caption{Step response for the vehicle, where the vehicle hits a downhill ramp after 5 seconds and hits flat terrain again after around 8 second.}
 	\label{AccT8Dfig}
 \end{figure}
+
+The prototype has been tested in correlation with the requirements set for the prototype. 5 out
+of 8 requirements were met during the test, where another two should be met, if it was possible to test.

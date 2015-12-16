@@ -14,7 +14,16 @@
            4    &   The prototype must be able to access the route, which it has to follow, from a storage space located on the vehicle & This test will not be made, as a storage space have not been implemented in the system.   & None                 \\
 \hline%-----------------------------------------------------------------------------------------------------------------
            5    &   The prototype must be able to shut down, if the battery voltage is below its cut-off specification &   A power supply set to \SI{7,2}{V} is connected to the vehicle instead of the battery. The vehicle is turned on, and the voltage of the power supply adjusted down until the vehicle stops.   &   The vehicle stops when the voltage drops to 6V.               \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H] \centering
+\begin{tabular}{|p{1cm}|p{4cm}|p{7cm}|p{3cm}|}
 \hline%-----------------------------------------------------------------------------------------------------------------
+\textbf{Req. no.}  &  \textbf{Requirements} &  \textbf{Test procedure}  &  \textbf{Expected output}        \\
+\hline
+%-----------------------------------------------------------------------------------------------------------------
            6    &   It shall be possible for the prototype to follow a predetermined route &   A route is set up, that follows the points (0,0), (2000,0), (0,2000) and (0,0). The vehicle is placed in the first point and is set to follow the route. A computer is monitoring the coordinates received by the vehicle and the current line, the vehicle follows.  &  The coordinates received follows the route and the change to a new line, as soon as it is less than 28 cm away from the line's end point. \\
 \hline%-----------------------------------------------------------------------------------------------------------------
            7    &   It shall be possible for the prototype to return to the predetermined route if disturbed   &  The vehicle is programmed to drive in a straight line, and powered on. While driving, the vehicle is pushed sideways, to make it deviate from the route. A computer is monitoring the distance controller output and the error distance.    &   The vehicle returns to the programmed line and the distance controller output and the error distance will become smaller, as the vehicle close in to the line.            \\ 

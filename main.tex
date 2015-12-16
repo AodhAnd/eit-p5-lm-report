@@ -23,12 +23,14 @@
 \pagestyle{fancy}
 \include{formalities/kolofon}
 \input{formalities/titleSheet.tex}
-\pdfbookmark[0]{Table of Contents}{label: tableOfCentents}
-\tableofcontents
-
 %%% Preface %%%
 \input{formalities/preface.tex}
 \cleardoublepage
+
+\pdfbookmark[0]{Table of Contents}{label: tableOfCentents}
+\tableofcontents
+
+
 
 %%% Mainmatter Settings %%%
 \pagenumbering{arabic} %use arabic page numbering in the mainmatter
@@ -109,7 +111,7 @@
 \input{Chapters/AcceptanceTest/aTestProcedure}
 \input{Chapters/AcceptanceTest/bTestResults}
 
-
+\input{Chapters/Conclusion/conclusion}
 %%% Setup for Appendix and Bibliography %%%
 \bookmarksetup{startatroot} %this is it
 \addtocontents{toc}{\bigskip} %perhaps as well

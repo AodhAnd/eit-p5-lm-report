@@ -10,35 +10,35 @@ As the angular controller works on the first part of the plant, it will be desig
 \input{Chapters/Chapter4/DistanceController.tex}
 
 \subsection{Route control}
-The steering controllers uses information from the route, that it have to follow. The route is made up by a number of points in the coordinate system from the GOT system, which there is drawn lines between , shown on \figref{fig:RCfig1}.
+The steering controllers uses information from the route, which it have to follow. The route is made up by a number of points in the coordinate system from the GoT system, with drawn lines between, illustrated in \figref{fig:RCfig1}.
 
 \begin{figure}[H]
  	\centering
  	\includegraphics[scale=0.7]{figures/stepsGoT}
- 	\caption{An example of a route, where the contains 7 points, which the vehicle have to follow.}
+ 	\caption{An example of a route, containing 7 points, which the vehicle have to follow.}
  	\label{fig:RCfig1}
 \end{figure}
 
 \subsubsection{Angle}
-The angular controller needs the angle of the route line, that is added to the output from the distance controller, to be the reference angle for the controller. The lines is made by connection the points the route and therefore only the start and end point of each line is known. To calculate the angle of the line, compared to the coordinate system of the GOT system, \eqref{eq:RCeq1} is used.
-
+The directional controller needs the angle of the route line, that is added to the output from the distance controller, to be the reference angle for the controller. The lines is made by connection the points from the route and therefore only the start and end point of each line is known. To calculate the angle of the line, compared to the coordinate system of the GoT system, \eqref{eq:RCeq1} is used.
+%
 \begin{flalign}
-  \eq{\theta_{line}}{tan^{-1}(\frac{Y_{end}-Y_{start}}{X_{end}-X_{start}}) \cdot \frac{180}{\pi}}\unit{\si{^\circ}}\label{eq:RCeq1}
+  \eq{\theta_{line}}{tan^{-1}\left(\frac{Y_{end}-Y_{start}}{X_{end}-X_{start}}\right) \cdot \frac{180}{\pi}}\unit{\si{^\circ}}\label{eq:RCeq1}
 \end{flalign}
+%
+As the output from the inverse tangent is in $rad \cdot s^{-1}$, it is multiple by $\frac{180}{\pi}$ to convert it to degrees. With this equation, zero degrees will be in the direction of the positive x axis and it will go counter clockwise for positive angles and clockwise for negative angles. This gives a range from \si{-180^\circ} to \si{180^\circ}, which also is the output from the magnetometer. If compared, the angle from the coordinate system for the GoT system is not equal to the angle, that comes from the magnetometer. The reason for this is that the positive x axis is not going in the same direction as north. Therefore an offset angle is needed, which rotates the coordinate system, so zero degrees for the coordinate system and the magnetometer is the same direction.
 
-As the output from the inverse tangent is in $rad \cdot s^{-1}$, it is multiple by $\frac{180}{\pi}$ to convert it to degrees. With this equation, zero degrees will be in the direction of the positive x axis and it will go counter clockwise for positive angles and clockwise for negative angles. This give a range from \si{-180^\circ} to \si{180^\circ}, which also is the output from the magnetometer. If it is compared, the angle from the coordinate system for the GOT system, is not equal to the angle, that comes from the magnetometer. The reason for this is that the positive x axis is not going in the same direction as north. Therefore there is needed a offset angle, that rotates the coordinate system, so zero degrees for the coordinate system and the magnetometer is the same direction.
+There will be a mathematical problem, if the X coordinates is the same for both points, as there will be divided by zero. If the X values is the same, the angle will be either 90 degrees, if going toward positive y axis, or -90 degrees, if going the opposite way. As the difference can be seen on the difference in the Y value, the function will return the right numbers, even if is should not be mathematically possible to calculate it.
 
-There will be a mathematical problem, if the X coordinates is the same for both points, as there will be divided by zero. If the X values is the same, the angle will be either 90 degrees, if going toward positive y axis, or -90 degrees, if going the opposite way. As the different can be seen on the difference in the Y value, the function will return the right numbers, even if is should not be mathematically possible to calculate it.
-
-As the magnetometer do not work in the GOT room, this offset angle cannot be measured and therefore can the right angle of the line not be calculated and used at indoor test.
+As the magnetometer do not work in the GoT room, this offset angle cannot be measured and therefore the right angle of the line cannot be calculated and used for indoor test.
 
 \subsubsection{Distance}
-The distance controller needs the distance from the vehicle to the route line, as it use this value as a error value. The distance can be calculated with \eqref{eq:RCeq2}.
+The distance controller needs the distance from the vehicle to the route line, as it utilizes this value as a error value. The distance can be calculated with \eqref{eq:RCeq2}.
 
 \begin{flalign}
   \eq{Distance}{\frac{(a \cdot X_{now}) + (b \cdot Y_{now}) + c)  }{\sqrt{a^2 + b^2}}}\unit{m}\label{eq:RCeq2}
 \end{flalign}
-\\
+%
 \begin{figure}[H]
  	\centering
  	\includegraphics[scale=0.8]{figures/DistanceOutLoop}
@@ -59,8 +59,6 @@ From \eqref{eq:RCeq2}, the distance is calculated. If the distance is negative, 
 \subsubsection{New line}
 When the vehicle reach the end point of a line on the route, a new line is used to calculate the angle and distance. The new line's start point will be the last line's end point, so the route lines is connected. Then the next end point is set and the angle can be calculated and the distance measured.
 
-As the GOT system have a precision down to 1 mm, the coordinates too have a precision of 1 mm \todo{Ref to GOT}. The vehicle will not hit the end point with this precision, as the GOT system only give a measurement each 100 ms , and if the vehicle travels with 1,4 $m \cdot s^{-1}$ \todo{ref to velocity controller}, it will travel 140 mm for each measurement, which make the chance for hitting the end point exactly, small. Therefore is the area, which indicates the end of the route line, made bigger. The size out should be around twice as big as the distance, that the vehicle travels between each measurement. With this size, there will always be two measurement in the circle, so the even if one of the measurements is not good, there will be another one. This will give a circle with a radius of 28 cm
+As the GoT system have a precision down to 1 mm, the coordinates too have a precision of 1 mm \secref{sec:Vehicledescription}. The vehicle will not hit the end point with this precision, as the GOT system only delivers a measurement each 100 ms, and if the vehicle travels with 1,4 $m \cdot s^{-1}$, it will travel 140 mm for each measurement, which make the chance for hitting the end point exactly, small. Therefore is the area, which indicates the end of the route line, made bigger. The size should be around twice as big as the distance, which the vehicle travels between each measurement. With this size, there will always be two measurement in the circle, so even if one of the measurements is not good, there will be another one. This will give a circle with a radius of 28 cm
 
-\todo{Insert perfect tail, please}
-
-\todo{To match the model the controllers should be named directional controller and Distance controller.}
+Controllers for the two models, velocity and steering, have been designed and tested. It is now possible to design a filter for the directional controller of the steering, to see if improvements on the angular sensors measurements is obtainable.

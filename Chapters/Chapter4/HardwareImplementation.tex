@@ -21,7 +21,7 @@ As the timers have now been designated, the next step is to assign the various s
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.75]{figures/MegaSetup.pdf}
-	\caption{Connections between the different hardware components and the Arduino.}
+	\caption{Connections between the different hardware components and the Arduino.\cite{ArduMega}}
 	\label{MegaSetup}
 \end{figure}
 
@@ -68,16 +68,14 @@ One-directional connections from  $\SI{3,3}{V}$ logic level output to Arduino in
 \eq{V_{IH,min}}{3} \si{\ V}& \nonumber
 \end{flalign}
 
-As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs to connect a $\SI{3,3}{V}$ system to a 5V system, this needs to be addressed as well. One solution could be running the bus at $\SI{3,3}{V}$, but this is unfortunately not possible, as the microcontroller needs at least $\SI{3,5}{V}$ as HIGH voltage, when in  $\text{I}^2\text{C}$ mode \cite{Atmega}. The creators of $\text{I}^2\text{C}$, Philips, recommend solving this with two MOSFETs, see \figref{i2clevel}.
+As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs to connect a $\SI{3,3}{V}$ system to a 5V system, this needs to be addressed as well. One solution could be running the bus at $\SI{3,3}{V}$, but this is unfortunately not possible, as the microcontroller needs at least $\SI{3,5}{V}$ as HIGH voltage, when in  $\text{I}^2\text{C}$ mode \cite{Atmega}. The creators of $\text{I}^2\text{C}$, Philips, recommend solving this with two MOSFETs \cite{Philips}, see \figref{i2clevel}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.9]{figures/i2cLevel.pdf}
-	\caption{$\text{I}^2\text{C}$ Voltage level translator. [source: Philips]}
+	\caption{$\text{I}^2\text{C}$ Voltage level translator. \cite{Philips}}
 	\label{i2clevel}
 \end{figure}
-
-\todo{Source to picture Thomas}
 
 In $\text{I}^2\text{C}$ systems, the nodes can only pull the line LOW. To make it possible to signal a HIGH, pull-up resistors are used. If a low voltage system is directly connected to a higher voltage system, the voltage at the input pins of the low-voltage section risk being pulled up to 5V.
 

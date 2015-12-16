@@ -1,0 +1,20 @@
+\chapter{Conclusion}\label{cha:conclusion}
+In this project, a robotic lawnmower has been designed, and a prototype has been developed.
+
+Alternative navigation approaches to a wire dig-down system have been investigated, and the Games on Track system chosen as a base. 
+
+A belt vehicle was provided, for use as a prototype vehicle. This vehicle has been taken apart and analysed, and prototype requirements have been developed.
+
+For controlling the vehicle, and monitoring sensors, An Arduino Mega was chosen. A Real Time Operating System was implemented, to ensure that correct timings are met in the control loops.  
+
+A wireless connection, based on Xbee modules, is used to transfer coordinates from the navigation system to the microcontroller on the prototype. For this, a communication protocol with error handling has been developed, implemented and tested.
+
+A digital filter was developed as an attempt to lower noise from the magnetometer. While the filter worked, the noise was not reduced significantly. The filter was therefore not implemented in the prototype.
+
+To store the route to follow an SD card was chosen, but not implemented because of code compatibility issues with the RTOS.
+
+Mathematical models have been developed for the motor, the linear velocity system and the steering system. The models, with the exception of the distance model, have been simulated and compared to real world tests. The comparisons showed, that the models are accurate enough to design a controller around them, using control theory.
+
+The distance model could not be tested, because of problems with the magnetometer indoor, where the Games on Track system was set up. The controller for this part, was therefore based entirely on a non-testable model. A Proportional controller was deemed inadequate because of overshoots in the simulation, and a Lead Compensator was added to counteract this. The results looks promising, and the controller is therefore expected to work in real life, with a little fine tuning.
+	
+Different controller topologies were investigated for controlling the linear velocity of the vehicle, and a Proportional Integral Controller was chosen. For the directional control, a Proportional controller was deemed sufficient. Both of these have been simulated, implemented and tested on the vehicle with good results.

@@ -76,6 +76,9 @@ As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs t
 	\caption{$\text{I}^2\text{C}$ Voltage level translator. [source: Philips]}
 	\label{i2clevel}
 \end{figure}
+
+\todo{Source to picture Thomas}
+
 In $\text{I}^2\text{C}$ systems, the nodes can only pull the line LOW. To make it possible to signal a HIGH, pull-up resistors are used. If a low voltage system is directly connected to a higher voltage system, the voltage at the input pins of the low-voltage section risk being pulled up to 5V.
 
 To solve this, the translator uses a MOSFET per signal line, with the gate connected to the lower supply voltage, to separate the two systems. Here is a quick explanation, examining just one line (as both lines are implemented identically):\\
@@ -100,7 +103,7 @@ R &= R_1 = R_2  \unit{\Omega} \nonumber\\
 \eq{V_{out}}{\frac{1}{2} \cdot V_{in}}\unit{V}
 \label{VolDivRes3}
 \end{flalign}
-
+%
 For the size of the resistors, the output impedance for the voltage divider have to be taken into consideration. For the analogue pins on the Arduino, it is recommended to have a output impedance smaller than \si{10\ k\Omega}, or the it will begin to disturb the reading on the pin.\\
 To make sure that this does not happen, the resistors in the voltage divider are set to half of the maximum output impedance, \si{5\ k\Omega}. The closest resistor in the E96 series is \si{4,99\ k\Omega}, which will be used for both resistors. 
 
@@ -134,4 +137,4 @@ To filter the high frequency noise out, a simple low-pass RC filter is finally i
 \eq{\omega_c}{400}\si{\ rad \cdot s^{-1}}&\nonumber
 \end{flalign}
 
-With all the hardware components physically implemented on the vehicle and connected to the microcontroller, which is the system's brain, it is needed to write the software parts to enable interactions between the Arduino and all the hardware components.
+With all the hardware components physically implemented on the vehicle and connected to the microcontroller, the software utilized needs to be determined and designed to enable interactions between the Arduino and all the hardware components.

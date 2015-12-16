@@ -1,5 +1,5 @@
 \section{Velocity Model of the Vehicle}
-In this section the driving part of the vehicle in \figref{fig:completeMechanicalDiagram} is described and modelled. The following subsections will therefore focus on getting the relation between the input voltage applied to the motor and the system's output velocity. The schematic in \chapref{cha:ModelOfVehicle}, \figref{fig:completeMechanicalDiagram} is reduced to the following \figref{fig:vehicleDescriptionDriveTrainBlackBox}.
+In this section the driving parts of the vehicle in \figref{fig:completeMechanicalDiagram} is described and modelled. The following subsections will therefore focus on getting the relationship between the input voltage applied to the motor and the system's output velocity. The schematic in \chapref{cha:ModelOfVehicle}, \figref{fig:completeMechanicalDiagram} is reduced to the following \figref{fig:vehicleDescriptionDriveTrainBlackBox}.
 
 \begin{figure}[H]
 	\centering
@@ -11,7 +11,7 @@ In this section the driving part of the vehicle in \figref{fig:completeMechanica
 The system on \figref{fig:vehicleDescriptionDriveTrainBlackBox} is expanded into four different parts to facilitate the modeling process.\\
 The first part is the motor itself which is the actuator and is controlled by an input voltage. The mechanical work, produced in the form of a torque, is translated onto the motor shaft and to the motor gear, which is the second part.
 The third part, the black box seen \figref{fig:vehicleDescriptionDriveTrainBlackBox}, consists of the largest part of the drivetrain, from and excluding the motor gear to the gear that sits on the same shaft as the drive wheel. The black box, will be named drivetrain gear hereafter.
-The fourth part of \figref{fig:vehicleDescriptionDriveTrainBlackBox} is describing the conversion from the rotational movement of the drive wheel to the vehicle's belts, and the end result of making the vehicle move.
+The fourth part of \figref{fig:vehicleDescriptionDriveTrainBlackBox} is describing the conversion from the rotational movement of the drive wheel to the vehicle's belts, and with the end result of making the vehicle move.
 
 The velocity model of the vehicle is built in two main steps in the following subsections. The first step describes the motor's electrical behaviour in response to an input voltage. In a second step, a model of the vehicle's velocity is made from the parts $2$ to $4$, see \figref{fig:vehicleDescriptionDriveTrainBlackBox}, in response the motor's torque. These two subsections are derived by only considering the parameters affecting the vehicle when it is driving in a straight line. Thus, the the two belts are supposed to have the exact same velocity, in this first model.
 

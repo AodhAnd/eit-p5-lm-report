@@ -75,8 +75,6 @@ This software, runs on Microsoft Windows computers with the HMC5883L sensor conn
   \caption{Setup diagram}
   \label{fig:calibrationSetupDiagram}
 \end{figure}
-\todo{Change units to Gauss}
-
 \subsection{List of Equipment}
 
 \begin{table}[H]
@@ -132,13 +130,13 @@ The four-quarters of turn test made with these settings is illustrated in \figre
 \begin{figure}[H]
     \centering
   %Trim margins @:   left        bottom       right       top
- % \adjustbox{ trim = {.0\width} {0.15\height} {0\width} {0.1\height}, clip }
+  	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
   {
-    \includegraphics[width=0.9\textwidth]{figures/fullturn2.pdf}
+    \includegraphics[width=1.4\textwidth]{figures/fullturn2.pdf}
   }
   \caption{Test of the calibrated sensor on the the vehicle that rotates doing four quarters of turn}
   \label{fig:calibrationTestQuarterResults}
 \end{figure}
-\todo{Correct axis and title + add a cross}
+
 
 The cross on \figref{fig:calibrationTestQuarterResults} has right angles and passes through the center of the circle which is in (0,0). This shows that each quarter of turn in reality is measured by \si{90^{\circ}} by the sensor, and that it is correctly calibrated to be used on the vehicle.

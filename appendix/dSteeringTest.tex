@@ -73,7 +73,7 @@ By applying a known reference heading with a fixed gain in the controller and us
 \end{enumerate}
 
 \subsection{Results}
-The vehicle is made to run for \si{4000\ ms} with a reference heading of \si{0 ^{\circ}}. The vehicle shall try to head towards the exact magnetic North within these few seconds. After that, the reference angle is put to \si{-45 ^{\circ}} (East) which means the vehicle turns to the right to reach this heading. It goes on running until 15s have passed.
+The vehicle is made to run for \si{2000\ ms} with a reference heading of \si{0 ^{\circ}}. The vehicle shall try to head towards the exact magnetic North within these two seconds. After that, the reference angle is put to \si{-45 ^{\circ}} (East) which means the vehicle turns to the right to reach this heading. It runs for 15s.
 
 From \eqref{eq:steeringTestWPcontroller}, the time constant is found as:
 \begin{flalign}
@@ -111,7 +111,6 @@ As the test were made with a choosen control gain \si{K_p = 1,5}, the steering g
   \caption{Plot of the gain \si{K_v} against the real speed.}
   \label{steeringPlotSpeedVsGain}
 \end{figure}
-\todo{Fix the axis legend (units)}
 
 From this plot a linear region of the gain proportional to the speed can be established:
 \begin{flalign}

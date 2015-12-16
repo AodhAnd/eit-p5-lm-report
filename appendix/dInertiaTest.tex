@@ -94,7 +94,7 @@ Eventually, since the time constant is found by use of the system step response,
 \begin{enumerate}
   \item Disconnect the battery.
   \item Connect the Arduino to the computer.
-  \item Upload the test code to the Arduino board using the Arduino IDE  \cite{ArduinoIDE}.
+  \item Upload the test code to the Arduino board using the Arduino IDE \cite{ArduinoIDE}.
   \item Open a serial terminal via PuTTY \cite{PuTTY}.
   \item Plug in the battery immediately after opening the terminal.
   \item Wait two seconds, then follow the vehicle with the connected computer.
@@ -116,11 +116,11 @@ Eventually, since the time constant is found by use of the system step response,
   \label{fig:systemTimeConstant}
 \end{figure}
 %
-In this test, a first voltage step is applied to the motor so that the vehicle runs at a minimal speed. A second bigger step is then applied. The analyzed data is the one retrieved between these two steps and it can be seen on \figref{fig:systemTimeConstant}. A blue line is drawn at \si{\num{63,2} \%} of the final velocity.
+In this test, a first voltage step is applied to the motor so that the vehicle runs at a minimal speed. A second bigger step is then applied. The analyzed data is the one retrieved between these two steps and it can be seen on \figref{fig:systemTimeConstant}. A blue line is drawn at \si{\num{63,2} \%} of the final velocity to represent the time constants.
 
 %- Time constant -% 
 \subsubsection{Velocity System's Time Constant}
-Only, the second step is used. By knowing the maximum velocity of the vehicle at the end of the test and the velocity when it is in a first steady state, just before the second step, it is possible to deduce the time at which the velocity reaches \si{\num{63,2} \%} of its final value. The obtained time is the step response time constant of the system \si{\tau}.
+Only the second step is used. By knowing the maximum velocity of the vehicle at the end of the test and the velocity when it is in a first steady state, just before the second step, it is possible to deduce the time at which the velocity reaches \si{\num{63,2} \%} of its final value. The obtained time is the step response time constant of the system \si{\tau}.
 
 Since the velocity is taken at \si{\num{63,2} \%} between the first steady state and the final value, it is needed to shift it up with the starting value \si{V_{ss1}} :
 \begin{flalign}

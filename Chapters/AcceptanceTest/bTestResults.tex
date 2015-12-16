@@ -5,21 +5,21 @@
 \hline%-----------------------------------------------------------------------------------------------------------------
 \textbf{Req. no.}  &  \textbf{Results} &  \textbf{Fulfilled?}         \\
 \hline%-----------------------------------------------------------------------------------------------------------------
-           1    &   The received coordinates from the GoT system is compared to the log file from the GoT system, shown in \tableref{AccT1tab}. All the coordinates is equal to the coordinates measured and send from the GoT and the coordinates have be received correctly.    &   Yes               \\
+           1    &   The received coordinates from the GoT system is compared to the log file from the GoT system, shown in \tableref{AccT1tab}. All the coordinates is equal to the coordinates measured and sent from the GoT system, and the coordinates have therefore been received correctly.    &   Yes               \\
 \hline%-----------------------------------------------------------------------------------------------------------------
-           2    &   The packages, including the error packages, that the GoT system send, is received by the Arduino, where the error handling parts of the protocol filter all the error packages away, shown in \tableref{AccT2tab}.   &  Yes                \\
+           2    &   The packages, including the error packages, that the GoT system sends, are received by the Arduino. The error handling parts of the protocol filters all the error packages away, shown in \tableref{AccT2tab}.   &  Yes                \\
 \hline%-----------------------------------------------------------------------------------------------------------------
-           3    &   The speed between the positions, measured by the GoT system is shown on \figref {AccT3fig}, where the packages send to the Arduino is green and those that is not send is red. All positions, that have moved away faster than 3 $m \cdot s^{-1}$ is not send.   &  Yes            \\
+           3    &   The speed between the positions, measured by the GoT system are shown on \figref {AccT3fig}, where the packages sent to the Arduino are green and those that is not sent are red. All positions, that have moved away faster than 3 $m \cdot s^{-1}$ are not sent.   &  Yes            \\
 \hline%-----------------------------------------------------------------------------------------------------------------
            4    &   Test not made   &   No                \\
 \hline%-----------------------------------------------------------------------------------------------------------------
-           5    &   The vehicle is running, until the power supply is adjusted down to 6V, where vehicle stops running. &   Yes              \\
+           5    &   The vehicle is running, until the power supply is adjusted down to 6V, where the vehicle stops running. &   Yes              \\
 \hline%-----------------------------------------------------------------------------------------------------------------
-           6    &   As the steering controller do not work, as the magnetometer do not work in the room with the GoT system, the test could not be performed normally. Instead the vehicle is moved around manually, where the coordinates and the current line is monitored on a computer, which is shown on \figref{AccT6fig}. The figure shows that the route controls sets new line correctly and the requirement should be fulfilled with a working steering controller.  &    No                \\
+           6    &   As the steering controller does not work, as the magnetometer does not work in the room with the GoT system, the test could not be performed normally. Instead the vehicle is moved around manually, where the coordinates and the current line is monitored on a computer, which is shown on \figref{AccT6fig}. The figure shows that the route controls sets new lines correctly and the requirement should be fulfilled with a working steering controller.  &    No                \\
 \hline%-----------------------------------------------------------------------------------------------------------------
-           7    &   As the steering controller do not work, as the magnetometer do not work in the room with the GoT system, the test could not be performed normally. Instead the vehicle is placed with a distance of 1 m away from the route line and then manually moved closer to the line, while the distance controller and error distance is monitored, which is shown on \figref{AccT7fig}. This shows that the controller behaved as planned and the requirement should be fulfilled with a working steering controller.   &   No            \\ 
+           7    &   As the steering controller does not work, as the magnetometer does not work in the room with the GoT system, the test could not be performed normally. Instead the vehicle is placed with a distance of 1 m away from the route line and then manually moved closer to the line, while the distance controller and error distance is monitored, which is shown on \figref{AccT7fig}. This shows that the controller behaves as planned and the requirement should be fulfilled with a working steering controller.   &   No            \\ 
 \hline%-----------------------------------------------------------------------------------------------------------------
-           8    &   The vehicle is set to drive 1,4 $m \cdot s^{-1}$ uphill and downhill, which is shown on \figref{AccT8Ufig} and \figref{AccT8Dfig} respectively. The figures shows the controller keeping the speed on 1,4 $m \cdot s^{-1}$.  &    Yes              \\
+           8    &   The vehicle is set to drive \SI{1,4}{} $m \cdot s^{-1}$ uphill and downhill, which is shown on \figref{AccT8Ufig} and \figref{AccT8Dfig} respectively. The figures shows the controller keeping the speed at \SI{1,4}{} $m \cdot s^{-1}$.  &    Yes              \\
 \hline%-----------------------------------------------------------------------------------------------------------------
 \end{tabular}
 \label{tab:AcceptTestTestResults}
@@ -54,8 +54,8 @@ GoT log file & Arduino received & Equal? \\
 55,-23,-269 & 55,-23,-269 & Yes \\
 \hline
 \end{tabular}
-\label{AccT1tab}
 \caption{The coordinates send form the GoT system to the Arduino, where all 10 sets of coordinates is equals to each other.}
+\label{AccT1tab}
 \end{table}
 
 %%% Test 2 %%%
@@ -69,7 +69,7 @@ Package & Error & Returned error value \\
 \hline
 240,128,96,27, 0,7,144,33, 216,222,192,15 & None & 0 \\
 \hline
-240,128,96,28, 192,6,33,216, 30,177,15 & In the first package, there is missing a byte. The second package's first byte will be read as the 12th byte in the first package & 5,1,1,1,1,1,1,1,1,1,1,1 \\
+240,128,96,28, 192,6,33,216, 30,177,15 & In the first package, a byte is missing. The second package's first byte will be read as the 12th byte in the first package & 5,1,1,1,1,1,1,1,1,1,1,1 \\
 \cline{1-1}
 240,128,96,27, 0,7,144,33, 216,222,192,15 & & \\
 \hline
@@ -83,7 +83,7 @@ Package & Error & Returned error value \\
 \hline
 240,128,96,28, 192,6,240,33, 216,24,177,15 & None & 0 \\
 \hline
-240,128,96,28, 128,6,208,63, 33,216,90,177, 15 & The package contains a byte to much. The system will see the first 12 bytes as a package and 12th byte as the start of a new package. & 5,1 \\
+240,128,96,28, 128,6,208,63, 33,216,90,177, 15 & The package is one byte too long. The system will see the first 12 bytes as a package and 12th byte as the start of a new package. & 5,1 \\
 \hline
 240,128,96,28, 192,6,144,33, 216,30,177,15 & None & 0 \\
 \hline
@@ -105,15 +105,15 @@ Package & Error & Returned error value \\
 240,96,96,28, 64,6,48,34, 216,148,177,15 & Byte 2 is changed & 2,1,1,1,1,1,1,1,1,1,1 \\
 \hline
 \end{tabular}
+\caption{The packages sent from the GoT system, where some packages purposely contains errors. The returned error value, is the output from the error handling from the protocol. 1 means wrong start byte, 2 is wrong destination, 3 is wrong length, 4 is failed checksum control and 5 is wrong end byte.}
 \label{AccT2tab}
-\caption{The packages send from the GoT system, where some packages have been force with a error. The returned error value, is the output from the error handling from the protocol. 1 is equal wrong start byte, 2 is wrong destination, 3 is wrong length, 4 is failed checksum control and 5 is wrong end byte.}
 \end{table}
 
 %%% Test 3 %%%
 \begin{figure}[H]
   \centering
 	\includegraphics[scale=0.8]{figures/AccTest3.pdf}
-	\caption{Plot of all the velocity between the measured positions, where the red marks indicates discarded measurements and green indicates the measurements send to the Arduino.}
+	\caption{Plot of all the velocities between the measured positions, where the red marks indicates discarded measurements and green indicates the measurements sent to the Arduino.}
 	\label{AccT3fig}
 \end{figure}
 
@@ -122,7 +122,7 @@ Package & Error & Returned error value \\
 \begin{figure}[H]
   \centering
 	\includegraphics[scale=0.8]{figures/AccTest6.pdf}
-	\caption{Plot of coordinates measured, where the different part of the route is indicated as different colours. It is seen that the route control shift to a new line, each time the vehicle is under 28 cm away from the end point.}
+	\caption{Plot of coordinates measured, where the different parts of the route are indicated as different colours. It is seen that the route control shifts to a new line, each time the vehicle gets less than 28 cm away from the end point.}
 	\label{AccT6fig}
 \end{figure}
 
@@ -131,7 +131,7 @@ Package & Error & Returned error value \\
 \begin{figure}[H]
   \centering
 	\includegraphics[scale=0.8]{figures/AccTest7.pdf}
-	\caption{Plot of the angle output from the distance controller compared to the error distance. It is seen that the angle gets smaller, thus smaller the error distance is.}
+	\caption{Plot of the angle output from the distance controller compared to the error distance. It is seen that as the distance increases, the angle does as well, and saturates at \SI{90}{^\circ}}
 	\label{AccT7fig}
 \end{figure}
 
@@ -139,16 +139,16 @@ Package & Error & Returned error value \\
 \begin{figure}[H]
   \centering
 	\includegraphics[scale=0.8]{figures/AccTest8U.png}
-	\caption{Step response for the vehicle, where the vehicle hits a uphill ramp after 4 seconds and hits flat terrain again after 7,5 second.}
+	\caption{Step response for the vehicle, where the vehicle hits an uphill ramp after 4 seconds and hits flat terrain again after \SI{7,5}{} seconds.}
 	\label{AccT8Ufig}
 \end{figure}
 
 \begin{figure}[H]
   \centering
 	\includegraphics[scale=0.8]{figures/AccTest8D.png}
-	\caption{Step response for the vehicle, where the vehicle hits a downhill ramp after 5 seconds and hits flat terrain again after around 8 second.}
+	\caption{Step response for the vehicle, where the vehicle hits a downhill ramp after 5 seconds and hits flat terrain again after around 8 seconds.}
 	\label{AccT8Dfig}
 \end{figure}
 
 The prototype has been tested in correlation with the requirements set for the prototype. 5 out
-of 8 requirements were met during the test, where another two should be met, if it was possible to test.
+of 8 requirements were met during the test, where another two is expected to be met, if it was possible to test.

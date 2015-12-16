@@ -2,7 +2,7 @@
 A communication system is desired for transporting the GoT data, calculated to coordinates on the computer, to the microcontroller, located on the vehicle. Furthermore a protocol handling packet transitions is necessary to implement on top of the communication system to be able to fulfil requirements set in \secref{sec:Requirements}.
 
 \section{OSI model}
-The Open Systems Interconnection, OSI, model is a standard used to describe how information moves in a network. Each layer describing standardization of what should occur in the specific layer \cite{Microsoft}. The seven layers of the OSI model is illustrated in \tableref{tab:OSIModel}.
+The Open Systems Interconnection, OSI, model is a standard used to describe how information circulates in a network. Each layer describes a standardization of what should occur in the specific layer \cite{Microsoft}. The seven layers of the OSI model are illustrated in \tableref{tab:OSIModel}.
 
 \begin{table}[H]\centering
 \begin{tabular}{|p{1.5cm}|p{3cm}|}
@@ -19,7 +19,7 @@ The Open Systems Interconnection, OSI, model is a standard used to describe how 
 \hline%-----------------------------------------------------------------------------------------------------------------
     3 &   Network     \\
 \hline%-----------------------------------------------------------------------------------------------------------------
-    2 &   Data link     \\
+    2 &   Data Link     \\
 \hline%-----------------------------------------------------------------------------------------------------------------
     1 &    Physical     \\
 \hline%-----------------------------------------------------------------------------------------------------------------
@@ -28,17 +28,21 @@ The Open Systems Interconnection, OSI, model is a standard used to describe how 
 \label{tab:OSIModel}
 \end{table}
 
-The Physical layer is the electrical/mechanical hardware layer. The layer handles bits and determines what is a binary 0 and 1. The prototype utilizes two Xbee's, one in the computer and one on the vehicle, for the lowest layer of communication.
+The Physical layer is the electrical/mechanical hardware layer. The layer handles bits and determines the communication medium, e.g. a copper cable or radio waves, and what are binary 0 and 1.\\The prototype utilizes two XBee modules, see \secref{Hardwarechoice}, one on the computer and one on the vehicle, for the lowest layers of communication. The XBee already implements this layer through the IEEE 802.15.4 protocol \cite{Xbee,IEEE812154}. It uses radio frequencies in the 2,4 \si{GHz} spectrum band.
 
-The Data link layer functionality ensures physical addressing, error control when transferring data between nodes over the physical layer, and access control \cite{J.M.Network}. The Data link layer is something the Xbee module handles to ensure that it transmits bytes correctly.
+The Data Link layer's functionality ensures physical addressing, error control when transferring data between nodes over the physical layer, and access control \cite{J.M.Network}. The Data Link layer is something the Xbee module also handles through IEEE 802.15.4, to check that it transmits bytes correctly and from and to which physical device it is transmitted \cite{IEEE812154}.
 
-The Network layers main functionality is routing across a network. This is not utilized in the protocol. Since the communication is only between two Xbees, i.e. two nodes. 
+The Network layer's main functionality allows for the routing across a network with many nodes. This is not utilized in the prototype's protocol stack, since the communication is made only between two Xbees, i.e. two nodes.
 
-The Transport layers handles package and has the ability to assemble or disassemble packages. An important part of the functionality of this layer is to ensure reliable transmission of data packages.
+The Transport layers handles packets and has the ability to assemble or disassemble them. An important part of the functionality of this layer is to ensure reliable transmission of data packages through error control, retransmission, or possibly through connection-oriented communication. For the prototype, a connectionless protocol is used, see \secref{sec:Protocol}.
 
-The layers above the transport layer is not utilized in the prototypes communication protocol. Since the session is more overall version of network and the presentation layer transforms the code into something application layer can utilize for user interface. These application is not needed when communicating between the computer and the vehicle, since no user interaction is implemented and a one-way communication between two units is utilized. 
+The Session layer's role is to establish connections between two nodes. It is not needed in the prototype since a connectionless communication protocol is used.
 
-\section{Protocol}
+The Presentation layer should define how payload data is arranged for the Application layer to use it. These two layers are already implemented through another prototype's functionality, i.e. the Route Control, see \secref{Finalprototype}, with the presentation being a simple set of two coordinates.
+
+%Since the session is more overall version of network and the presentation layer transforms the code into something application layer can utilize for user interface. These application is not needed when communicating between the computer and the vehicle, since no user interaction is implemented and a one-way communication between two units is utilized. 
+
+\section{Protocol}\label{sec:Protocol}
 The main object for the communication system is to send the coordinates from the computer to the microcontroller. A transport layer protocol is created to ensure packets can be transmitted, receive, i.e. the needed information can be extracted from the packet, and be able to identify erroneous packets.
 
 A connectionless system is implemented, since it is one-way communication, from the computer to the microcontroller and retransmission not desired, since the vehicle is moving and a retransmission of a coordinate will cause a delay. Additionally, the sampling rate of the GoT system i 10 \si{Hz}, so transmitting the recently received coordinates would be sufficient. Therefore is erroneous packages thrown away and acknowledgements is not utilized.

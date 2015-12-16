@@ -1,13 +1,11 @@
 %-- Section : GoT introductory presentation --%
-\section{The Games on Track (GoT) System}
-One available system for a start is the \emph{Games on Track GT-Position} system which would be able to determine the lawn mower's position in space, see \secref{GoTDescription}.\\
-%
-It is composed of four different parts both hardware and software \cite{GoTWebsitePos} :
+\section{The Games on Track System}
+One available system is the \emph{Games on Track GT-Position} system, referred to as GoT. The GoT would be able to determine the lawn mower's position in space, see \secref{sec:Vehicledescription}. It is composed of three different parts both hardware and software \cite{GoTWebsitePos}:
+
 \begin{itemize}
-	\item A tracked module, which emits ultra-sound and radio waves. It should be placed on the lawn mower itself, taking care that the emitting cell is not obstructed by anything.
-	\item Beacons or satellites, placed around the area that the lawn mower will move in. Depending on the terrain, anywhere from 3 to more than 20 of these can be used: the more is placed, the more accuracy can be obtained to fight against any ambient noise, or the more space can be monitored.
-	\item The master, or the central system, which calculates the distance of the tracked module to each beacon, and transmits it to the computer via USB in regular intervals.
-	\item The GoT software aggregates the received positions through time, and can be used to draw a map of the lawn, and to determine the absolute position of the tracked module.
+	\item A tracked module, which emits ultra-sound and radio waves. It should be placed on the lawn mower itself.
+	\item Towers which are tracking the tracked module placed on the vehicle are needed. These should be located around the area where the lawn mower will move. There should be at least 3 towers, depending on the terrain, and can be up to more than 20. The more towers, the more accuracy can be obtained to cancel out any ambient noise, and more space can be monitored.
+	\item The master, connected to a computer, receives data from the towers and transmits it to computer through a USB in regular intervals. The distance of the tracked module is then calculated by the computer.
 \end{itemize}
 
 \begin{figure}[H]
@@ -18,5 +16,6 @@ It is composed of four different parts both hardware and software \cite{GoTWebsi
 \end{figure}
 \noindent
 %
-GoT was originally designed for train modelling, but it is easily adaptable for any use of position tracking and seems a good choice, at first, for a basic autonomous lawn mower.
-But, why not use a satellite based positioning system?
+The GoT software aggregates the received positions through time, and can be used to draw a map of the lawn, and to determine the absolute position of the tracked module.
+
+GoT was originally designed for train modelling, but it is easily adaptable for any use of position tracking. In the following segment satellite based positioning systems are compared to the discussed GoT system.

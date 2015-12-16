@@ -7,7 +7,7 @@
 The purpose of this test is to ensure the fact that the magnetometer is calibrated so that it can tell a correct position relative to the Earth's magnetic field when placed on the vehicle.
 
 \subsection{Theory}
-The HMC5883L chip \cite{HMC5883L} is a magnetometer which uses the Earth's magnetic field as a reference. When using it for the first time it is necessary to calibrate it so that disturbances in the close field of the sensor are accounted for in later measurements.\\
+The HMC5883L chip \cite{HMC5883L} is a magnetometer which uses the Earth's magnetic field as a reference. When using it for the first time it is necessary to calibrate it so the disturbances in the close field of the sensor are accounted in when doing measurements.\\
 %
 In this project the disturbances can be caused by all the metallic pieces on the vehicle, from the metal plate to the motor and to the wires. Thus, the calibration has to be performed with the all these components and the sensor placed on the vehicle at a fixed place and orientation. It is chosen to place it, so that its X axis points towards the front of the vehicle and the Z axis is pointed upwards. The chosen configuration shall not be changed after calibration.
 
@@ -66,7 +66,7 @@ The transformation matrix, M, allows for the transformation of an ellipsoid into
   \label{eq:calibrationTransformationExpanded}
 \end{flalign}
 Each set of measured space coordinates, \si{X_{measured}}, is put into \eqref{eq:calibrationTransformationExpanded}. The coefficients of the transformation matrix, M, and of the bias vector, B, are found from a dedicated software, MagMaster \cite{MagMaster}.\\
-This software, runs on Microsoft Windows computers with the HMC5883L sensor connected through an Arduino. It requires to put the sensor in different pre-defined positions, so that it points towards all the axis successively, and finally computes the needed values. The latter finally have to be put into the software that needs use the magnetometer readings and applies the desired calculations.
+This software, runs on Microsoft Windows computers with the HMC5883L sensor connected through an Arduino. It requires to put the sensor in different pre-defined positions, so that it points towards all the axis successively, and finally computes the needed values. Then finally it has to be put into the software that needs to use the magnetometer readings and apply the desired calculations.
 
 %% Test setup description %%
 \subsection{Setup}
@@ -102,7 +102,7 @@ This software, runs on Microsoft Windows computers with the HMC5883L sensor conn
   \item Select the right USB serial port.
   \item Start the measurements by putting the vehicle in the position indicated by the software tutorial \cite{MagMaster}. Click on the associated measurement button.
   \item While performing the test, make sure that no magnetic part is moving (especially the USB cable).
-  \item When all positions are measured thourgh the software, it is possible to unplug the serial connection with the Arduino.
+  \item When all positions are measured through the software, it is possible to unplug the serial connection with the Arduino.
   \item Click on `Calculate Transformation Matrix and Bias'.
   \item Write down the calculated coefficients for later reference and put them in the Arduino sensor code.
   \item Test the sensor by using the four-quarters of turn method.
@@ -137,9 +137,9 @@ The four-quarters of turn test made with these settings is illustrated in \figre
   {
     \includegraphics[width=0.9\textwidth]{figures/fullturn2.pdf}
   }
-  \caption{Test of the calibrated sensor onboard the vehicle with four quarters of turn}
+  \caption{Test of the calibrated sensor on the the vehicle that rotates doing four quarters of turn}
   \label{fig:calibrationTestQuarterResults}
 \end{figure}
 \todo{Correct axis and title + add a cross}
 
-The cross on \figref{fig:calibrationTestQuarterResults} has right angles and passes through the center of the circle which is in (0,0). This shows that each quarter of turn in reality is measured by \si{90^{\circ}} by the sensor and that the latter is correctly calibrated for use on the vehicle.
+The cross on \figref{fig:calibrationTestQuarterResults} has right angles and passes through the center of the circle which is in (0,0). This shows that each quarter of turn in reality is measured by \si{90^{\circ}} by the sensor, that is correctly calibrated to be used on the vehicle configuration.

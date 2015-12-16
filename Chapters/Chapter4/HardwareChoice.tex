@@ -40,7 +40,7 @@ An approximation of the needed storage size for the mowing route is made by cons
 \begin{flalign}
 	\eq{Capacity}{\frac{10}{0.29} \cdot 2 \cdot 2 \approx 276\ B}
 \end{flalign}
-This allows to store data points for the lawn mower to cover the whole area without overlapping and with a very simple route. Since this is only a rough calculation, a SD card with a capacity of more than this or should be chosen for containment of a predetermined route. Furthermore it would be practical to utilize the SD card when testing. Therefore a SD card with a capacity of at least 1 GB should be chosen.
+This allows to store data points for the lawn mower to cover the whole area without overlapping and with a very simple route. Since this is only a rough calculation, a SD card with a capacity of more than this should be chosen for containment of a predetermined route. Furthermore it would be practical to utilize the SD card when testing. Therefore a SD card with a capacity of at least 1 GB should be chosen.
 
 To find an estimate of the required storage transfer rate when retrieving data, the steering control requirements in terms of sampling frequency are considered, this is found in \secref{sec:steeringController}, as this utilizes the route coordinates. Since the servomotor needs to receive data every \si{30\ ms} \cite{futaba}, the receiving of data from storage needs to be done in the meantime. The other tasks also needs a certain time to run. This time can be approximated to \si{2\ ms}, see \secref{sec:scheduling}, and has to be substracted from the \si{30\ ms}. Furthermore, the data transfer during each turn should not take too much time, and it is arbitrary decided to take a tenth of the available time. As each point weighs \si{2\ B}, the minimum transfer rate needed is:
 \begin{flalign}
@@ -137,6 +137,8 @@ The Pololu dual VHN5019 motor driver shield (see \figref{MotorDrive}) is special
 	\label{MotorDrive}
 \end{figure}
 
+\todo{source?}
+
 It is possible to power the Arduino from an external power source through the motor shield, which also delivers the power to the motor. It is also possible to have the motor shield and the Arduino powered separately. This is determined by a jumper setting on the shield, see \figref{MotorDriveIO}. The motor shield need a power voltage between 7 volts and 12 volts.\cite{PCorporation}
 
 \begin{figure}[H]
@@ -145,6 +147,8 @@ It is possible to power the Arduino from an external power source through the mo
 		\caption{Setup for the mort shield.}
 	\label{MotorDriveIO}
 \end{figure}
+
+\todo{Source?}
 
 There are two H-bridges on the board, to control up to two motors. Since only one motor is used in this project, both of the two H-bridges will be used to power the motor, see further details on the configuration in \secref{sec:HBridge}. This results in a smaller current through the two H-bridges' transistors and therefore ensures a better protection of the system.\cite{PCorporation}
 

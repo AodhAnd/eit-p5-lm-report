@@ -34,23 +34,32 @@ The Arduino Mega board has been chosen as the microcontroller utilized. The reas
 %%%%%%%%%%%%%%%%%%%-STORAGE-%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Storage}
-The storage is used for saving the edge map and the predetermined route for the vehicle see \secref{Finalprototype}.
+The storage is used for saving the predetermined route for the vehicle see \secref{Finalprototype}.
 
-Prede
+An approximation of the needed storage size for the mowing route is made by considering, a lawn of \si{10\ m} by \si{10\ m} and a simple path with parallel lines which require two points each. Since a route point is defined by two coordinates x and y of size \si{4\ B} in total, and the vehicle is \si{29\ cm} wide, see \secref{sec:Vehicledescription}, the storage capacity is approximated to:
+\begin{flalign}
+	\eq{Capacity}{\frac{10}{0.29} \cdot 2 \cdot 2 \approx 276\ B}
+\end{flalign}
+This allows to store data points for the lawn mower to cover the whole area without overlapping and with a very simple route. Since this is only a rough calculation, a SD card with a capacity of more than this or should be chosen for containment of a predetermined route. Furthermore it would be practical to utilize the SD card when testing. Therefore a SD card with a capacity of at least 1 GB should be chosen.
+
+To find an estimate of the required storage transfer rate when retrieving data, the steering control requirements in terms of sampling frequency are considered, this is found in \secref{sec:steeringController}, as this utilizes the route coordinates. Since the servomotor needs to receive data every \si{30\ ms} \cite{futaba}, the receiving of data from storage needs to be done in the meantime. The other tasks also needs a certain time to run. This time can be approximated to \si{2\ ms}, see \secref{sec:scheduling}, and has to be substracted from the \si{30\ ms}. Furthermore, the data transfer during each turn should not take too much time, and it is arbitrary decided to take a tenth of the available time. As each point weighs \si{2\ B}, the minimum transfer rate needed is:
+\begin{flalign}
+	\eq{Transfer\ rate}{\frac{1}{\frac{0,030 - 0,002}{10}} \cdot 2 \approx 714,3\ B = 7,2 B \cdot s^{-1}}
+\end{flalign}
 
 Requirements for the storage:
 \begin{itemize}
 \item Offering the possibility to retrieve the data after a power cut to the storage.
-\item Having a storage of \si{XX\ MB}. \todo{Number}
-\item Having a transfer speed greater than \si{120\ B/s}. \todo{ref}
+\item Having a storage of at least \si{1 GB}. 
+\item Having a transfer speed greater than \si{7,2}\si{KB \cdot s^{-1}}.
 \end{itemize}
 
 \subsubsection{SD Card} \label{SDcard}
 Secure Digital (SD) card is a type of non-volatile flash memory cards. This means that the data will not be lost during a power cut off.
 
-It comes in various storage sizes, from 1 GB to 2 TB, depending on which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The difference between the different types, is the file system utilized on the card and their maximum capacity. With the requirement of a storage size on XX bytes, and a desired need for utilizing it the contain test data, the SDSC with a capacity of 2 GB is chosen.
+It comes in various storage sizes, from 1 GB to 2 TB, depending on which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The difference between the different types, is the file system utilized on the card and their maximum capacity. With the requirement of a storage size on 1 GB bytes, and a desired need for utilizing it to the contain test data, a SDSC with a capacity of 2 GB is chosen.
 
-The lowest transfer speed for an SDSC card is \si{2 MB/s}. With the requirement of a transfer speed greater than \si{120\ B/s}, makes the SDSC card fast enough. 
+The lowest transfer speed for an SDSC card is \si{2 MB/s}. With the requirement of a transfer speed greater than si{7,2}\si{KB \cdot s^{-1}}, makes the SDSC card fast enough. 
 
 To use the SDSC card and connect it to the microcontroller, 7 connection pins are required, see \figref{SDcardpinout}. The setup of the SD card is different, depended on which mode is used.
 
@@ -80,19 +89,22 @@ To use the SDSC card and connect it to the microcontroller, 7 connection pins ar
 8			 &	Unused		 		&	Unused			    &	Data 1			   \\
 \hline		
 				\end{tabular}
-				\caption{SD card pinout configuration}							
+				\caption{SD card pinout configuration}
+				\label{SDcardconf}				
 			\end{table}			
       \end{minipage}
       \hspace{0.03\linewidth}
       \begin{minipage}{0.30\linewidth}
           \begin{figure}[H]
               \includegraphics[width=0.95\textwidth]{figures/sdcardpinout}
-              \caption{Illustration of a micro size SD card.} % http://elasticsheep.com/2010/01/reading-an-sd-card-with-an-atmega168/
+              \caption{Illustration of a micro size SD card.} 
               \label{SDcardpinout}
           \end{figure}
       \end{minipage}
       
   \end{minipage}
+
+% http://elasticsheep.com/2010/01/reading-an-sd-card-with-an-atmega168/
 
 The power needed for the SD card is 3.3 volts. There are three possible setups for the SD card: SPI, One-Bit and Four-Bit.
 With the SPI setup, the communication between the SD card and the microcontroller is made on two lines. With the One-Bit setup, the commands between the SD card and microcontroller are sent on one line and the data is sent through another one.
@@ -100,7 +112,12 @@ With the Four-Bit setup, three more data connections are used.
 
 In this project, the SPI setup is used, since the extra transfer speed from the Four-Bit setup is not needed. Furthermore, the Arduino has 4 pins that can be set up to SPI communication.
 
-An SDSC card, with a SPI setup is chosen, since this as has a high enough capacity and transfer speed, and therefore meets the requirements. Furthermore the data is saved, if the power is cut off and the Arduino Mega has SPI connections. 
+An SDSC card, with a SPI setup is chosen, since this as has a high enough capacity and transfer speed. Furthermore the data is saved, if the power is cut off and the Arduino Mega has SPI connections. 
+
+%https://www.sdcard.org/developers/overview/capacity/index.html
+%https://www.sdcard.org/developers/overview/speed_class/
+
+\todo{References to the Storage section, Mads}
 
 %%%%%%%%%%%%%%%-Motor Driver-%%%%%%%%%%%%%%%%%%%%
 
@@ -147,15 +164,22 @@ The Pololu dual VHN5019 motor driver shield is used in this project, as it is ma
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Wireless communication system}
-The data from the GoT system is sent to the microcontroller with this comunication system. The transmitter will be located on the computer used for the GoT system and the receiver on the vehicle. As the prototype will be tested in the control lab, the distance that the wireless communication have to send is less than 10 meters.
+The data from the GoT system should be transmitted to the microcontroller with a wireless communication system, \secref{Requirements}. The transmitter will be located on the computer, utilized for the GoT system, and the receiver on the vehicle. As the prototype will be tested in the control lab, the distance that the wireless communication have to send is less than 10 meters.
 
-The requirements for the wireless communication components are:
+The GoT system has a sampling frequency of \si{10\ Hz}, see \secref{sec:Vehicledescription}. Each time a set of coordinates is measured, the x and y components have to be sent, see \secref{sec:communicationFiltering}. Each coordinate consists of \si{2\ bytes}, but more bits are needed when communicating, to account for the transmission protocols' data. It is arbitrary chosen to use at least 2 bits for this data. This yields:
+
+\begin{flalign}
+	\eq{Transfer\ rate}{(2 \cdot 8 + 2) \cdot 10  = 180\si{Kb.s^{-1}}}
+\end{flalign}
+%
+This is the minimum transfer rate needed for communication between the computer associated to the GoT system and the vehicle.
+
+Requirements for the wireless communication components:
 \begin{itemize}
-\item Having to be controlled by the microcontroller.
+\item It possible to control it utilizing the Arduino Mega.
 \item Having a range greater than 10 meters. 
-\item Offering the possibility to be powered by an external power supply (through the Arduino power lines).
-\item Transfering at a higher rate than \si{120\ B/s}. \todo{ref}
-\item Offering the possibility to control it and couple it with the GoT code.
+\item Transfering at a higher rate than 180\si{Kb.s^{-1}}.
+\item Offering the possibility to control it and couple it with the GoT code, located on the computer.
 \end{itemize}
 
 \subsubsection{Xbee}\label{Xbee}
@@ -168,7 +192,7 @@ Xbees are small radio modules, that are easy to set up. An overview of the Xbee 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.95\textwidth]{figures/Xbee.jpg}
-			\caption{Two Xbee radio modules} 
+			\caption{Two Xbee radio modules } 
 			\label{XbeeLook}
 		\end{figure}
 	\end{minipage}
@@ -183,11 +207,13 @@ Xbees are small radio modules, that are easy to set up. An overview of the Xbee 
 	\end{minipage}
 \end{minipage}
 
-\todo{Snak med vinkel om at få teksten align}
+ \todo{Reference to the picture Mads}
 
-The Xbee modules communicate through an UART connection (with TX and RX pins). Since the Arduino has three UART connections plus the one used to program the Arduino, the Xbee can be connected. The software code for the GoT system is implemented in C\# (see in \secref{GoTDescription}) and the computer running has serial ports that can ensure the connection between the software and the Xbee. Therefore, this solution can be used for a wireless connection between the GoT system and the Arduino.
+The Xbee modules communicate through an UART connection (with TX and RX pins). Since the Arduino has three UART connections, plus the one used to program the Arduino, the Xbee can be connected. The software code for the GoT system is implemented in C\# (see in \secref{GoTDescription}) and the computer running has serial ports that can ensure the connection between the software and the Xbee. Therefore, this solution can be used for a wireless connection between the GoT system and the Arduino.
 
-To run the Xbee modules, a \si{3,3\ V} power line, a ground line, and a \si{3,3\ V} logic UART are needed. The rest of the pins are not needed in this project. The modules have a transfer speed of up to \si{115,2 kbit/s} and can reach up to \si{100 m} indoor and \si{300 m} outdoor. It transmits at a \si{2,4 GHz} frequency with \si{1 mV} (\si{0 dBm}) and can receive downto \si{-96 dBm}. The Xbee is already ready for communication, with the lower levels of communication, the physical and data link layers, being already implemented. With only two devices, a lightweight combination of transport and presentation layer can be added to the protocol directly on top of the data link layer, to add more error handling and to set up how the data shall be sent.
+To run the Xbee modules, a \si{3,3\ V} power line, a ground line, and a \si{3,3\ V} logic UART are needed. The modules have a transfer speed of up to \si{115,2 kbit/s} and can reach up to \si{100 m} indoor and \si{300 m} outdoor. It transmits at a \si{2,4 GHz} frequency with \si{1 mV} (\si{0 dBm}) and can receive downto \si{-96 dBm}. The Xbee is already ready for communication, with the lower levels of communication, the physical and data link layers, being already implemented. With only two devices, a lightweight combination of transport layer can be added to the protocol directly on top of the data link layer, to add more error handling and create the transmitted packet.
+
+\todo{There is a reference here which needs to be made, Mads}
 
 %http://www.digi.com/products/xbee-rf-solutions/modules/xbee-digimesh-2-4#specifications
 
@@ -196,23 +222,29 @@ To run the Xbee modules, a \si{3,3\ V} power line, a ground line, and a \si{3,3\
 \subsection{Angular sensor}
 The angular sensor is used in the feedback for the control system.
 
+The servomotor needs to receive commands every \si{30\ ms}, \cite{futaba}. The measurements from the angular sensor will therefore also be sampled at this frequency. 
+
+\begin{flalign}
+	\eq{Sampling\ frequency}{\frac{1}{0.0030}  = 33.3 \si{Hz}}
+\end{flalign}
+
 The requirements for the angular sensor are:
 \begin{itemize}
-\item To be controlled by the microcontroller.
-\item Having a sampling frequency greater than XX. \todo{Number}
-\item Having a latency smaller than XX. \todo{Number}
-\item Offering the possibility to power it by an external power supply (through the Arduino power lines).
+\item It is possible to control it by utilizing the Arduino Mega.
+\item Able to achieve a sampling frequency at 33.3 \si{Hz}.
 \end{itemize}
 
 \subsubsection{HMC5883L}
-Sparkfun's "9 degrees of freedom" board comprises a magnetometer integrated circuit, the HMC5883L\cite{HMC5883L}. A magnetometer will be used as the angular sensor, since it can be set up as a compass and give out a angle compared to north. As the direction to north is always the same, the system does not need a new calibration of the angular sensor, if used in a new area. However, it has to be calibrated on the vehicle when used for the first time.
+Sparkfun's "9 degrees of freedom" board \todo{reference Mads til hele boardet!} comprises a magnetometer integrated circuit, the HMC5883L\cite{HMC5883L}. A magnetometer will be used as the angular sensor, since it can be set up as a compass and give out a angle compared to north. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.50\textwidth]{figures/NineDegree.jpg}
-		\caption{Sparksfun's "9 degrees of freedom" sensor stick} 
+		\caption{Sparksfun's "9 degrees of freedom" sensor stick } 
 	\label{NineDegree}
 \end{figure}
+
+\todo{reference to the picture Mads}
 
 The "9 degrees of freedom" sensor stick, see \figref{NineDegree}, will be used in the project. Beside the magnetometer, there are also a accelerometer and a gyroscope on the board, but these will not be used. The "9 degrees of freedom" sensor stick is designed to be used with a microcontroller and comes with software example for the Arduino platform. It needs an  \si{I^2C} bus to communicate with the Arduino, which has that kind of interface.
 
@@ -221,10 +253,10 @@ The "9 degrees of freedom" sensor stick, see \figref{NineDegree}, will be used i
 \subsection{Power monitor}
 The power monitor is used to give a feedback to the system about the level of power in the battery pack.
 
-The requirements for the angular sensor are:
+Requirements for the power monitor:
 \begin{itemize}
-\item Being monitored by the microcontroller.
-\item Measuring the battery pack voltage output downto \si{5,7\ V}.\todo{ref}
+\item Can be monitored by the Arduino Mega.
+\item Measuring the battery pack voltage output downto \si{6\ V}, \secref{sec:Vehicledescription}.
 \end{itemize}
 
 \subsubsection{Voltage divider}
@@ -250,8 +282,8 @@ to[short,l=$V_{out}$] (4,0);
 \label{VoltDivFig}
 \end{figure}
 
-The output of the voltage divider can be find with \eqref{VoltageDivider}. 
-
+The output of the voltage divider can be found with \eqref{VoltageDivider}. 
+%
 \begin{flalign}
 \eq{V_{out}}{\frac{R_2}{R_1 + R_2} \cdot V_{in}}\unit{V} 
 \label{VoltageDivider}
@@ -262,12 +294,12 @@ The output of the voltage divider can be find with \eqref{VoltageDivider}.
 & \si{R_1, R_2} & are two calculated resistors &\unitWh{\Omega}\\
 & \si{V_{out}} & is the measured output voltage &\unitWh{V}
 \end{tabular}
-
+%
 The input voltage is set to be the battery pack and the output is measured though an analogue pin on the Arduino. The analogue pin on the Arduino can measure from \si{0\ V} to \si{5\ V} with a resolution of \si{10\ bits}. This gives 1023 steps from 0 to 5 volts and each step is \si{4,9\ mV}. The size of each step and the range for the measuring is multiplied with the inverse constant, that comes from the two resistor, so it is possible to make the range go over \si{5\ V}. 
 
-A voltage divider is used in this project, as it can be scaled to the interval that it has to measure. The voltage divider will be connected to an analogue pin on the Arduino, which will make the measurement from the output of the voltage divider.\\
+A voltage divider is used in this project, as it can be scaled to the interval that it has to measure. The voltage divider will be connected to an analogue pin on the Arduino, which will make the measurement from the output of the voltage divider.
 
-From the requirements for the system to the hardware parts, these components have been chosen. After having chosen the different hardware components for the prototype, the different components have to be implemented in the system.
+From the preanalysis it has been possible to choose hardware which needs to be utilized. After having chosen the different hardware components for the prototype, the different components have to be implemented in the system.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 

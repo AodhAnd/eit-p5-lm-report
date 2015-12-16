@@ -222,16 +222,16 @@ To run the Xbee modules, a \si{3,3\ V} power line, a ground line, and a \si{3,3\
 \subsection{Angular sensor}
 The angular sensor is used in the feedback for the control system.
 
-The servomotor needs to receive commands every \si{30\ ms}, \cite{futaba}. The command therefore has to be ready in the meantime and is made from the angular sensor's data. It is chosen to have at least twice the servomotor's sampling frequency, for the angular sensor:
+The servomotor needs to receive commands every \si{30\ ms}, \cite{futaba}. The measurements from the angular sensor will therefore also be sampled at this frequency. 
 
 \begin{flalign}
-	\eq{Sampling\ frequency}{2 \cdot \frac{1}{0.0030}  = 66.6 \si{Hz}}
+	\eq{Sampling\ frequency}{\frac{1}{0.0030}  = 33.3 \si{Hz}}
 \end{flalign}
 
 The requirements for the angular sensor are:
 \begin{itemize}
 \item It is possible to control it by utilizing the Arduino Mega.
-\item Able to achieve a sampling frequency at 66,6 \si{Hz}.
+\item Able to achieve a sampling frequency at 33.3 \si{Hz}.
 \end{itemize}
 
 \subsubsection{HMC5883L}

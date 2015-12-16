@@ -1,6 +1,6 @@
 \section{Hall Sensors}\label{sec:hallFiltering}
 
-The velocity calculation is done trough the Hall sensors. There are four magnets on the gear at approximatly a quarter of a turn of distance between each. One way of getting the speed is by calculating the time between two consecutive pulses and relating it to the distance traveled during that time, given by a quarter turn of the drive wheel. A plot of the speed can be seen on \figref{unfilteredHall}.
+The velocity calculation is made using data from the Hall sensors. There are four magnets on the gear with approximately a quarter of a turn of distance between each. When a magnet passes the hall sensor, a pulse is generated. One way of getting the speed is by calculating the time between two consecutive pulses and relating it to the distance travelled during that time, given by a quarter turn of the drive wheel. A plot of the speed calculated using this method can be seen on \figref{unfilteredHall}.
 
 \begin{figure}[H]
 	\centering
@@ -10,9 +10,9 @@ The velocity calculation is done trough the Hall sensors. There are four magnets
 \end{figure}
 
 
-As seen from the graph, this method yields inaccurate measurements due to uneven placement of the magnets.\\
+As seen from the graph, this method yields inaccurate measurements due to uneven placement of the magnets. While it might be possible to improve the measurements using filtering, another approach will be tested first.\\
 
-The new approach is to get the time the wheel take to make a full turn, to have the exact time and distance of a rotation. The speed will be calculated from a full turn of the drive wheel. Each magnet pulse will then be compared to its own last pass. This means that the first 4 pulses does not yield a speed, since the time of the first rotation happens between the \si{1^{st}} and the \si{5^{th}} pulse. However, the remaining measurements will have the same sampling frequency as the previous. A plot of the measurements can be seen on \figref{filteredHall}.
+The new approach is to measure the time the wheel takes to make a full turn, to have the exact time and distance of a rotation. The speed will be calculated from a full turn of the drive wheel. Each magnet pulse will then be compared to its own last pass. This means that the first 4 pulses does not yield a speed, since the time of the first rotation happens between the \si{1^{st}} and the \si{5^{th}} pulse. However, the remaining measurements will have the same sampling frequency as the previous. A plot of the measurements using this method can be seen on \figref{filteredHall}.
 
 \begin{figure}[H]
 	\centering
@@ -21,7 +21,8 @@ The new approach is to get the time the wheel take to make a full turn, to have 
 	\label{filteredHall}
 \end{figure}
 
-The difference between the two plots is that at constant speed, the time measured at each outputs is uneven on \figref{unfilteredHall}, and more even in \figref{filteredHall}. This is the reason why the new approach using a full turn of the wheel for each measurements is used.
+Comparing \figref{unfilteredHall} and \figref{filteredHall}, the noise has been significantly reduced.
+Because of this, filtering will not be necessary, and the new approach using a full turn of the wheel for each measurements is chosen.
 % A flowchart of the implementation of the functions of the Hall sensors can be seen on \figref{hallFlowchart}.
 
 % \begin{figure}[H]
@@ -36,11 +37,11 @@ The difference between the two plots is that at constant speed, the time measure
 
 \subsubsection{Minimum Speed}
 
-The Hall sensors measurements can only capture speeds down to a certain value because of the size of the buffer wich holds the timer value. The timers can count up to 65 535, and each clock tick lasts 64 µs.\\
+The Hall sensors measurements can only capture speeds down to a certain value because of the size of the buffer which holds the timer value. The timers can count up to 65 535, and each clock tick lasts 64 µs.\\
 A full rotation of the wheel yields a linear movement of \si{166\ mm}, so the minimum measurable speed is given by
 %
 \begin{flalign}
 \eq{\frac{166 \cdot 10^{-3}}{65535 \cdot 64 \cdot 10^{-6}}}	{0,0396}\unit{m \cdot s^{-1}}
 \end{flalign}
 
-The Hall Sensors have a sampling frequency very high, and give a speed with an acceptable error. A filter is then not needed for this sensor. The sensors related to the speed are explained, now the sensor related to the angle can be desribed.
+The Hall Sensors provides data with an acceptable noise level. A filter is therefore not needed for this sensor. The sensors related to the speed have now been explained, and the sensor related to the angle can be described.

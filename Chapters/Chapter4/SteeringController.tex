@@ -61,6 +61,4 @@ When the vehicle reach the end point of a line on the route, a new line is used 
 
 As the GoT system have a precision down to 1 mm, the coordinates too have a precision of 1 mm \secref{sec:Vehicledescription}. The vehicle will not hit the end point with this precision, as the GOT system only delivers a measurement each 100 ms, and if the vehicle travels with 1,4 $m \cdot s^{-1}$, it will travel 140 mm for each measurement, which make the chance for hitting the end point exactly, small. Therefore is the area, which indicates the end of the route line, made bigger. The size should be around twice as big as the distance, which the vehicle travels between each measurement. With this size, there will always be two measurement in the circle, so even if one of the measurements is not good, there will be another one. This will give a circle with a radius of 28 cm
 
-
-\todo{Insert perfect tail, please}
-
+Controllers for the two models, velocity and steering, have been designed and tested. It is now possible to design a filter for the directional controller of the steering, to see if improvements on the angular sensors measurements is obtainable.

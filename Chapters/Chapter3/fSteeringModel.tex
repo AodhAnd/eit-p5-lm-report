@@ -94,7 +94,7 @@ Similarly, after the step is applied to the system, the angle of the vehicle var
 Despite these neglectable discrepancies, the previously established model fits the reality quite closely and is therefore used hereafter in the project. This simple model describes the action of the steering on the vehicle, by translating PWM signals sent to the servo into headings of the vehicle. It allows to apply a control on the direction of the vehicle, but not for it to follow a predefined set of points.
 
 %%- Line Following Model -%%
-\subsection{Line Following Model}
+\subsection{Distance Model}
 Since the vehicle has to follow a predetermined route, a direction control alone is not enough. As seen on \figref{SteeringDeviation}, any change of direction caused by a disturbance, will cause a deviation from the planned line between two points A and B on the wanted route. This is why a model of this deviation is created in this section.
 
 \begin{figure}[H]
@@ -161,8 +161,8 @@ From \eqref{eq:angleIntegrationLaplace}, the block diagram of the steering model
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{figures/steeringModelWithLineFollowing.pdf}
-  \caption{Block diagram of the combined directional and line following models}
+  \includegraphics[width=1.1\textwidth]{figures/steeringModelWithLineFollowing.pdf}
+  \caption{Block diagram of the combined directional and Distance models}
   \label{fig:steeringLineFollowingModel}
 \end{figure}
 
@@ -170,3 +170,5 @@ This model describes how the steering reacts and therefore, how the vehicle can 
 However, it also uses assumptions that need to be true when running the lawn mower. Firstly, the distance calculation model only works if the vehicle is deviating and not if it starts on a line parallel to the wanted one. Indeed, were that the case, then the angle difference would approach zero and the calculated distance too, even though it wouldn't actually be. To avoid the problem, the vehicle shall start on the right line path. The issue of returning to the right path in case of disturbance (lawn mower slipping or hurting an object) is considered in \secref{ssec:distanceController}.\\
 Secondly, this model is only used to simulate the system's behavior since the distance calculations are made with the use of the Games on Track positioning system.\\
 Finally, the velocity can only be considered constant if properly controlled, as done in \secref{sec:velocityController}.
+
+A velocity and steering model is establish. It is thereby possible to design controllers for regulating the velocity and angle. 

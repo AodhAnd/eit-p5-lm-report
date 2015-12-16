@@ -28,7 +28,7 @@ The Open Systems Interconnection, OSI, model is a standard used to describe how 
 \label{tab:OSIModel}
 \end{table}
 
-The Physical layer is the electrical/mechanical hardware layer. The layer handles bits and determines the communication medium, e.g. a copper cable or radio waves, and what are binary 0 and 1.\\The prototype utilizes two XBee modules, see \secref{Hardwarechoice}, one on the computer and one on the vehicle, for the lowest layers of communication. The XBee already implements this layer through the IEEE 802.15.4 protocol \cite{Xbee,IEEE812154}. It uses radio frequencies in the 2,4 \si{GHz} spectrum band.
+Starting from the buttom, the Physical layer is the electrical/mechanical hardware layer. The layer handles bits and determines the communication medium, e.g. a copper cable or radio waves, and what is defined as a binary 0 and 1.\\The prototype utilizes two XBee modules, see \secref{Hardwarechoice}, one on the computer and one on the vehicle, for the lowest layers of communication. The XBee already implements this layer through the IEEE 802.15.4 protocol \cite{Xbee,IEEE812154}. It uses radio frequencies in the 2,4 \si{GHz} spectrum band.
 
 The Data Link layer's functionality ensures physical addressing, error control when transferring data between nodes over the physical layer, and access control \cite{J.M.Network}. The Data Link layer is something the Xbee module also handles through IEEE 802.15.4, to check that it transmits bytes correctly and from and to which physical device it is transmitted \cite{IEEE812154}.
 
@@ -43,12 +43,12 @@ The Presentation layer should define how payload data is arranged for the Applic
 %Since the session is more overall version of network and the presentation layer transforms the code into something application layer can utilize for user interface. These application is not needed when communicating between the computer and the vehicle, since no user interaction is implemented and a one-way communication between two units is utilized. 
 
 \section{Protocol}\label{sec:Protocol}
-The main object for the communication system is to transmits the coordinates from the computer to the microcontroller. A transport layer protocol is created to ensure packets can be transmitted, receive, i.e. the needed information can be extracted from the packet, and be able to identify erroneous packets.
+The main object for the communication system is to transmit the coordinates from the computer to the microcontroller. A transport layer protocol is created to ensure packets can be transmitted, received, i.e. the needed information can be extracted from the packet, and be able to identify erroneous packets.
 
-A connectionless system is implemented, since it is one-way communication, from the computer to the microcontroller and retransmission not desired, since the vehicle is moving and a retransmission of a coordinate will cause a delay. Additionally, the sampling rate of the GoT system i 10 \si{Hz}, so transmitting the recently received coordinates would be sufficient. Therefore is erroneous packages thrown away and acknowledgements is not utilized.
+A connectionless system is implemented, since it is one-way communication, from the computer to the microcontroller and retransmission not desired, since the vehicle is moving and a retransmission of a coordinate will cause a delay. Additionally, the sampling rate of the GoT system is 10 \si{Hz}, so transmitting the recently received coordinates would be sufficient. Therefore, erroneous packages are thrown away and acknowledgements are not utilized.
 
 \subsection{Protocol Package Structure}
-A package structure is desired for containing necessary information for addressing, decrypting and error handling. The protocol has an header which contains a start byte, a destination and the length of the package. The body of the package is the data and the tail is the checksum and the end byte. The package structure is illustrated in \tableref{CoorSetup}.
+A package structure is desired for containing necessary information for addressing, decrypting and error handling. The protocol has a header which contains a start byte, a destination and the length of the package. The body of the package is the data and the tail is the checksum and the end byte. The package structure is illustrated in \tableref{CoorSetup}.
 
 \begin{table}[H]\centering
 \begin{tabular}{|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|}
@@ -63,10 +63,10 @@ Start Byte & Destination ID & length & Data & Checksum & End byte \\
 \subsubsection{Destination ID}
 The Destination ID is to ensure packages, which is transmitted, is handled by the correct receiver. This way the transmitter can transmit to numerous receivers if multiple vehicles is utilized. The destination ID ensures the receivers can filter out packages not intended for them. The microcontroller has the destination ID 0000 0001. The length of the destination byte is set to one byte, so the destination can be read immediately when received.
 
-UDP, a connectionless protocol, utilizes a source, but in this case it is not necessary, since only one computer is transmitting, the receiver does not need to know where the package has been transmitted from. Even if there more computers was utilized it would not be necessary as long as the package is marked with the destination ID, the receivers is able to read it. If retransmission was utilized, in case of erroneous packages, a source is necessary to have the ability to ask for a retransmission from the sender. Since retransmission is not utilized a source is not included in the package structure.
+UDP, a connectionless protocol, utilizes a source, but in this case it is not necessary, since only one computer is transmitting, the receiver does not need to know where the package has been transmitted from. Even if more computers were utilized it would not be necessary as long as the package is marked with the destination ID, the receivers is able to read it. If retransmission was utilized, in case of erroneous packages, a source is necessary to have the ability to ask for a retransmission from the sender. Since retransmission is not utilized a source is not included in the package structure.
 
 \subsubsection{Length}
-The Length is utilized by the receiver. This will make it possible for the receiver to know the bit length of the package, and thereby know when the package should end. Each package created has the same length. The length is set to contain 7 bit, this can count up to $2^{7}-1 = 127$, which is sufficient.
+The Length is utilized by the receiver. This will make it possible for the receiver to know the bit length of the package, and thereby know when the package should end. Each package created has the same length. The length is set to contain 7 bits, this can count up to $2^{7}-1 = 127$, which is sufficient.
 
 \subsubsection{Data}
 The data received from the GoT system consist of three coordinates (X,Y,Z), locating the position of the vehicle. Each of these coordinates can have a value from -9000 to 9000 (see \secref{GoTDescription}). To contain a number of this size, a 15 bit signed integer is utilized. Of the 15 bit 14 bit is utilized for the magnitude of the coordinate, which can have a value of 16385 ($2^{14}-1$). The last bit of the 15 bit is utilized to indicate if a coordinate is positive or negative, i.e. sign bit. The protocol is designed so the sign bit will be placed at the end of the 15 bit integer. As both the microcontroller and the computer utilizes little endians, there will not be a problem with the transmission of numbers. With little endians, the bit with the highest value will be located next to the sign bit and the bit with the lowest value is located at the beginning of the bit array. This will yield the bit array illustrated on \tableref{CoorSetup}.
@@ -103,24 +103,24 @@ e) & Add carry  & $=$ & 155469  & $=$ & 1011 & 0010 & 1111 & 1010 & 0100 & \\
 f) & Checksum   & $=$ & 893106  & $=$ & 0100 & 1101 & 0000 & 0101 & 1011 & \\
 g) & Check      & $=$ & 1048575 & $=$ & 1111 & 1111 & 1111 & 1111 & 1111 & \\
 \end{tabular}
-\caption{The pieces consisting of the destination ??, length with the value of 96, and the data which is 4259, 7511 and -6418.}
+\caption{The pieces consisting of the destination 1, length with the value of 96, and the data which is 4259, 7511 and -6418.}
 \label{ChecksumExp}
 \end{table}
 
-The three pieces is added together, the destination, length and the data (see on line d). This produces a carry, since the checksum has the size of 20 bit. The carry is added to the beginning of the sum (see on line e). The generated sum is then inverted to yield a checksum (sees on line f).
+The three pieces is added together, the destination, length and the data (see on line d). This produces a carry, since the checksum has the size of 20 bit. The carry is added to the beginning of the sum (line e). The generated sum is then inverted to yield a checksum (sees on line f).
 
-When the receiver utilizes the checksum needs to check if the destination, length and data corresponds with the related checksum. The checksum is first added together with the three 20 bit pieces and, if there is any, the carry. If the outcome of the bit summation results in 20 bits which are true, then the package is received correctly. If not, the receiver will throw away the package. An error in the received package could be a bit inversion or some data not received by the receiver. 
+When the receiver utilizes the checksum, it needs to check if the destination, length and data corresponds with the related checksum. The checksum is first added together with the three 20 bit pieces and, if there is any, the carry. If the outcome of the bit summation results in 20 bits which are true, then the package is received correctly. If not, the receiver will throw away the package. An error in the received package could be a bit inversion or some data not received by the receiver. 
 
 A flaw when utilizing the created checksum, is that an error can cancelled out another error, and thereby make some errors undetectable. This can happen when the system adds the three pieces and the checksum together. An example, is if the first bit in piece number one is true and the first bit in piece number two is false. If both of these bits are shifted independently, so the bit from part one become false and the bit in part two true, the checksum can not detect the error. The likelihood for this to happen is very slim, as the errors first have to occur and then they have to be located a place where they cancel each other out. Having only 4 pieces of 20 bits, the likelihood of this happening is lesser than if the checksum was set to 10 bit. Since the addition occurs with 7 pieces of 10 bit. This would yield more bits with the same rank, so there would be a higher possibility for a bit cancelling each other out. This is a good argument for utilizing a larger checksum, even if it uses more space.
 
 \subsubsection{Start and end byte}
-As the computer transmits a package each time it receives coordinates from the GoT system, a queue of packages can appear in the microcontroller, packages handling is to slow. To not make the system able to differentiate packages from each other a start byte is added at the beginning of the package and an end byte at the end of the package. 
+As the computer transmits a package each time it receives coordinates from the GoT system, a queue of packages can appear in the microcontroller, if package handling is too slow. To not make the system able to differentiate packages from each other a start byte is added at the beginning of the package and an end byte at the end of the package. 
 
 To find the start of a package the system will search for a start byte. When finding the start byte, it will read the destination, length, data and checksum and then look for a end byte. If the end byte is not found at that point, then the package is not received correctly and is thrown away. If the end byte is found, then system utilize the package and apply error handling on it. 
 
-The start byte is set to 0000 1111. This is chosen to ensure the start byte does not have an identical value with another byte in the header. This is done to ensure no misunderstandings occurs. The end byte will come just before the next start byte, there is the value of the end byte inverted compared to the start byte, this yields an end byte of 1111 0000.
+The start byte is set to 0000 1111. This is chosen to ensure the start byte does not have an identical value with another byte in the header. This is done to ensure no misunderstandings occurs. The end byte will come just before the next start byte. The value of the end byte is inverted compared to the start byte, this yields an end byte of 1111 0000.
 
-With the destination, length, data, checksum, start and end byte has been describe and a final package structure is illustration in \tableref{PackageLook}
+The destination, length, data, checksum, start and end byte has been described, and a final package structure is illustrated in \tableref{PackageLook}
 
 \begin{table}[H]
 \centering
@@ -147,7 +147,7 @@ With the destination, length, data, checksum, start and end byte has been descri
 \label{PackageLook}
 \end{table}
 
-This yields a package with a length of 96 bit (12 byte). As the GoT system have a sampling frequency of 10 Hertz and each sampling gives out 12 byte, the transfer speed for the Xbee have to be greater than 120 byte per second, which it is \secref{Hardwarechoice}.
+This yields a package with a length of 96 bit (12 byte). As the GoT system have a sampling frequency of 10 Hertz and each sample is converted to 12 bytes, the transfer speed for the Xbee have to be greater than 120 bytes per second, which it is \secref{Hardwarechoice}.
 
 \subsubsection{Further Error Handling}
 A package can be damaged when it is transmitted from the computer to the microcontroller or a byte in the coordinate could have a identical value with the start or end byte. for example, if a packet has a byte of the coordinate with the same value as the start byte, the start of a package could be registered in the middle of a package. To detect this and further damages in which the checksum is not able to register, extra error handling is utilized. The receiving process is illustrated in \figref{FlowReceiver}.
@@ -159,7 +159,7 @@ A package can be damaged when it is transmitted from the computer to the microco
 \label{FlowReceiver}
 \end{figure}
 
-If the package is transmitted correctly, the 1st byte received is the start byte and the 2nd byte is the destination ID of the receiver. The 3rd byte will contain 7 bit for the length and 1 bit for the first coordinate. If the length is without errors its value would be 96, which is 12 byte. The last byte, the 12th one, is the end byte. If these condition are all correct, the receiver will check for errors utilizing the checksum. If that checksum is also correct, the system will convert the data and return the coordinates to the rest of the system.
+If the package is transmitted correctly, the 1st byte received is the start byte and the 2nd byte is the destination ID of the receiver. The 3rd byte will contain 7 bit for the length and 1 bit for the first coordinate. If the length is without errors its value would be 96, which is 12 bytes. The last byte, the 12th one, is the end byte. If these condition are all correct, the receiver will check for errors utilizing the checksum. If that checksum is also correct, the system will convert the data and return the coordinates to the rest of the system.
 
 If an error occurs, then all the bytes that have been read will be thrown away. Thus throwing the whole package away even if the start byte and the destination are correct, but the end byte is not. If the start byte is not correct, then only that byte will be thrown away until finding a correct start byte. This method is applied to ensure the system only utilizes complete packages.
 

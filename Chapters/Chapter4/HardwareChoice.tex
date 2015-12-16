@@ -57,9 +57,9 @@ Requirements for the storage:
 \subsubsection{SD Card} \label{SDcard}
 Secure Digital (SD) card is a type of non-volatile flash memory cards. This means that the data will not be lost during a power cut off.
 
-It comes in various storage sizes, from 1 GB to 2 TB, depending on which type of SD card it is. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The difference between the different types, is the file system utilized on the card and their maximum capacity. With the requirement of a storage size on 1 GB bytes, and a desired need for utilizing it to the contain test data, a SDSC with a capacity of 2 GB is chosen.
+It comes in various storage sizes, from 1 GB to 2 TB, depending on which type of SD card it is\cite{SDassociation}. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The difference between the different types, is the file system utilized on the card and their maximum capacity. With the requirement of a storage size on 1 GB bytes, and a desired need for utilizing it to the contain test data, a SDSC with a capacity of 2 GB is chosen.
 
-The lowest transfer speed for an SDSC card is \si{2 MB/s}. With the requirement of a transfer speed greater than si{7,2}\si{KB \cdot s^{-1}}, makes the SDSC card fast enough. 
+The lowest transfer speed for an SDSC card is \si{2 MB/s}\cite{SDassociation}. With the requirement of a transfer speed greater than si{7,2}\si{KB \cdot s^{-1}}, makes the SDSC card fast enough. 
 
 To use the SDSC card and connect it to the microcontroller, 7 connection pins are required, see \figref{SDcardpinout}. The setup of the SD card is different, depended on which mode is used.
 
@@ -89,7 +89,7 @@ To use the SDSC card and connect it to the microcontroller, 7 connection pins ar
 8			 &	Unused		 		&	Unused			    &	Data 1			   \\
 \hline		
 				\end{tabular}
-				\caption{SD card pinout configuration}
+				\caption{SD card pinout configuration\cite{elasticsheep}}
 				\label{SDcardconf}				
 			\end{table}			
       \end{minipage}
@@ -97,27 +97,22 @@ To use the SDSC card and connect it to the microcontroller, 7 connection pins ar
       \begin{minipage}{0.30\linewidth}
           \begin{figure}[H]
               \includegraphics[width=0.95\textwidth]{figures/sdcardpinout}
-              \caption{Illustration of a micro size SD card.} 
+              \caption{Illustration of a micro size SD card.\cite{elasticsheep}} 
               \label{SDcardpinout}
           \end{figure}
       \end{minipage}
       
   \end{minipage}
 
-% http://elasticsheep.com/2010/01/reading-an-sd-card-with-an-atmega168/
 
-The power needed for the SD card is 3.3 volts. There are three possible setups for the SD card: SPI, One-Bit and Four-Bit.
+The power needed for the SD card is 3.3 volts\cite{elasticsheep}. There are three possible setups for the SD card: SPI, One-Bit and Four-Bit.
 With the SPI setup, the communication between the SD card and the microcontroller is made on two lines. With the One-Bit setup, the commands between the SD card and microcontroller are sent on one line and the data is sent through another one.
 With the Four-Bit setup, three more data connections are used.
 
-In this project, the SPI setup is used, since the extra transfer speed from the Four-Bit setup is not needed. Furthermore, the Arduino has 4 pins that can be set up to SPI communication.
+In this project, the SPI setup is used, since the extra transfer speed from the Four-Bit setup is not needed. Furthermore, the Arduino has 4 pins that can be set up to SPI communication\cite{MegaInfo}.
 
 An SDSC card, with a SPI setup is chosen, since this as has a high enough capacity and transfer speed. Furthermore the data is saved, if the power is cut off and the Arduino Mega has SPI connections. 
 
-%https://www.sdcard.org/developers/overview/capacity/index.html
-%https://www.sdcard.org/developers/overview/speed_class/
-
-\todo{References to the Storage section, Mads}
 
 %%%%%%%%%%%%%%%-Motor Driver-%%%%%%%%%%%%%%%%%%%%
 

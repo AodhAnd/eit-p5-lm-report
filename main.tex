@@ -1,0 +1,182 @@
+\input{setup/preamble.tex}% package inclusion and set up of the document
+
+\input{setup/macros.tex}% my new macros
+
+\begin{document}
+%%% Prereport %%%
+\setlength\cftaftertoctitleskip{2pt}
+\setlength\cftafterloftitleskip{6pt}
+\setlength\cftafterlottitleskip{6pt}
+\selectlanguage{english}
+\title{Lawn Mower}
+
+%%% Frontmatter Settings %%%
+\pagestyle{empty} %disable headers and footers
+\pagenumbering{roman} %use roman page numbering in the frontmatter I II...
+\fancyfoot[RE,LO]{15gr510} %page number on all pages
+\fancyfoot[LE,RO]{\thepage},
+\fancyhead[LE,LO,RE,RO]{}
+
+%%% Introductory Formalities %%%
+%\includepdf[pages={1}]{frontpage.pdf}
+%\include{formalities/frontpage}
+\pagestyle{fancy}
+\include{formalities/kolofon}
+\input{formalities/titleSheet.tex}
+\pdfbookmark[0]{Table of Contents}{label: tableOfCentents}
+\tableofcontents
+
+%%% Preface %%%
+\input{formalities/preface.tex}
+\cleardoublepage
+
+%%% Mainmatter Settings %%%
+\pagenumbering{arabic} %use arabic page numbering in the mainmatter
+\fancyfoot[RO,LE]{\thepage \text{ of} \pageref{LastPage}}
+\fancyfoot[LO,RE]{15gr510}
+\fancyhead[RE,LO]{}
+\fancyhead[RE,LO]{\color{aaublue}\small\nouppercase\leftmark} %even page - chapter title
+\pagestyle{fancy}
+
+%%% Part 1 %%%
+\part{Preanalysis}
+
+%---------- Chapter 1 ---------------------------------------- Introduction
+\input{Chapters/Chapter1/Introduction.tex}
+\input{Chapters/Chapter1/roboticLawnMowers.tex}
+\input{Chapters/Chapter1/problemsWExistingLawnMowers.tex}
+\input{Chapters/Chapter1/gotSystemIntroPres.tex}
+\input{Chapters/Chapter1/satellitesVSGoT.tex}
+
+%---------- Chapter 2 ---------------------------------------- Design Considerations
+\input{Chapters/Chapter2/DesignConsiderationsV2}
+%
+\input{Chapters/Chapter2/VehicleDescription}
+\input{Chapters/Chapter2/DriveTrain}            %----Drivetrain
+\input{Chapters/Chapter2/DifferentialGears}
+\input{Chapters/Chapter2/Brakes}                %---- Steering
+\input{Chapters/Chapter2/Servo}
+\input{Chapters/Chapter2/Hallsensor}            %---- Hall Sensor
+\input{Chapters/Chapter2/BatterySpecs} 			%---- Battery Specifications
+\input{Chapters/Chapter2/aGoTdescription}
+\input{Chapters/Chapter2/dPrototypeConstraints} %---- Prototype Constraints
+\input{Chapters/Chapter2/ePrototype}            %---- Prototype
+
+%---------- Chapter 3 ---------------------------------------- Requirements
+\input{Chapters/Chapter4/aRequirements}
+
+%%% Part 2 %%%
+\part{Design \& Implementation}
+%---------- Chapter 4 ---------------------------------------- Hardware considerations
+%% TODO : Move files to appropriate folders when nobody is working on it
+\input{Chapters/Chapter5/aHardware}
+\input{Chapters/Chapter4/HardwareChoice}
+\input{Chapters/Chapter4/HardwareImplementation}
+\input{Chapters/Chapter4/Hbridge}
+\input{Chapters/Chapter5/Scheduling}
+
+%--------- Chapter 5 ----------------------------------------
+\input{Chapters/Chapter5/sensorImplementation}
+\input{Chapters/Chapter4/HallSensorImplementation}
+\input{Chapters/Chapter5/magnetoImplementation}
+\input{Chapters/Chapter4/Communication}
+\input{Chapters/Chapter4/gotFiltering} 	
+
+%---------- Chapter 6 ---------------------------------------- Modelling of the Vehicle
+\input{Chapters/Chapter3/aModellingTheVehicle}
+\input{Chapters/Chapter3/bVelocityVehicle}
+\input{Chapters/Chapter3/cMotorModelling}
+\input{Chapters/Chapter3/dDriveTrain}
+\input{Chapters/Chapter3/eFinalVelocityModel}
+\input{Chapters/Chapter3/fSimulationAndSimplifiedModel}
+\input{Chapters/Chapter3/LinearApproximation}
+\input{Chapters/Chapter3/eTotalSystemModelling}
+\input{Chapters/Chapter3/fSteeringModel}
+
+%---------- Chapter 7 ---------------------------------------- Control of the vehicle
+\input{Chapters/Chapter6/aControlOfTheVehicle}
+\input{Chapters/Chapter4/VelocityController}
+\input{Chapters/Chapter4/SteeringController}
+
+%---------- Chapter 8 ----------------------------------------
+		% GoT position filtering
+\input{Chapters/Chapter4/Filter} 				% Magnetometer filtering
+
+%%% Part 3 %%%
+\part{Test \& Conclusion}
+
+\input{Chapters/AcceptanceTest/AcceptanceTest}
+\input{Chapters/AcceptanceTest/aTestProcedure}
+\input{Chapters/AcceptanceTest/bTestResults}
+
+
+%%% Setup for Appendix and Bibliography %%%
+\bookmarksetup{startatroot} %this is it
+\addtocontents{toc}{\bigskip} %perhaps as well
+\newpage
+\fancyhead[RO]{\color{aaublue}\small Appendix \nouppercase\rightmark} %even page - chapter title
+\fancyhead[LE]{\color{aaublue}\small Appendix \nouppercase\rightmark} %uneven page - section title
+\fancyhead[RE,LO]{}
+\titleformat{\section}[hang]{\Large\bfseries}{\thesection\hsp\textcolor{aaublue}{|}\hsp}{0pt}{\Large\bfseries}
+\renewcommand{\thesection}{\Alph{section}}
+\setcounter{section}{0}
+
+%%% Appendix %%%
+\chapter*{Appendix}
+
+\addcontentsline{toc}{chapter}{Appendix}
+
+%---------- Appendix A ---------------------------------------- Motor Tests - Armature Resistance
+\input{appendix/bMotorTest.tex}
+
+%---------- Appendix B ---------------------------------------- Motor Tests - Armature Inductance
+\input{appendix/bMotorTest2.tex}
+%\input{appendix/bMotorTest3.tex} %---------------------------- Motor Tests - Tachometer Constant Verification
+
+%---------- Appendix C ---------------------------------------- Motor Tests - Generator Constant
+\input{appendix/bMotorTest4.tex}
+
+%---------- Appendix D ---------------------------------------- Motor Tests - Motor Constant
+\input{appendix/bMotorTest5.tex}
+
+%---------- Appendix E ---------------------------------------- Motor Tests - Friction
+\input{appendix/bMotorTest6.tex}
+
+%---------- Appendix F ---------------------------------------- Motor Tests - Moment of Inertia
+\input{appendix/bMotorTest7.tex}
+
+%---------- Appendix G ---------------------------------------- Motor Tests - Time Constant and Gain
+\input{appendix/bMotorTest8.tex}
+
+%---------- Appendix H ---------------------------------------- Magnetometer Calibration
+\input{appendix/jMagnetoCalibration.tex}
+
+%---------- Appendix I ---------------------------------------- Vehicle's Friction Test
+\input{appendix/cFrictionTest.tex}
+
+%---------- Appendix J ---------------------------------------- Vehicle's Inertia Test
+\input{appendix/dInertiaTest.tex}
+
+%---------- Appendix K ---------------------------------------- Vehicle's Velocity Gain Test
+\input{appendix/GainTest.tex}
+
+%---------- Appendix L ---------------------------------------- Velocity With P Controller Test
+\input{appendix/aPcontrollerTest.tex}
+
+%---------- Appendix M ---------------------------------------- Steering Test - K_steering
+\input{appendix/dSteeringTest.tex}
+
+%---------- Appendix N ---------------------------------------- Steering Test - Kp Linear Area
+\input{appendix/LinearRangeKp.tex}
+
+%---------- Appendix O ---------------------------------------- Schematics
+\input{appendix/MegaPinout.tex}		% Pinout for the arduino
+\input{appendix/schematic.tex}
+
+%%% Bibliography %%%
+\printbibliography
+
+%%% To Do List %%%
+\listoftodos
+
+\end{document}

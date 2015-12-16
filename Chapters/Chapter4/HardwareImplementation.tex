@@ -1,10 +1,11 @@
 \section{Hardware Implementation}
+With the hardware components being chosen, it is necessary to assemble them, ensure that they are compatible for communication with the microcontroller, and that they receive the appropriate electrical power. Other implementation considerations also have to be considered. e.g , the voltage divider for the power monitor.
 \subsection{Microcontroller peripherals}
 Before choosing which pins on the Arduino Mega to connect the various hardware to, the peripherals\footnote{Hardware modules, such as timers, UARTs, etc.} in the microcontroller needs to be evaluated (each peripheral is only available on certain pins). First, the timers are considered. The microcontroller has 6 hardware timers, Timer 0 to Timer 5.
 
 Timer 0 is reserved by the Arduino for it's internal time keeping functions, and not to be touched \cite{ArduinoPWM}. This leaves 5 timers, that can be used freely.
 
-It would be advantageous to utilize the input capture\footnote{An input capture timer samples a free running counter, whenever triggered by  an external event} functionality of the timers to read the hall sensors, since it will provide a hardware generated timestamp, and be independent of software latency. After examining the Arduino Mega pinout (\appref{megaPinout}), it is seen that only Timer 4 and 5 have their input capture pins available on the board (ICP4 and ICP5). These are therefore chosen for the two hall sensors.
+It would be advantageous to utilize the input capture\footnote{An input capture timer samples a free running counter, whenever triggered by  an external event} functionality of the timers to read the hall sensors, since it will provide a hardware generated timestamp, and be independent of software latency. After examining the Arduino Mega pinout, \appref{megaPinout}, it is seen that only Timer 4 and 5 have their input capture pins available on the board (ICP4 and ICP5). These are therefore chosen for the two hall sensors.
    
 The real-time operating system needs a timer, for running its scheduler. Timer 1 is chosen for this, for no other reason than it being the default setting.
 

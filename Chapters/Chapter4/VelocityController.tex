@@ -1,5 +1,11 @@
+%Sources used in this section:
+%\cite{WSLevine}
+%\cite{BatteryDS}
+%\cite{BGLiptak}
+%\cite{KJAAstrom}
+
 \section{Velocity Controller}\label{sec:velocityController}
-The purpose of the velocity controller is to preserve the vehicle at a steady velocity, when going uphill, downhill and when turning, this is in conjunction with the velocity requirement from \secref{sec:Requirements}. The three most widely utilized controllers are the proportional, integral and differential controllers \todo{Source}. Usually all three controllers combined are not required when controlling a system. Different controller approaches are explored in the following segment, starting with the controller which is the most frequently utilized controller, alone or in combination with others, the proportional controller.
+The purpose of the velocity controller is to preserve the vehicle at a steady velocity, when going uphill, downhill and when turning, this is in conjunction with the velocity requirement from \secref{sec:Requirements}. The three most widely utilized controllers are the proportional, integral and differential controllers\cite{WSLevine}. Usually all three controllers combined are not required when controlling a system. Different controller approaches are explored in the following segment, starting with the controller which is the most frequently utilized controller, alone or in combination with others, the proportional controller.
 
 \subsection{P-Controller}
 As illustrated on \figref{proportionalController} the P-controller, \si{K_p}, is a proportional gain which is multiplied with the direct term.
@@ -37,7 +43,7 @@ This results in the P-controller giving an output of half the input, but rise to
 If a system where an input velocity is equal to an output velocity is desired, a P-controller is insufficient. The reason lies in the numerator in \eqref{eq:PclosedLoopTfs}. No matter the value of \si{K_p} the numerator will always be less than 1. This results in an offset. A larger \si{K_p} resulting in a smaller offset, will make the coefficient of s in \eqref{eq:PclosedLoopTfs} (time constant) smaller, which can result in larger overshoot.
 
 \subsection{P-Controller with Feed Forward}
-The P-controllers difference between the reference and set-point, steady state offset, can be diminished without compromising the time constant, through use of feed forward, see \figref{proportionalControllerWithFeedforward}.
+The P-controllers difference between the reference and set-point, steady state offset, can be diminished without compromising the time constant, through use of feed forward, see \figref{proportionalControllerWithFeedforward}.\cite{KJAAstrom}
 %
 \begin{figure}[H]
  	\centering
@@ -72,7 +78,7 @@ By utilizing the feed forward to place the set-point of the controller, P-contro
 %
 There are a few things to notice. First, the rise time of the two are approximately equal, however, the simulation of the first order approximation rises directly, while the measured data has a delayed initial rise. This delay is presumably because of the armature coils in the motor, through which the current cannot change instantaneously. This effect gives rise to a second order term, as discussed in \secref{DriveTrain}, where the first order approximation was made. After the armature coils have been energized the controller output has a much faster effect on the velocity of the vehicle, causing it to rise so fast that it overshoots due to inertia.
 
-An other interesting thing to notice is the sudden drop in battery voltage. When large currents are drawn from a NiMH battery, the voltage drops\cite{BatteryDS}. However in the implementation the duty cycle is scaled according to the current battery voltage, so that the controller maintains the same effect regardless of battery voltage. The exception being when the controller output exceeds the battery voltage, in which case the control will follow the battery voltage until the battery recovers. If the voltage drop at large current draws turn out to be a problem, an option could be to consider LiPO batteries, which are better at keeping a constant voltage, regardless of the amount of current drawn.
+An other interesting thing to notice is the sudden drop in battery voltage. When large currents are drawn from a NiMH battery, the voltage drops\cite{BatteryDS}. However in the implementation the duty cycle is scaled according to the current battery voltage, so that the controller maintains the same effect regardless of battery voltage. The exception being when the controller output exceeds the battery voltage, in which case the control will follow the battery voltage until the battery recovers.
 %
 The P-controller with feed forward seems to be a good choice, however if subjected to disturbances some problems emerge. A disturbance imposed on the system is analogue to a sudden change of the gain of the plant. since the set-point compensation origins at the input of the controller, the sudden change in gain of the plant cannot be compensated for with this feed forward P-controller.
 %
@@ -200,7 +206,7 @@ The delay from the overshoot of the controller to the velocity is caused by iner
 %
 \subsection{Implementation of the PI controller}
 The functional part of the implementation is seen in \autoref{lst:PIimplementation}. The \emph{Actualspeed} is set from the average of recorded speeds of the two belts, from the Hall sensors. Then the error is calculated by comparison between the feedback, \emph{Actualspeed}, and the reference, \emph{Wantedspeed}.
-A quick glance at \figref{fig:PInoAntiWindup}, reveals a problem, where the controller output exceeds the battery voltage. This is called empty integral windup, and can be prevented by implementing anti windup, which locks the integral error so that it does not make the controller output voltage exceed the saturation of the battery\todo{source here}. The first if-statement in \autoref{lst:PIimplementation}, is a very simple implementation of an anti-windup functionality, and the effect is clearly demonstrated by repeating the test from \figref{fig:PInoAntiWindup} with anti windup, as seen on figure \figref{fig:PIwithAntiWindup}.
+A quick glance at \figref{fig:PInoAntiWindup}, reveals a problem, where the controller output exceeds the battery voltage. This is called integral windup, and can be prevented by implementing anti windup, which locks the integral error so that it does not make the controller output voltage exceed the saturation of the battery\cite{BGLiptak}. The first if-statement in \autoref{lst:PIimplementation}, is a very simple implementation of an anti-windup functionality, and the effect is clearly demonstrated by repeating the test from \figref{fig:PInoAntiWindup} with anti windup, as seen on figure \figref{fig:PIwithAntiWindup}.
 %
 \lstset{language=C++, caption={Implementation of the PI-controller}, label=lst:PIimplementation}
 \begin{lstlisting}

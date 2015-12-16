@@ -4,7 +4,7 @@
 \textbf{Date: 30/09 - 2015}
 
 \subsubsection{Purpose}
-The purpose of this test is to find a minimum and maximum values that could be used for for the steering proportional controller's gain, \si{K_p}.
+The purpose of this test is to find a minimum and maximum values that could be used for the steering proportional controller's gain, \si{K_p}.
 
 \subsubsection{Setup}
 The setup is the same as in the steering gain test, see \appref{app:steeringGainTest}.
@@ -38,7 +38,7 @@ The setup is the same as in the steering gain test, see \appref{app:steeringGain
 
 \subsubsection{Results}
 
-In this test, instead of changing the velocity between tests, the proportional controller's gain is changed multiple times from 1 to 4.\\
+In this test, instead of changing the velocity between tests, the proportional controller's gain is changing from 1 to 4 with a step of 0,5.\\
 
 \begin{figure}[H]
   \centering
@@ -83,13 +83,12 @@ Given the fact that the velocity should be maintained constant, the steering gai
 \label{tab:steeringGains}
 \end{table}
 
-\todo{Change graph : either the legends are wrong or the actual Kv calculations have to be made and plotted}
 \begin{figure}[H]
   \centering
   %Trim margins @:   left        bottom       right       top
   \adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
   {
-    \includegraphics[width=1.2\textwidth]{figures/KvKpSteeringtest.pdf}
+    \includegraphics[width=1.2\textwidth]{figures/KvVsKp.pdf}
   }
   \caption{Plot of the gain \si{K_v} against the real speed.}
   \label{fig:steeringPlotKsteeringVsKp}

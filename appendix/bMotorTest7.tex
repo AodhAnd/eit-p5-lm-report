@@ -46,24 +46,23 @@ The purpose of this test is to find the moment of inertia $I$, by measuring the 
 \begin{figure}[H]
   \setcounter{subfigure}{0}
   \centering
-  \begin{subfigure}{0.45\textwidth}
+  \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=1.1\linewidth]{figures/inertiaRawData.pdf}
+    \includegraphics[width=1.2\linewidth]{figures/inertiaRawData.pdf}
     \caption{The measured angular velocity compared to time, where the blue line indicates the velocity after the power has been removed.}
     \label{inertiaRawData}
   \end{subfigure}
-  \begin{subfigure}{0.45\textwidth}
+  \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=1.1\linewidth]{figures/momentOfInertia.pdf}
-    \caption{The Blue dots indicates the moment of inertia calculated using \eqref{eq:Momentofinertia}, and the red line represents the average value of the blue dots}
+    \includegraphics[width=1.2\linewidth]{figures/momentOfInertia.pdf}
+    \caption{The Blue dots indicates the moment of inertia calculated using \eqref{eq:Momentofinertia}, and the red line represents the average value.}
   	\label{momentOfInertia}
   \end{subfigure}
-  \caption{A plot of the inertia measured as angular velocity compared to time and a plot of the moment of inertia calculated from the raw data using \eqref{eq:Momentofinertia}.}
+  \caption{A plot of the inertia measured as the angular velocity compared to time and a plot of the moment of inertia calculated from the raw data using \eqref{eq:Momentofinertia}.}
   \label{yo}
 \end{figure}
-\todo{make text on figure larger}
-
-The equation used is given in the Modeling and Control course on the 5th semester on Electronic and IT on Aalborg University, (reference). This equation which arises from the mechanical description of the motor, when \si{i_a = 0} is used to find the Inertia, J.
+\todo{reference: put the slides slidesmech.pdf wich is in dirve/CD/slides}
+The equation used is given in the Modeling and Control course of the 5th semester on Electronic and IT at Aalborg University, . This equation which arises from the mechanical description of the motor, when \si{i_a = 0} is used to find the Inertia, J.
 \begin{flalign}
   \eq{\omega(s)}{- \frac{\tau_c}{B}+(\omega_0 + \frac{\tau_c}{B}) e^{-t\frac{B}{J}}}        \unit{rad\cdot s^{-1}}\nonumber\\
   &\Updownarrow&&\nonumber\\
@@ -80,7 +79,7 @@ The equation used is given in the Modeling and Control course on the 5th semeste
 
 \end{tabular}
 
-The motors inertia is calculated by using \eqref{eq:Momentofinertia} on the angular velocity compared to time data illustrated on \figref{inertiaRawData}. Thereafter the average value of the results is found, seen in \figref{momentOfInertia} and used a the motors inertia. The motor's inertia is equal:
+The motor's inertia is calculated by using \eqref{eq:Momentofinertia} with the angular velocity compared to time illustrated on \figref{inertiaRawData}. Thereafter the average value of the results is found, seen in \figref{momentOfInertia} and used as the motor inertia. The motor's inertia is equal to:
 %
 \begin{flalign}
   \eq{J}{\num{2,3891} \cdot 10^{-6}}\ \si{kg \cdot m^2}&&\nonumber

@@ -133,22 +133,18 @@ The Pololu dual VHN5019 motor driver shield (see \figref{MotorDrive}) is special
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.50\textwidth]{figures/Motordriver.png}
-		\caption{The motor shield on top of an Arduino Uno.} 
+		\caption{The motor shield on top of an Arduino Uno.\cite{DriverShield}} 
 	\label{MotorDrive}
 \end{figure}
-
-\todo{source?}
 
 It is possible to power the Arduino from an external power source through the motor shield, which also delivers the power to the motor. It is also possible to have the motor shield and the Arduino powered separately. This is determined by a jumper setting on the shield, see \figref{MotorDriveIO}. The motor shield need a power voltage between 7 volts and 12 volts.\cite{PCorporation}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.60\textwidth]{figures/MotordriverIO.png}
-		\caption{Setup for the mort shield.}
+		\caption{Setup for the mort shield.\cite{DriverShield}}
 	\label{MotorDriveIO}
 \end{figure}
-
-\todo{Source?}
 
 There are two H-bridges on the board, to control up to two motors. Since only one motor is used in this project, both of the two H-bridges will be used to power the motor, see further details on the configuration in \secref{sec:HBridge}. This results in a smaller current through the two H-bridges' transistors and therefore ensures a better protection of the system.\cite{PCorporation}
 

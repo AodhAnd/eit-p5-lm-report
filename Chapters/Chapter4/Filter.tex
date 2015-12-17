@@ -36,7 +36,7 @@ Thus the magnetometer has to be sampled with at least 106 \si{Hz}.
 In the specification for the Magnetometer \cite{HMC5883L}, the maximum sampling rate is stated to be 75 \si{Hz}. A sampling rate of 106 \si{Hz} was desired, since at this rate it would not effect the system. 
 
 With this taken into consideration, it is decided to sample at 66,66 \si{Hz}, i.e. a sample every 15 \si{ms}, even though it will affect the phase margin. The 66,66 \si{Hz} has been chosen instead of the 75 \si{Hz} to have a margin from the maximum sampling rate supported by the sensor.
-
+\newpage
 \subsection{Frequency Analysis of Measured Data}
 Before establishing requirements for the filter, it is necessary to analyse the data measured by the magnetometer, to ensure that it is the noise that is attenuated and not the signal. The data analysed is logged when the vehicle and the magnetometer is stationary. It will thereby be the stationary variations on the sensor that are found. The acquired measurements are illustrated in \figref{fig:StationaryMeasurementsMagnato}.
 
@@ -88,7 +88,7 @@ Data from the filter has been examined, it is thereby possible to examine which 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1]{figures/Filtertypes1.pdf}
-	\caption{Frequency response for various filter types}
+	\caption{Frequency response for various filter types \cite{O.LSignal}}
 	\label{fig:Filtertype1}
 \end{figure}\vspace{-5mm}
 
@@ -103,7 +103,7 @@ The Butterworth filter has a sharper cut-off frequency compared to the Bessel fi
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{figures/Filtertypes2.pdf}
-	\caption{Frequency response illustrating group delay for various filter types}
+	\caption{Frequency response illustrating group delay for various filter types \cite{O.LSignal}}
 	\label{fig:groupdelay}
 \end{figure}\vspace{-5mm}
 
@@ -116,7 +116,7 @@ From the filter considerations \secref{sec:FilterConsiderations}, it is possible
 It has been decided to design a filter with a cut-off frequency which is less than one decade above the highest frequency pole. This will affect the system and cause a delay. To ensure the delay does not cause instability the filter first needs to be designed and simulated. Furthermore, since it is desired to influence the DC-signal as little as possible, see \figref{fig:FFTofStationaryMeasurements}, a low-pass filter is implemented.
 
 By the use of an iterative process frequency requirements for the pass - and stopband is established. A passband frequency of 19 \si{Hz} is chosen. The ideal filter would have a passband attenuation of 0 \si{dB}. Since this is not an ideal filter, a maximum attenuation variation is set from 1 \si{dB} to 0 \si{dB}. The stopband frequency has been chosen to be at 29 \si{Hz} with an attenuation of 40 \si{dB}.
-
+\newpage
 Since the requirements needs to be adaptable to the z-plane, the Nyquist-Shannon sampling theorem \cite{AVOppenheim}, is utilized:
 %
 \begin{flalign}
@@ -258,13 +258,10 @@ The general transfer function for a Butterworth filter is defined as:
 \begin{tabular}{p{1cm}lll}
 & \si{G_o}       & is the gain of the filter  &\unitWh{\cdot} \\
 \end{tabular}
-
 The transfer function is rewritten to contain the located poles.
-
 \begin{flalign}
 \eq{H(s)}{\frac{G_o}{(s-\Omega_ce^{j\cdot \frac{5}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{7}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{9}{8} \cdot \pi})(s-\Omega_ce^{j\cdot \frac{11}{8} \cdot \pi})}}&
 \end{flalign}
-
 Seen from the placement of the poles, and by the use of the rule \si{s = s*}, it is possible rewrite the transfer function.
 %
 \begin{flalign}
@@ -340,7 +337,7 @@ The coefficients, \si{a_N} and \si{b_M}, can be used directly when implementing 
 H(z) &= \frac{B(z)}{A(z)} = \frac{0.1882 + 0.7527z^{-1} + 1.129z^{-2} + 0.7527z^{-3} + 0.1882z^{-4}}{1 + 0.9595z^{-1} + 0.7785z^{-2} + 0.2358z^{-3} + 0.03691z^{-4}}&
 \label{eq:ImplementationCoefficients}
 \end{flalign}
-%
+\newpage
 \section{Implementation}
 There is different methods to implement an IIR filter. The coefficients from \eqref{eq:ImplementationCoefficients}, can either be implemented directly by utilizing the structure called Direct form I or implemented with the structure Direct form II which has less delay. The fourth order low-pass Butterworth IIR filter in direct form II is illustrated in \figref{fig:IIRfilter}.
 %
@@ -352,7 +349,7 @@ There is different methods to implement an IIR filter. The coefficients from \eq
 \end{figure}\vspace{-5mm}
 %
 By directly utilizing the structure and patterns of \figref{fig:IIRfilter}, it is possible to implement the filter almost directly in Matlab. The implementation of the related code can be seen in \autoref{lst:FilterMatlabImplementation}.
-%
+\newpage
 \lstset{language=Matlab, caption={Butterworth low-pass IIR filter Implementation in Matlab by the utilizing the Direct form II structure}, label=lst:FilterMatlabImplementation}
 \begin{lstlisting}
 for i = 1:707 %Quantity of samples

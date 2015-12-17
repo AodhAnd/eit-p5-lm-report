@@ -43,14 +43,14 @@ This allows to store data points for the lawn mower to cover the whole area with
 
 To find an estimate of the required storage transfer rate when retrieving data, the steering control requirements in terms of sampling frequency are considered, this is found in \secref{sec:steeringController}, as this utilizes the route coordinates. Since the servomotor needs to receive data every \si{30\ ms} \cite{futaba}, the receiving of data from storage needs to be done in the meantime. The other tasks also needs a certain time to run. This time can be approximated to \si{2\ ms}, see \secref{sec:scheduling}, and has to be substracted from the \si{30\ ms}. Furthermore, the data transfer during each turn should not take too much time, and it is arbitrary decided to take a tenth of the available time. As each point weighs \si{2\ B}, the minimum transfer rate needed is:
 \begin{flalign}
-	\eq{Transfer\ rate}{\frac{1}{\frac{0,030 - 0,002}{10}} \cdot 2 \approx 714,3\ B = 7,2 B \cdot s^{-1}}
+	\eq{Transfer\ rate}{\frac{1}{\frac{0,030 - 0,002}{10}} \cdot 2 \approx \si{714,3}\ B = 7,2\ B \cdot s^{-1}}
 \end{flalign}
 
 Requirements for the storage:
 \begin{itemize}
 \item Offering the possibility to retrieve the data after a power cut to the storage.
-\item Having a storage of at least \si{1 GB}. 
-\item Having a transfer speed greater than \si{7,2}\si{KB \cdot s^{-1}}.
+\item Having a storage of at least \si{1\ GB}. 
+\item Having a transfer speed greater than \si{7,2\ }\si{KB \cdot s^{-1}}.
 \end{itemize}
 
 \subsubsection{SD Card} \label{SDcard}
@@ -58,7 +58,7 @@ Secure Digital (SD) card is a type of non-volatile flash memory cards. This mean
 
 It comes in various storage sizes, from 1 GB to 2 TB, depending on which type of SD card it is\cite{SDassociation}. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The difference between the different types, is the file system utilized on the card and their maximum capacity. With the requirement of a storage size on 1 GB bytes, and a desired need for utilizing it to the contain test data, a SDSC with a capacity of 2 GB is chosen.
 
-The lowest transfer speed for an SDSC card is \si{2 MB/s}\cite{SDassociation}. With the requirement of a transfer speed greater than si{7,2}\si{KB \cdot s^{-1}}, makes the SDSC card fast enough. 
+The lowest transfer speed for an SDSC card is \si{2\ MB/s}\cite{SDassociation}. With the requirement of a transfer speed greater than \si{7,2\ }\si{KB \cdot s^{-1}}, makes the SDSC card fast enough. 
 
 To use the SDSC card and connect it to the microcontroller, 7 connection pins are required, see \figref{SDcardpinout}. The setup of the SD card is different, depended on which mode is used.
 
@@ -203,7 +203,7 @@ Xbees are small radio modules, that are easy to set up. An overview of the Xbee 
 
 The Xbee modules communicate through an UART connection (with TX and RX pins)\cite{Xbee}. Since the Arduino has three UART connections, plus the one used to program the Arduino, the Xbee can be connected. The software code for the GoT system is implemented in C\# (see in \secref{GoTDescription}) and the computer running has serial ports that can ensure the connection between the software and the Xbee. Therefore, this solution can be used for a wireless connection between the GoT system and the Arduino.
 
-To run the Xbee modules, a \si{3,3\ V} power line, a ground line, and a \si{3,3\ V} logic UART are needed\cite{Xbee}. The modules have a transfer speed of up to \si{115,2 kbit/s} and can reach up to \si{100 m} indoor and \si{300 m} outdoor. It transmits at a \si{2,4 GHz} frequency with \si{1 mV} (\si{0 dBm}) and can receive downto \si{-96 dBm}\cite{Xbee}. The Xbee is already ready for communication, with the lower levels of communication, the physical and data link layers, being already implemented. With only two devices, a lightweight combination of transport layer can be added to the protocol directly on top of the data link layer, to add more error handling and create the transmitted packet.
+To run the Xbee modules, a \si{3,3\ V} power line, a ground line, and a \si{3,3\ V} logic UART are needed\cite{Xbee}. The modules have a transfer speed of up to \si{115,2\ kbit/s} and can reach up to \si{100\ m} indoor and \si{300 m} outdoor. It transmits at a \si{2,4\ GHz} frequency with \si{1\ mV} (\si{0\ dBm}) and can receive downto \si{-96\ dBm}\cite{Xbee}. The Xbee is already ready for communication, with the lower levels of communication, the physical and data link layers, being already implemented. With only two devices, a lightweight combination of transport layer can be added to the protocol directly on top of the data link layer, to add more error handling and create the transmitted packet.
 
 
 
@@ -215,7 +215,7 @@ The angular sensor is used in the feedback for the control system.
 The servomotor needs to receive commands every \si{30\ ms}, \cite{futaba}. The measurements from the angular sensor will therefore also be sampled at this frequency. 
 
 \begin{flalign}
-	\eq{Sampling frequency}{\frac{1}{0,03} = 33,3\ \si{Hz}}&
+	\eq{Sampling\ frequency}{\frac{1}{0,03} = 33,3\ \si{Hz}}&
 \end{flalign}
 
 The requirements for the angular sensor are:

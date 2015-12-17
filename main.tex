@@ -14,16 +14,17 @@
 \pagestyle{empty} %disable headers and footers
 \pagenumbering{roman} %use roman page numbering in the frontmatter I II...
 \fancyfoot[RE,LO]{15gr510} %page number on all pages
-\fancyfoot[LE,RO]{\thepage},
-\fancyhead[LE,LO,RE,RO]{}
+\fancyfoot[LE,RO]{\thepage}
+\fancyhead[LE,LO,RE,RO]{},
 
 %%% Introductory Formalities %%%
-%\includepdf[pages={1}]{frontpage.pdf}
+%\includepdf[pages={1}]{formalities/frontpage.pdf}
 %\include{formalities/frontpage}
 \pagestyle{fancy}
 \include{formalities/kolofon}
 \input{formalities/titleSheet.tex}
 %%% Preface %%%
+\clearpage
 \input{formalities/preface.tex}
 \cleardoublepage
 
@@ -35,7 +36,7 @@
 %%% Mainmatter Settings %%%
 \pagenumbering{arabic} %use arabic page numbering in the mainmatter
 \fancyfoot[RO,LE]{\thepage \text{ of} \pageref{LastPage}}
-\fancyfoot[LO,RE]{15gr510}
+\fancyfoot[RE,LO]{15gr510}
 \fancyhead[RE,LO]{}
 \fancyhead[RE,LO]{\color{aaublue}\small\nouppercase\leftmark} %even page - chapter title
 \pagestyle{fancy}

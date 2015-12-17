@@ -1,4 +1,4 @@
-\section{Communication Filtering}
+\section{Communication Filtering}\label{sec:communicationFiltering}
 The GoT system yields the vehicle's position throughout time. However, since this system utilizes ultrasound waves to register positions in space, it can be distorted by interferences and objects on the wave path. It is therefore required to eliminate the big jumps in positions, that could occur in the GoT system, before sending them to the vehicle, see requirements in \chapref{Requirements}.
 
 Since the vehicle cannot run faster than \si{3,0\ m \cdot s^{-1}}, it is possible to define a certain range of positions for a defined time interval. The range is defined as a circle, with the a radius as large as the assumed maximum velocity, set to \si{3,0\ m.s^{-1}}, multiplied with the measured time interval. An example with a \SI{0,1}{s} time interval is given on \figref{GoTFilterSimple}.

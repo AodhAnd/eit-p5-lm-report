@@ -37,7 +37,7 @@ The storage is used for saving the predetermined route for the vehicle see \secr
 
 An approximation of the needed storage size for the mowing route is made by considering, a lawn of \si{10\ m} by \si{10\ m} and a simple path with parallel lines which require two points each. Since a route point is defined by two coordinates x and y of size \si{4\ B} in total, and the vehicle is \si{29\ cm} wide, see \secref{sec:Vehicledescription}, the storage capacity is approximated to:
 \begin{flalign}
-	\eq{Capacity}{\frac{10}{0.29} \cdot 2 \cdot 2 \approx 276\ B}
+	\eq{Capacity}{\frac{10}{0,29} \cdot 2 \cdot 2 \approx 276\ B}
 \end{flalign}
 This allows to store data points for the lawn mower to cover the whole area without overlapping and with a very simple route. Since this is only a rough calculation, a SD card with a capacity of more than this should be chosen for containment of a predetermined route. Furthermore it would be practical to utilize the SD card when testing. Therefore a SD card with a capacity of at least 1 GB should be chosen.
 
@@ -58,7 +58,7 @@ Secure Digital (SD) card is a type of non-volatile flash memory cards. This mean
 
 It comes in various storage sizes, from 1 GB to 2 TB, depending on which type of SD card it is\cite{SDassociation}. There is 3 types of SD card, the standard capacity (SDSC), the high capacity (SDHC) and the extended capacity (SDXC). The difference between the different types, is the file system utilized on the card and their maximum capacity. With the requirement of a storage size on 1 GB bytes, and a desired need for utilizing it to the contain test data, a SDSC with a capacity of 2 GB is chosen.
 
-The lowest transfer speed for an SDSC card is \si{2 MB/s}\cite{SDassociation}. With the requirement of a transfer speed greater than si{7,2}\si{KB \cdot s^{-1}}, makes the SDSC card fast enough. 
+The lowest transfer speed for an SDSC card is \si{2 MB/s}\cite{SDassociation}. With the requirement of a transfer speed greater than \si{7,2}\si{KB \cdot s^{-1}}, makes the SDSC card fast enough. 
 
 To use the SDSC card and connect it to the microcontroller, 7 connection pins are required, see \figref{SDcardpinout}. The setup of the SD card is different, depended on which mode is used.
 
@@ -104,7 +104,7 @@ To use the SDSC card and connect it to the microcontroller, 7 connection pins ar
   \end{minipage}
 
 
-The power needed for the SD card is 3.3 volts\cite{elasticsheep}. There are three possible setups for the SD card: SPI, One-Bit and Four-Bit.
+The power needed for the SD card is 3,3 volts\cite{elasticsheep}. There are three possible setups for the SD card: SPI, One-Bit and Four-Bit.
 With the SPI setup, the communication between the SD card and the microcontroller is made on two lines. With the One-Bit setup, the commands between the SD card and microcontroller are sent on one line and the data is sent through another one.
 With the Four-Bit setup, three more data connections are used.
 

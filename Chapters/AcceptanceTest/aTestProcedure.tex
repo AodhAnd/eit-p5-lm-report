@@ -10,18 +10,20 @@
            2    &   It shall be possible for the prototype to disregard incorrect packets transmitted from the computer   &   The GoT system is programmed to generate incorrect packages (wrong byte value or different length of packages) at random on purpose. The Arduino is programmed to print the error message, where a 0 will be correct and everything else a error. A serial terminal on a connected computer is monitored  &  The serial terminal shows error messages, that corresponds to the error in the packages sent. \\
 \hline%-----------------------------------------------------------------------------------------------------------------
            3    &   The prototype must be able to disregard erroneous coordinates sent from the GoT system   &    The Arduino is programmed to print the current position of the vehicle, to a computer, monitoring it. The car is moved around, trying to disturb the readings from the GoT system. &  The only coordinates received, is coordinates moving slower than 3 $m \cdot s^{-1}$. \\
-\hline%-----------------------------------------------------------------------------------------------------------------
-           4    &   The prototype must be able to access the route, which it has to follow, from a storage space located on the vehicle & This test will not be made, as a storage space have not been implemented in the system.   & None                 \\
-\hline%-----------------------------------------------------------------------------------------------------------------
-           5    &   The prototype must be able to shut down, if the battery voltage is below its cut-off specification &   A power supply set to \SI{7,2}{V} is connected to the vehicle instead of the battery. The vehicle is turned on, and the voltage of the power supply adjusted down until the vehicle stops.   &   The vehicle stops when the voltage drops to 6V.               \\
 \hline
 \end{tabular}
 \end{table}
 
 \begin{table}[H] \centering
 \begin{tabular}{|p{1cm}|p{4cm}|p{7cm}|p{3cm}|}
-\hline%-----------------------------------------------------------------------------------------------------------------
+\hline
+%-----------------------------------------------------------------------------------------------------------------
 \textbf{Req. no.}  &  \textbf{Requirements} &  \textbf{Test procedure}  &  \textbf{Expected output}        \\
+\hline
+%-----------------------------------------------------------------------------------------------------------------
+           4    &   The prototype must be able to access the route, which it has to follow, from a storage space located on the vehicle & This test will not be made, as a storage space have not been implemented in the system.   & None                 \\
+\hline%-----------------------------------------------------------------------------------------------------------------
+           5    &   The prototype must be able to shut down, if the battery voltage is below its cut-off specification &   A power supply set to \SI{7,2}{V} is connected to the vehicle instead of the battery. The vehicle is turned on, and the voltage of the power supply adjusted down until the vehicle stops.   &   The vehicle stops when the voltage drops to 6V.               \\
 \hline
 %-----------------------------------------------------------------------------------------------------------------
            6    &   It shall be possible for the prototype to follow a predetermined route &   A route is set up, that follows the points (0,0), (2000,0), (0,2000) and (0,0). The vehicle is placed in the first point and is set to follow the route. A computer is monitoring the coordinates received by the vehicle and the current line, the vehicle follows.  &  The coordinates received follows the route and the change to a new line, as soon as it is less than 28 cm away from the line's end point. \\

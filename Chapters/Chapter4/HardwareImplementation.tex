@@ -23,7 +23,7 @@ As the timers have now been designated, the next step is to assign the various s
 	\includegraphics[scale=0.75]{figures/MegaSetup.pdf}
 	\caption{Connections between the different hardware components and the Arduino.\cite{ArduMega}}
 	\label{MegaSetup}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 The XBee module needs to connect to a serial port, and UART3 is chosen, as it makes it easier to route the PCB traces. UART3 is located at pins 0 and 1. 
 
@@ -67,7 +67,6 @@ One-directional connections from  $\SI{3,3}{V}$ logic level output to Arduino in
 \eq{V_{IH,min}}{0,6 \cdot 5}& \nonumber \\
 \eq{V_{IH,min}}{3} \si{\ V}& \nonumber
 \end{flalign}
-
 As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs to connect a $\SI{3,3}{V}$ system to a 5V system, this needs to be addressed as well. One solution could be running the bus at $\SI{3,3}{V}$, but this is unfortunately not possible, as the microcontroller needs at least $\SI{3,5}{V}$ as HIGH voltage, when in  $\text{I}^2\text{C}$ mode \cite{Atmega}. The creators of $\text{I}^2\text{C}$, Philips, recommend solving this with two MOSFETs \cite{Philips}, see \figref{i2clevel}.
 
 \begin{figure}[H]
@@ -75,7 +74,7 @@ As the $\text{I}^2\text{C}$ bus is using bi-directional connections, and needs t
 	\includegraphics[scale=0.9]{figures/i2cLevel.pdf}
 	\caption{$\text{I}^2\text{C}$ Voltage level translator. \cite{Philips}}
 	\label{i2clevel}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 In $\text{I}^2\text{C}$ systems, the nodes can only pull the line LOW. To make it possible to signal a HIGH, pull-up resistors are used. If a low voltage system is directly connected to a higher voltage system, the voltage at the input pins of the low-voltage section risk being pulled up to 5V.
 
@@ -125,14 +124,13 @@ to[short] node[ground] {} (0,-1);
 \end{circuitikz}
 \caption{The implemented voltage divider} 
 \label{VoltDivFigFinal}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 To filter the high frequency noise out, a simple low-pass RC filter is finally implemented with a 1 $\mu$F capacitor in the voltage divider. The resulting cut-off frequency is then:
 %
 \begin{flalign}
-\eq{\omega_{c}}{\frac{1}{R \cdot C}}\unit{rad \cdot s^{-1}} \nonumber \\
-\eq{\omega_c}{\frac{1}{2,5 \cdot 10^{3} \cdot 1 \cdot 10^{-6}}}\unit{rad \cdot s^{-1}} \nonumber \\
-\eq{\omega_c}{400}\si{\ rad \cdot s^{-1}}&\nonumber
+\omega_{c}&=\frac{1}{R \cdot C}\text{rad} \cdot \text{s}^{-1} =
+\frac{1}{\SI{2,5}{} \cdot 10^{3} \cdot 1 \cdot 10^{-6}}\text{rad} \cdot s^{-1} = {400}\si{\ rad \cdot s^{-1}}&\nonumber
 \end{flalign}
 
 With all the hardware components physically implemented on the vehicle and connected to the microcontroller, the software utilized needs to be determined and designed to enable interactions between the Arduino and all the hardware components.

@@ -11,7 +11,7 @@ The purpose of this of this test is to measure the motor constant \si{K_t}.
   \centering
 	\includegraphics[scale=0.5]{figures/MotorTest5.pdf}
 	\caption{Setup diagram}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 \subsubsection{List of Equipment}
 
@@ -40,10 +40,11 @@ The purpose of this of this test is to measure the motor constant \si{K_t}.
   \item Turn on the supply and note the voltage across the torque sensor.
   \item Repeat the previous two steps up to 10 A with 1 A increments.
 \end{enumerate}
-
 \subsubsection{Results}
-
-\begin{table}[H]
+\begin{minipage}{\linewidth}
+	\centering
+	\begin{minipage}{0.3\linewidth}      
+		\begin{table}[H]
 \begin{tabular}{|l|l|l|}
 \hline%-----------------------------------------
   \textbf{Input (A)}  & \textbf{Output (V)}  \\
@@ -69,18 +70,26 @@ The purpose of this of this test is to measure the motor constant \si{K_t}.
   $10$                &            0,180    \\
 \hline%-----------------------------------------
 \end{tabular}
-\end{table}
-
-\begin{figure}[H]
+\end{table}	\end{minipage}
+	\hspace{0.03\linewidth}
+	\begin{minipage}{0.6\linewidth}
+		\begin{figure}[H]
   \centering
  	%Trim margins @:   left        bottom       right       top
  	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
   {
-    \includegraphics[width=\textwidth]{figures/motorConstant.pdf}
+    \includegraphics[width=1.5\textwidth]{figures/motorConstant.pdf}
   }
 	\caption{A plot of the torque at different currents, where the blue dots is the measurements and the red line is the least square line.}
 	\label{motorConstant}
-\end{figure}
+\end{figure}\vspace{-5mm}
+	\end{minipage}
+\end{minipage}
+
+
+
+
+
 
 The voltages measured are scaled by factor of 0,2 since the torque sensor outputs is 5 V per \si{100N\cdot cm} giving a torque of 0,2 \si{N\cdot m \cdot V^{-1}} \cite{MWAW81P}.
 After scaling the voltages to the torques, the measurement is plotted and a least square line is added as seen on \figref{motorConstant}. The relation between the current and torque is described as follows:

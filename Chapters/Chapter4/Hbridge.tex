@@ -14,7 +14,7 @@ The H-bridge see \figref{Hbridge} is a circuit used for motor control. To contro
 	\includegraphics[scale=.6]{figures/Hbridge.pdf}
 	\caption{Standard H-bridge.\\ \emph{Edited from image by Biezl}.\cite{Biezl}}
 	\label{Hbridge}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 There exists a wide range of configurations in which the H-bridge can be implemented. These configurations determines the modes of operation, where each mode has some different properties. Some of the common modes are described in the following sections.\cite{DCook}
 
@@ -30,7 +30,7 @@ One mode of operation is the coast mode, where the PWM signal controls 2 of the 
   			\captionsetup{justification=centering}
   			\captionof{figure}{Clockwise coast in on-state.\\ \emph{Edited from image by Biezl}.\cite{Biezl}}
   			\label{HbridgeClockwiseCoastON}
-  		\end{figure}
+  		\end{figure}\vspace{-5mm}
   	\end{minipage}
   	\hspace{0.03\linewidth}
   	\begin{minipage}{0.45\linewidth}
@@ -41,7 +41,7 @@ One mode of operation is the coast mode, where the PWM signal controls 2 of the 
   			\captionsetup{justification=centering}
   			\captionof{figure}{Clockwise coast in off-state.\\ \emph{Edited from image by Biezl}.\cite{Biezl}}
   			\label{HbridgeClokwiseCoastRegen}
-  		\end{figure}
+  		\end{figure}\vspace{-5mm}
   	\end{minipage}
   \end{minipage}
 
@@ -57,7 +57,7 @@ In this mode of operation the PWM signal is imposed on all 4 FETs, as seen on \f
   			\captionsetup{justification=centering}
   			\captionof{figure}{Clockwise 4Q operation.\\ \emph{Edited from image by Biezl}.\cite{Biezl}}
   			\label{HbridgeClokwise4Q}
-  		\end{figure}
+  		\end{figure}\vspace{-5mm}
   	\end{minipage}
   	\hspace{0.03\linewidth}
   	\begin{minipage}{0.45\linewidth}
@@ -68,7 +68,7 @@ In this mode of operation the PWM signal is imposed on all 4 FETs, as seen on \f
   			\captionsetup{justification=centering}
   			\captionof{figure}{Counterclockwise 4Q operation.\\ \emph{Edited from image by Biezl}.\cite{Biezl}}
   			\label{HbridgeCounterClokwise4Q}
-  		\end{figure}
+  		\end{figure}\vspace{-5mm}
   	\end{minipage}
   \end{minipage}
 
@@ -86,7 +86,7 @@ This mode of operation imposes the PWM signal on one side of the H-bridge, as se
   			\captionsetup{justification=centering}
   			\captionof{figure}{Clockwise brake in on-state.\\ \emph{Edited from image by Biezl}.\cite{Biezl}}
   			\label{HbridgeClockwiseBrakeON}
-  		\end{figure}
+  		\end{figure}\vspace{-5mm}
   	\end{minipage}
   	\hspace{0.03\linewidth}
   	\begin{minipage}{0.45\linewidth}
@@ -97,7 +97,7 @@ This mode of operation imposes the PWM signal on one side of the H-bridge, as se
   			\captionsetup{justification=centering}
   			\captionof{figure}{Clockwise brake in off-state.\\ \emph{Edited from image by Biezl}.\cite{Biezl}}
   			\label{HbridgeClockwiseBrakeOFF}
-  		\end{figure}
+  		\end{figure}\vspace{-5mm}
   	\end{minipage}
   \end{minipage}
 
@@ -111,7 +111,7 @@ Implemented on the vehicle is a double H-bridge, which is configured to run in b
 	\includegraphics[scale=.6]{figures/DoubleHbridgeBrakeON.pdf}
 	\caption{Double H-bridge brake operation in on-state.\\ \emph{Edited from image by Biezl}.\cite{Biezl}}
 	\label{DoubleHbridgeBrakeON}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 In this configuration the PWM signal is only imposed on Q6 and Q8. So instead of activating Q5 and Q7 in the OFF-period, as in \figref{HbridgeClockwiseBrakeOFF}, it utilizes the intrinsic diodes of Q5 and Q7, as shown on \figurename{DoubleHbridgeBrakeOFF}. This can sometimes cause too high heat dissipation in the intrinsic diodes, however this H-bridge has an absolute maximum rating of \si{\pm 30 \ A}, and in this configuration has two FETs in parallel, which is more than sufficient\cite{STMicroelectronics}.
 
@@ -120,6 +120,6 @@ In this configuration the PWM signal is only imposed on Q6 and Q8. So instead of
 	\includegraphics[scale=.6]{figures/DoubleHbridgeBrakeOFF.pdf}
 	\caption{Double H-bridge brake operation in off-state.\\ \emph{Edited from image by Biezl}.\cite{Biezl}}
 	\label{DoubleHbridgeBrakeOFF}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 In brake operation the motor breaks in the OFF-period, as opposed to coast operation, where the motor runs freely in the OFF-period of the PWM signal. Though the coast mode is more energy efficient, it is harder to control the vehicle when trying to compensate for too high speeds. An H-bridge in coast operation can add more inertia to the system, however it is not very efficient when the system gains too much inertia, e.g. when going downhill. Break operation on the other hand is less energy efficient, as it dissipates to break in the OFF-period of the PWM. This however allows the H-bridge to both increase and decrease speed, which allows for better control when for instance the vehicle is going downhill.

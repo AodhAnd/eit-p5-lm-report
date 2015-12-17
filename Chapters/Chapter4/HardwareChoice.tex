@@ -13,19 +13,18 @@ Requirements for the microcontroller:
 % \item Having a CPU, that has a frequency greater than \si{XX\ MHz}. \todo{Number}
 \item Having I/O connections, both digital and analogue, see \secref{sec:Vehicledescription}.
 \item Having output connections, that can transmit PWM signals, see \secref{sec:Vehicledescription}.
-\item Having 5 free timers. Two for the Hall sensors and one for the kernel, motor, servo-motor.
+\item Having 5 free timers. Two for the Hall sensors and one for the Real Time Operating System, motor, servo-motor.
 %\item Being powered by an external power source, thereby being able to .
 \end{itemize}
 
 \subsubsection{Arduino Mega 2560}
 The Arduino Mega 2560 is a microcontroller board, which comes with an 8-bit ATmega2560 integrated circuit and extends its I/O ports, see \figref{ArduinoMega} \cite{MegaInfo}. 
-
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{figures/ArduinoMega.png}
+\includegraphics[width=0.45\textwidth]{figures/ArduinoMega.png}
 		\caption{An Arduino Mega 2560 board \cite{MegaInfo}} 
 	\label{ArduinoMega}
-\end{figure}
+\end{figure}\vspace{-5mm}
 %
 The Arduino Mega has \si{54} digital ports with a 5 volts logic. From these, \si{15} can be used to generate PWM signals. The CPU runs at \si{16 MHz} and the chip has \si{6} integrated timers, one of which is used by the Arduino itself. There are also 4 UARTs, used in serial communication, as well as a setup for SPI communication and an \si{I^2C} bus. The Arduino can be powered though a USB cable or with an external power source.
 
@@ -99,7 +98,7 @@ To use the SDSC card and connect it to the microcontroller, 7 connection pins ar
               \includegraphics[width=0.95\textwidth]{figures/sdcardpinout}
               \caption{Illustration of a micro size SD card.\cite{elasticsheep}} 
               \label{SDcardpinout}
-          \end{figure}
+          \end{figure}\vspace{-5mm}
       \end{minipage}
       
   \end{minipage}
@@ -135,7 +134,7 @@ The Pololu dual VHN5019 motor driver shield (see \figref{MotorDrive}) is special
 	\includegraphics[width=0.50\textwidth]{figures/Motordriver.png}
 		\caption{The motor shield on top of an Arduino Uno.\cite{DriverShield}} 
 	\label{MotorDrive}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 It is possible to power the Arduino from an external power source through the motor shield, which also delivers the power to the motor. It is also possible to have the motor shield and the Arduino powered separately. This is determined by a jumper setting on the shield, see \figref{MotorDriveIO}. The motor shield need a power voltage between 7 volts and 12 volts.\cite{PCorporation}
 
@@ -144,7 +143,7 @@ It is possible to power the Arduino from an external power source through the mo
 	\includegraphics[width=0.60\textwidth]{figures/MotordriverIO.png}
 		\caption{Setup for the mort shield.\cite{DriverShield}}
 	\label{MotorDriveIO}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 There are two H-bridges on the board, to control up to two motors. Since only one motor is used in this project, both of the two H-bridges will be used to power the motor, see further details on the configuration in \secref{sec:HBridge}. This results in a smaller current through the two H-bridges' transistors and therefore ensures a better protection of the system.\cite{PCorporation}
 
@@ -153,7 +152,7 @@ There are two H-bridges on the board, to control up to two motors. Since only on
 %	\includegraphics[width=0.85\textwidth]{figures/Hbridges.png}
 %		\caption{Illustration of the H-bridge, that the motor shield have two of.}
 %	\label{Hbridges}
-%\end{figure}
+%\end{figure}\vspace{-5mm}
 %
 The Pololu dual VHN5019 motor driver shield is used in this project, as it is made for the Arduino and therefore easy to implement. Moreover, it can power the Arduino through an external power source and get a power output high enough for the motor and in each direction.\cite{STMicroelectronics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -162,9 +161,8 @@ The Pololu dual VHN5019 motor driver shield is used in this project, as it is ma
 The data from the GoT system should be transmitted to the microcontroller with a wireless communication system, \secref{Requirements}. The transmitter will be located on the computer, utilized for the GoT system, and the receiver on the vehicle. As the prototype will be tested in the control lab, the distance that the wireless communication have to send is less than 10 meters.
 
 The GoT system has a sampling frequency of \si{10\ Hz}, see \secref{sec:Vehicledescription}. Each time a set of coordinates is measured, the x and y components have to be sent, see \secref{sec:communicationFiltering}. Each coordinate consists of \si{2\ bytes}, but more bits are needed when communicating, to account for the transmission protocols' data. It is arbitrary chosen to use at least 2 bits for this data. This yields:
-
 \begin{flalign}
-	\eq{Transfer\ rate}{(2 \cdot 8 + 2) \cdot 10  = 180\si{Kb.s^{-1}}}
+	\eq{Transfer\ rate}{(2 \cdot 8 + 2) \cdot 10 = \SI{180}{Kb\cdot s^{-1}}}&
 \end{flalign}
 %
 This is the minimum transfer rate needed for communication between the computer associated to the GoT system and the vehicle.
@@ -173,10 +171,10 @@ Requirements for the wireless communication components:
 \begin{itemize}
 \item It possible to control it utilizing the Arduino Mega.
 \item Having a range greater than 10 meters. 
-\item Transfering at a higher rate than 180\si{Kb.s^{-1}}.
+\item Transfering at a higher rate than  \SI{180}{Kb\cdot s^{-1}}.
 \item Offering the possibility to control it and couple it with the GoT code, located on the computer.
 \end{itemize}
-
+\newpage
 \subsubsection{Xbee}\label{Xbee}
 Xbees are small radio modules, that are easy to set up. An overview of the Xbee and its pin layout can be seen on \figref{XbeeLook} and \figref{Xbeepinout}.
 
@@ -189,7 +187,7 @@ Xbees are small radio modules, that are easy to set up. An overview of the Xbee 
 			\includegraphics[width=0.95\textwidth]{figures/Xbee.jpg}
 			\caption{Two Xbee radio modules\cite{Digi} } 
 			\label{XbeeLook}
-		\end{figure}
+		\end{figure}\vspace{-5mm}
 	\end{minipage}
 	\hspace{0.03\linewidth}
 	\begin{minipage}{0.45\linewidth}
@@ -198,7 +196,7 @@ Xbees are small radio modules, that are easy to set up. An overview of the Xbee 
 			\includegraphics[width=0.95\textwidth]{figures/XbeeIO.jpg}
 			\caption{Pinout of an Xbee radio module\cite{jeromeabel}} 
 			\label{Xbeepinout}
-		\end{figure}
+		\end{figure}\vspace{-5mm}
 	\end{minipage}
 \end{minipage}
 
@@ -217,13 +215,13 @@ The angular sensor is used in the feedback for the control system.
 The servomotor needs to receive commands every \si{30\ ms}, \cite{futaba}. The measurements from the angular sensor will therefore also be sampled at this frequency. 
 
 \begin{flalign}
-	\eq{Sampling\ frequency}{\frac{1}{0.0030}  = 33.3 \si{Hz}}
+	\eq{Sampling frequency}{\frac{1}{0,03} = 33,3\ \si{Hz}}&
 \end{flalign}
 
 The requirements for the angular sensor are:
 \begin{itemize}
 \item It is possible to control it by utilizing the Arduino Mega.
-\item Able to achieve a sampling frequency at 33.3 \si{Hz}.
+\item Able to achieve a sampling frequency at \SI{33.3}{Hz}.
 \end{itemize}
 
 \subsubsection{HMC5883L}
@@ -234,7 +232,7 @@ Sparkfun's "9 degrees of freedom" board\cite{Sparkfun9D0F} comprises a magnetome
 	\includegraphics[width=0.50\textwidth]{figures/NineDegree.jpg}
 		\caption{Sparksfun's "9 degrees of freedom" sensor stick\cite{Sparkfun9D0F} } 
 	\label{NineDegree}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 The "9 degrees of freedom" sensor stick, see \figref{NineDegree}, will be used in the project. Beside the magnetometer, there are also a accelerometer and a gyroscope on the board, but these will not be used. The "9 degrees of freedom" sensor stick is designed to be used with a microcontroller and comes with software example for the Arduino platform. It needs an  \si{I^2C} bus to communicate with the Arduino, which has that kind of interface.
 
@@ -270,7 +268,7 @@ to[short,l=$V_{out}$] (4,0);
 \end{circuitikz}
 \caption{Standard voltage divider} 
 \label{VoltDivFig}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 The output of the voltage divider can be found with \eqref{VoltageDivider}. 
 %
@@ -284,7 +282,7 @@ The output of the voltage divider can be found with \eqref{VoltageDivider}.
 & \si{R_1, R_2} & are two calculated resistors &\unitWh{\Omega}\\
 & \si{V_{out}} & is the measured output voltage &\unitWh{V}
 \end{tabular}
-%
+
 The input voltage is set to be the battery pack and the output is measured though an analogue pin on the Arduino. The analogue pin on the Arduino can measure from \si{0\ V} to \si{5\ V} with a resolution of \si{10\ bits}. This gives 1023 steps from 0 to 5 volts and each step is \si{4,9\ mV}. The size of each step and the range for the measuring is multiplied with the inverse constant, that comes from the two resistor, so it is possible to make the range go over \si{5\ V}. 
 
 A voltage divider is used in this project, as it can be scaled to the interval that it has to measure. The voltage divider will be connected to an analogue pin on the Arduino, which will make the measurement from the output of the voltage divider.

@@ -14,7 +14,7 @@ A description of the scheduling principle and its function will now be described
 \subsubsection{Semaphores}
 In programming, a semaphore is a variable or abstract data that is used to prioritize the different tasks to use. It allows a multiprogramming, with functions that use different resources and time, and does not interact with each others directly. Running them independently ease the development of the code.
 
-
+\newpage
 \subsubsection{Tasks}
 The different functions of the vehicle have been separated into multiple tasks, that can switch regarding to their priority. Five tasks are created to control the vehicle:
 
@@ -94,8 +94,8 @@ The tasks makes a request of to run every period of time according to their resp
 	\centering
 	\includegraphics[scale=0.6]{figures/scheduleRequest.pdf}
 	\caption{An overview of the tasks requests during 100ms.}
-	\label{scheduleRequestd}
-\end{figure}
+	\label{scheduleRequest}
+\end{figure}\vspace{-5mm}
 
 
 When two task requests to run at the same time, the order is chosen according to the priorities, that are set at the initialisation. If the processor is free. the task are run when they ask for it, but interrupted when a higher priority task needs to run, and will finish when all the higher priority tasks are done. An example of this case can be seen in \figref{schedulePriorities}.\\
@@ -106,7 +106,7 @@ The priorities of the task have been made to give the system the best stability.
 	\includegraphics[scale=0.5]{figures/schedulePriorities.pdf}
 	\caption{Schedule of the tasks at the starting time, regarding the priorities.}
 	\label{schedulePriorities}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 As seen on the  \figref{schedulePriorities}, the angular control has the highest priority so it will run first, and the others will be registrered in a queue in order of priority. Then the hall sensors are second, and speed control after that. The GoT and comunication will run after them, and in the end the Distance Control.\\
 After a certain time, the task running periods will stabilize, until the tasks with a large period are executed again.

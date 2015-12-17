@@ -22,7 +22,7 @@ A simpler test is used here to check for the good calibration with the vehicle. 
   }
   \caption{Magnetic sphere of calibrated and non-calibrated sensor alone}
   \label{fig:calibrationTestSpheres}
-\end{figure}
+\end{figure}\vspace{-5mm}
 %
 The calibration itself performed in this test does not change the intrinsic sensor configuration but rather applies a transformation to the coordinates sent to the Arduino board. This transformation, seen in \eqref{eq:calibrationTransformation} is actually computed in the runtime by the microcontroller, each time a set of coordinate is received :
 \begin{flalign}
@@ -74,7 +74,7 @@ This software, runs on Microsoft Windows computers with the HMC5883L sensor conn
   \includegraphics[scale=0.8]{figures/magnetoCalibSetup.pdf}
   \caption{Setup diagram}
   \label{fig:calibrationSetupDiagram}
-\end{figure}
+\end{figure}\vspace{-5mm}
 \subsection{List of Equipment}
 
 \begin{table}[H]
@@ -125,7 +125,7 @@ After having done the measurements and computed the transformation matrix and bi
   \end{pmatrix}\unit{G}
   \label{eq:Bvector}
 \end{flalign}
-
+\newpage
 The four-quarters of turn test made with these settings is illustrated in \figref{fig:calibrationTestQuarterResults}.
 \begin{figure}[H]
     \centering
@@ -136,7 +136,7 @@ The four-quarters of turn test made with these settings is illustrated in \figre
   }
   \caption{Test of the calibrated sensor on the the vehicle that rotates doing four quarters of turn}
   \label{fig:calibrationTestQuarterResults}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 
 The cross on \figref{fig:calibrationTestQuarterResults} has right angles and passes through the center of the circle which is in (0,0). This shows that each quarter of turn in reality is measured by \si{90^{\circ}} by the sensor, and that it is correctly calibrated to be used on the vehicle.

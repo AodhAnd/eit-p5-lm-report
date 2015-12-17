@@ -15,22 +15,21 @@
 \pagenumbering{roman} %use roman page numbering in the frontmatter I II...
 \fancyfoot[RE,LO]{15gr510} %page number on all pages
 \fancyfoot[LE,RO]{\thepage}
-\fancyhead[LE,LO,RE,RO]{},
+\fancyhead[LE,LO,RE,RO]{}
 
 %%% Introductory Formalities %%%
 %\includepdf[pages={1}]{formalities/frontpage.pdf}
-%\include{formalities/frontpage}
+\include{Chapters/frontpage}
 \pagestyle{fancy}
 \include{formalities/kolofon}
 \input{formalities/titleSheet.tex}
 %%% Preface %%%
-\clearpage
-\input{formalities/preface.tex}
 \cleardoublepage
+\input{formalities/preface.tex}
 
 \pdfbookmark[0]{Table of Contents}{label: tableOfCentents}
 \tableofcontents
-
+\cleardoublepage
 
 
 %%% Mainmatter Settings %%%
@@ -125,7 +124,7 @@
 \setcounter{section}{0}
 
 %%% Appendix %%%
-\chapter*{Appendix}
+\part*{Appendix}
 
 \addcontentsline{toc}{chapter}{Appendix}
 
@@ -182,6 +181,6 @@
 \printbibliography
 
 %%% To Do List %%%
-\listoftodos
+
 
 \end{document}

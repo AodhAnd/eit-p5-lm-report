@@ -1,3 +1,4 @@
+\newpage
 \section{Steering Model of the Vehicle}\label{sec:SteeringModel}
 After describing a model for the driving straight with the vehicle seen on \figref{fig:completeMechanicalDiagram}, the present section draws a model for the steering part, which is isolated in \figref{steeringMechanical}. Thus, the focus is made on the relationship between the PWM command signal to the servo, the angle of the servo, and the resulting orientation of the vehicle. To facilitate the steering modelling process, the vehicle's velocity is considered only around an operating point.
 
@@ -6,11 +7,11 @@ After describing a model for the driving straight with the vehicle seen on \figr
  	\includegraphics[scale=0.8]{figures/steeringMechanical.pdf}
  	\caption{Mechanical drawing of the steering}
  	\label{steeringMechanical}
- \end{figure}
+ \end{figure}\vspace{-5mm}
 
 As described in \secref{sec:Vehicledescription}, when the servo turns one way, it pulls one of the arms, which in turn moves a brake pad towards the brake disc. This adds friction and will thereby slow down the rotating shaft connected the differential gears and drive gear. The differential gears will then transfer the power from one belt to the other, making the vehicle turn.
 
-
+\newpage
 %%- Directional Model -%%
 \subsection{Directional model}
 As the steering system contains many moving parts, it is convenient to start with a simple model, to verify it, and iterate until it is satisfactory.\\
@@ -22,7 +23,7 @@ The first model considered can be seen on \figref{basicSteering}.
 	\includegraphics[width=0.8\textwidth]{figures/basicSteeringModel.pdf}
 	\caption{A basic steering model}
 	\label{basicSteering}
-\end{figure}
+\end{figure}\vspace{-5mm}
  
 As described in \secref{Servo}, the angle of the servo, \si{\theta_{s}}, is controlled by a pulse width modulated signal on its reference input. The servo is in a middle position (\si{0^{\circ}}) for a non-zero pulse-width.
 This means that an offset, \si{K_{off}}, is substracted to the PWM so that the servomotor's gain, \si{K_s}, translates linearly its input to an angle. As seen in \secref{sec:SteeringBehavior}, this offset is different than the one used to get the middle position of the servo, so that it compensates for the mechanical inaccuracies and makes the vehicle go straight. Moreover, depending on the operating point of the vehicle, i.e. if it goes to the right or to the left, this offset shall also include a supplementary term. The latter is used to get the servo at the edge of the steering's linear area, be it to the left or to the right, see \secref{sec:Vehicledescription}.
@@ -37,7 +38,7 @@ As stated in \appref{app:steeringGainTest}, the servomotor's gain, \si{K_s}, and
   \includegraphics[width=0.8\textwidth]{figures/basicSteeringModelKCombinated.pdf}
   \caption{A basic steering model with combined gains}
   \label{fig:basicSteeringModelKCombinated}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 %%- Directional Model : Extended -%%
 \subsection{Extension of the Directional Model}\label{directionalExtention}
@@ -60,7 +61,7 @@ With the delay from the servo, \si{\lambda}, being \si{30\ ms}, this approximati
 	\includegraphics[width=\textwidth]{figures/basicSteeringModelWithDelay.pdf}
 	\caption{A basic steering model}
 	\label{basicSteeringWithDelay}
-\end{figure}
+\end{figure}\vspace{-5mm}
 %
 \hspace{6mm} Where:\\
 \begin{tabular}{p{1cm}lll}
@@ -82,7 +83,7 @@ To verify the accuracy of this model compared to reality, a test and a simulatio
    { \includegraphics[scale=1]{figures/plotVerificationSteeringPlant.pdf} }
  \caption{Plot of the plant model, showing the simulation and the real life test.}
   \label{fig:plotVerificationSteeringPlant}
-\end{figure}
+\end{figure}\vspace{-5mm}
 %
 The vehicle is started with the servo receiving a \si{1450\ ms} PWM signal, so that the vehicle goes straight during \si{5\ s} and reaches a steady speed of \si{1,4\ ms}. 
 After this time, a step of \si{1670\ ms} PWM is sent to the servo,that makes the vehicle turn at a constant rate. This makes the angle vary linearly as seen on \figref{fig:plotVerificationSteeringPlant}.
@@ -102,7 +103,7 @@ Since the vehicle has to follow a predetermined route, a direction control alone
 	\includegraphics[width=0.6\textwidth]{figures/steeringDeviation.pdf}
 	\caption{Consequence of using directional control alone}
 	\label{SteeringDeviation}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 How large the deviation is, should depend on the vehicle's erroneous angle from the wanted line, its velocity and the time it takes for the control system to account for the error. The instantaneous distance, \si{d_1}, can be expressed with simple trigonometry as:
 \begin{flalign}
@@ -118,6 +119,9 @@ How large the deviation is, should depend on the vehicle's erroneous angle from 
 \end{tabular}
 
 The speed is assumed to be constant. From this assumption, the distance error over time, \si{d(t)}, is then described as an integration over time of the sine of the error angle multiplied with the velocity, see \eqref{eq:angleIntegration}.
+
+\newpage
+
 \begin{flalign}
   \eq{d(t)}{v \cdot \int^{t} \sin\left(\Delta\theta (t)\right) \mathrm{d}t}\unit{m}
   \label{eq:angleIntegration}
@@ -164,7 +168,7 @@ From \eqref{eq:angleIntegrationLaplace}, the block diagram of the steering model
   \includegraphics[width=1.1\textwidth]{figures/steeringModelWithLineFollowing.pdf}
   \caption{Block diagram of the combined directional and Distance models}
   \label{fig:steeringLineFollowingModel}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 This model describes how the steering reacts and therefore, how the vehicle can be moved sideways. It allows for the controlling of both the heading of the vehicle and its position relative to the line it has to follow, see \secref{sec:steeringController}.\\
 However, it also uses assumptions that need to be true when running the lawn mower. Firstly, the distance calculation model only works if the vehicle is deviating and not if it starts on a line parallel to the wanted one. Indeed, were that the case, then the angle difference would approach zero and the calculated distance too, even though it wouldn't actually be. To avoid the problem, the vehicle shall start on the right line path. The issue of returning to the right path in case of disturbance (lawn mower slipping or hurting an object) is considered in \secref{ssec:distanceController}.\\

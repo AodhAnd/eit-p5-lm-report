@@ -26,8 +26,7 @@ The Open Systems Interconnection, OSI, model is a standard used to describe how 
 \end{tabular}
 \caption{OSI model}
 \label{tab:OSIModel}
-\end{table}
-
+\end{table}\vspace{-5mm}
 Starting from the buttom, the Physical layer is the electrical/mechanical hardware layer. The layer handles bits and determines the communication medium, e.g. a copper cable or radio waves, and what is defined as a binary 0 and 1.\\The prototype utilizes two XBee modules, see \secref{Hardwarechoice}, one on the computer and one on the vehicle, for the lowest layers of communication. The XBee already implements this layer through the IEEE 802.15.4 protocol \cite{Xbee,IEEE812154}. It uses radio frequencies in the 2,4 \si{GHz} spectrum band.
 
 The Data Link layer's functionality ensures physical addressing, error control when transferring data between nodes over the physical layer, and access control \cite{J.M.Network}. The Data Link layer is something the Xbee module also handles through IEEE 802.15.4, to check that it transmits bytes correctly and from and to which physical device it is transmitted \cite{IEEE812154}.
@@ -62,7 +61,7 @@ Start Byte & Destination ID & length & Data & Checksum & End byte \\
 
 \subsubsection{Destination ID}
 The Destination ID is to ensure packages, which is transmitted, is handled by the correct receiver. This way the transmitter can transmit to numerous receivers if multiple vehicles is utilized. The destination ID ensures the receivers can filter out packages not intended for them. The microcontroller has the destination ID 0000 0001. The length of the destination byte is set to one byte, so the destination can be read immediately when received.
-
+\newpage
 UDP, a connectionless protocol, utilizes a source, but in this case it is not necessary, since only one computer is transmitting, the receiver does not need to know where the package has been transmitted from. Even if more computers were utilized it would not be necessary as long as the package is marked with the destination ID, the receivers is able to read it. If retransmission was utilized, in case of erroneous packages, a source is necessary to have the ability to ask for a retransmission from the sender. Since retransmission is not utilized a source is not included in the package structure.
 
 \subsubsection{Length}
@@ -145,8 +144,7 @@ The destination, length, data, checksum, start and end byte has been described, 
 \end{tabular}
 \caption{Illustration of a package, that will be send from the transmitter to the receiver.}
 \label{PackageLook}
-\end{table}
-
+\end{table}\vspace{-5mm}
 This yields a package with a length of 96 bit (12 byte). As the GoT system have a sampling frequency of 10 Hertz and each sample is converted to 12 bytes, the transfer speed for the Xbee have to be greater than 120 bytes per second, which it is \secref{Hardwarechoice}.
 
 \subsubsection{Further Error Handling}
@@ -154,10 +152,10 @@ A package can be damaged when it is transmitted from the computer to the microco
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=1.2]{figures/FlowReceiver.pdf}
+\includegraphics[scale=1.1]{figures/FlowReceiver.pdf}
 \caption{Flow chart over the error handling in the receiver part.}
 \label{FlowReceiver}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 If the package is transmitted correctly, the 1st byte received is the start byte and the 2nd byte is the destination ID of the receiver. The 3rd byte will contain 7 bit for the length and 1 bit for the first coordinate. If the length is without errors its value would be 96, which is 12 bytes. The last byte, the 12th one, is the end byte. If these condition are all correct, the receiver will check for errors utilizing the checksum. If that checksum is also correct, the system will convert the data and return the coordinates to the rest of the system.
 

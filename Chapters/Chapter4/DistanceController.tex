@@ -11,10 +11,10 @@ The proposed controlling scheme can be seen in \figref{SteeringSimulink}
 \includegraphics[width=1.1\textwidth]{figures/steeringFullModel.pdf} 
 \caption{Initial Distance Controller}
 \label{SteeringSimulink}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 As illustrated in the figure, the directional controller is located in the center of the loop, as this will be responsible for changing the vehicle's angle, to what the distance loop calculates to be necessary. A reference angle, \emph{angleRef} is added to the output of the P controller, representing the angle of the line to follow. To prevent the P controller from over-regulating, and command the system to turn, e.g. 360 degrees, it is limited by a floor and ceiling of $\pm 90^\circ$. The following three stages (Deg to radians, Velocity and Deviation integrator) are taken directly from the steering model \figref{fig:steeringLineFollowingModel}.
-
+\newpage
 According to \secref{GoTSystem}, the GoT system provides position updates every 100ms. To model this delay, the same approximation as used for the servo delay in \secref{directionalExtention}, will be implemented:
 $$\frac{1}{\lambda\cdot\text{s}+1}\Rightarrow\frac{1}{\SI{0,1}\cdot\text{s}+1}
 $$
@@ -29,9 +29,9 @@ The input to the loop is the wanted deviation from the line. This should ideally
   }
   \caption{A simulated step-response of the system correcting a 1 meter offset}
   \label{SimulationSteeringP1}
-\end{figure}
+\end{figure}\vspace{-5mm}
 As seen on \figref{SimulationSteeringP1}, the system takes around 240 seconds, i.e. 4 minutes, to correct the error, which leaves room for improvements.
-
+\newpage
 Using the Linear Analysis function of Simulink, a Bode plot is made from the open loop system. The resulting plot can be seen in \figref{SimulationSteeringB1}
 \begin{figure}[H]
   \centering
@@ -42,11 +42,11 @@ Using the Linear Analysis function of Simulink, a Bode plot is made from the ope
   }
   \caption{An open loop Bode plot of the system with a $K_p$ on 1.}
   \label{SimulationSteeringB1}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 To improve the system response, the $K_p$ value is changed. This is done by looking at the phase margin. As a system with phase margin on 45 degrees will give a stable system, with the highest gain, the $K_p$ is set to give this phase margin. As seen on \figref{SimulationSteeringB1}, the gain is \SI{-33,78}dB at the 45 degree point (225-45=180). To get 0 dB gain at this point, the proportional gain will be increased by  \SI{33,78}dB:
 $$\text{K}_\text{p}=10^{\frac{\SI{33,78}{}}{20}} = \SI{48,87}{}$$
-
+\newpage
 The new value is used and yields the step response illustrated in \figref{SimulationSteeringP2}.
 
 \begin{figure}[H]
@@ -54,11 +54,11 @@ The new value is used and yields the step response illustrated in \figref{Simula
  	%Trim margins @:   left        bottom       right       top
  	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
   {
-    \includegraphics[width=1.4\textwidth]{figures/distanceStep2.pdf}
+    \includegraphics[width=1.2\textwidth]{figures/distanceStep2.pdf}
   }
   \caption{Step response with new $\text{K}_\text{p}$ on 48,87.}
   \label{SimulationSteeringP2}
-\end{figure}
+\end{figure}\vspace{-5mm}
 As seen on \figref{SimulationSteeringP2}, the response has improved and the system reaches the target in approximately 2 seconds. The higher $K_p$ gives overshoots and rings, that first settles after 10 seconds. It is improved, when compared to the response on \figref{SimulationSteeringP1}, but still needs improvements. If the overshoot is removed, the settling time will be around 2 seconds. A way to remove an overshoot is to increase the high frequency gain \cite{KMNielsen}. This can be done by adding a differentiator to the controller, which will then become a PD controller. According to \cite{Franklin}, a PD controller is rarely used in real life, as it is extremely sensitive to noise, and a lead compensator is recommended instead.
 %
 \begin{flalign}
@@ -74,20 +74,18 @@ The sampling period of the loop is limited to 100ms by the GoT system. According
     \includegraphics[width=\textwidth]{figures/finalDistanceController.pdf}
   \caption{Distance controller with lead compensator}
   \label{FinalDist}
-\end{figure}
-
+\end{figure}\vspace{-5mm}
 A bode plot is made with the lead compensator added to the system, shown on \figref{SimulationSteeringB2}. 
-
 \begin{figure}[H]
   \centering
  	%Trim margins @:   left        bottom       right       top
  	\adjustbox{ trim = {.15\width} {.30\height} {.15\width} {.30\height}, clip }
   {
-    \includegraphics[width=1.4\textwidth]{figures/distanceBode2.pdf}
+    \includegraphics[width=1.2\textwidth]{figures/distanceBode2.pdf}
   }
   \caption{Bodeplot with lead compensation}
   \label{SimulationSteeringB2}
-\end{figure}
+\end{figure}\vspace{-5mm}
 The 0 dB frequency has increased from 0,94 \si{\frac{rad}{s}} to 1,24 \si{\frac{rad}{s}}, and the phase margin is now: $$\SI{245,6}{}-180=\SI{65,6}{^\circ}$$
 
 The lead compensator has increased the gain at higher frequencies and improved the phase margin. That is made a new step response for the controller with lead compensator, shown on \figref{SimulationSteeringP3}.
@@ -101,5 +99,5 @@ The lead compensator has increased the gain at higher frequencies and improved t
   }
   \caption{Step response with lead compensation}
   \label{SimulationSteeringP3}
-\end{figure}
+\end{figure}\vspace{-5mm}
 As seen on \figref{SimulationSteeringP3}, the system reaches the target in approximately two seconds, and the ringing has been reduced to less than \SI{3}{cm}. This is considered acceptable and the gain is not changed, to get a phase margin on 45 degrees. It is desirable to keep the increased phase margin. As the whole loop is based on an approximated model, with no real data to verify it. The extra phase margin will provide a better chance of a stable system in the real world.

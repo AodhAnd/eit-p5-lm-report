@@ -17,7 +17,7 @@ The steering controllers uses information from the route, which it have to follo
  	\includegraphics[scale=0.7]{figures/stepsGoT}
  	\caption{An example of a route, containing 7 points, which the vehicle have to follow.}
  	\label{fig:RCfig1}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 \subsubsection{Angle}
 The directional controller needs the angle of the route line, that is added to the output from the distance controller, to be the reference angle for the controller. The lines is made by connection the points from the route and therefore only the start and end point of each line is known. To calculate the angle of the line, compared to the coordinate system of the GoT system, \eqref{eq:RCeq1} is used.
@@ -44,7 +44,7 @@ The distance controller needs the distance from the vehicle to the route line, a
  	\includegraphics[scale=0.8]{figures/DistanceOutLoop}
  	\caption{Illustration of the distance, that is calculated. The line, that comes from the shortest distance, is orthogonal on the route line.}
  	\label{fig:RCfig2}
-\end{figure}
+\end{figure}\vspace{-5mm}
 
 \eqref{eq:RCeq2} is a standard vector equation to calculate the shortest distance from a point to a line (See \figref{RCfig2}). The a, b and c values can be calculated from the start and end point, by using \eqref{eq:RCeq3}, \eqref{eq:RCeq4} and \eqref{eq:RCeq5}.
 

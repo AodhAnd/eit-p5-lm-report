@@ -28,14 +28,12 @@ While these angles are those for the servo tested alone, its combination with th
 Due to mechanical constraints, the servomotor shall only be used in certain positions. 
 Firstly, the servo can not rotate more than a certain amount in each direction due to the two pulling arms, which are attached to either side. Thus, it can never reach the extreme default positions it would if it were not attached.
 Secondly, the vehicle's turning is almost negligible and most of all non-linear for small angles of the servo. For these reasons, an offset needs to be applied to jump from the middle position to the edges of the linear areas of steering, see \figref{fig:servoSteeringLinearArea}.
-
 \begin{figure}[H]
   \centering  
-  \includegraphics[width=0.8\textwidth]{figures/servoSteeringLinearArea.pdf}
+  \includegraphics[width=0.75\textwidth]{figures/servoSteeringLinearArea.pdf}
   \caption{A representation of the servomotor's angle positions. Where the red and blue are the linear steering areas and the green is the neutral position, for the vehicle to go straight}
   \label{fig:servoSteeringLinearArea}
-\end{figure}
-
+\end{figure}\vspace{-5mm}
 The diameters on the circle represent the servo arm which spins around a central position. For example, if the servos arm rotates left, then the left arms pulls back which pushes the brake on the left side, resulting in the vehicle turning left.
 
 The green line, shifted of a few degrees from the \si{0^{\circ}} is the position allowing the vehicle to go straight. Moreover, the actual pulse width value which allows the vehicle to run straight, is not the same that sets the servomotor to its middle position and may slightly vary through time because of mechanical wear.

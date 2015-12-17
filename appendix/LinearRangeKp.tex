@@ -49,7 +49,7 @@ In this test, instead of changing the velocity between tests, the proportional c
   }
   \caption{Plot of three test where the vehicle is turning, where the x-axis is time and the y-axis is angle.}
   \label{fig:steeringAngleVsTimeKvKp}
-\end{figure}
+\end{figure}\vspace{-5mm}
 %
 By utilizing 18 measurements, of which three are illustrated in \figref{fig:steeringAngleVsTimeKvKp}, 18 time-constants are found on the graph. The corresponding values for the steering gain, \si{K_{steering}}, are calculated by using the formula from \eqref{SteeringTimeconstant}, see \tableref{tab:steeringGains}.
 
@@ -92,6 +92,6 @@ Given the fact that the velocity should be maintained constant, the steering gai
   }
   \caption{Plot of the gain \si{K_v} against the real speed.}
   \label{fig:steeringPlotKsteeringVsKp}
-\end{figure}
+\end{figure}\vspace{-5mm}
 %
 The actual values from the test are plotted on \figref{fig:steeringPlotKsteeringVsKp}. It can be seen on this graph, that the steering gain is constant only for values of \si{K_p} from approximately \si{1,5} to \si{3}. The choice of a proportional controller gain should therefore account for this and stay within this linear area.

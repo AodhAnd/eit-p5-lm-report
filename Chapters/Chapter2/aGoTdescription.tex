@@ -8,7 +8,7 @@ The GoT System does not work if the transmitter is not close enough to the satel
 	\includegraphics[scale=0.7]{figures/GoT_description.pdf}
 	\caption{Overview of the GoT system, and the placement of hardware components.}
 	\label{GoTSystem}
-\end{figure}
+\end{figure}\vspace{-5mm}
 %
 \subsubsection{Transmitter}
 The transmitter component is placed on the object which needs to be located. The transmitter sends an ultrasound burst out containing an identification number, that the satellites are intended to receive. The time at which each ultrasound bursts are sent from the transmitter to the satellites is transmitted by radio waves to the master. An ultrasound burst is sent each tenth of a second, giving a sampling frequency of 10 Hz.\\ 
@@ -34,7 +34,7 @@ The program on the computer, which is running in C\# and handles the information
   }
   \caption{To the left, satellites are aligned and will give two possible positions. To the right, satellites are placed in a triangle and will give one possible position}
   \label{GoTTriVSLine}
-\end{figure}
+\end{figure}\vspace{-5mm}
 %
 If the satellites have been moved, it is necessary to recalibrate the system. This is done with a calibration triangle. The calibration triangle is made of three points on a flat surface and have a distance of 40 to 200 centimeters between them. One of the points on the calibration triangle is made the origin (0,0,0) of the new coordinate system. Another point on the triangle will then be called (X,0,0), in which the line between the first point and the second point will become the X-axis. The last point will be call (X,Y,0) and will determine in which way the positive Y-axis will go. The surface which the calibration triangle is placed on, will be the XY-plan, where Z will go vertically, defining the (X,Y,Z) coordinates. Thereafter, the transmitter is placed in the three point, with (0,0,0) first and (X,Y,0) last. When the transmitter is placed in a point, the satellites measure the distance between them and the transmitter. From this information, the program can calculate the position of each satellites, with the help of trilateration.
 
